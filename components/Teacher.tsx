@@ -1,18 +1,10 @@
+"use client";
+
+import Character from "@/components/character/Character";
+import { resolveCharacterMode, type CharacterMode, type TeacherState } from "@/lib/character/contract";
 import type { Viseme } from "@/lib/voice/types";
 
-export type TeacherState = "idle" | "listening" | "thinking" | "speaking" | "encouraging";
-
-/** Mouth geometry per grouped viseme: [width, height, radius] as a fraction of the character size. */
-const MOUTH: Record<Viseme, [number, number, number]> = {
-  0: [0.16, 0.03, 0.02], // rest
-  1: [0.16, 0.11, 0.06], // open
-  2: [0.09, 0.09, 0.05], // round
-  3: [0.2, 0.05, 0.03], // wide
-  4: [0.14, 0.025, 0.02], // lips closed
-  5: [0.15, 0.045, 0.02], // lip-teeth
-  6: [0.15, 0.06, 0.03], // tongue-teeth
-  7: [0.13, 0.08, 0.04], // back
-};
+export type { TeacherState };
 
 interface TeacherProps {
   size?: number;
@@ -22,23 +14,25 @@ interface TeacherProps {
   /** Ring offset (negative inset) in px. */
   ringInset?: number;
   ringDuration?: string;
+  /** Font size for the typographic character. */
   glyphSize?: number;
   badgeSize?: number;
   /** Force the ✓ badge regardless of state. */
   badge?: boolean;
-  /**
-   * Current mouth shape from the voice adapter. When provided (even 0) a small
-   * mouth is drawn under the glyph; this is the hook the Rive character will
-   * replace with its `viseme` input.
-   */
+  /** Mouth shape from the voice adapter (0 = rest). */
   viseme?: Viseme;
+  /** Mic level 0–1 while listening. */
+  level?: number;
+  /** Renderer: typographic glyph, the SVG rig, or the Rive file. Defaults to NEXT_PUBLIC_CHARACTER or the SVG rig. */
+  character?: CharacterMode;
   onClick?: () => void;
 }
 
 /**
- * The teacher character ("ن" in a circle). Ring animates while speaking or
- * listening; a green ✓ badge appears while encouraging. Replace with the 2D
- * character (5 states) when available.
+ * The teacher character in its circle. Ring animates while speaking or
+ * listening; a green ✓ badge appears while encouraging. The face itself is
+ * rendered by components/character (glyph, SVG rig, or Rive) and driven by
+ * the same five states and viseme input.
  */
 export default function Teacher({
   size = 128,
@@ -49,14 +43,16 @@ export default function Teacher({
   glyphSize,
   badgeSize = 40,
   badge,
-  viseme,
+  viseme = 0,
+  level = 0,
+  character,
   onClick,
 }: TeacherProps) {
+  const mode = character ?? resolveCharacterMode();
   const ring = state === "speaking" || state === "listening" || state === "encouraging";
   const ringColor = state === "listening" ? "var(--color-success)" : "var(--color-primary)";
   const showBadge = badge ?? state === "encouraging";
-  const glyph = glyphSize ?? Math.round(size * 0.41);
-  const mouth = viseme !== undefined ? MOUTH[viseme] : null;
+  const inner = size - border * 2;
   return (
     <div className="relative select-none" style={{ width: size, height: size }} onClick={onClick}>
       {ring && (
@@ -71,24 +67,12 @@ export default function Teacher({
         />
       )}
       <div
-        className="absolute inset-0 rounded-full bg-primary-tint text-primary grid place-items-center font-bold transition-transform duration-300"
-        style={{ fontSize: glyph, border: `${border}px solid var(--color-primary-tint-2)` }}
+        className="absolute inset-0 rounded-full bg-primary-tint overflow-hidden grid place-items-center transition-transform duration-300"
+        style={{ border: `${border}px solid var(--color-primary-tint-2)` }}
       >
-        <span style={mouth ? { transform: "translateY(-6%)" } : undefined}>ن</span>
-        {mouth && (
-          <span
-            aria-hidden
-            className="absolute left-1/2 bg-primary/70"
-            style={{
-              bottom: size * 0.17,
-              width: size * mouth[0],
-              height: size * mouth[1],
-              borderRadius: size * mouth[2],
-              transform: "translateX(-50%)",
-              transition: "width 70ms linear, height 70ms linear, border-radius 70ms linear",
-            }}
-          />
-        )}
+        <div className="w-full h-full">
+          <Character mode={mode} size={inner} state={state} viseme={viseme} level={level} glyphSize={glyphSize} />
+        </div>
       </div>
       {showBadge && (
         <div

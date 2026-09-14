@@ -15,6 +15,7 @@ import { explainSpeakDuration, getLesson } from "@/lib/lesson-engine";
 import { useAppStore } from "@/lib/store/app-store";
 import { createVoiceAdapter, resolveVoiceMode } from "@/lib/voice/select";
 import type { Viseme } from "@/lib/voice/types";
+import { resolveCharacterMode } from "@/lib/character/contract";
 
 export default function ExplainPage() {
   return (
@@ -37,6 +38,7 @@ function ExplainScreen() {
   const [viseme, setViseme] = useState<Viseme>(0);
 
   const voiceMode = resolveVoiceMode(params.get("voice"));
+  const character = resolveCharacterMode(params.get("character"));
   const voice = useMemo(() => createVoiceAdapter(voiceMode, id, "demo", app.child.name), [voiceMode, id, app.child.name]);
   useEffect(() => () => voice.dispose(), [voice]);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -94,7 +96,8 @@ function ExplainScreen() {
               border={8}
               ringInset={8}
               state={speaking ? "speaking" : "idle"}
-              viseme={voiceMode === "cascaded" ? viseme : undefined}
+              viseme={viseme}
+              character={character}
             />
             <StatusPill label={speaking ? "يشرح…" : "انتهى من الشرح"} tone="primary" active={speaking} />
             <Subtitle id={`${idx}:${take}`} text={step.text} size={26} />

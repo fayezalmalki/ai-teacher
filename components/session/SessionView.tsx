@@ -29,6 +29,7 @@ import {
 } from "@/lib/lesson-engine";
 import { useLessonSession } from "@/lib/lesson-engine/useLessonSession";
 import { createVoiceAdapter, resolveVoiceMode } from "@/lib/voice/select";
+import { resolveCharacterMode } from "@/lib/character/contract";
 import { useAppStore } from "@/lib/store/app-store";
 
 
@@ -64,7 +65,7 @@ export default function SessionView({ lesson }: SessionViewProps) {
 
   const session = useLessonSession({ lesson, name, voice, pace, autoStart: true });
   const { state } = session;
-  const mouth = voiceMode === "cascaded" ? session.viseme : undefined;
+  const character = resolveCharacterMode(params.get("character"));
 
   // Summary lives on its own route: persist the result and navigate.
   const navigated = useRef(false);
@@ -139,7 +140,7 @@ export default function SessionView({ lesson }: SessionViewProps) {
       {state.screen === "start" && (
         <div className="flex-1 grid place-items-center px-8 py-12">
           <div className="max-w-[520px] w-full text-center flex flex-col items-center gap-7">
-            <Teacher size={112} glyphSize={44} />
+            <Teacher size={112} glyphSize={44} character={character} />
             <div>
               <div className="text-[36px] font-bold leading-[1.35]">هلا {name} 👋</div>
               <div className="text-[28px] font-medium leading-[1.4] text-ink-2 mt-1.5">جاهز نبدأ درس اليوم؟</div>
@@ -163,7 +164,15 @@ export default function SessionView({ lesson }: SessionViewProps) {
         <>
           <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 px-8 pt-9 pb-6">
             <div className="flex flex-col items-start gap-5">
-              <Teacher size={128} glyphSize={52} state={teacherState} viseme={mouth} onClick={onSecretTap} />
+              <Teacher
+                size={128}
+                glyphSize={52}
+                state={teacherState}
+                viseme={session.viseme}
+                level={session.level}
+                character={character}
+                onClick={onSecretTap}
+              />
               {status && <StatusPill label={status.label} tone={status.tone} active={speaking || listening || state.recording} />}
               <div className="text-[15px] text-muted">{lesson.teacher}</div>
               <Subtitle id={state.step + ":" + state.visited.length} text={teacherLine(state, lesson, name)} />
@@ -217,7 +226,7 @@ export default function SessionView({ lesson }: SessionViewProps) {
       {state.screen === "end" && (
         <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 px-8 py-10">
           <div className="flex flex-col gap-5 items-start">
-            <Teacher size={112} glyphSize={44} badge badgeSize={36} />
+            <Teacher size={112} glyphSize={44} badge badgeSize={36} state="encouraging" character={character} />
             <div className="text-[24px] leading-[1.6] font-medium text-pretty-wrap">{fill(lesson.endLine, { name })}</div>
           </div>
           <div className="flex flex-col gap-5">

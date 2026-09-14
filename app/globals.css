@@ -158,3 +158,29 @@
 @utility text-pretty-wrap {
   text-wrap: pretty;
 }
+
+/* Character rig (components/character/NawafSvg.tsx) */
+@keyframes nawaf-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1.5px); }
+}
+@keyframes nawaf-blink {
+  0%, 92%, 100% { transform: scaleY(1); }
+  95%, 97% { transform: scaleY(0.08); }
+}
+@keyframes nawaf-talk {
+  0%, 100% { transform: rotate(0deg); }
+  30% { transform: rotate(-1.2deg); }
+  70% { transform: rotate(1.2deg); }
+}
+@keyframes nawaf-think {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0.6px, -0.4px); }
+}
+@keyframes nawaf-sparkle {
+  0%, 100% { transform: scale(0.6); opacity: 0; }
+  40% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nawaf * { animation: none !important; }
+}

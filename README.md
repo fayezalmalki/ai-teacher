@@ -44,6 +44,9 @@ app/                          # routes (RTL layout, IBM Plex Sans Arabic)
 components/                   # Frame, AppHeader, Teacher, Waveform, StatusPill, Keypad, …
 components/visuals/           # Pizza, Chocolate, CompareCircles, FractionGlyph
 components/session/           # InteractionBar, MicButton, Choices, AdaptChip, DemoControls, SessionView
+components/character/         # Character switch, NawafSvg rig, RiveTeacher binding
+lib/character/contract.ts     # state / viseme / level input contract shared with the .riv file
+app/dev/character/            # rig preview page
 lib/lesson-engine/
   types.ts                    # lesson JSON + session state types
   fractions.lesson.json       # the live lesson: steps, choices, copy (verbatim from the design)
@@ -89,6 +92,21 @@ nothing was heard, the session shows the four scripted answers as tap choices.
 
 With no API keys, `/api/stt` returns an empty transcript and `/api/assess` uses a keyword heuristic, so the
 cascaded path runs end-to-end offline.
+
+## Character
+
+`components/Teacher.tsx` draws the circle, ring and ✓ badge; the face inside is one of three renderers that share
+the contract in `lib/character/contract.ts` (five states `idle · listening · thinking · speaking · encouraging`,
+an 8-value `viseme`, and the mic `level`):
+
+| Mode | What it is | Select with |
+| --- | --- | --- |
+| `svg` (default) | Code-drawn rig in `components/character/NawafSvg.tsx` | `?character=svg` |
+| `rive` | Designer's `public/characters/nawaf.riv` via `@rive-app/react-canvas`; falls back to `svg` when the file is missing or lacks the inputs | `?character=rive` or `NEXT_PUBLIC_CHARACTER=rive` |
+| `glyph` | The original typographic "ن" | `?character=glyph` |
+
+The rig spec for the illustrator is in [`docs/character-rig.md`](docs/character-rig.md). Preview every state,
+viseme and renderer side by side at `/dev/character`, including lip-sync playback of rendered lines.
 
 ## Lesson engine
 
