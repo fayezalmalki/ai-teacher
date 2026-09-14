@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#F3F4F1;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;color:#1B1F1D}
+*{box-sizing:border-box}
+a{color:#2F6BD8;text-decoration:none}a:hover{color:#1F53B3}
+button,input{font-family:inherit}button{cursor:pointer}
+@keyframes wave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@keyframes ring{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.35);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+</style>
+</helmet>
+<div dir="rtl" style="min-height:100vh;display:grid;place-items:start center;padding:24px;background:#F3F4F1">
+  <div style="width:100%;max-width:1040px;min-height:720px;background:#FFFFFF;border-radius:24px;box-shadow:0 1px 2px rgba(20,30,25,.04),0 12px 40px rgba(20,30,25,.06);display:flex;flex-direction:column;position:relative;overflow:hidden">
+
+    <!-- app header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 28px;border-bottom:1px solid #EEF0EC">
+      <div style="display:flex;align-items:center;gap:12px">
+        <sc-if value="{{ showBack }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ goBack }}" style="width:36px;height:36px;border-radius:12px;border:1px solid #E3E6E1;background:#fff;font-size:18px;color:#3D4442;display:grid;place-items:center" style-hover="background:#F5F6F3">→</button>
+        </sc-if>
+        <button onClick="{{ goLanding }}" style="display:flex;align-items:center;gap:10px;background:transparent;border:0;padding:0">
+          <div style="width:36px;height:36px;border-radius:12px;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-weight:700;font-size:15px">ن</div>
+          <div style="font-weight:600;font-size:16px;color:#1B1F1D">المعلم الذكي</div>
+        </button>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <sc-if value="{{ showChildChip }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:8px;font-size:14px;color:#3D4442">
+            <span>{{ childName }}</span>
+            <div style="width:32px;height:32px;border-radius:50%;background:#E4F3EB;color:#1F8A5B;display:grid;place-items:center;font-weight:600;font-size:14px">{{ childInitial }}</div>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showParentBtn }}" hint-placeholder-val="{{ false }}">
+          <button onClick="{{ goParentPin }}" style="padding:8px 14px;border-radius:999px;border:1px solid #E3E6E1;background:#fff;font-size:13px;color:#3D4442;font-weight:500" style-hover="background:#F5F6F3">ولي الأمر</button>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- LANDING -->
+    <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;display:flex;flex-direction:column;gap:56px;padding:56px 40px 48px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:center">
+          <div style="display:flex;flex-direction:column;gap:22px;align-items:flex-start">
+            <div style="font-size:14px;color:#2F6BD8;font-weight:600">لأطفال المرحلة الابتدائية</div>
+            <div style="font-size:40px;font-weight:700;line-height:1.3;text-wrap:pretty">معلم يشرح لطفلك، يسمعه، ويغيّر طريقته حسب فهمه.</div>
+            <div style="font-size:18px;line-height:1.7;color:#3D4442;text-wrap:pretty;max-width:460px">درس قصير كل يوم مع الأستاذ نواف. صوت، أمثلة بصرية، وملخص لك بعد كل جلسة.</div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:6px">
+              <button onClick="{{ goOnboard }}" style="padding:16px 28px;border:0;border-radius:14px;background:#2F6BD8;color:#fff;font-size:17px;font-weight:600;box-shadow:0 8px 24px rgba(47,107,216,.25)" style-hover="background:#2559BD">ابدأ الإعداد</button>
+              <button onClick="{{ goProfiles }}" style="padding:16px 28px;border:2px solid #E3E6E1;border-radius:14px;background:#fff;color:#1B1F1D;font-size:17px;font-weight:600" style-hover="background:#F5F6F3">ادخل كطالب</button>
+            </div>
+            <button onClick="{{ goSessionNow }}" style="background:transparent;border:0;padding:0;font-size:15px;color:#2F6BD8;font-weight:500;display:flex;gap:6px;align-items:center" style-hover="color:#1F53B3"><span>جرّب درس الكسور مع الأستاذ نواف الآن</span><span>←</span></button>
+          </div>
+          <div style="display:grid;place-items:center">
+            <div style="position:relative;width:260px;height:260px;animation:float 5s ease-in-out infinite">
+              <div style="position:absolute;inset:0;border-radius:50%;background:#E7EFFC"></div>
+              <div style="position:absolute;inset:28px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:88px;font-weight:700;color:#2F6BD8;box-shadow:0 12px 32px rgba(47,107,216,.15)">ن</div>
+              <div style="position:absolute;right:-8px;top:36px;padding:10px 16px;border-radius:999px;background:#fff;box-shadow:0 6px 20px rgba(20,30,25,.1);font-size:14px;font-weight:500;animation:fadeUp .6s ease .2s both">خلنا نجربها بطريقة ثانية</div>
+              <div style="position:absolute;left:-16px;bottom:44px;padding:10px 16px;border-radius:999px;background:#E4F3EB;color:#1F8A5B;font-size:14px;font-weight:500;animation:fadeUp .6s ease .5s both">أنا أسمعك</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px">
+          <div style="border-radius:20px;background:#F7F8F5;padding:26px;display:flex;flex-direction:column;gap:10px">
+            <div style="width:44px;height:44px;border-radius:14px;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-weight:700">١</div>
+            <div style="font-size:20px;font-weight:600">يشرح</div>
+            <div style="font-size:15px;line-height:1.65;color:#3D4442">بصوت هادئ وأمثلة من حياة الطفل: بيتزا، شوكولاتة، أشياء يعرفها.</div>
+          </div>
+          <div style="border-radius:20px;background:#F7F8F5;padding:26px;display:flex;flex-direction:column;gap:10px">
+            <div style="width:44px;height:44px;border-radius:14px;background:#E4F3EB;color:#1F8A5B;display:grid;place-items:center;font-weight:700">٢</div>
+            <div style="font-size:20px;font-weight:600">يسمع</div>
+            <div style="font-size:15px;line-height:1.65;color:#3D4442">الطفل يجيب بصوته، والمعلم يفهم إجابته حتى لو كانت غير مرتّبة.</div>
+          </div>
+          <div style="border-radius:20px;background:#F7F8F5;padding:26px;display:flex;flex-direction:column;gap:10px">
+            <div style="width:44px;height:44px;border-radius:14px;background:#FFF6E0;color:#8A6A1F;display:grid;place-items:center;font-weight:700">٣</div>
+            <div style="font-size:20px;font-weight:600">يتكيّف</div>
+            <div style="font-size:15px;line-height:1.65;color:#3D4442">لم يفهم؟ يغيّر المثال. فهم بسرعة؟ يرفع المستوى. وأنت تستلم ملخصًا واضحًا.</div>
+          </div>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:18px">
+          <div style="font-size:14px;color:#6B7370">كيف تسير الجلسة</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <div style="padding:12px 18px;border-radius:999px;border:1px solid #E3E6E1;font-size:15px">يختار الطفل درس اليوم</div><span style="color:#B8C0BC">←</span>
+            <div style="padding:12px 18px;border-radius:999px;border:1px solid #E3E6E1;font-size:15px">الأستاذ نواف يشرح</div><span style="color:#B8C0BC">←</span>
+            <div style="padding:12px 18px;border-radius:999px;border:1px solid #E3E6E1;font-size:15px">أسئلة تتكيّف مع فهمه</div><span style="color:#B8C0BC">←</span>
+            <div style="padding:12px 18px;border-radius:999px;background:#E7EFFC;color:#2F6BD8;font-size:15px;font-weight:500">ملخص لولي الأمر</div>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PARENT ONBOARDING -->
+    <sc-if value="{{ isOnboard }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:grid;place-items:center;padding:48px 32px">
+        <div style="width:100%;max-width:520px;display:flex;flex-direction:column;gap:28px">
+          <div style="display:flex;gap:6px">
+            <sc-for list="{{ onboardDots }}" as="d" hint-placeholder-count="3"><div style="height:4px;flex:1;border-radius:2px;background:{{ d.color }}"></div></sc-for>
+          </div>
+
+          <sc-if value="{{ ob1 }}" hint-placeholder-val="{{ true }}">
+            <div style="display:flex;flex-direction:column;gap:24px;animation:fadeUp .35s ease">
+              <div>
+                <div style="font-size:14px;color:#6B7370">إعداد ولي الأمر · 1 من 3</div>
+                <div style="font-size:30px;font-weight:700;margin-top:6px">من الطالب؟</div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <label style="font-size:14px;color:#3D4442">اسم الطفل</label>
+                <input value="{{ childName }}" onChange="{{ setName }}" style="padding:16px 18px;border-radius:14px;border:2px solid #E3E6E1;font-size:20px;outline:none;background:#fff" style-focus="border-color:#2F6BD8">
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <label style="font-size:14px;color:#3D4442">العمر</label>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <sc-for list="{{ ages }}" as="a" hint-placeholder-count="7">
+                    <button onClick="{{ a.onPick }}" style="width:52px;height:48px;border-radius:12px;border:2px solid {{ a.border }};background:{{ a.bg }};color:{{ a.color }};font-size:17px;font-weight:600">{{ a.v }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <label style="font-size:14px;color:#3D4442">الصف</label>
+                <div style="display:flex;gap:8px;flex-wrap:wrap">
+                  <sc-for list="{{ grades }}" as="g" hint-placeholder-count="6">
+                    <button onClick="{{ g.onPick }}" style="padding:0 16px;height:48px;border-radius:12px;border:2px solid {{ g.border }};background:{{ g.bg }};color:{{ g.color }};font-size:15px;font-weight:600">{{ g.l }}</button>
+                  </sc-for>
+                </div>
+              </div>
+              <button onClick="{{ obNext }}" style="align-self:flex-start;padding:16px 28px;border:0;border-radius:14px;background:#2F6BD8;color:#fff;font-size:17px;font-weight:600" style-hover="background:#2559BD">التالي</button>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ob2 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:24px;align-items:center;animation:fadeUp .35s ease">
+              <div style="text-align:center">
+                <div style="font-size:14px;color:#6B7370">إعداد ولي الأمر · 2 من 3</div>
+                <div style="font-size:30px;font-weight:700;margin-top:6px">اختر رمزًا لولي الأمر</div>
+                <div style="font-size:15px;color:#3D4442;margin-top:8px">4 أرقام. تستخدمه للوصول إلى ملخصات {{ childName }} والإعدادات.</div>
+              </div>
+              <div style="display:flex;gap:14px;direction:ltr">
+                <sc-for list="{{ pinSlots }}" as="p" hint-placeholder-count="4"><div style="width:18px;height:18px;border-radius:50%;background:{{ p.color }};transition:background .2s"></div></sc-for>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,72px);gap:10px;direction:ltr">
+                <sc-for list="{{ keypad }}" as="k" hint-placeholder-count="12">
+                  <button onClick="{{ k.onTap }}" style="height:64px;border-radius:16px;border:1px solid #E3E6E1;background:#fff;font-size:22px;font-weight:600;color:#1B1F1D;visibility:{{ k.vis }}" style-hover="background:#F5F6F3">{{ k.l }}</button>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
+
+          <sc-if value="{{ ob3 }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:24px;align-items:center;text-align:center;animation:fadeUp .35s ease">
+              <div style="width:96px;height:96px;border-radius:50%;background:#E4F3EB;color:#1F8A5B;display:grid;place-items:center;font-size:40px">✓</div>
+              <div>
+                <div style="font-size:30px;font-weight:700">جاهز!</div>
+                <div style="font-size:18px;line-height:1.7;color:#3D4442;margin-top:8px;text-wrap:pretty">سلّم الجهاز لـ{{ childName }}. الأستاذ نواف بيبدأ بدرس قصير في الرياضيات، وبيوصلك ملخص بعدها.</div>
+              </div>
+              <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+                <button onClick="{{ goHome }}" style="padding:16px 28px;border:0;border-radius:14px;background:#2F6BD8;color:#fff;font-size:17px;font-weight:600" style-hover="background:#2559BD">ابدأ كطالب</button>
+                <button onClick="{{ goParent }}" style="padding:16px 28px;border:2px solid #E3E6E1;border-radius:14px;background:#fff;color:#1B1F1D;font-size:17px;font-weight:600" style-hover="background:#F5F6F3">عرض منطقة ولي الأمر</button>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PROFILES (child-first) -->
+    <sc-if value="{{ isProfiles }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:grid;place-items:center;padding:48px 32px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:32px">
+          <div style="font-size:32px;font-weight:700">من أنت؟</div>
+          <div style="display:flex;gap:20px;flex-wrap:wrap;justify-content:center">
+            <button onClick="{{ goHome }}" style="width:180px;padding:28px 20px;border-radius:24px;border:2px solid #E3E6E1;background:#fff;display:flex;flex-direction:column;align-items:center;gap:14px" style-hover="border-color:#2F6BD8;background:#F3F6FD">
+              <div style="width:80px;height:80px;border-radius:50%;background:#E4F3EB;color:#1F8A5B;display:grid;place-items:center;font-size:34px;font-weight:700">{{ childInitial }}</div>
+              <div style="font-size:20px;font-weight:600">{{ childName }}</div>
+              <div style="font-size:13px;color:#6B7370">{{ gradeLabel }}</div>
+            </button>
+            <button onClick="{{ goOnboard }}" style="width:180px;padding:28px 20px;border-radius:24px;border:2px dashed #D5D9D3;background:#fff;display:flex;flex-direction:column;align-items:center;gap:14px;color:#6B7370" style-hover="background:#F5F6F3">
+              <div style="width:80px;height:80px;border-radius:50%;background:#F5F6F3;display:grid;place-items:center;font-size:34px">+</div>
+              <div style="font-size:18px;font-weight:500">طالب جديد</div>
+              <div style="font-size:13px">يتطلب ولي الأمر</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- CHILD HOME -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:flex;flex-direction:column;gap:36px;padding:40px 32px">
+        <div>
+          <div style="font-size:34px;font-weight:700">هلا {{ childName }} 👋</div>
+          <div style="font-size:17px;color:#3D4442;margin-top:4px">{{ todayLine }}</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;align-items:stretch">
+          <button onClick="{{ goLessonIntro }}" style="text-align:right;border:0;border-radius:24px;background:#2F6BD8;color:#fff;padding:30px;display:flex;flex-direction:column;gap:18px;justify-content:space-between;box-shadow:0 12px 32px rgba(47,107,216,.22)" style-hover="background:#2559BD">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+              <div>
+                <div style="font-size:13px;opacity:.85">درس اليوم · الرياضيات</div>
+                <div style="font-size:30px;font-weight:700;margin-top:6px">الكسور</div>
+                <div style="font-size:15px;opacity:.9;margin-top:4px">النصف والربع وثلاثة الأرباع · 10 دقائق</div>
+              </div>
+              <div style="width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.18);display:grid;place-items:center;font-size:26px;font-weight:700;flex:none">ن</div>
+            </div>
+            <div style="display:inline-flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:#fff;color:#2F6BD8;font-size:15px;font-weight:600;align-self:flex-start">ابدأ مع الأستاذ نواف</div>
+          </button>
+          <div style="border-radius:24px;background:#F7F8F5;padding:26px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:14px;color:#6B7370">آخر جلسة</div>
+            <div style="font-size:19px;font-weight:600;line-height:1.5">الجمع والطرح حتى 1000</div>
+            <div style="font-size:15px;color:#3D4442;line-height:1.6">فهمك كان <b style="color:#1F8A5B;font-weight:600">جيدًا جدًا</b>. الأستاذ نواف قال: "الجمع بالعمود صار سهلًا عليك."</div>
+            <div style="display:flex;gap:6px;margin-top:auto">
+              <sc-for list="{{ streak }}" as="s" hint-placeholder-count="7"><div style="width:26px;height:26px;border-radius:8px;background:{{ s.color }}"></div></sc-for>
+            </div>
+            <div style="font-size:13px;color:#6B7370">3 أيام هذا الأسبوع</div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:18px;font-weight:600">موادك · {{ gradeLabel }}</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px">
+            <sc-for list="{{ subjects }}" as="sub" hint-placeholder-count="4">
+              <button onClick="{{ sub.onOpen }}" style="text-align:right;border:1px solid #EEF0EC;border-radius:20px;background:#fff;padding:22px;display:flex;flex-direction:column;gap:14px" style-hover="border-color:#2F6BD8;background:#F3F6FD">
+                <div style="width:44px;height:44px;border-radius:14px;background:{{ sub.bg }};color:{{ sub.color }};display:grid;place-items:center;font-size:18px;font-weight:700">{{ sub.glyph }}</div>
+                <div>
+                  <div style="font-size:18px;font-weight:600">{{ sub.name }}</div>
+                  <div style="font-size:13px;color:#6B7370;margin-top:2px">{{ sub.meta }}</div>
+                </div>
+                <div style="height:6px;border-radius:3px;background:#EEF0EC;width:100%;overflow:hidden"><div style="height:100%;width:{{ sub.pct }};background:{{ sub.color }};border-radius:3px"></div></div>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- SUBJECT -->
+    <sc-if value="{{ isSubject }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:flex;flex-direction:column;gap:28px;padding:40px 32px">
+        <div>
+          <div style="font-size:14px;color:#6B7370">{{ gradeLabel }}</div>
+          <div style="font-size:32px;font-weight:700;margin-top:4px">{{ subjectName }}</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:0;max-width:640px">
+          <sc-for list="{{ lessons }}" as="ls" hint-placeholder-count="5">
+            <div style="display:flex;gap:18px;align-items:stretch">
+              <div style="display:flex;flex-direction:column;align-items:center;width:36px">
+                <div style="width:36px;height:36px;border-radius:50%;background:{{ ls.dotBg }};color:{{ ls.dotColor }};display:grid;place-items:center;font-size:15px;font-weight:600;border:2px solid {{ ls.dotBorder }};flex:none">{{ ls.mark }}</div>
+                <div style="flex:1;width:2px;background:#EEF0EC;display:{{ ls.lineDisplay }}"></div>
+              </div>
+              <button onClick="{{ ls.onOpen }}" style="flex:1;text-align:right;margin-bottom:14px;padding:18px 20px;border-radius:18px;border:2px solid {{ ls.border }};background:{{ ls.bg }};display:flex;justify-content:space-between;align-items:center;gap:12px;opacity:{{ ls.opacity }}" style-hover="border-color:#2F6BD8">
+                <div style="flex:1;min-width:0">
+                  <div style="font-size:18px;font-weight:600;color:#1B1F1D">{{ ls.title }}</div>
+                  <div style="font-size:13px;color:#6B7370;margin-top:2px">{{ ls.meta }}</div>
+                </div>
+                <div style="font-size:13px;font-weight:500;color:{{ ls.tagColor }};padding:6px 12px;border-radius:999px;background:{{ ls.tagBg }};flex:none">{{ ls.tag }}</div>
+              </button>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- LESSON INTRO -->
+    <sc-if value="{{ isLessonIntro }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:grid;place-items:center;padding:48px 32px">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;max-width:560px">
+          <div style="position:relative;width:150px;height:150px">
+            <span style="position:absolute;inset:-8px;border-radius:50%;border:3px solid #2F6BD8;animation:ring 1.8s ease-out infinite"></span>
+            <div style="position:absolute;inset:0;border-radius:50%;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-size:62px;font-weight:700;border:6px solid #F3F6FD">ن</div>
+          </div>
+          <div>
+            <div style="font-size:14px;color:#6B7370">الرياضيات · 10 دقائق</div>
+            <div style="font-size:34px;font-weight:700;margin-top:4px">درس الكسور</div>
+          </div>
+          <div style="font-size:22px;line-height:1.6;font-weight:500;color:#1B1F1D;text-wrap:pretty">هلا {{ childName }}. أولًا أشرح لك الفكرة بهدوء، وبعدين نجرب مع بعض وأسمع إجاباتك.</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+            <button onClick="{{ goExplain }}" style="padding:18px 32px;border:0;border-radius:16px;background:#2F6BD8;color:#fff;font-size:18px;font-weight:600;box-shadow:0 8px 24px rgba(47,107,216,.25)" style-hover="background:#2559BD">اشرح لي أول</button>
+            <button onClick="{{ goSession }}" style="padding:18px 32px;border:2px solid #E3E6E1;border-radius:16px;background:#fff;color:#1B1F1D;font-size:18px;font-weight:600" style-hover="background:#F5F6F3">ودّي أجرب مباشرة</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- EXPLAIN (avatar mode) -->
+    <sc-if value="{{ isExplain }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:flex;flex-direction:column">
+        <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;padding:36px 32px 24px">
+          <div style="display:flex;flex-direction:column;align-items:flex-start;gap:20px">
+            <div style="position:relative;width:180px;height:180px">
+              {{ exRingEl }}
+              <div style="position:absolute;inset:0;border-radius:50%;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-size:74px;font-weight:700;border:8px solid #F3F6FD">ن</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:#E7EFFC;color:#2F6BD8;font-size:14px;font-weight:500">
+              {{ exWaveEl }}
+              <span>{{ exStatus }}</span>
+            </div>
+            {{ exSubtitleEl }}
+          </div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <div style="flex:1;min-height:340px;border-radius:20px;background:#F7F8F5;display:grid;place-items:center;padding:28px">
+              <sc-if value="{{ exWhole }}" hint-placeholder-val="{{ true }}">
+                <div style="width:220px;height:220px;border-radius:50%;border:10px solid #E8DFCF;background:#F6EFE2;animation:fadeUp .4s ease"></div>
+              </sc-if>
+              <sc-if value="{{ exHalf }}" hint-placeholder-val="{{ false }}">
+                <div style="width:220px;height:220px;border-radius:50%;border:10px solid #E8DFCF;background:conic-gradient(#3B7DDC 0 50%,#F6EFE2 50% 100%);position:relative;animation:fadeUp .4s ease">
+                  <div style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:#fff"></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ exQuarter }}" hint-placeholder-val="{{ false }}">
+                <div style="width:220px;height:220px;border-radius:50%;border:10px solid #E8DFCF;background:conic-gradient(#3B7DDC 0 25%,#F6EFE2 25% 100%);position:relative;animation:fadeUp .4s ease">
+                  <div style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:#fff"></div>
+                  <div style="position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:#fff"></div>
+                </div>
+              </sc-if>
+              <sc-if value="{{ exGlyph }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;align-items:center;gap:28px;animation:fadeUp .4s ease">
+                  <div style="display:flex;flex-direction:column;align-items:center;font-size:64px;font-weight:600;line-height:1;background:#fff;border-radius:20px;padding:24px 40px;border:1px solid #E8EAE5">
+                    <div style="color:#2F6BD8">1</div>
+                    <div style="width:64px;height:3px;background:#1B1F1D;margin:12px 0"></div>
+                    <div>4</div>
+                  </div>
+                  <div style="display:flex;flex-direction:column;gap:22px;font-size:15px;color:#3D4442">
+                    <div><span style="color:#2F6BD8;font-weight:600">فوق:</span> كم أخذنا</div>
+                    <div><span style="font-weight:600">تحت:</span> كم قسمنا</div>
+                  </div>
+                </div>
+              </sc-if>
+            </div>
+            <div style="display:flex;gap:6px">
+              <sc-for list="{{ exProgress }}" as="p" hint-placeholder-count="4"><div style="height:4px;flex:1;border-radius:2px;background:{{ p.color }};transition:background .3s"></div></sc-for>
+            </div>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EEF0EC;padding:20px 32px;min-height:96px;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+          <sc-if value="{{ exShowNav }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ exRepeat }}" style="padding:14px 24px;border:2px solid #E3E6E1;border-radius:14px;background:#fff;color:#1B1F1D;font-size:16px;font-weight:600" style-hover="background:#F5F6F3">أعد الشرح</button>
+            <button onClick="{{ exNext }}" style="padding:14px 28px;border:0;border-radius:14px;background:#2F6BD8;color:#fff;font-size:16px;font-weight:600" style-hover="background:#2559BD">{{ exNextLabel }}</button>
+          </sc-if>
+          <sc-if value="{{ exShowDone }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center">
+              <span style="font-size:17px;color:#3D4442">جاهز نجرب مع بعض؟</span>
+              <button onClick="{{ goSession }}" style="padding:16px 30px;border:0;border-radius:14px;background:#1F8A5B;color:#fff;font-size:17px;font-weight:600;box-shadow:0 8px 24px rgba(31,138,91,.25)" style-hover="background:#19714A">نبدأ الأسئلة</button>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- SESSION (embedded adaptive prototype) -->
+    <sc-if value="{{ isSession }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;background:#F3F4F1;margin:0 -1px">
+        <dc-import name="المعلم الذكي" auto-start="{{ true }}" hint-size="100%,720px"></dc-import>
+      </div>
+    </sc-if>
+
+    <!-- PARENT PIN -->
+    <sc-if value="{{ isParentPin }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:grid;place-items:center;padding:48px 32px">
+        <div style="display:flex;flex-direction:column;gap:24px;align-items:center;text-align:center">
+          <div>
+            <div style="font-size:30px;font-weight:700">منطقة ولي الأمر</div>
+            <div style="font-size:15px;color:#3D4442;margin-top:8px">{{ pinHint }}</div>
+          </div>
+          <div style="display:flex;gap:14px;direction:ltr">
+            <sc-for list="{{ pinSlots }}" as="p" hint-placeholder-count="4"><div style="width:18px;height:18px;border-radius:50%;background:{{ p.color }};transition:background .2s"></div></sc-for>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(3,72px);gap:10px;direction:ltr">
+            <sc-for list="{{ keypad }}" as="k" hint-placeholder-count="12">
+              <button onClick="{{ k.onTap }}" style="height:64px;border-radius:16px;border:1px solid #E3E6E1;background:#fff;font-size:22px;font-weight:600;color:#1B1F1D;visibility:{{ k.vis }}" style-hover="background:#F5F6F3">{{ k.l }}</button>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- PARENT AREA -->
+    <sc-if value="{{ isParent }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:flex;flex-direction:column;gap:32px;padding:40px 32px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap">
+          <div style="flex:1 1 320px;min-width:0">
+            <div style="font-size:14px;color:#6B7370">هذا الأسبوع</div>
+            <div style="font-size:32px;font-weight:700;margin-top:4px;line-height:1.3;text-wrap:pretty">{{ childName }} يتقدّم بثبات</div>
+          </div>
+          <button onClick="{{ goHome }}" style="padding:10px 16px;border-radius:999px;border:1px solid #E3E6E1;background:#fff;font-size:13px;color:#3D4442" style-hover="background:#F5F6F3">العودة لواجهة الطالب</button>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px">
+          <div style="border-radius:16px;background:#F7F8F5;padding:18px 20px"><div style="font-size:13px;color:#6B7370">جلسات</div><div style="font-size:26px;font-weight:700;margin-top:4px">3</div></div>
+          <div style="border-radius:16px;background:#F7F8F5;padding:18px 20px"><div style="font-size:13px;color:#6B7370">وقت التعلم</div><div style="font-size:26px;font-weight:700;margin-top:4px">28 دقيقة</div></div>
+          <div style="border-radius:16px;background:#F7F8F5;padding:18px 20px"><div style="font-size:13px;color:#6B7370">إجابات صحيحة</div><div style="font-size:26px;font-weight:700;margin-top:4px">11 من 14</div></div>
+          <div style="border-radius:16px;background:#E4F3EB;padding:18px 20px"><div style="font-size:13px;color:#1F8A5B">أبرز تحسّن</div><div style="font-size:20px;font-weight:700;margin-top:6px;color:#1F8A5B">المقارنة بين الكسور</div></div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+          <div style="border-radius:20px;border:1px solid #EEF0EC;padding:24px;display:flex;flex-direction:column;gap:18px">
+            <div style="font-size:18px;font-weight:600">التقدّم في المواد</div>
+            <sc-for list="{{ subjects }}" as="sub" hint-placeholder-count="4">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div style="display:flex;justify-content:space-between;font-size:15px"><span style="font-weight:500">{{ sub.name }}</span><span style="color:#6B7370">{{ sub.meta }}</span></div>
+                <div style="height:8px;border-radius:4px;background:#EEF0EC;overflow:hidden"><div style="height:100%;width:{{ sub.pct }};background:{{ sub.color }};border-radius:4px"></div></div>
+              </div>
+            </sc-for>
+          </div>
+          <div style="border-radius:20px;border:1px solid #EEF0EC;padding:24px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:18px;font-weight:600">آخر الجلسات</div>
+            <sc-for list="{{ sessions }}" as="se" hint-placeholder-count="3">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid #F1F2EE">
+                <div>
+                  <div style="font-size:16px;font-weight:500">{{ se.title }}</div>
+                  <div style="font-size:13px;color:#6B7370;margin-top:2px">{{ se.meta }}</div>
+                </div>
+                <div style="font-size:13px;font-weight:500;padding:6px 12px;border-radius:999px;background:{{ se.bg }};color:{{ se.color }};flex:none">{{ se.rating }}</div>
+              </div>
+            </sc-for>
+            <div style="font-size:14px;color:#3D4442;line-height:1.6;background:#F7F8F5;border-radius:14px;padding:14px 16px">في جلسة الكسور، لم يفهم {{ childName }} الربع من الشرح الأول، فغيّر المعلم المثال إلى الشوكولاتة ثم رفع المستوى بعد إجابته الصحيحة.</div>
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px">
+          <div style="border-radius:20px;background:#F7F8F5;padding:24px;display:flex;flex-direction:column;gap:14px">
+            <div style="font-size:18px;font-weight:600">توصيات الأستاذ نواف</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <div style="display:flex;gap:10px;font-size:15px;line-height:1.6"><span style="width:6px;height:6px;border-radius:50%;background:#2F6BD8;margin-top:10px;flex:none"></span><span>مراجعة قصيرة للربع خلال الأسبوع القادم بمثال مختلف.</span></div>
+              <div style="display:flex;gap:10px;font-size:15px;line-height:1.6"><span style="width:6px;height:6px;border-radius:50%;background:#2F6BD8;margin-top:10px;flex:none"></span><span>درس القياس هو الخطوة الطبيعية بعد الكسور.</span></div>
+              <div style="display:flex;gap:10px;font-size:15px;line-height:1.6"><span style="width:6px;height:6px;border-radius:50%;background:#2F6BD8;margin-top:10px;flex:none"></span><span>{{ childName }} يجيب بثقة أكثر بالصوت من الاختيار، شجّعوه يتكلم.</span></div>
+            </div>
+          </div>
+          <div style="border-radius:20px;border:1px solid #EEF0EC;padding:24px;display:flex;flex-direction:column;gap:18px">
+            <div style="font-size:18px;font-weight:600">إعدادات بسيطة</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:14px;color:#3D4442">مدة الجلسة اليومية</div>
+              <div style="display:flex;gap:8px">
+                <sc-for list="{{ durations }}" as="du" hint-placeholder-count="3">
+                  <button onClick="{{ du.onPick }}" style="padding:10px 16px;border-radius:12px;border:2px solid {{ du.border }};background:{{ du.bg }};color:{{ du.color }};font-size:14px;font-weight:600">{{ du.l }}</button>
+                </sc-for>
+              </div>
+            </div>
+            <button onClick="{{ toggleReminder }}" style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0;border:0;background:transparent;text-align:right">
+              <div><div style="font-size:15px;font-weight:500;color:#1B1F1D">تذكير يومي</div><div style="font-size:13px;color:#6B7370">الساعة 5:00 مساءً</div></div>
+              <div style="width:48px;height:28px;border-radius:14px;background:{{ reminderBg }};position:relative;transition:background .2s;flex:none"><div style="position:absolute;top:3px;left:{{ reminderKnob }};width:22px;height:22px;border-radius:50%;background:#fff;transition:left .2s"></div></div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ hasToast }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;bottom:24px;right:50%;transform:translateX(50%);padding:12px 20px;border-radius:999px;background:#1B1F1D;color:#fff;font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.2);animation:fadeUp .25s ease">{{ toast }}</div>
+    </sc-if>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+const EX = [
+  {text:'شوف هذي البيتزا. كاملة، ما قسمناها. هذا هو "الكل".',visual:'whole'},
+  {text:'لو قسمناها إلى جزأين متساويين، كل جزء نسميه نصف. واحد من اثنين.',visual:'half'},
+  {text:'ولو قسمناها إلى 4 أجزاء متساوية، كل جزء نسميه رُبع. والربع أصغر من النصف.',visual:'quarter'},
+  {text:'الكسر يعني جزء من شي كامل. الرقم اللي تحت كم قسمنا، والرقم اللي فوق كم أخذنا.',visual:'glyph'}
+];
+const GRADES = ['الأول','الثاني','الثالث','الرابع','الخامس','السادس'];
+const SUBJECTS = [
+  {id:'math',name:'الرياضيات',glyph:'٪',bg:'#E7EFFC',color:'#2F6BD8',pct:'55%',meta:'3 من 5 دروس'},
+  {id:'ar',name:'لغتي',glyph:'ل',bg:'#E4F3EB',color:'#1F8A5B',pct:'40%',meta:'2 من 5 دروس'},
+  {id:'sci',name:'العلوم',glyph:'ع',bg:'#FFF6E0',color:'#8A6A1F',pct:'20%',meta:'1 من 5 دروس'},
+  {id:'isl',name:'الدراسات الإسلامية',glyph:'د',bg:'#F5F6F3',color:'#3D4442',pct:'0%',meta:'لم تبدأ'}
+];
+const LESSONS = {
+  math:[{t:'الأعداد حتى 1000',m:'8 دقائق',s:'done'},{t:'الجمع والطرح',m:'10 دقائق · جيد جدًا',s:'done'},{t:'الكسور',m:'النصف والربع · 10 دقائق',s:'today'},{t:'القياس',m:'الطول والوزن',s:'later'},{t:'الأشكال الهندسية',m:'المضلعات',s:'later'}],
+  ar:[{t:'الهمزة المتوسطة',m:'8 دقائق',s:'done'},{t:'أنواع الجمل',m:'9 دقائق',s:'done'},{t:'التنوين',m:'10 دقائق',s:'next'},{t:'الأفعال',m:'',s:'later'},{t:'القراءة الجهرية',m:'',s:'later'}],
+  sci:[{t:'النبات وأجزاؤه',m:'8 دقائق',s:'done'},{t:'دورة الماء',m:'10 دقائق',s:'next'},{t:'الحيوانات وبيئاتها',m:'',s:'later'},{t:'المادة وحالاتها',m:'',s:'later'},{t:'الحواس الخمس',m:'',s:'later'}],
+  isl:[{t:'أركان الإسلام',m:'8 دقائق',s:'next'},{t:'الوضوء',m:'',s:'later'},{t:'سور قصيرة',m:'',s:'later'},{t:'آداب الطعام',m:'',s:'later'},{t:'الصدق',m:'',s:'later'}]
+};
+class Component extends DCLogic {
+  state = {screen:'landing',hist:[],ob:1,childName:'سلمان',age:9,grade:3,pin:'',pinSet:'1234',pinTry:'',pinErr:false,subject:'math',exIdx:0,exSpeaking:true,toast:'',duration:10,reminder:true};
+  timers=[];
+  after(ms,fn){ const t=setTimeout(fn,ms); this.timers.push(t); }
+  clear(){ this.timers.forEach(clearTimeout); this.timers=[]; }
+  componentWillUnmount(){ this.clear(); }
+  nav(screen,extra={}){ this.clear(); this.setState(s=>({screen,hist:[...s.hist,s.screen],...extra})); }
+  back(){ this.clear(); this.setState(s=>{ const h=[...s.hist]; const prev=h.pop()||'landing'; return {screen:prev,hist:h}; }); }
+  say(idx){ this.clear(); this.setState({exIdx:idx,exSpeaking:true},()=>this.after(Math.max(2200,EX[idx].text.length*60),()=>this.setState({exSpeaking:false}))); }
+  showToast(t){ this.clear(); this.setState({toast:t},()=>this.after(2200,()=>this.setState({toast:''}))); }
+  key(k,field){
+    const cur=this.state[field];
+    if(k==='⌫'){ this.setState({[field]:cur.slice(0,-1),pinErr:false}); return; }
+    if(k===''||cur.length>=4) return;
+    const next=cur+k;
+    this.setState({[field]:next,pinErr:false},()=>{
+      if(next.length<4) return;
+      if(field==='pin') this.after(300,()=>this.setState({pinSet:next,ob:3}));
+      else this.after(300,()=>{ if(next===this.state.pinSet) this.nav('parent',{pinTry:''}); else this.setState({pinTry:'',pinErr:true}); });
+    });
+  }
+  renderVals(){
+    const s=this.state, sc=s.screen;
+    const sel=(on)=>on?{border:'#2F6BD8',bg:'#E7EFFC',color:'#2F6BD8'}:{border:'#E3E6E1',bg:'#fff',color:'#1B1F1D'};
+    const pinField=sc==='onboard'?'pin':'pinTry'; const pinVal=s[pinField];
+    const keypad=['1','2','3','4','5','6','7','8','9','','0','⌫'].map(k=>({l:k,vis:k===''?'hidden':'visible',onTap:()=>this.key(k,pinField)}));
+    const bars=(color)=>React.createElement('span',{style:{display:'inline-flex',gap:3,alignItems:'center',height:14}},[0,1,2,3].map(i=>React.createElement('span',{key:i,style:{width:3,height:14,borderRadius:2,background:color,animation:`wave ${0.9+i*0.13}s ease-in-out ${i*0.1}s infinite`}})));
+    const ex=EX[s.exIdx];
+    const lessonRows=(LESSONS[s.subject]||[]).map((l,i,arr)=>{
+      const st=l.s; const live=s.subject==='math'&&st==='today';
+      return {title:l.t,meta:l.m,lineDisplay:i===arr.length-1?'none':'block',
+        mark:st==='done'?'✓':String(i+1),dotBg:st==='done'?'#1F8A5B':st==='today'||st==='next'?'#2F6BD8':'#fff',dotColor:st==='done'||st==='today'||st==='next'?'#fff':'#9AA19D',dotBorder:st==='later'?'#E3E6E1':'transparent',
+        border:st==='today'||st==='next'?'#2F6BD8':'#EEF0EC',bg:st==='today'||st==='next'?'#F3F6FD':'#fff',opacity:st==='later'?0.6:1,
+        tag:st==='done'?'مكتمل':st==='today'?'درس اليوم':st==='next'?'التالي':'لاحقًا',tagBg:st==='done'?'#E4F3EB':st==='later'?'#F5F6F3':'#E7EFFC',tagColor:st==='done'?'#1F8A5B':st==='later'?'#6B7370':'#2F6BD8',
+        onOpen:()=>{ if(live) this.nav('lessonIntro'); else if(st==='done') this.showToast('راجعنا هذا الدرس سابقًا. الملخص عند ولي الأمر.'); else this.showToast('هذا الدرس في النموذج القادم. درس الكسور هو المتاح حاليًا.'); }};
+    });
+    return {
+      isLanding:sc==='landing',isOnboard:sc==='onboard',isProfiles:sc==='profiles',isHome:sc==='home',isSubject:sc==='subject',isLessonIntro:sc==='lessonIntro',isExplain:sc==='explain',isSession:sc==='session',isParentPin:sc==='parentPin',isParent:sc==='parent',
+      showBack:sc!=='landing',showChildChip:['home','subject','lessonIntro','explain','session'].includes(sc),showParentBtn:['home','subject','landing','profiles'].includes(sc),
+      childName:s.childName,childInitial:(s.childName||'س').trim().charAt(0),gradeLabel:'الصف '+GRADES[s.grade-1]+' الابتدائي',
+      todayLine:'عندك درس واحد اليوم، 10 دقائق مع الأستاذ نواف.',
+      ob1:s.ob===1,ob2:s.ob===2,ob3:s.ob===3,onboardDots:[1,2,3].map(i=>({color:i<=s.ob?'#2F6BD8':'#EEF0EC'})),
+      setName:(e)=>this.setState({childName:e.target.value}),
+      ages:[6,7,8,9,10,11,12].map(v=>({v,...sel(s.age===v),onPick:()=>this.setState({age:v})})),
+      grades:GRADES.map((g,i)=>({l:g,...sel(s.grade===i+1),onPick:()=>this.setState({grade:i+1})})),
+      obNext:()=>this.setState({ob:2,pin:''}),
+      pinSlots:[0,1,2,3].map(i=>({color:s.pinErr?'#D9534F':i<pinVal.length?'#2F6BD8':'#E3E6E1'})),keypad,
+      pinHint:s.pinErr?'الرمز غير صحيح، حاول مرة ثانية.':'أدخل رمز ولي الأمر (في النموذج: 1234)',
+      streak:[1,1,0,1,0,0,0].map(v=>({color:v?'#2F6BD8':'#EEF0EC'})),
+      subjects:SUBJECTS.map(x=>({...x,onOpen:()=>this.nav('subject',{subject:x.id})})),
+      subjectName:(SUBJECTS.find(x=>x.id===s.subject)||SUBJECTS[0]).name,lessons:lessonRows,
+      exRingEl:s.exSpeaking?React.createElement('span',{key:s.exIdx,style:{position:'absolute',inset:-8,borderRadius:'50%',border:'3px solid #2F6BD8',animation:'ring 1.6s ease-out infinite'}}):null,
+      exWaveEl:s.exSpeaking?bars('#2F6BD8'):React.createElement('span',{style:{width:8,height:8,borderRadius:'50%',background:'#2F6BD8',display:'inline-block'}}),
+      exStatus:s.exSpeaking?'يشرح…':'انتهى من الشرح',
+      exSubtitleEl:React.createElement('div',{key:s.exIdx,style:{fontSize:26,lineHeight:1.65,fontWeight:500,color:'#1B1F1D',textWrap:'pretty',animation:'fadeUp .45s ease',maxWidth:440}},ex.text),
+      exWhole:ex.visual==='whole',exHalf:ex.visual==='half',exQuarter:ex.visual==='quarter',exGlyph:ex.visual==='glyph',
+      exProgress:EX.map((_,i)=>({color:i<=s.exIdx?'#2F6BD8':'#EEF0EC'})),
+      exShowNav:!(s.exIdx===EX.length-1&&!s.exSpeaking),exShowDone:s.exIdx===EX.length-1&&!s.exSpeaking,
+      exNextLabel:s.exIdx===EX.length-1?'خلصت':'التالي',
+      exNext:()=>{ if(s.exIdx<EX.length-1) this.say(s.exIdx+1); else { this.clear(); this.setState({exSpeaking:false}); } },
+      exRepeat:()=>this.say(s.exIdx),
+      sessions:[{title:'الكسور',meta:'اليوم · 9 دقائق · 5 أسئلة',rating:'جيد جدًا',bg:'#E4F3EB',color:'#1F8A5B'},{title:'الجمع والطرح',meta:'أمس · 10 دقائق · 5 أسئلة',rating:'جيد جدًا',bg:'#E4F3EB',color:'#1F8A5B'},{title:'دورة الماء',meta:'قبل 3 أيام · 9 دقائق · 4 أسئلة',rating:'جيد',bg:'#FFF6E0',color:'#8A6A1F'}],
+      durations:[10,15,20].map(v=>({l:v+' دقائق',...sel(s.duration===v),onPick:()=>this.setState({duration:v})})),
+      reminderBg:s.reminder?'#2F6BD8':'#D5D9D3',reminderKnob:s.reminder?'23px':'3px',toggleReminder:()=>this.setState({reminder:!s.reminder}),
+      hasToast:!!s.toast,toast:s.toast,
+      goBack:()=>this.back(),goLanding:()=>this.nav('landing'),goOnboard:()=>this.nav('onboard',{ob:1,pin:''}),goProfiles:()=>this.nav('profiles'),goHome:()=>this.nav('home'),
+      goLessonIntro:()=>this.nav('lessonIntro'),goExplain:()=>{ this.nav('explain'); this.say(0); },goSession:()=>this.nav('session'),goSessionNow:()=>this.nav('session'),
+      goParentPin:()=>this.nav('parentPin',{pinTry:'',pinErr:false}),goParent:()=>this.nav('parent')
+    };
+  }
+}
+</script>
+</body>
+</html>

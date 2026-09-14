@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#F3F4F1;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;color:#1B1F1D}
+*{box-sizing:border-box}
+a{color:#2F6BD8;text-decoration:none}a:hover{color:#1F53B3}
+button{font-family:inherit;cursor:pointer}
+@keyframes wave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@keyframes ring{0%{transform:scale(1);opacity:.55}100%{transform:scale(1.35);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes dots{0%,80%,100%{opacity:.25}40%{opacity:1}}
+</style>
+</helmet>
+<div dir="rtl" style="min-height:100vh;display:grid;place-items:center;padding:24px 24px 140px;background:#F3F4F1">
+  <div style="width:100%;max-width:1040px;min-height:700px;background:#FFFFFF;border-radius:24px;box-shadow:0 1px 2px rgba(20,30,25,.04),0 12px 40px rgba(20,30,25,.06);display:flex;flex-direction:column;position:relative;overflow:hidden">
+
+    <!-- header -->
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 28px;border-bottom:1px solid #EEF0EC;flex-wrap:wrap">
+      <div style="display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;border-radius:12px;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-weight:700;font-size:15px">ن</div>
+        <div>
+          <div style="font-weight:600;font-size:16px">درس الكسور</div>
+          <div style="font-size:13px;color:#6B7370">الرياضيات · الأستاذ نواف</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <sc-for list="{{ dotsList }}" as="d" hint-placeholder-count="5">
+          <div style="width:10px;height:10px;border-radius:50%;background:{{ d.color }};transition:background .4s"></div>
+        </sc-for>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;font-size:14px;color:#3D4442">
+        <span>سلمان · 9 سنوات</span>
+        <div style="width:32px;height:32px;border-radius:50%;background:#E4F3EB;color:#1F8A5B;display:grid;place-items:center;font-weight:600;font-size:14px">س</div>
+      </div>
+    </div>
+
+    <!-- START -->
+    <sc-if value="{{ isStart }}" hint-placeholder-val="{{ true }}">
+      <div style="flex:1;display:grid;place-items:center;padding:48px 32px">
+        <div style="max-width:520px;width:100%;text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px">
+          <div style="width:112px;height:112px;border-radius:50%;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-size:44px;font-weight:700;border:6px solid #F3F6FD">ن</div>
+          <div>
+            <div style="font-size:36px;font-weight:700;line-height:1.35">هلا سلمان 👋</div>
+            <div style="font-size:28px;font-weight:500;line-height:1.4;color:#3D4442;margin-top:6px">جاهز نبدأ درس اليوم؟</div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center">
+            <div style="padding:10px 18px;border-radius:999px;background:#F5F6F3;font-size:15px;color:#3D4442">موضوع اليوم: <b style="font-weight:600;color:#1B1F1D">الكسور</b></div>
+            <div style="padding:10px 18px;border-radius:999px;background:#F5F6F3;font-size:15px;color:#3D4442">الوقت المتوقع: <b style="font-weight:600;color:#1B1F1D">10 دقائق</b></div>
+          </div>
+          <button onClick="{{ startLesson }}" style="margin-top:8px;padding:18px 36px;border:0;border-radius:16px;background:#2F6BD8;color:#fff;font-size:19px;font-weight:600;box-shadow:0 8px 24px rgba(47,107,216,.25)" style-hover="background:#2559BD">ابدأ مع الأستاذ نواف</button>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- LESSON -->
+    <sc-if value="{{ isLesson }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;padding:36px 32px 24px">
+        <!-- teacher -->
+        <div style="display:flex;flex-direction:column;align-items:flex-start;gap:20px">
+          <div style="position:relative;width:128px;height:128px">
+            {{ ringEl }}
+            <div style="position:absolute;inset:0;border-radius:50%;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-size:52px;font-weight:700;border:6px solid #F3F6FD;transition:transform .3s">ن</div>
+            <sc-if value="{{ isEncourage }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;bottom:-4px;left:-4px;width:40px;height:40px;border-radius:50%;background:#1F8A5B;color:#fff;display:grid;place-items:center;font-size:20px;border:3px solid #fff">✓</div>
+            </sc-if>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:999px;background:{{ statusBg }};color:{{ statusColor }};font-size:14px;font-weight:500">
+            {{ waveEl }}
+            <span>{{ statusLabel }}</span>
+          </div>
+          <div style="font-size:15px;color:#6B7370">الأستاذ نواف</div>
+          {{ subtitleEl }}
+        </div>
+
+        <!-- visual -->
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <div style="flex:1;min-height:360px;border-radius:20px;background:#F7F8F5;display:grid;place-items:center;padding:28px;position:relative">
+
+            <sc-if value="{{ vPizzaHalf }}" hint-placeholder-val="{{ true }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+                <div style="width:220px;height:220px;border-radius:50%;border:10px solid #E8DFCF;background:conic-gradient(#3B7DDC 0 50%,#F6EFE2 50% 100%);position:relative;box-shadow:inset 0 0 0 2px rgba(0,0,0,.04)">
+                  <div style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:#fff"></div>
+                </div>
+                <div style="font-size:15px;color:#6B7370">بيتزا مقسومة إلى جزأين متساويين</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ vPizza34 }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+                <div style="width:220px;height:220px;border-radius:50%;border:10px solid #E8DFCF;background:conic-gradient(#3B7DDC 0 25%,#EFEDE7 25% 100%);position:relative">
+                  <div style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:#fff"></div>
+                  <div style="position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:#fff"></div>
+                </div>
+                <div style="font-size:15px;color:#6B7370">3 أرباع أُكلت · جزء واحد باقي</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ vFractions }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:40px;align-items:center">
+                <sc-for list="{{ fractionGlyphs }}" as="f" hint-placeholder-count="2">
+                  <div style="display:flex;flex-direction:column;align-items:center;font-size:56px;font-weight:600;line-height:1;color:#1B1F1D;background:#fff;border-radius:20px;padding:24px 36px;border:1px solid #E8EAE5">
+                    <div>{{ f.n }}</div>
+                    <div style="width:56px;height:3px;background:#1B1F1D;margin:10px 0"></div>
+                    <div>{{ f.d }}</div>
+                  </div>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ vChoc }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:18px">
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;padding:10px;background:#5A3B2E;border-radius:16px">
+                  <sc-for list="{{ chocSquares }}" as="sq" hint-placeholder-count="4">
+                    <button onClick="{{ sq.onTap }}" style="width:96px;height:96px;border-radius:10px;border:3px solid {{ sq.border }};background:{{ sq.bg }};cursor:{{ sq.cursor }};transition:all .25s;display:grid;place-items:center;color:#fff;font-size:15px;font-weight:600">{{ sq.label }}</button>
+                  </sc-for>
+                </div>
+                <div style="font-size:15px;color:#6B7370">{{ chocCaption }}</div>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ vCompare }}" hint-placeholder-val="{{ false }}">
+              <div style="display:flex;gap:36px;align-items:flex-start;flex-wrap:wrap;justify-content:center">
+                <sc-for list="{{ compareCircles }}" as="c" hint-placeholder-count="2">
+                  <button onClick="{{ c.onTap }}" style="display:flex;flex-direction:column;align-items:center;gap:14px;background:transparent;border:0;padding:12px;border-radius:20px;cursor:{{ c.cursor }};outline:3px solid {{ c.outline }};outline-offset:2px;transition:outline-color .25s">
+                    <div style="width:160px;height:160px;border-radius:50%;border:8px solid #E8DFCF;background:{{ c.bg }};position:relative">
+                      <div style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:#fff"></div>
+                      <div style="position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:#fff;display:{{ c.hDisplay }}"></div>
+                    </div>
+                    <div style="font-size:22px;font-weight:600;color:#1B1F1D">{{ c.label }}</div>
+                  </button>
+                </sc-for>
+              </div>
+            </sc-if>
+
+            <sc-if value="{{ showEngine }}" hint-placeholder-val="{{ false }}">
+              <div style="position:absolute;top:14px;left:14px;display:flex;gap:6px;flex-wrap:wrap;direction:ltr">
+                <div style="font-size:11px;font-family:ui-monospace,monospace;background:#fff;border:1px solid #E8EAE5;border-radius:8px;padding:4px 8px;color:#3D4442">difficulty: {{ engine.difficulty }}</div>
+                <div style="font-size:11px;font-family:ui-monospace,monospace;background:#fff;border:1px solid #E8EAE5;border-radius:8px;padding:4px 8px;color:#3D4442">understanding: {{ engine.understanding }}</div>
+                <div style="font-size:11px;font-family:ui-monospace,monospace;background:#fff;border:1px solid #E8EAE5;border-radius:8px;padding:4px 8px;color:#3D4442">strategy: {{ engine.strategy }}</div>
+              </div>
+            </sc-if>
+          </div>
+
+          <sc-if value="{{ hasAdaptChip }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:10px;padding:12px 16px;border-radius:14px;background:{{ adaptBg }};color:{{ adaptColor }};font-size:14px;font-weight:500;animation:fadeUp .4s ease">
+              <span style="width:8px;height:8px;border-radius:50%;background:currentColor;flex:none"></span>
+              <span>{{ adaptText }}</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+
+      <!-- interaction bar -->
+      <div style="border-top:1px solid #EEF0EC;padding:20px 32px;min-height:112px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap">
+        <sc-if value="{{ showMic }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;justify-content:center">
+            <button onClick="{{ tapMic }}" style="display:flex;align-items:center;gap:14px;padding:16px 28px;border-radius:999px;border:0;background:#2F6BD8;color:#fff;font-size:17px;font-weight:600;box-shadow:0 8px 24px rgba(47,107,216,.25)" style-hover="background:#2559BD">
+              <span style="width:14px;height:22px;border-radius:7px;background:#fff;display:inline-block"></span>
+              <span>{{ micLabel }}</span>
+            </button>
+            <span style="font-size:15px;color:#6B7370">خذ وقتك، أنا أسمعك.</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showTranscript }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:16px;background:#F5F6F3;font-size:16px;color:#1B1F1D;animation:fadeUp .3s ease">
+            <span style="width:28px;height:28px;border-radius:50%;background:#E4F3EB;color:#1F8A5B;display:grid;place-items:center;font-weight:600;font-size:13px">س</span>
+            <span>{{ transcript }}</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showChoices }}" hint-placeholder-val="{{ false }}">
+          <sc-for list="{{ choiceList }}" as="ch" hint-placeholder-count="2">
+            <button onClick="{{ ch.onPick }}" style="min-width:120px;padding:16px 28px;border-radius:16px;border:2px solid #E3E6E1;background:#fff;font-size:22px;font-weight:600;color:#1B1F1D;transition:all .2s" style-hover="border-color:#2F6BD8;background:#F3F6FD">{{ ch.l }}</button>
+          </sc-for>
+        </sc-if>
+        <sc-if value="{{ showThinking }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;align-items:center;gap:12px;color:#6B7370;font-size:16px">
+            {{ thinkEl }}
+            <span>{{ thinkLabel }}</span>
+          </div>
+        </sc-if>
+        <sc-if value="{{ showSpeakingHint }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:15px;color:#9AA19D">الأستاذ نواف يتحدث…</div>
+        </sc-if>
+        <sc-if value="{{ showPickHint }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:16px;color:#1F8A5B;font-weight:500">المس قطعتين من الشوكولاتة</div>
+        </sc-if>
+      </div>
+    </sc-if>
+
+    <!-- END -->
+    <sc-if value="{{ isEnd }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;padding:40px 32px">
+        <div style="display:flex;flex-direction:column;gap:20px;align-items:flex-start">
+          <div style="position:relative;width:112px;height:112px">
+            <div style="position:absolute;inset:0;border-radius:50%;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-size:44px;font-weight:700;border:6px solid #F3F6FD">ن</div>
+            <div style="position:absolute;bottom:-4px;left:-4px;width:36px;height:36px;border-radius:50%;background:#1F8A5B;color:#fff;display:grid;place-items:center;font-size:18px;border:3px solid #fff">✓</div>
+          </div>
+          <div style="font-size:24px;line-height:1.6;font-weight:500;text-wrap:pretty">ممتاز يا سلمان. اليوم فهمنا أن الكسر يمثل جزءًا من شيء كامل، وشفنا الفرق بين النصف والربع.</div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:20px">
+          <div style="border-radius:20px;background:#F7F8F5;padding:24px">
+            <div style="font-size:14px;color:#6B7370">فهمك اليوم</div>
+            <div style="font-size:30px;font-weight:700;color:#1F8A5B;margin-top:4px">{{ rating }}</div>
+          </div>
+          <div style="border-radius:20px;border:1px solid #EEF0EC;padding:24px">
+            <div style="font-size:15px;font-weight:600;margin-bottom:12px">لاحظت أنك:</div>
+            <div style="display:flex;flex-direction:column;gap:10px">
+              <sc-for list="{{ notes }}" as="n" hint-placeholder-count="3">
+                <div style="display:flex;gap:10px;align-items:flex-start;font-size:16px;line-height:1.5"><span style="width:6px;height:6px;border-radius:50%;background:#2F6BD8;margin-top:10px;flex:none"></span><span>{{ n }}</span></div>
+              </sc-for>
+            </div>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button onClick="{{ bonusQuestion }}" style="padding:16px 28px;border:0;border-radius:14px;background:#2F6BD8;color:#fff;font-size:17px;font-weight:600" style-hover="background:#2559BD">جرّب سؤال أخير</button>
+            <button onClick="{{ finishLesson }}" style="padding:16px 28px;border:2px solid #E3E6E1;border-radius:14px;background:#fff;color:#1B1F1D;font-size:17px;font-weight:600" style-hover="background:#F5F6F3">إنهاء الدرس</button>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- SUMMARY -->
+    <sc-if value="{{ isSummary }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1;padding:40px 32px;display:flex;flex-direction:column;gap:28px">
+        <div>
+          <div style="font-size:14px;color:#6B7370">ملخص للوالدين</div>
+          <div style="font-size:30px;font-weight:700;margin-top:4px">ملخص جلسة سلمان</div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px">
+          <sc-for list="{{ stats }}" as="s" hint-placeholder-count="6">
+            <div style="border-radius:16px;background:#F7F8F5;padding:18px 20px">
+              <div style="font-size:13px;color:#6B7370">{{ s.k }}</div>
+              <div style="font-size:24px;font-weight:700;margin-top:4px">{{ s.v }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="border-radius:20px;border:1px solid #EEF0EC;padding:24px">
+          <div style="font-size:18px;font-weight:600;margin-bottom:16px">كيف تكيّف المعلم؟</div>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <sc-for list="{{ adaptLog }}" as="a" hint-placeholder-count="4">
+              <div style="display:flex;gap:14px;align-items:flex-start;font-size:16px;line-height:1.55">
+                <span style="width:28px;height:28px;border-radius:50%;background:#E7EFFC;color:#2F6BD8;display:grid;place-items:center;font-weight:600;font-size:14px;flex:none">{{ a.i }}</span>
+                <span>{{ a.t }}</span>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button onClick="{{ restart }}" style="padding:14px 24px;border:2px solid #E3E6E1;border-radius:14px;background:#fff;color:#1B1F1D;font-size:16px;font-weight:600" style-hover="background:#F5F6F3">إعادة العرض من البداية</button>
+        </div>
+      </div>
+    </sc-if>
+  </div>
+
+  <!-- demo controls -->
+  <div style="position:fixed;left:20px;bottom:20px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;z-index:10;direction:rtl">
+    <sc-if value="{{ demoOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="width:240px;background:#1B1F1D;color:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 12px 40px rgba(0,0,0,.25);animation:fadeUp .25s ease">
+        <div style="font-size:12px;color:#9AA19D;letter-spacing:.04em">DEMO CONTROLS · مسار الطفل</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onClick="{{ demoUnderstands }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;font-weight:500;opacity:{{ demoOpacity }}" style-hover="background:#3D4442">يفهم</button>
+          <button onClick="{{ demoConfused }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;font-weight:500;opacity:{{ demoOpacity }}" style-hover="background:#3D4442">محتار / لا أعرف</button>
+          <button onClick="{{ demoWrong }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;font-weight:500;opacity:{{ demoOpacity }}" style-hover="background:#3D4442">إجابة خاطئة</button>
+          <button onClick="{{ demoStrong }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;font-weight:500;opacity:{{ demoOpacity }}" style-hover="background:#3D4442">أداء قوي</button>
+        </div>
+        <div style="font-size:12px;color:#9AA19D">{{ demoHint }}</div>
+        <sc-if value="{{ showEngine }}" hint-placeholder-val="{{ false }}">
+          <div style="direction:ltr;font-family:ui-monospace,monospace;font-size:11px;line-height:1.6;background:#111413;border-radius:10px;padding:10px;color:#B8C0BC;white-space:pre">{{ engineJson }}</div>
+        </sc-if>
+      </div>
+    </sc-if>
+    <button onClick="{{ toggleDemo }}" style="padding:10px 14px;border-radius:999px;border:0;background:#1B1F1D;color:#fff;font-size:13px;font-weight:600;box-shadow:0 6px 20px rgba(0,0,0,.2)" style-hover="background:#2A2F2D">{{ demoToggleLabel }}</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;pace&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;demo&quot;,&quot;options&quot;:[&quot;demo&quot;,&quot;fast&quot;],&quot;tsType&quot;:&quot;'demo'|'fast'&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;showEngineState&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;autoStart&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;}}">
+const H = [{l:'1/2',v:'half',ok:true},{l:'1/4',v:'quarter'}];
+const Q34 = [{l:'1/4',ok:true},{l:'1/2'},{l:'3/4'}];
+const CH = [{l:'ربع'},{l:'نصف',ok:true},{l:'ثلاثة أرباع'}];
+const X = [{l:'3/4',ok:true},{l:'1/2'}];
+const STEPS = {
+  intro:{text:'هلا سلمان، اليوم بنفهم الكسور بطريقة بسيطة. قبل ما نبدأ، تعرف وش يعني النصف؟',visual:'pizzaHalf',listen:true},
+  a1:{text:'ممتاز 👏 يعني لو قسمنا البيتزا إلى جزأين متساويين وأخذنا واحد، أخذنا نصفها.',visual:'pizzaHalf',next:'a2',mood:'encourage'},
+  a2:{text:'طيب، أي واحد أكبر؟',visual:'fractions',choices:H,onOk:'a3',onWrong:'c1',question:true,wrongLog:'أخطأ سلمان في مقارنة 1/2 و1/4، فأعاد المعلم الشرح بصريًا بدائرتين متساويتين.'},
+  a3:{text:'صح عليك. خلنا نصعّبها شوي.',visual:'fractions',next:'h1',mood:'encourage',levelUp:true,log:'بعد الإجابة الصحيحة رفع المعلم مستوى السؤال.'},
+  h1:{text:'لو أكلت 3 أرباع البيتزا، كم باقي لك؟',visual:'pizza34',choices:Q34,onOk:'h2',onWrong:'h1r',question:true,wrongLog:'أخطأ في السؤال الأعلى، فأعاد المعلم الشرح بطريقة العدّ.'},
+  h1r:{text:'خلنا نعدّها مع بعض. البيتزا 4 أرباع، أكلنا 3. باقي كم؟',visual:'pizza34',choices:Q34,onOk:'h2',onWrong:'h1r',retry:true},
+  h2:{text:'ممتاز، واضح إنك فهمت.',visual:'pizza34',next:'END',mood:'encourage',log:'أجاب سلمان على سؤال المستوى المتوسط بنجاح.'},
+  b1:{text:'عادي، خلنا نجربها بطريقة ثانية.',visual:'pizzaHalf',next:'b2',strategy:'chocolate_visual',adapt:'غيّر المعلم المثال: بيتزا ← شوكولاتة',log:'غيّر المعلم المثال من البيتزا إلى الشوكولاتة.'},
+  b2:{text:'عندنا 4 قطع شوكولاتة. إذا أخذنا قطعة وحدة، أخذنا 1 من 4. وهذا نسميه رُبع.',visual:'chocOne',next:'b3'},
+  b3:{text:'لو أخذنا قطعتين من الأربع، تتوقع أخذنا كم؟',visual:'chocPick',choices:CH,onOk:'b4',onWrong:'b3r',question:true,simpler:true,wrongLog:'أخطأ في سؤال الشوكولاتة، فوضّح المعلم العلاقة بين الربع والنصف.'},
+  b3r:{text:'شوف الفرق هنا. قطعة وحدة = ربع. قطعتين = ضعف الربع. يعني كم؟',visual:'chocPick',choices:CH,onOk:'b4',onWrong:'b3r',retry:true},
+  b4:{text:'ممتاز، واضح إنك فهمت. قطعتين من أربع يعني نصف الشوكولاتة.',visual:'chocTwo',next:'a2',mood:'encourage',log:'أعطى المعلم سؤالًا أبسط للتأكد من الفهم، وأجاب سلمان صحيحًا.'},
+  c1:{text:'خلنا نشوفها مع بعض.',visual:'compare',next:'c2',adapt:'أعاد المعلم الشرح بمقارنة بصرية',strategy:'side_by_side_compare'},
+  c2:{text:'أي واحدة أخذت جزءًا أكبر من الدائرة؟',visual:'comparePick',compare:true,question:true},
+  c2r:{text:'شوف الجزء الملون في كل دائرة. أيهم أكبر؟',visual:'comparePick',compare:true,retry:true},
+  c3:{text:'بالضبط! الآن شفت الفرق بنفسك.',visual:'compare',next:'h1',mood:'encourage',levelUp:true,log:'بعد المحاولة الثانية الصحيحة رفع المعلم مستوى السؤال.'},
+  x1:{text:'سؤال أخير: أي أكبر، 3/4 أو 1/2؟',visual:'fractions34',choices:X,onOk:'x2',onWrong:'x1r',question:true},
+  x1r:{text:'فكّر فيها: 3 أرباع يعني 3 قطع من 4، والنصف قطعتين. أيهم أكثر؟',visual:'fractions34',choices:X,onOk:'x2',onWrong:'x1r',retry:true},
+  x2:{text:'ممتاز يا سلمان. خلصنا الدرس بقوة.',visual:'fractions34',next:'SUMMARY',mood:'encourage',log:'أجاب على السؤال الإضافي بنجاح.'}
+};
+const LEVELS = ['أساسي','متوسط','متقدم'];
+
+class Component extends DCLogic {
+  state = {screen:'start',step:'intro',phase:'speaking',transcript:'',selected:[],log:[],visited:[],difficulty:1,strategy:'pizza_visual',understanding:'unknown',questions:0,correct:0,reexplain:0,demoOpen:false,adapt:null,startedAt:null,recording:false};
+  timers = [];
+  after(ms,fn){ const t=setTimeout(fn,ms*(this.props.pace==='fast'?0.45:1)); this.timers.push(t); }
+  clear(){ this.timers.forEach(clearTimeout); this.timers=[]; }
+  componentWillUnmount(){ this.clear(); }
+  componentDidMount(){ if(this.props.autoStart) this.setState({screen:'lesson',startedAt:Date.now()},()=>this.goto('intro')); }
+
+  goto(id, extra={}){
+    this.clear();
+    if(id==='END'){ this.setState({screen:'end',phase:'idle',adapt:null,...extra}); return; }
+    if(id==='SUMMARY'){ this.setState({screen:'summary',phase:'idle',adapt:null,...extra}); return; }
+    const st=STEPS[id]; const patch={step:id,phase:'speaking',transcript:'',selected:[],visited:[...this.state.visited,id],adapt:st.adapt||null,...extra};
+    if(st.levelUp){ patch.difficulty=Math.min(3,this.state.difficulty+1); patch.adapt='رفع المعلم المستوى ← '+LEVELS[patch.difficulty-1]; }
+    if(st.strategy) patch.strategy=st.strategy;
+    if(st.retry||id==='b1'||id==='c1') patch.reexplain=this.state.reexplain+1;
+    if(st.log) patch.log=[...(extra.log||this.state.log),st.log];
+    this.setState(patch,()=>{
+      const dur=Math.max(1800,st.text.length*55);
+      this.after(dur,()=>{
+        if(st.next) this.after(500,()=>this.goto(st.next));
+        else this.setState({phase:st.listen?'listening':'choosing'});
+      });
+    });
+  }
+  think(transcript, then){
+    this.clear();
+    this.setState({phase:'thinking',transcript,recording:false},()=>this.after(1600,then));
+  }
+  answerIntro(kind){
+    const map={
+      correct:{t:'يعني لما نقسم الشي نصين متساويين ونأخذ واحد',u:'good',go:'a1',log:'فهم سلمان مفهوم النصف من الشرح الأول.',q:1,c:1},
+      unclear:{t:'امم… يعني… مو متأكد',u:'unclear',go:'b1',log:'لم تكن إجابة سلمان عن النصف واضحة، فقرر المعلم تغيير طريقة الشرح.',q:1,c:0},
+      dontknow:{t:'ما أعرف',u:'confused',go:'b1',log:'سلمان لم يفهم مفهوم النصف من الشرح الأول.',q:1,c:0},
+      strong:{t:'النصف يعني واحد من اثنين، مثل نصف البيتزا. والربع أصغر منه',u:'strong',go:'a3',log:'أظهر سلمان فهمًا قويًا، فتجاوز المعلم الشرح الأساسي ورفع المستوى مباشرة.',q:1,c:1}
+    }[kind];
+    this.think(map.t,()=>this.goto(map.go,{understanding:map.u,questions:this.state.questions+map.q,correct:this.state.correct+map.c,log:[...this.state.log,map.log]}));
+  }
+  pick(ch){
+    const st=STEPS[this.state.step]; const ok=!!ch.ok;
+    const patch={questions:this.state.questions+(st.retry?0:1),correct:this.state.correct+(ok?1:0),understanding:ok?'good':'partial'};
+    if(!ok&&st.wrongLog) patch.log=[...this.state.log,st.wrongLog];
+    this.think('اختار سلمان: '+ch.l,()=>this.goto(ok?st.onOk:st.onWrong,patch));
+  }
+  pickCompare(v){
+    const st=STEPS[this.state.step]; const ok=v==='half';
+    const patch={questions:this.state.questions+(st.retry?0:1),correct:this.state.correct+(ok?1:0),understanding:ok?'good':'partial'};
+    this.think('اختار سلمان: الدائرة '+(ok?'الأولى':'الثانية'),()=>this.goto(ok?'c3':'c2r',patch));
+  }
+  demo(kind){
+    const {phase,step}=this.state; const st=STEPS[step];
+    if(this.state.screen!=='lesson'||(phase!=='listening'&&phase!=='choosing')) return;
+    if(st.listen){ this.answerIntro({understands:'correct',confused:'dontknow',wrong:'unclear',strong:'strong'}[kind]); return; }
+    if(st.compare){ this.pickCompare(kind==='wrong'||kind==='confused'?'quarter':'half'); return; }
+    if(st.choices){ const ok=kind==='understands'||kind==='strong'; this.pick(st.choices.find(c=>ok?c.ok:!c.ok)); }
+  }
+  renderVals(){
+    const s=this.state, st=STEPS[s.step]||STEPS.intro, ph=s.phase;
+    const speaking=ph==='speaking', listening=ph==='listening', thinking=ph==='thinking', choosing=ph==='choosing';
+    const v=(speaking||listening||thinking||choosing)?st.visual:'';
+    const vis=s.visited;
+    const done=[vis.some(x=>['a1','b1','a3'].includes(x)),vis.some(x=>['a2','b4','a3'].includes(x)),vis.some(x=>['a3','c3'].includes(x)),vis.includes('h2'),s.screen==='end'||s.screen==='summary'];
+    const dotsList=done.map(d=>({color:d?'#2F6BD8':'#E3E6E1'}));
+    const bars=(n,color,h)=>React.createElement('span',{style:{display:'inline-flex',gap:3,alignItems:'center',height:h}},Array.from({length:n},(_,i)=>React.createElement('span',{key:i,style:{width:3,height:h,borderRadius:2,background:color,transformOrigin:'center',animation:`wave ${0.9+i*0.13}s ease-in-out ${i*0.1}s infinite`}})));
+    const statusMap={speaking:['يتحدث…','#E7EFFC','#2F6BD8'],listening:['أنا أسمعك','#E4F3EB','#1F8A5B'],thinking:['أفهم إجابتك…','#F5F6F3','#3D4442'],choosing:['ينتظر إجابتك','#E4F3EB','#1F8A5B'],idle:['','#F5F6F3','#3D4442']};
+    const [statusLabel,statusBg,statusColor]=statusMap[ph]||statusMap.idle;
+    const waveEl=(speaking||listening||s.recording)?bars(4,statusColor,14):React.createElement('span',{style:{width:8,height:8,borderRadius:'50%',background:statusColor,display:'inline-block'}});
+    const ringEl=(speaking||listening)?React.createElement('span',{key:ph,style:{position:'absolute',inset:-6,borderRadius:'50%',border:`3px solid ${listening?'#1F8A5B':'#2F6BD8'}`,animation:'ring 1.6s ease-out infinite'}}):null;
+    const subtitleEl=React.createElement('div',{key:s.step,style:{fontSize:24,lineHeight:1.65,fontWeight:500,color:'#1B1F1D',textWrap:'pretty',animation:'fadeUp .45s ease',maxWidth:440}},st.text);
+    const thinkEl=React.createElement('span',{style:{display:'inline-flex',gap:4}},[0,1,2].map(i=>React.createElement('span',{key:i,style:{width:7,height:7,borderRadius:'50%',background:'#2F6BD8',animation:`dots 1.2s ${i*0.2}s infinite`}})));
+    const sel=s.selected;
+    const chocMode=v==='chocPick';
+    const chocSquares=[0,1,2,3].map(i=>{
+      const lit=v==='chocOne'?i===0:v==='chocTwo'?i<2:sel.includes(i);
+      return {label:lit?(v==='chocOne'?'1 من 4':''):'',bg:lit?'#C98B62':'#7A5241',border:lit?'#F2D3B8':'#6B4536',cursor:chocMode&&choosing?'pointer':'default',
+        onTap:()=>{ if(!(chocMode&&choosing)) return; this.setState({selected:sel.includes(i)?sel.filter(x=>x!==i):sel.length<2?[...sel,i]:sel}); }};
+    });
+    const chocCaption=v==='chocOne'?'شوكولاتة من 4 قطع متساوية':v==='chocTwo'?'قطعتان من أربع = نصف':chocMode&&sel.length<2?'المس قطعتين من الشوكولاتة':'قطعتان محددتان — كم أخذنا؟';
+    const canCompare=v==='comparePick'&&choosing;
+    const compareCircles=[{k:'half',label:'الأولى',bg:'conic-gradient(#3B7DDC 0 50%,#F6EFE2 50% 100%)',hDisplay:'none'},{k:'quarter',label:'الثانية',bg:'conic-gradient(#3B7DDC 0 25%,#F6EFE2 25% 100%)',hDisplay:'block'}].map(c=>({...c,cursor:canCompare?'pointer':'default',outline:canCompare?'#D5DEF3':'transparent',onTap:()=>{ if(canCompare) this.pickCompare(c.k); }}));
+    const fractionGlyphs=v==='fractions34'?[{n:'3',d:'4'},{n:'1',d:'2'}]:[{n:'1',d:'2'},{n:'1',d:'4'}];
+    const showChoices=choosing&&!!st.choices&&(!chocMode||sel.length===2);
+    const choiceList=(st.choices||[]).map(c=>({l:c.l,onPick:()=>this.pick(c)}));
+    const notesArr=[];
+    if(vis.includes('a1')||vis.includes('a3')&&!vis.includes('b1')) notesArr.push('فهمت النصف بسرعة.');
+    if(vis.includes('b1')) notesArr.push('احتجت مثالًا إضافيًا لفهم الربع.');
+    if(vis.includes('c1')) notesArr.push('تعلمت المقارنة بين الكسور بعد أن شفت الفرق بنفسك.');
+    else if(vis.includes('a3')) notesArr.push('أصبحت أفضل في المقارنة بين الكسور.');
+    if(vis.includes('h2')) notesArr.push('جاوبت على سؤال أعلى من مستوى البداية.');
+    const ratio=s.questions?s.correct/s.questions:0;
+    const rating=ratio>=0.85?'ممتاز':ratio>=0.6?'جيد جدًا':'جيد';
+    const mins=s.startedAt?Math.max(1,Math.round((Date.now()-s.startedAt)/60000)):1;
+    const stats=[{k:'مدة الجلسة',v:mins+(mins>10?' دقيقة':' دقائق')},{k:'الأسئلة',v:s.questions},{k:'الإجابات الصحيحة',v:s.correct},{k:'مرات إعادة الشرح',v:s.reexplain},{k:'مستوى البداية',v:'أساسي'},{k:'مستوى النهاية',v:LEVELS[s.difficulty-1]}];
+    const engine={difficulty:s.difficulty,understanding:s.understanding,strategy:s.strategy};
+    const engineJson=JSON.stringify({concept:s.step.startsWith('b')?'one-quarter':s.step.startsWith('h')?'three-quarters':'one-half',difficulty:s.difficulty,attempts:s.questions,understanding:s.understanding,strategy:s.strategy,phase:ph},null,2);
+    const demoActive=s.screen==='lesson'&&(listening||choosing);
+    return {
+      isStart:s.screen==='start',isLesson:s.screen==='lesson',isEnd:s.screen==='end',isSummary:s.screen==='summary',
+      dotsList,ringEl,waveEl,subtitleEl,thinkEl,statusLabel,statusBg,statusColor,isEncourage:st.mood==='encourage'&&speaking,
+      vPizzaHalf:v==='pizzaHalf',vPizza34:v==='pizza34',vFractions:v==='fractions'||v==='fractions34',vChoc:v.startsWith('choc'),vCompare:v.startsWith('compare'),
+      fractionGlyphs,chocSquares,chocCaption,compareCircles,
+      showEngine:!!(this.props.showEngineState??false)&&s.screen==='lesson',engine,
+      hasAdaptChip:!!s.adapt,adaptText:s.adapt||'',adaptBg:s.adapt&&s.adapt.startsWith('رفع')?'#E4F3EB':'#FFF6E0',adaptColor:s.adapt&&s.adapt.startsWith('رفع')?'#1F8A5B':'#8A6A1F',
+      showMic:listening,micLabel:s.recording?'أسمعك…':'اضغط للتحدث',showTranscript:thinking&&!!s.transcript,transcript:s.transcript,
+      showChoices,choiceList,showThinking:thinking,thinkLabel:st.retry?'لحظة، خلني أشوف أفضل طريقة أشرحها لك':'أفهم إجابتك…',
+      showSpeakingHint:speaking,showPickHint:choosing&&chocMode&&sel.length<2,
+      rating,notes:notesArr,stats,adaptLog:s.log.map((t,i)=>({i:i+1,t})),
+      demoOpen:s.demoOpen,demoToggleLabel:s.demoOpen?'إغلاق Demo':'Demo Controls',demoDisabled:!demoActive,demoOpacity:demoActive?1:0.4,
+      demoHint:demoActive?'اختر المسار الذي يتبعه سلمان الآن':'تُفعَّل الأزرار عندما ينتظر المعلم إجابة',engineJson,
+      startLesson:()=>{ this.setState({screen:'lesson',startedAt:Date.now()},()=>this.goto('intro')); },
+      tapMic:()=>{ if(!listening||s.recording) return; this.setState({recording:true},()=>this.after(1800,()=>this.answerIntro('correct'))); },
+      toggleDemo:()=>this.setState({demoOpen:!s.demoOpen}),
+      demoUnderstands:()=>this.demo('understands'),demoConfused:()=>this.demo('confused'),demoWrong:()=>this.demo('wrong'),demoStrong:()=>this.demo('strong'),
+      bonusQuestion:()=>{ this.setState({screen:'lesson'},()=>this.goto('x1')); },
+      finishLesson:()=>this.goto('SUMMARY'),
+      restart:()=>{ this.clear(); this.setState({screen:'start',step:'intro',phase:'speaking',transcript:'',selected:[],log:[],visited:[],difficulty:1,strategy:'pizza_visual',understanding:'unknown',questions:0,correct:0,reexplain:0,adapt:null,startedAt:null,recording:false}); }
+    };
+  }
+}
+</script>
+</body>
+</html>
