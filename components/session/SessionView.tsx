@@ -64,7 +64,13 @@ export default function SessionView({ lesson }: SessionViewProps) {
   const voice = useMemo(() => createVoiceAdapter(voiceMode, lesson.id, pace, name), [voiceMode, lesson.id, pace, name]);
   useEffect(() => () => voice.dispose(), [voice]);
 
-  const session = useLessonSession({ lesson, name, voice, pace, autoStart: true });
+  // Browsers only play audio after a user gesture. A client-side navigation keeps
+  // the activation; a deep link or reload does not, so show the start screen then.
+  const autoStart = useMemo(
+    () => voiceMode === "simulated" || (typeof navigator !== "undefined" && (navigator as Navigator & { userActivation?: { hasBeenActive: boolean } }).userActivation?.hasBeenActive === true),
+    [voiceMode],
+  );
+  const session = useLessonSession({ lesson, name, voice, pace, autoStart });
   const { state } = session;
   const character = resolveCharacterMode(params.get("character"));
   const liveMock = params.get("live") === "mock";

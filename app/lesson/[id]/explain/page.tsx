@@ -33,9 +33,11 @@ function ExplainScreen() {
   const lesson = getLesson(id);
   const steps = useMemo(() => lesson?.explain ?? [], [lesson]);
   const [idx, setIdx] = useState(0);
-  const [speaking, setSpeaking] = useState(true);
   const [take, setTake] = useState(0);
   const [viseme, setViseme] = useState<Viseme>(0);
+  // Audio needs a user gesture; after a deep link or reload, wait for a tap.
+  const [armed, setArmed] = useState(false);
+  const [speaking, setSpeaking] = useState(false);
 
   const voiceMode = resolveVoiceMode(params.get("voice"));
   const character = resolveCharacterMode(params.get("character"));
@@ -49,9 +51,23 @@ function ExplainScreen() {
     setTake((t) => t + 1);
   }, []);
 
+  useEffect(() => {
+    const nav = navigator as Navigator & { userActivation?: { hasBeenActive: boolean } };
+    if (voiceMode === "simulated" || nav.userActivation?.hasBeenActive) {
+      setArmed(true);
+      setSpeaking(true);
+    }
+  }, [voiceMode]);
+
+  const arm = () => {
+    (voice as { unlock?: () => void }).unlock?.();
+    setArmed(true);
+    say(0);
+  };
+
   // Simulated: max(2200ms, 60ms × chars). Cascaded: the cached clip's real end event.
   useEffect(() => {
-    if (!speaking || !steps[idx]) return;
+    if (!armed || !speaking || !steps[idx]) return;
     const controller = new AbortController();
     if (voiceMode === "cascaded") {
       voice
@@ -67,7 +83,7 @@ function ExplainScreen() {
       setViseme(0);
       if (timer.current) clearTimeout(timer.current);
     };
-  }, [speaking, idx, take, steps, voice, voiceMode]);
+  }, [armed, speaking, idx, take, steps, voice, voiceMode]);
 
   if (!lesson) return <LessonNotFound />;
 
@@ -99,7 +115,7 @@ function ExplainScreen() {
               viseme={viseme}
               character={character}
             />
-            <StatusPill label={speaking ? "يشرح…" : "انتهى من الشرح"} tone="primary" active={speaking} />
+            <StatusPill label={!armed ? "جاهز للشرح" : speaking ? "يشرح…" : "انتهى من الشرح"} tone="primary" active={speaking} />
             <Subtitle id={`${idx}:${take}`} text={step.text} size={26} />
           </div>
           <div className="flex flex-col gap-3.5">
@@ -110,7 +126,11 @@ function ExplainScreen() {
           </div>
         </div>
         <div className="border-t border-border px-8 py-5 min-h-[96px] flex items-center justify-center gap-3 flex-wrap">
-          {!done ? (
+          {!armed ? (
+            <Button onClick={arm} className="px-8 py-4 text-[17px]">
+              ابدأ الشرح
+            </Button>
+          ) : !done ? (
             <>
               <Button variant="secondary" onClick={() => say(idx)} className="px-6 py-3.5 text-[16px]">
                 أعد الشرح

@@ -69,13 +69,17 @@ lib/db/supabase.ts            # persistence stub
 
 ## Voice pipeline
 
-Two adapters implement `lib/voice/types.ts`; pick one with `?voice=cascaded` on the session or explain URL, or
-`NEXT_PUBLIC_VOICE=cascaded` in `.env.local`.
+Two adapters implement `lib/voice/types.ts`. `cascaded` is the default; force the silent timer prototype with
+`?voice=simulated` or `NEXT_PUBLIC_VOICE=simulated`.
 
 | Adapter | Teacher speech | Child answer |
 | --- | --- | --- |
-| `simulated` (default) | timers: `max(1800ms, 55ms × chars)` | 1.8 s fake recording, scripted "correct" |
-| `cascaded` | pre-rendered clips from `public/audio/<lesson>/`, visemes drive the mouth; cache miss → `/api/tts` | push-to-talk → `/api/stt` → `/api/assess` (structured `ModelTurn`) → engine branch |
+| `cascaded` (default) | pre-rendered clips from `public/audio/<lesson>/` → `/api/tts` → the device's Arabic voice (SpeechSynthesis) → timers | Web Speech API recognition (Chrome, Safari, Android) → else push-to-talk recording → `/api/stt`; then `/api/assess` → engine branch; on any failure the four scripted answers become tap choices |
+| `simulated` | timers: `max(1800ms, 55ms × chars)` | 1.8 s fake recording, scripted "correct" |
+
+With no keys at all the app still speaks and listens through the browser. Because browsers only play audio after a
+user gesture, the session shows its start screen after a deep link or reload, and the explanation mode shows
+"ابدأ الشرح".
 
 Pre-render the teacher lines once per voice (copy `.env.example` to `.env.local` first):
 
