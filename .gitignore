@@ -29,4 +29,4 @@ yarn-error.log*
 .vercel
 
 # pre-rendered teacher audio (run `npm run render-lines`)
-/public/audio/
+# /public/audio/  (rendered teacher audio is committed so deploys never re-render it)
