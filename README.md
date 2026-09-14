@@ -106,7 +106,16 @@ summary. Parents can switch it off in the parent area.
 - `lib/voice/live/mock.ts`: offline stand-in used with `?live=mock` or `LIVE_PROVIDER=mock`.
 
 Set `GEMINI_API_KEY` in `.env.local` (see `.env.example`); without it the feature runs the mock in development
-and is off in production.
+and is off in production. Check a key against the Live API in one command:
+
+```bash
+npm run live:probe                 # mint an ephemeral token and open a session
+npm run live:probe -- --auth key   # control: connect with the API key directly
+```
+
+The token is minted with the full setup locked under `bidiGenerateContentSetup` (the REST name; the SDK's
+`liveConnectConstraints` is rejected). A key whose project answers "Your project has been denied access" on
+the socket cannot use the Live API at all; that is a project-level entitlement on Google's side.
 
 ## Character
 

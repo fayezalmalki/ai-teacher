@@ -1,8 +1,13 @@
 /**
  * Mints an ephemeral Gemini Live token for one "ask the teacher" session.
- * The API key and the guardrail system prompt stay on the server: the prompt
- * is locked into the token's connect constraints, and the client only
- * receives a single-use token plus the matching setup message.
+ * The API key and the guardrail system prompt stay on the server: the whole
+ * BidiGenerateContent setup (model, voice, system prompt, transcription,
+ * VAD) is locked into the token via `bidiGenerateContentSetup`, and the
+ * client only receives a single-use token plus the matching setup message.
+ *
+ * Verified against the REST API: `auth_tokens` accepts the full setup under
+ * `bidiGenerateContentSetup` (the SDK's `liveConnectConstraints` name is
+ * rejected). Re-test a key with `npm run live:probe`.
  *
  * With LIVE_PROVIDER=mock (or no GEMINI_API_KEY in development) the route
  * returns a canned script so the UI runs offline.
@@ -62,9 +67,13 @@ export async function POST(req: Request) {
   const voice = process.env.GEMINI_LIVE_VOICE || "Kore";
   const apiVersion = process.env.GEMINI_LIVE_API_VERSION || "v1beta";
 
-  const config = {
-    responseModalities: ["AUDIO"],
-    speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
+  /** The BidiGenerateContent setup message; locked into the token and echoed to the client. */
+  const setup = {
+    model: `models/${model}`,
+    generationConfig: {
+      responseModalities: ["AUDIO"],
+      speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: voice } } },
+    },
     systemInstruction: { parts: [{ text: askSystemPrompt(lesson, childName) }] },
     inputAudioTranscription: {},
     outputAudioTranscription: {},
@@ -83,7 +92,7 @@ export async function POST(req: Request) {
     uses: 1,
     expireTime: new Date(now + LIMITS.maxDurationMs + 60_000).toISOString(),
     newSessionExpireTime: new Date(now + 60_000).toISOString(),
-    liveConnectConstraints: { model: `models/${model}`, config: lock ? config : { responseModalities: ["AUDIO"] } },
+    bidiGenerateContentSetup: lock ? setup : { model: setup.model, generationConfig: { responseModalities: ["AUDIO"] } },
   });
 
   try {
@@ -109,7 +118,7 @@ export async function POST(req: Request) {
       provider: "gemini-live",
       token: json.name,
       wsUrl: `wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.${apiVersion}.GenerativeService.BidiGenerateContent`,
-      setup: { model: `models/${model}`, generationConfig: { responseModalities: config.responseModalities, speechConfig: config.speechConfig }, systemInstruction: config.systemInstruction, inputAudioTranscription: {}, outputAudioTranscription: {}, realtimeInputConfig: config.realtimeInputConfig },
+      setup,
       limits: LIMITS,
     };
     return NextResponse.json(out);
