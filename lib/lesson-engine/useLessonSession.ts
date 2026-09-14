@@ -116,7 +116,7 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
       })
       .then((res) => {
         if (controller.signal.aborted) return;
-        if (res.error === "mic-unavailable" || res.error === "no-speech") {
+        if (res.error) {
           setListenError(res.error);
           dispatch({ type: "MIC_STOP" });
           return;
@@ -138,7 +138,10 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
 
   const api = useMemo(
     () => ({
-      start: () => dispatch({ type: "START", now: Date.now() }),
+      start: () => {
+        (voice as { unlock?: () => void }).unlock?.();
+        dispatch({ type: "START", now: Date.now() });
+      },
       tapMic: () => dispatch({ type: "MIC_START" }),
       /** Tap fallback when the mic is unavailable: the child picks what they would have said. */
       answerIntro: (kind: IntroAnswerKind) => dispatch({ type: "INTRO_ANSWER", kind }),
@@ -153,7 +156,7 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
       finish: () => dispatch({ type: "FINISH", now: Date.now() }),
       restart: () => dispatch({ type: "RESTART" }),
     }),
-    [],
+    [voice],
   );
 
   return { state, awaiting: isAwaitingAnswer(state), viseme, level, listenError, ...api };

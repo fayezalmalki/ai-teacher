@@ -22,6 +22,9 @@ export async function POST(req: Request) {
   if (text.length > MAX_CHARS) return NextResponse.json({ error: `text longer than ${MAX_CHARS} chars` }, { status: 413 });
 
   const cfg = ttsConfigFromEnv();
+  if (cfg.provider === "mock") {
+    return NextResponse.json({ error: "tts not configured" }, { status: 503 });
+  }
   try {
     const s = await synthesize(text, cfg);
     return NextResponse.json({

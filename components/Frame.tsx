@@ -13,7 +13,7 @@ export default function Frame({ children, variant = "app" }: FrameProps) {
     <div
       className={
         "min-h-screen grid px-6 bg-page " +
-        (session ? "place-items-center pt-6 pb-[140px]" : "place-items-[start_center] py-6")
+        (session ? "place-items-center pt-6 pb-[140px]" : "justify-items-center content-start py-6")
       }
     >
       <div

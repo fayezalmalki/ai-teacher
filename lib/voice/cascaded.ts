@@ -6,14 +6,17 @@
  *
  *  speak(text)  → look up the pre-rendered clip by line hash (manifest from
  *                 scripts/render-lines.ts), play it, emit viseme frames from
- *                 the audio clock, resolve on `ended`. Cache miss → /api/tts.
- *                 Any failure → the fallback adapter, so a lesson never stalls.
- *  listen()     → getUserMedia + MediaRecorder, stop on ~1.2 s of silence after
- *                 speech (or 8 s max), POST /api/stt, POST /api/assess, resolve
- *                 with the transcript and the IntroAnswerKind the engine needs.
+ *                 the audio clock, resolve on `ended`. Cache miss → /api/tts →
+ *                 the device's Arabic voice (SpeechSynthesis) → the fallback
+ *                 adapter's timing, so a lesson never stalls.
+ *  listen()     → Web Speech API recognition when the browser has it, else
+ *                 getUserMedia + MediaRecorder → POST /api/stt; then POST
+ *                 /api/assess and resolve with the transcript and the
+ *                 IntroAnswerKind the engine needs.
  *  interrupt()  → pause playback / stop recording (barge-in from the UI).
  */
 import type { IntroAnswerKind } from "@/lib/lesson-engine/types";
+import { hasBrowserRecognition, recognizeWithBrowser, speakWithBrowser, unlockBrowserSpeech } from "./browser";
 import { hashLine, manifestPath, visemeAt, type LinesManifest, type ManifestLine } from "./lines";
 import type { ListenOptions, ListenResult, SpeakOptions, VoiceAdapter, VisemeFrame } from "./types";
 
@@ -73,6 +76,13 @@ export class CascadedVoiceAdapter implements VoiceAdapter {
     this.opts.childName = name;
   }
 
+  /** Call from a user gesture: unlocks SpeechSynthesis / audio playback. */
+  unlock() {
+    unlockBrowserSpeech();
+    this.unlocked = true;
+  }
+  private unlocked = false;
+
   async isAvailable() {
     return typeof navigator !== "undefined" && !!navigator.mediaDevices?.getUserMedia && typeof MediaRecorder !== "undefined";
   }
@@ -91,7 +101,7 @@ export class CascadedVoiceAdapter implements VoiceAdapter {
       console.warn("[voice] clip unavailable, falling back:", err);
     }
     if (opts.signal?.aborted) throw aborted();
-    if (!clip) return this.opts.fallback.speak(text, opts);
+    if (!clip) return this.speakWithDevice(text, opts);
 
     const audio = new Audio(clip.url);
     audio.preload = "auto";
@@ -137,8 +147,19 @@ export class CascadedVoiceAdapter implements VoiceAdapter {
       });
     } catch (err) {
       if ((err as DOMException)?.name === "AbortError") throw err;
-      // Autoplay policy or decode error: keep the lesson moving on simulated timing.
+      // Autoplay policy or decode error: try the device voice, then simulated timing.
       console.warn("[voice] playback failed, falling back:", err);
+      return this.speakWithDevice(text, opts);
+    }
+  }
+
+  /** Device SpeechSynthesis (Arabic voice) with the simulated adapter as the last resort. */
+  private async speakWithDevice(text: string, opts: SpeakOptions): Promise<void> {
+    try {
+      await speakWithBrowser(text, { signal: opts.signal, onViseme: opts.onViseme });
+    } catch (err) {
+      if ((err as DOMException)?.name === "AbortError") throw err;
+      console.info("[voice] device voice unavailable, using simulated timing:", (err as Error).message);
       return this.opts.fallback.speak(text, opts);
     }
   }
@@ -167,11 +188,16 @@ export class CascadedVoiceAdapter implements VoiceAdapter {
     }
 
     // Cache miss (e.g. a child name that was not pre-rendered): synthesize on demand.
+    if (this.ttsUnavailable) return null;
     const res = await fetch(this.opts.ttsEndpoint, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ text }),
     });
+    if (res.status === 503) {
+      this.ttsUnavailable = true; // no vendor configured: stop asking
+      return null;
+    }
     if (!res.ok) throw new Error(`tts ${res.status}`);
     const json = (await res.json()) as { audio: string; mime: string; durationMs: number; visemes: VisemeFrame[] };
     const bytes = Uint8Array.from(atob(json.audio), (c) => c.charCodeAt(0));
@@ -180,6 +206,9 @@ export class CascadedVoiceAdapter implements VoiceAdapter {
     this.clips.set(hash, clip);
     return clip;
   }
+
+  private ttsUnavailable = false;
+  private recognitionBroken = false;
 
   private stopPlayback() {
     cancelAnimationFrame(this.raf);
@@ -200,41 +229,64 @@ export class CascadedVoiceAdapter implements VoiceAdapter {
     this.listenAbort = ctrl;
     opts.signal?.addEventListener("abort", () => ctrl.abort(), { once: true });
 
+    let transcript = "";
+    let r: ListenResult | null = null;
+    if (hasBrowserRecognition() && !this.recognitionBroken) {
+      r = await recognizeWithBrowser({ signal: ctrl.signal, onPartial: opts.onPartial, onLevel: opts.onLevel });
+      if (ctrl.signal.aborted) throw aborted();
+      if (r.error === "stt-failed") {
+        this.recognitionBroken = true; // engine missing or offline: use the server path from now on
+        r = null;
+      }
+    }
+    if (!r) {
+      r = await this.recordAndTranscribe(ctrl.signal, opts.onLevel);
+      if (ctrl.signal.aborted) throw aborted();
+    }
+    if (r.error) return r;
+    transcript = r.transcript;
+    opts.onPartial?.(transcript);
+    return this.assess(transcript, opts, ctrl.signal);
+  }
+
+  /** Server STT path (MediaRecorder → /api/stt) for browsers without the Web Speech API. */
+  private async recordAndTranscribe(signal: AbortSignal, onLevel?: (l: number) => void): Promise<ListenResult> {
     let stream: MediaStream;
     try {
       stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
     } catch {
       return { transcript: "", error: "mic-unavailable" };
     }
-    if (ctrl.signal.aborted) {
+    if (signal.aborted) {
       stream.getTracks().forEach((t) => t.stop());
       throw aborted();
     }
     this.stream = stream;
 
-    const blob = await this.record(stream, ctrl.signal, opts.onLevel);
-    if (ctrl.signal.aborted) throw aborted();
+    const blob = await this.record(stream, signal, onLevel);
+    if (signal.aborted) throw aborted();
     if (!blob || blob.size === 0) return { transcript: "", error: "no-speech" };
 
-    let transcript = "";
     try {
       const form = new FormData();
       form.append("audio", blob, "answer.webm");
-      const res = await fetch(this.opts.sttEndpoint, { method: "POST", body: form, signal: ctrl.signal });
+      const res = await fetch(this.opts.sttEndpoint, { method: "POST", body: form, signal });
       if (!res.ok) throw new Error(`stt ${res.status}`);
-      transcript = ((await res.json()) as { transcript?: string }).transcript ?? "";
+      const transcript = ((await res.json()) as { transcript?: string }).transcript ?? "";
+      return transcript.trim() ? { transcript } : { transcript: "", error: "no-speech" };
     } catch (err) {
       if ((err as DOMException)?.name === "AbortError") throw err;
       return { transcript: "", error: "stt-failed" };
     }
-    opts.onPartial?.(transcript);
+  }
 
+  private async assess(transcript: string, opts: ListenOptions, signal: AbortSignal): Promise<ListenResult> {
     if (!opts.context) return { transcript };
     try {
       const res = await fetch(this.opts.assessEndpoint, {
         method: "POST",
         headers: { "content-type": "application/json" },
-        signal: ctrl.signal,
+        signal,
         body: JSON.stringify({
           lessonId: this.opts.lessonId,
           transcript,

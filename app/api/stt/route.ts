@@ -22,6 +22,9 @@ export async function POST(req: Request) {
   if (audio.size > MAX_BYTES) return NextResponse.json({ error: "audio too large" }, { status: 413 });
 
   const provider = sttProviderFromEnv();
+  if (provider === "mock") {
+    return NextResponse.json({ error: "stt not configured" }, { status: 503 });
+  }
   try {
     const transcript = await transcribe(audio, provider);
     return NextResponse.json({ provider, transcript });
