@@ -1,0 +1,265 @@
+{
+  "id": "fractions",
+  "title": "درس الكسور",
+  "subject": "الرياضيات",
+  "subjectId": "math",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": ["أساسي", "متوسط", "متقدم"],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "choiceSets": {
+    "H": [{ "l": "1/2", "v": "half", "ok": true }, { "l": "1/4", "v": "quarter" }],
+    "Q34": [{ "l": "1/4", "ok": true }, { "l": "1/2" }, { "l": "3/4" }],
+    "CH": [{ "l": "ربع" }, { "l": "نصف", "ok": true }, { "l": "ثلاثة أرباع" }],
+    "X": [{ "l": "3/4", "ok": true }, { "l": "1/2" }]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم بنفهم الكسور بطريقة بسيطة. قبل ما نبدأ، تعرف وش يعني النصف؟",
+      "visual": "pizzaHalf",
+      "concept": "one-half",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 يعني لو قسمنا البيتزا إلى جزأين متساويين وأخذنا واحد، أخذنا نصفها.",
+      "visual": "pizzaHalf",
+      "concept": "one-half",
+      "next": "a2",
+      "mood": "encourage"
+    },
+    "a2": {
+      "text": "طيب، أي واحد أكبر؟",
+      "visual": "fractions",
+      "concept": "one-half",
+      "choices": "H",
+      "onOk": "a3",
+      "onWrong": "c1",
+      "question": true,
+      "wrongLog": "أخطأ {name} في مقارنة 1/2 و1/4، فأعاد المعلم الشرح بصريًا بدائرتين متساويتين."
+    },
+    "a3": {
+      "text": "صح عليك. خلنا نصعّبها شوي.",
+      "visual": "fractions",
+      "concept": "one-half",
+      "next": "h1",
+      "mood": "encourage",
+      "levelUp": true,
+      "log": "بعد الإجابة الصحيحة رفع المعلم مستوى السؤال."
+    },
+    "h1": {
+      "text": "لو أكلت 3 أرباع البيتزا، كم باقي لك؟",
+      "visual": "pizza34",
+      "concept": "three-quarters",
+      "choices": "Q34",
+      "onOk": "h2",
+      "onWrong": "h1r",
+      "question": true,
+      "wrongLog": "أخطأ في السؤال الأعلى، فأعاد المعلم الشرح بطريقة العدّ."
+    },
+    "h1r": {
+      "text": "خلنا نعدّها مع بعض. البيتزا 4 أرباع، أكلنا 3. باقي كم؟",
+      "visual": "pizza34",
+      "concept": "three-quarters",
+      "choices": "Q34",
+      "onOk": "h2",
+      "onWrong": "h1r",
+      "retry": true
+    },
+    "h2": {
+      "text": "ممتاز، واضح إنك فهمت.",
+      "visual": "pizza34",
+      "concept": "three-quarters",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على سؤال المستوى المتوسط بنجاح."
+    },
+    "b1": {
+      "text": "عادي، خلنا نجربها بطريقة ثانية.",
+      "visual": "pizzaHalf",
+      "concept": "one-quarter",
+      "next": "b2",
+      "strategy": "chocolate_visual",
+      "reexplain": true,
+      "adapt": "غيّر المعلم المثال: بيتزا ← شوكولاتة",
+      "log": "غيّر المعلم المثال من البيتزا إلى الشوكولاتة."
+    },
+    "b2": {
+      "text": "عندنا 4 قطع شوكولاتة. إذا أخذنا قطعة وحدة، أخذنا 1 من 4. وهذا نسميه رُبع.",
+      "visual": "chocOne",
+      "concept": "one-quarter",
+      "next": "b3"
+    },
+    "b3": {
+      "text": "لو أخذنا قطعتين من الأربع، تتوقع أخذنا كم؟",
+      "visual": "chocPick",
+      "concept": "one-quarter",
+      "choices": "CH",
+      "onOk": "b4",
+      "onWrong": "b3r",
+      "question": true,
+      "simpler": true,
+      "wrongLog": "أخطأ في سؤال الشوكولاتة، فوضّح المعلم العلاقة بين الربع والنصف."
+    },
+    "b3r": {
+      "text": "شوف الفرق هنا. قطعة وحدة = ربع. قطعتين = ضعف الربع. يعني كم؟",
+      "visual": "chocPick",
+      "concept": "one-quarter",
+      "choices": "CH",
+      "onOk": "b4",
+      "onWrong": "b3r",
+      "retry": true
+    },
+    "b4": {
+      "text": "ممتاز، واضح إنك فهمت. قطعتين من أربع يعني نصف الشوكولاتة.",
+      "visual": "chocTwo",
+      "concept": "one-quarter",
+      "next": "a2",
+      "mood": "encourage",
+      "log": "أعطى المعلم سؤالًا أبسط للتأكد من الفهم، وأجاب {name} صحيحًا."
+    },
+    "c1": {
+      "text": "خلنا نشوفها مع بعض.",
+      "visual": "compare",
+      "concept": "one-half",
+      "next": "c2",
+      "reexplain": true,
+      "adapt": "أعاد المعلم الشرح بمقارنة بصرية",
+      "strategy": "side_by_side_compare"
+    },
+    "c2": {
+      "text": "أي واحدة أخذت جزءًا أكبر من الدائرة؟",
+      "visual": "comparePick",
+      "concept": "one-half",
+      "question": true,
+      "compare": {
+        "correct": "half",
+        "onOk": "c3",
+        "onWrong": "c2r",
+        "transcript": "اختار {name}: الدائرة {choice}",
+        "labels": { "half": "الأولى", "quarter": "الثانية" }
+      }
+    },
+    "c2r": {
+      "text": "شوف الجزء الملون في كل دائرة. أيهم أكبر؟",
+      "visual": "comparePick",
+      "concept": "one-half",
+      "retry": true,
+      "compare": {
+        "correct": "half",
+        "onOk": "c3",
+        "onWrong": "c2r",
+        "transcript": "اختار {name}: الدائرة {choice}",
+        "labels": { "half": "الأولى", "quarter": "الثانية" }
+      }
+    },
+    "c3": {
+      "text": "بالضبط! الآن شفت الفرق بنفسك.",
+      "visual": "compare",
+      "concept": "one-half",
+      "next": "h1",
+      "mood": "encourage",
+      "levelUp": true,
+      "log": "بعد المحاولة الثانية الصحيحة رفع المعلم مستوى السؤال."
+    },
+    "x1": {
+      "text": "سؤال أخير: أي أكبر، 3/4 أو 1/2؟",
+      "visual": "fractions34",
+      "concept": "one-half",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "فكّر فيها: 3 أرباع يعني 3 قطع من 4، والنصف قطعتين. أيهم أكثر؟",
+      "visual": "fractions34",
+      "concept": "one-half",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا الدرس بقوة.",
+      "visual": "fractions34",
+      "concept": "one-half",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "يعني لما نقسم الشي نصين متساويين ونأخذ واحد",
+      "understanding": "good",
+      "go": "a1",
+      "log": "فهم {name} مفهوم النصف من الشرح الأول.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… يعني… مو متأكد",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} عن النصف واضحة، فقرر المعلم تغيير طريقة الشرح.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يفهم مفهوم النصف من الشرح الأول.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "النصف يعني واحد من اثنين، مثل نصف البيتزا. والربع أصغر منه",
+      "understanding": "strong",
+      "go": "a3",
+      "log": "أظهر {name} فهمًا قويًا، فتجاوز المعلم الشرح الأساسي ورفع المستوى مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [["a1", "b1", "a3"], ["a2", "b4", "a3"], ["a3", "c3"], ["h2"], ["END"]],
+  "notes": [
+    { "text": "فهمت النصف بسرعة.", "when": [{ "anyOf": ["a1"] }, { "allOf": ["a3"], "noneOf": ["b1"] }] },
+    { "text": "احتجت مثالًا إضافيًا لفهم الربع.", "when": [{ "anyOf": ["b1"] }] },
+    { "group": "compare", "text": "تعلمت المقارنة بين الكسور بعد أن شفت الفرق بنفسك.", "when": [{ "anyOf": ["c1"] }] },
+    { "group": "compare", "text": "أصبحت أفضل في المقارنة بين الكسور.", "when": [{ "anyOf": ["a3"] }] },
+    { "text": "جاوبت على سؤال أعلى من مستوى البداية.", "when": [{ "anyOf": ["h2"] }] }
+  ],
+  "rating": [
+    { "min": 0.85, "label": "ممتاز" },
+    { "min": 0.6, "label": "جيد جدًا" },
+    { "min": 0, "label": "جيد" }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم فهمنا أن الكسر يمثل جزءًا من شيء كامل، وشفنا الفرق بين النصف والربع.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "greeting": "هلا {name}! عندك سؤال عن الكسور؟ أنا أسمعك.",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "scope": "الكسور للصف الثالث: الكل، النصف، الربع، ثلاثة الأرباع، مقارنة الكسور، أمثلة البيتزا والشوكولاتة."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    { "text": "شوف هذي البيتزا. كاملة، ما قسمناها. هذا هو \"الكل\".", "visual": "whole" },
+    { "text": "لو قسمناها إلى جزأين متساويين، كل جزء نسميه نصف. واحد من اثنين.", "visual": "half" },
+    { "text": "ولو قسمناها إلى 4 أجزاء متساوية، كل جزء نسميه رُبع. والربع أصغر من النصف.", "visual": "quarter" },
+    { "text": "الكسر يعني جزء من شي كامل. الرقم اللي تحت كم قسمنا، والرقم اللي فوق كم أخذنا.", "visual": "glyph" }
+  ],
+  "intro": {
+    "eyebrow": "الرياضيات · 10 دقائق",
+    "title": "درس الكسور",
+    "line": "هلا {name}. أولًا أشرح لك الفكرة بهدوء، وبعدين نجرب مع بعض وأسمع إجاباتك."
+  }
+}
