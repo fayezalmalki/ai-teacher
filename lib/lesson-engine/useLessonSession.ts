@@ -1,7 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
-import type { VoiceAdapter } from "@/lib/voice/types";
+import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from "react";
+import type { ListenError, Viseme, VoiceAdapter } from "@/lib/voice/types";
+import { toTurnState } from "./contract";
 import { track } from "@/lib/analytics/events";
 import { afterSpeech, createInitialState, isAwaitingAnswer, sessionReducer } from "./reducer";
 import { PAUSE_MS, THINK_MS, scaled, type Pace } from "./timing";
@@ -27,6 +28,12 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
   const [state, dispatch] = useReducer(reducer, lesson, createInitialState);
   const stateRef = useRef(state);
   stateRef.current = state;
+  /** Current mouth shape from the voice adapter (0 = rest). */
+  const [viseme, setViseme] = useState<Viseme>(0);
+  /** Input level 0–1 while recording. */
+  const [level, setLevel] = useState(0);
+  /** Last listen failure; the UI offers the tap fallback while set. */
+  const [listenError, setListenError] = useState<ListenError | null>(null);
 
   // Auto-start once.
   const started = useRef(false);
@@ -62,7 +69,7 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
     if (state.adapt) track({ name: "adaptation", lessonId: lesson.id, text: state.adapt });
     const text = teacherLine(state, lesson, name);
     voice
-      .speak(text, { signal: controller.signal })
+      .speak(text, { signal: controller.signal, onViseme: setViseme })
       .then(() => {
         if (controller.signal.aborted) return;
         const next = afterSpeech(stateRef.current, lesson);
@@ -81,6 +88,7 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
     return () => {
       controller.abort();
       voice.interrupt();
+      setViseme(0);
       if (timer) clearTimeout(timer);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,25 +105,43 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
   useEffect(() => {
     if (!state.recording) return;
     const controller = new AbortController();
+    const current = stateRef.current;
+    setListenError(null);
     voice
-      .listen({ signal: controller.signal, expectedKind: "correct" })
+      .listen({
+        signal: controller.signal,
+        expectedKind: "correct",
+        onLevel: setLevel,
+        context: { teacherLine: teacherLine(current, lesson, name), turnState: toTurnState(current, lesson) },
+      })
       .then((res) => {
         if (controller.signal.aborted) return;
-        const kind = (res.transcript || "correct") as IntroAnswerKind;
+        if (res.error === "mic-unavailable" || res.error === "no-speech") {
+          setListenError(res.error);
+          dispatch({ type: "MIC_STOP" });
+          return;
+        }
         const valid: IntroAnswerKind[] = ["correct", "unclear", "dontknow", "strong"];
-        dispatch({ type: "INTRO_ANSWER", kind: valid.includes(kind) ? kind : "correct" });
+        // Simulated adapters return the kind in `transcript`; real ones classify and return `kind`.
+        const kind = res.kind ?? ((valid as string[]).includes(res.transcript) ? (res.transcript as IntroAnswerKind) : "correct");
+        const transcript = res.kind ? res.transcript : undefined;
+        if (transcript) track({ name: "answer", lessonId: lesson.id, step: current.step, correct: kind === "correct" || kind === "strong", transcript });
+        dispatch({ type: "INTRO_ANSWER", kind, transcript });
       })
-      .catch(() => dispatch({ type: "MIC_STOP" }));
+      .catch(() => dispatch({ type: "MIC_STOP" }))
+      .finally(() => setLevel(0));
     return () => {
       controller.abort();
       voice.interrupt();
     };
-  }, [state.recording, voice]);
+  }, [state.recording, voice, lesson, name]);
 
   const api = useMemo(
     () => ({
       start: () => dispatch({ type: "START", now: Date.now() }),
       tapMic: () => dispatch({ type: "MIC_START" }),
+      /** Tap fallback when the mic is unavailable: the child picks what they would have said. */
+      answerIntro: (kind: IntroAnswerKind) => dispatch({ type: "INTRO_ANSWER", kind }),
       pick: (index: number) => dispatch({ type: "PICK", index }),
       pickCompare: (value: string) => dispatch({ type: "PICK_COMPARE", value }),
       toggleSquare: (index: number) => dispatch({ type: "TOGGLE_SQUARE", index }),
@@ -127,5 +153,5 @@ export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart
     [],
   );
 
-  return { state, awaiting: isAwaitingAnswer(state), ...api };
+  return { state, awaiting: isAwaitingAnswer(state), viseme, level, listenError, ...api };
 }

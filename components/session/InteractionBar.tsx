@@ -1,6 +1,7 @@
 "use client";
 
-import type { Choice } from "@/lib/lesson-engine/types";
+import type { Choice, IntroAnswerKind, IntroResponse } from "@/lib/lesson-engine/types";
+import type { ListenError } from "@/lib/voice/types";
 import MicButton from "./MicButton";
 import Choices from "./Choices";
 import ThinkingDots from "./ThinkingDots";
@@ -9,6 +10,10 @@ export interface InteractionBarProps {
   mode: "mic" | "choices" | "thinking" | "speaking" | "pickHint" | "idle";
   recording?: boolean;
   onMic?: () => void;
+  /** When the mic failed: show the scripted answers as tappable choices. */
+  listenError?: ListenError | null;
+  introResponses?: Record<IntroAnswerKind, IntroResponse>;
+  onIntroAnswer?: (kind: IntroAnswerKind) => void;
   choices?: Choice[];
   onPick?: (index: number) => void;
   transcript?: string;
@@ -22,6 +27,9 @@ export default function InteractionBar({
   mode,
   recording = false,
   onMic,
+  listenError = null,
+  introResponses,
+  onIntroAnswer,
   choices = [],
   onPick,
   transcript = "",
@@ -31,7 +39,35 @@ export default function InteractionBar({
 }: InteractionBarProps) {
   return (
     <div className="border-t border-border px-8 py-5 min-h-[112px] flex items-center justify-center gap-4 flex-wrap">
-      {mode === "mic" && <MicButton recording={recording} onTap={() => onMic?.()} />}
+      {mode === "mic" && !listenError && <MicButton recording={recording} onTap={() => onMic?.()} />}
+      {mode === "mic" && listenError && introResponses && (
+        <div className="flex flex-col items-center gap-3 w-full">
+          <div className="text-[15px] text-muted">
+            {listenError === "mic-unavailable" ? "الميكروفون غير متاح. اختر أقرب إجابة لك:" : "ما سمعتك زين. اختر أقرب إجابة لك، أو جرّب تتكلم مرة ثانية:"}
+          </div>
+          <div className="flex gap-2.5 flex-wrap justify-center">
+            {(Object.keys(introResponses) as IntroAnswerKind[]).map((k) => (
+              <button
+                key={k}
+                type="button"
+                onClick={() => onIntroAnswer?.(k)}
+                className="px-4 py-3 rounded-tile border-2 border-border-2 bg-surface text-[16px] font-medium text-ink transition-all duration-200 hover:border-primary hover:bg-primary-tint-2 max-w-[260px] text-right"
+              >
+                {introResponses[k].transcript}
+              </button>
+            ))}
+            {listenError !== "mic-unavailable" && (
+              <button
+                type="button"
+                onClick={() => onMic?.()}
+                className="px-4 py-3 rounded-pill border-0 bg-primary text-white text-[15px] font-semibold hover:bg-primary-hover"
+              >
+                تكلم مرة ثانية
+              </button>
+            )}
+          </div>
+        </div>
+      )}
       {mode === "thinking" && (
         <>
           {transcript && (

@@ -28,7 +28,7 @@ import {
   type Pace,
 } from "@/lib/lesson-engine";
 import { useLessonSession } from "@/lib/lesson-engine/useLessonSession";
-import { SimulatedVoiceAdapter } from "@/lib/voice";
+import { createVoiceAdapter, resolveVoiceMode } from "@/lib/voice/select";
 import { useAppStore } from "@/lib/store/app-store";
 
 
@@ -58,11 +58,13 @@ export default function SessionView({ lesson }: SessionViewProps) {
     if (taps.current >= 5) setDemoVisible(true);
   };
 
-  const voice = useMemo(() => new SimulatedVoiceAdapter(pace), [pace]);
+  const voiceMode = resolveVoiceMode(params.get("voice"));
+  const voice = useMemo(() => createVoiceAdapter(voiceMode, lesson.id, pace, name), [voiceMode, lesson.id, pace, name]);
   useEffect(() => () => voice.dispose(), [voice]);
 
   const session = useLessonSession({ lesson, name, voice, pace, autoStart: true });
   const { state } = session;
+  const mouth = voiceMode === "cascaded" ? session.viseme : undefined;
 
   // Summary lives on its own route: persist the result and navigate.
   const navigated = useRef(false);
@@ -161,7 +163,7 @@ export default function SessionView({ lesson }: SessionViewProps) {
         <>
           <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 px-8 pt-9 pb-6">
             <div className="flex flex-col items-start gap-5">
-              <Teacher size={128} glyphSize={52} state={teacherState} onClick={onSecretTap} />
+              <Teacher size={128} glyphSize={52} state={teacherState} viseme={mouth} onClick={onSecretTap} />
               {status && <StatusPill label={status.label} tone={status.tone} active={speaking || listening || state.recording} />}
               <div className="text-[15px] text-muted">{lesson.teacher}</div>
               <Subtitle id={state.step + ":" + state.visited.length} text={teacherLine(state, lesson, name)} />
@@ -199,6 +201,9 @@ export default function SessionView({ lesson }: SessionViewProps) {
             mode={barMode}
             recording={state.recording}
             onMic={session.tapMic}
+            listenError={session.listenError}
+            introResponses={lesson.introResponses}
+            onIntroAnswer={session.answerIntro}
             choices={choices}
             onPick={session.pick}
             transcript={state.transcript}

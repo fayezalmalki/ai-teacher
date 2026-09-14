@@ -109,9 +109,9 @@ function think(
   return { ...state, phase: "thinking", transcript, recording: false, pending: { id, extra } };
 }
 
-function answerIntro(state: SessionState, ctx: EngineContext, kind: IntroAnswerKind): SessionState {
+function answerIntro(state: SessionState, ctx: EngineContext, kind: IntroAnswerKind, transcript?: string): SessionState {
   const r = ctx.lesson.introResponses[kind];
-  return think(state, r.transcript, r.go, {
+  return think(state, transcript?.trim() || r.transcript, r.go, {
     understanding: r.understanding,
     questions: state.questions + r.questions,
     correct: state.correct + r.correct,
@@ -201,7 +201,7 @@ export function sessionReducer(state: SessionState, action: SessionAction, ctx: 
       return { ...state, recording: false };
     case "INTRO_ANSWER":
       if (state.phase !== "listening") return state;
-      return answerIntro(state, ctx, action.kind);
+      return answerIntro(state, ctx, action.kind, action.transcript);
     case "PICK": {
       if (state.phase !== "choosing") return state;
       const choice = getChoices(lesson, getStep(lesson, state.step))[action.index];

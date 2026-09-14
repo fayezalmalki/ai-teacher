@@ -53,12 +53,42 @@ lib/lesson-engine/
   prompts.ts                  # system/turn prompt builders for the live model
   timing.ts                   # speaking / pause / thinking / recording timings
   useLessonSession.ts         # client runtime: timers + voice adapter around the reducer
-lib/voice/                    # VoiceAdapter interface, simulated adapter, realtime stub, TTS fallback
+lib/voice/                    # VoiceAdapter interface, simulated + cascaded adapters, realtime stub
+lib/voice/lines.ts            # teacher-line extraction, hashing, Arabic letter → viseme mapping
+lib/voice/server/             # TTS / STT / assessment providers used by scripts and route handlers
+scripts/render-lines.ts       # pre-render teacher audio + viseme tracks into public/audio/
+app/api/{tts,stt,assess}/     # route handlers; vendor keys stay server-side
 lib/store/                    # app store (localStorage), parent gate
 lib/content/catalog.ts        # subjects, lesson paths, parent-area copy
 lib/analytics/events.ts       # event buffer + sink hook
 lib/db/supabase.ts            # persistence stub
 ```
+
+## Voice pipeline
+
+Two adapters implement `lib/voice/types.ts`; pick one with `?voice=cascaded` on the session or explain URL, or
+`NEXT_PUBLIC_VOICE=cascaded` in `.env.local`.
+
+| Adapter | Teacher speech | Child answer |
+| --- | --- | --- |
+| `simulated` (default) | timers: `max(1800ms, 55ms × chars)` | 1.8 s fake recording, scripted "correct" |
+| `cascaded` | pre-rendered clips from `public/audio/<lesson>/`, visemes drive the mouth; cache miss → `/api/tts` | push-to-talk → `/api/stt` → `/api/assess` (structured `ModelTurn`) → engine branch |
+
+Pre-render the teacher lines once per voice (copy `.env.example` to `.env.local` first):
+
+```bash
+npm run render-lines -- --provider mock                 # offline: silent clips, estimated lips
+npm run render-lines -- --provider elevenlabs --names "سلمان,ليان"   # real voice + character timestamps
+npm run render-lines -- --provider openai --force
+```
+
+The script walks `fractions.lesson.json`, fills `{name}` for each name, hashes each line, and skips lines whose
+text and voice are unchanged. The manifest maps `hash → {file, durationMs, visemes}`; the adapter looks up the
+spoken text by the same hash at runtime, so a copy edit only re-renders that line. If the mic is unavailable or
+nothing was heard, the session shows the four scripted answers as tap choices.
+
+With no API keys, `/api/stt` returns an empty transcript and `/api/assess` uses a keyword heuristic, so the
+cascaded path runs end-to-end offline.
 
 ## Lesson engine
 
@@ -66,7 +96,6 @@ The LLM never free-runs. `fractions.lesson.json` defines the step graph; `reduce
 per-turn state (`concept`, `difficulty`, `attempts`, `understanding`, `strategy`). Every adaptation appends a
 human-readable log line that feeds the end screen, the parent summary and analytics.
 
-Voice is simulated for now (`SimulatedVoiceAdapter`): speaking lasts `max(1800ms, 55ms × chars)`, the mic
-records for 1800ms and returns the scripted "correct" answer. `lib/voice/realtime.ts` is the stub for
-Gemini Live / OpenAI Realtime; the runtime only needs `speak()` to resolve on the TTS end event, `listen()` to
-resolve with a transcript, and `interrupt()` for barge-in.
+`lib/voice/realtime.ts` remains the stub for a future Gemini Live / OpenAI Realtime moment; the runtime only
+needs `speak()` to resolve on the audio end event, `listen()` to resolve with a transcript and kind, and
+`interrupt()` for barge-in.

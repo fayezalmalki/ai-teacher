@@ -27,3 +27,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# pre-rendered teacher audio (run `npm run render-lines`)
+/public/audio/

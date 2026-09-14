@@ -156,6 +156,15 @@ describe("fractions lesson state machine", () => {
     expect(t.pending?.extra?.log?.[0]).toBe("فهم ليان مفهوم النصف من الشرح الأول.");
   });
 
+  it("uses the real transcript when the voice adapter provides one", () => {
+    const s = settle(run([{ type: "START", now: 0 }]));
+    const t = sessionReducer(s, { type: "INTRO_ANSWER", kind: "correct", transcript: "نص يعني قسمنا الشي نصين" }, ctx);
+    expect(t.transcript).toBe("نص يعني قسمنا الشي نصين");
+    expect(t.pending?.id).toBe("a1");
+    const u = sessionReducer(s, { type: "INTRO_ANSWER", kind: "correct", transcript: "   " }, ctx);
+    expect(u.transcript).toBe(fractionsLesson.introResponses.correct.transcript);
+  });
+
   it("exposes engine state json", () => {
     const s = settle(run([{ type: "START", now: 0 }]));
     expect(JSON.parse(engineStateJson(s, fractionsLesson))).toMatchObject({

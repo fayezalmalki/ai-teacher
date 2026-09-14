@@ -202,7 +202,7 @@ export type SessionAction =
   | { type: "SPEECH_END" }
   | { type: "MIC_START" }
   | { type: "MIC_STOP" }
-  | { type: "INTRO_ANSWER"; kind: IntroAnswerKind }
+  | { type: "INTRO_ANSWER"; kind: IntroAnswerKind; transcript?: string }
   | { type: "PICK"; index: number }
   | { type: "PICK_COMPARE"; value: string }
   | { type: "TOGGLE_SQUARE"; index: number }
