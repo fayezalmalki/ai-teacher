@@ -131,6 +131,27 @@ export default function ParentPage() {
             <button
               type="button"
               role="switch"
+              aria-checked={settings.liveAsk}
+              onClick={() => setSettings({ liveAsk: !settings.liveAsk })}
+              className="flex justify-between items-center gap-3 p-0 border-0 bg-transparent text-right"
+            >
+              <div>
+                <div className="text-[15px] font-medium text-ink">محادثة مفتوحة مع المعلم</div>
+                <div className="text-[13px] text-muted">بعد الدرس، يقدر {name} يسأل الأستاذ نواف بصوته لدقيقتين</div>
+              </div>
+              <div
+                className="w-12 h-7 rounded-[14px] relative transition-colors duration-200 flex-none"
+                style={{ background: settings.liveAsk ? "var(--color-primary)" : "var(--color-border-dashed)" }}
+              >
+                <div
+                  className="absolute top-[3px] w-[22px] h-[22px] rounded-full bg-white transition-[left] duration-200"
+                  style={{ left: settings.liveAsk ? 23 : 3 }}
+                />
+              </div>
+            </button>
+            <button
+              type="button"
+              role="switch"
               aria-checked={settings.reminder}
               onClick={() => setSettings({ reminder: !settings.reminder })}
               className="flex justify-between items-center gap-3 p-0 border-0 bg-transparent text-right"

@@ -32,7 +32,7 @@ export type Understanding =
 
 export type Phase = "speaking" | "listening" | "thinking" | "choosing" | "idle";
 
-export type Screen = "start" | "lesson" | "end" | "summary";
+export type Screen = "start" | "lesson" | "end" | "ask" | "summary";
 
 /** Special step ids that leave the step graph. */
 export const END_STEP = "END";
@@ -154,6 +154,19 @@ export interface LessonDefinition {
   notes: NoteRule[];
   rating: RatingRule[];
   endLine: string;
+  /** Open conversation ("ask the teacher") copy. */
+  ask: {
+    cta: string;
+    title: string;
+    greeting: string;
+    hint: string;
+    done: string;
+    unavailable: string;
+    /** Topics the live model may discuss; everything else is redirected. */
+    scope: string;
+  };
+  /** Parent-summary log line appended when the child used the open conversation. */
+  askLog: string;
   thinkingLabel: string;
   thinkingRetryLabel: string;
   explain: ExplainStep[];
@@ -162,6 +175,12 @@ export interface LessonDefinition {
     title: string;
     line: string;
   };
+}
+
+/** One exchange in the open "ask the teacher" conversation. */
+export interface AskTurn {
+  question: string;
+  answer: string;
 }
 
 export interface PendingGoto {
@@ -192,6 +211,8 @@ export interface SessionState {
   recording: boolean;
   /** Where to go once "thinking" ends. */
   pending: PendingGoto | null;
+  /** Open-conversation exchanges (Gemini Live), shown to parents. */
+  askTurns: AskTurn[];
 }
 
 export type DemoPath = "understands" | "confused" | "wrong" | "strong";
@@ -208,6 +229,9 @@ export type SessionAction =
   | { type: "TOGGLE_SQUARE"; index: number }
   | { type: "THINK_END" }
   | { type: "BONUS" }
+  | { type: "ASK_OPEN" }
+  | { type: "ASK_TURN"; question: string; answer: string }
+  | { type: "ASK_CLOSE" }
   | { type: "FINISH"; now: number }
   | { type: "RESTART" }
   | { type: "DEMO"; path: DemoPath };
@@ -243,4 +267,5 @@ export interface SessionResult {
   log: string[];
   visited: string[];
   rating: string;
+  askTurns: AskTurn[];
 }

@@ -88,6 +88,7 @@ export function toSessionResult(state: SessionState, lesson: LessonDefinition, c
     log: state.log,
     visited: state.visited,
     rating: ratingLabel(state.questions, state.correct, lesson),
+    askTurns: state.askTurns,
   };
 }
 

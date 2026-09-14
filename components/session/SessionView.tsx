@@ -13,6 +13,7 @@ import SessionVisual from "@/components/visuals/SessionVisual";
 import AdaptChip from "./AdaptChip";
 import InteractionBar, { type InteractionBarProps } from "./InteractionBar";
 import DemoControls from "./DemoControls";
+import AskTeacher from "./AskTeacher";
 import {
   currentStep,
   engineStateJson,
@@ -66,6 +67,8 @@ export default function SessionView({ lesson }: SessionViewProps) {
   const session = useLessonSession({ lesson, name, voice, pace, autoStart: true });
   const { state } = session;
   const character = resolveCharacterMode(params.get("character"));
+  const liveMock = params.get("live") === "mock";
+  const askEnabled = app.settings.liveAsk;
 
   // Summary lives on its own route: persist the result and navigate.
   const navigated = useRef(false);
@@ -249,12 +252,29 @@ export default function SessionView({ lesson }: SessionViewProps) {
               <Button onClick={session.bonus} className="px-7 py-4 text-[17px] shadow-none">
                 جرّب سؤال أخير
               </Button>
+              {askEnabled && (
+                <Button variant="secondary" onClick={session.askOpen} className="px-7 py-4 text-[17px]">
+                  {lesson.ask.cta}
+                </Button>
+              )}
               <Button variant="secondary" onClick={session.finish} className="px-7 py-4 text-[17px]">
                 إنهاء الدرس
               </Button>
             </div>
           </div>
         </div>
+      )}
+
+      {state.screen === "ask" && (
+        <AskTeacher
+          lesson={lesson}
+          name={name}
+          childInitial={childInitial}
+          character={character}
+          forceMock={liveMock}
+          onTurn={session.askTurn}
+          onClose={session.askClose}
+        />
       )}
 
       {state.screen === "summary" && (

@@ -32,6 +32,7 @@ export const initialSessionState: SessionState = {
   endedAt: null,
   recording: false,
   pending: null,
+  askTurns: [],
 };
 
 export function createInitialState(lesson: LessonDefinition): SessionState {
@@ -224,6 +225,25 @@ export function sessionReducer(state: SessionState, action: SessionAction, ctx: 
     case "BONUS":
       if (state.screen !== "end") return state;
       return goto({ ...state, screen: "lesson" }, ctx, lesson.bonusEntry);
+    case "ASK_OPEN":
+      if (state.screen !== "end") return state;
+      return { ...state, screen: "ask", phase: "idle", adapt: null, pending: null, recording: false };
+    case "ASK_TURN": {
+      if (state.screen !== "ask") return state;
+      const question = action.question.trim();
+      const answer = action.answer.trim();
+      if (!question && !answer) return state;
+      return { ...state, askTurns: [...state.askTurns, { question, answer }] };
+    }
+    case "ASK_CLOSE": {
+      if (state.screen !== "ask") return state;
+      const asked = state.askTurns.length;
+      const log =
+        asked && !state.log.includes(fill(lesson.askLog, vars(ctx)))
+          ? [...state.log, fill(lesson.askLog, vars(ctx))]
+          : state.log;
+      return { ...state, screen: "end", phase: "idle", log };
+    }
     case "FINISH":
       return goto(state, ctx, SUMMARY_STEP, { endedAt: action.now });
     case "RESTART":

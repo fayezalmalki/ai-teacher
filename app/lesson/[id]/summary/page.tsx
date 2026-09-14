@@ -52,6 +52,19 @@ export default function SummaryPage() {
                 ))}
               </div>
             </div>
+            {result.askTurns?.length > 0 && (
+              <div className="rounded-card bg-surface-2 p-6">
+                <div className="text-[18px] font-semibold mb-4">أسئلة {state.child.name} للمعلم</div>
+                <div className="flex flex-col gap-4">
+                  {result.askTurns.map((t, i) => (
+                    <div key={i} className="flex flex-col gap-1.5 text-[15px] leading-[1.6]">
+                      <div className="font-medium text-ink">{t.question || "…"}</div>
+                      <div className="text-ink-2">{t.answer}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </>
         )}
         <div className="flex gap-3 flex-wrap">

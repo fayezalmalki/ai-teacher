@@ -17,6 +17,8 @@ export interface ChildProfile {
 export interface Settings {
   dailyMinutes: number;
   reminder: boolean;
+  /** Allow the open "ask the teacher" conversation (streams the child's voice to the live model). */
+  liveAsk: boolean;
 }
 
 export interface AppState {
@@ -34,7 +36,7 @@ const STORAGE_KEY = "ai-teacher:v1";
 export const DEFAULT_STATE: AppState = {
   child: { name: "سلمان", age: 9, grade: 3 },
   pin: "1234",
-  settings: { dailyMinutes: 10, reminder: true },
+  settings: { dailyMinutes: 10, reminder: true, liveAsk: true },
   lastResult: null,
   onboarded: false,
 };

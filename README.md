@@ -93,6 +93,21 @@ nothing was heard, the session shows the four scripted answers as tap choices.
 With no API keys, `/api/stt` returns an empty transcript and `/api/assess` uses a keyword heuristic, so the
 cascaded path runs end-to-end offline.
 
+## Open conversation (Gemini Live)
+
+After the end screen, **اسأل الأستاذ نواف** opens a short full-duplex conversation: the child's voice streams to
+Gemini Live, the teacher answers in audio with barge-in, and both sides are transcribed. It is a bounded detour
+(2 minutes or 3 exchanges by default); the lesson engine keeps the step and logs the exchanges for the parent
+summary. Parents can switch it off in the parent area.
+
+- `app/api/live/token`: mints a single-use ephemeral token with the guardrail prompt locked into the connect
+  constraints; the API key never reaches the browser.
+- `lib/voice/live/gemini.ts`: raw WebSocket client (16 kHz PCM in, 24 kHz PCM out, `interrupted` → flush).
+- `lib/voice/live/mock.ts`: offline stand-in used with `?live=mock` or `LIVE_PROVIDER=mock`.
+
+Set `GEMINI_API_KEY` in `.env.local` (see `.env.example`); without it the feature runs the mock in development
+and is off in production.
+
 ## Character
 
 `components/Teacher.tsx` draws the circle, ring and ✓ badge; the face inside is one of three renderers that share

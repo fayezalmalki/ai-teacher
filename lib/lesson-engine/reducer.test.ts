@@ -135,6 +135,32 @@ describe("fractions lesson state machine", () => {
     expect(s.log[s.log.length - 1]).toBe("أجاب على السؤال الإضافي بنجاح.");
   });
 
+  it("open conversation: end → ask → turns → back to end with one log line", () => {
+    let s = settle(run([{ type: "START", now: 0 }]));
+    s = answer(s, "strong");
+    s = answer(s, "understands");
+    expect(s.screen).toBe("end");
+    expect(sessionReducer(s, { type: "ASK_TURN", question: "x", answer: "y" }, ctx).askTurns).toEqual([]); // not open yet
+    s = sessionReducer(s, { type: "ASK_OPEN" }, ctx);
+    expect(s.screen).toBe("ask");
+    s = run(
+      [
+        { type: "ASK_TURN", question: "ليش الربع أصغر من النصف؟", answer: "لأننا قسمنا الشي إلى أربع قطع بدل اثنتين." },
+        { type: "ASK_TURN", question: "", answer: "" },
+      ],
+      s,
+    );
+    expect(s.askTurns).toHaveLength(1);
+    const before = s.log.length;
+    s = sessionReducer(s, { type: "ASK_CLOSE" }, ctx);
+    expect(s.screen).toBe("end");
+    expect(s.log).toHaveLength(before + 1);
+    expect(s.log[s.log.length - 1]).toContain("سأل سلمان المعلم");
+    // closing without any turn adds nothing
+    const t = sessionReducer(sessionReducer(s, { type: "ASK_OPEN" }, ctx), { type: "ASK_CLOSE" }, ctx);
+    expect(t.log).toHaveLength(before + 1);
+  });
+
   it("chocolate squares toggle up to two", () => {
     let s = settle(run([{ type: "START", now: 0 }]));
     s = answer(s, "confused");
