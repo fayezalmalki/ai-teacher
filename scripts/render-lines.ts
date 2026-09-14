@@ -114,7 +114,9 @@ async function main() {
   }
   await writeFile(manifestFile, JSON.stringify(manifest, null, 2));
   console.log(`done: ${rendered} rendered, ${skipped} unchanged, ${failed} failed → ${path.relative(process.cwd(), manifestFile)}`);
-  if (failed) process.exit(1);
+  // As a build hook, never fail the deploy: missing clips fall back to the device voice at runtime.
+  if (failed && !args.ifConfigured) process.exit(1);
+  if (failed) console.warn("render-lines: some lines failed; the app will use the device voice for them");
 }
 
 main().catch((err) => {
