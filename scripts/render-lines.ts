@@ -24,10 +24,12 @@ interface Args {
   force: boolean;
   voice?: string;
   model?: string;
+  /** Exit 0 without rendering when no real TTS provider is configured (build hook). */
+  ifConfigured: boolean;
 }
 
 function parseArgs(argv: string[]): Args {
-  const args: Args = { lesson: "fractions", names: ["سلمان"], out: "public/audio", force: false };
+  const args: Args = { lesson: "fractions", names: ["سلمان"], out: "public/audio", force: false, ifConfigured: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const next = () => argv[++i];
@@ -38,6 +40,7 @@ function parseArgs(argv: string[]): Args {
     else if (a === "--voice") args.voice = next();
     else if (a === "--model") args.model = next();
     else if (a === "--force") args.force = true;
+    else if (a === "--if-configured") args.ifConfigured = true;
     else if (a === "--help" || a === "-h") {
       console.log("usage: render-lines [--lesson id] [--provider elevenlabs|openai|mock] [--names a,b] [--voice id] [--model id] [--out dir] [--force]");
       process.exit(0);
@@ -55,6 +58,10 @@ async function main() {
 
   const cfg = ttsConfigFromEnv();
   if (args.provider) cfg.provider = args.provider;
+  if (args.ifConfigured && cfg.provider === "mock") {
+    console.log("render-lines: no TTS provider configured, skipping (simulated voice will be used)");
+    return;
+  }
   if (args.voice) cfg.voice = args.voice;
   if (args.model) cfg.model = args.model;
   if (cfg.provider === "mock") cfg.voice = "silence";
