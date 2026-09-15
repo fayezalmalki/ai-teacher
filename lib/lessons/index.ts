@@ -28,6 +28,9 @@ import g3en from "./en/g3en.lesson.json";
 import g4en from "./en/g4en.lesson.json";
 import g5en from "./en/g5en.lesson.json";
 import g6en from "./en/g6en.lesson.json";
+import g4soc from "./soc/g4soc.lesson.json";
+import g5soc from "./soc/g5soc.lesson.json";
+import g6soc from "./soc/g6soc.lesson.json";
 
 export const fractionsLesson = fractions as LessonDefinition;
 export const addsubLesson = addsub as LessonDefinition;
@@ -53,9 +56,12 @@ export const g3enLesson = g3en as LessonDefinition;
 export const g4enLesson = g4en as LessonDefinition;
 export const g5enLesson = g5en as LessonDefinition;
 export const g6enLesson = g6en as LessonDefinition;
+export const g4socLesson = g4soc as LessonDefinition;
+export const g5socLesson = g5soc as LessonDefinition;
+export const g6socLesson = g6soc as LessonDefinition;
 
-/** Registered lessons in the order a child meets them (today's lesson is the first unfinished one): subjects alternate so a week touches all five. */
-export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson, g1mathLesson, g1arLesson, g1enLesson, g2mathLesson, g2sciLesson, g2enLesson, g3enLesson, g4mathLesson, g4sciLesson, g4enLesson, g5mathLesson, g5arLesson, g5enLesson, g6mathLesson, g6sciLesson, g6enLesson, stats8Lesson];
+/** Registered lessons in the order a child meets them (today's lesson is the first unfinished one): subjects alternate so a week touches every subject. */
+export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson, g1mathLesson, g1arLesson, g1enLesson, g2mathLesson, g2sciLesson, g2enLesson, g3enLesson, g4mathLesson, g4sciLesson, g4enLesson, g4socLesson, g5mathLesson, g5arLesson, g5enLesson, g5socLesson, g6mathLesson, g6sciLesson, g6enLesson, g6socLesson, stats8Lesson];
 
 export const lessons: Record<string, LessonDefinition> = Object.fromEntries(LESSON_LIST.map((l) => [l.id, l]));
 
