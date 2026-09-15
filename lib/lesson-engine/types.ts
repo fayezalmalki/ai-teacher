@@ -2,7 +2,7 @@
  * Lesson engine types.
  *
  * The engine is a small deterministic state machine that wraps the (future)
- * LLM. Lesson content lives in JSON (see fractions.lesson.json); the reducer
+ * LLM. Lesson content lives in JSON under lib/lessons/; the reducer
  * in reducer.ts walks the step graph and keeps the per-turn state that the
  * UI, the end screen, the parent summary and analytics all read from.
  */
@@ -19,6 +19,17 @@ export type VisualId =
   | "comparePick";
 
 export type ExplainVisualId = "whole" | "half" | "quarter" | "glyph";
+
+/** Parametric visual: what to draw, with its props. See visuals.ts for the id aliases. */
+export type VisualSpec =
+  | { kind: "pizza"; filled: 0 | 1 | 2 | 3 | 4; dividers: "none" | "v" | "vh" }
+  | { kind: "fractions"; pairs: { n: string; d: string }[] }
+  | { kind: "chocolate"; mode: "one" | "two" | "pick" }
+  | { kind: "compare"; pick?: boolean }
+  | { kind: "none" };
+
+/** A step's visual: a spec, or one of the fractions-era ids. */
+export type VisualRef = VisualId | VisualSpec;
 
 export type Mood = "neutral" | "encourage";
 
@@ -61,7 +72,7 @@ export interface CompareSpec {
 export interface LessonStep {
   /** Teacher line. `{name}` is replaced with the child's name. */
   text: string;
-  visual: VisualId;
+  visual: VisualRef;
   /** Concept the step teaches (for the engine-state contract). */
   concept: string;
   /** Intro step: wait for a free-form (voice) answer. */
@@ -213,6 +224,10 @@ export interface SessionState {
   pending: PendingGoto | null;
   /** Open-conversation exchanges (Gemini Live), shown to parents. */
   askTurns: AskTurn[];
+  /** Correct answers in a row (reset on a wrong answer). Read by the adaptation policy. */
+  correctStreak: number;
+  /** Wrong answers in a row (reset on a correct answer). */
+  wrongStreak: number;
 }
 
 export type DemoPath = "understands" | "confused" | "wrong" | "strong";
@@ -240,6 +255,8 @@ export interface EngineContext {
   lesson: LessonDefinition;
   /** Child's name for `{name}` templating. */
   name: string;
+  /** Adaptation thresholds and start level; defaults apply when omitted. */
+  policy?: Partial<import("./policy").AdaptationPolicy>;
 }
 
 /** What the runtime should do once the teacher finishes speaking. */

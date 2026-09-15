@@ -15,6 +15,8 @@ interface Options {
   voice: VoiceAdapter;
   pace?: Pace;
   autoStart?: boolean;
+  /** Parent-facing overrides (start level); the lesson's defaults apply otherwise. */
+  policy?: EngineContext["policy"];
 }
 
 /**
@@ -22,10 +24,15 @@ interface Options {
  * voice adapter to speak each teacher line, pauses before auto-advancing,
  * runs the "thinking" delay, and turns a mic tap into a listen() call.
  */
-export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart = false }: Options) {
-  const ctx = useMemo<EngineContext>(() => ({ lesson, name }), [lesson, name]);
+export function useLessonSession({ lesson, name, voice, pace = "demo", autoStart = false, policy }: Options) {
+  const startLevel = policy?.startLevel;
+  const maxLevel = policy?.maxLevel;
+  const ctx = useMemo<EngineContext>(
+    () => ({ lesson, name, policy: { ...(startLevel !== undefined ? { startLevel } : {}), ...(maxLevel !== undefined ? { maxLevel } : {}) } }),
+    [lesson, name, startLevel, maxLevel],
+  );
   const reducer = useCallback((s: SessionState, a: SessionAction) => sessionReducer(s, a, ctx), [ctx]);
-  const [state, dispatch] = useReducer(reducer, lesson, createInitialState);
+  const [state, dispatch] = useReducer(reducer, ctx, (c) => createInitialState(c.lesson, c));
   const stateRef = useRef(state);
   stateRef.current = state;
   /** Current mouth shape from the voice adapter (0 = rest). */

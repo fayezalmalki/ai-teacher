@@ -9,6 +9,9 @@ import ThinkingDots from "./ThinkingDots";
 
 export interface InteractionBarProps {
   mode: "mic" | "choices" | "thinking" | "speaking" | "pickHint" | "idle";
+  /** Reading mode: no mic; the child taps التالي to advance and taps an answer. */
+  reading?: boolean;
+  onAdvance?: () => void;
   recording?: boolean;
   onMic?: () => void;
   /** When the mic failed: show the scripted answers as tappable choices. */
@@ -21,9 +24,41 @@ export interface InteractionBarProps {
   thinkingLabel?: string;
 }
 
+function IntroAnswers({
+  responses,
+  onPick,
+  hint,
+  retry,
+}: {
+  responses: Record<IntroAnswerKind, IntroResponse>;
+  onPick: (kind: IntroAnswerKind) => void;
+  hint: string;
+  retry?: () => void;
+}) {
+  return (
+    <div className="flex flex-col items-center gap-3.5 w-full">
+      <div className="text-[15px] text-muted text-center">{hint}</div>
+      <div className="flex gap-3 flex-wrap justify-center">
+        {(Object.keys(responses) as IntroAnswerKind[]).map((k, i) => (
+          <SketchButton key={k} variant="white" size="xs" index={i} pop popDelay={i * 0.08} onClick={() => onPick(k)} className="max-w-[260px] text-right leading-[1.3]">
+            {responses[k].transcript}
+          </SketchButton>
+        ))}
+        {retry && (
+          <SketchButton size="xs" index={3} onClick={retry}>
+            تكلم مرة ثانية
+          </SketchButton>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /** The one action zone (min-height 120): mic pill, answer buttons, thinking dots, or nothing. */
 export default function InteractionBar({
   mode,
+  reading = false,
+  onAdvance,
   recording = false,
   onMic,
   listenError = null,
@@ -36,25 +71,22 @@ export default function InteractionBar({
 }: InteractionBarProps) {
   return (
     <div className="min-h-[120px] flex items-center justify-center gap-4 flex-wrap px-6 sm:px-8 pt-3 pb-10">
-      {mode === "mic" && !listenError && <MicButton recording={recording} onTap={() => onMic?.()} />}
-      {mode === "mic" && listenError && introResponses && (
-        <div className="flex flex-col items-center gap-3.5 w-full">
-          <div className="text-[15px] text-muted text-center">
-            {listenError === "mic-unavailable" ? "الميكروفون غير متاح. اختر أقرب إجابة لك:" : "ما سمعتك زين. اختر أقرب إجابة لك، أو جرّب تتكلم مرة ثانية:"}
-          </div>
-          <div className="flex gap-3 flex-wrap justify-center">
-            {(Object.keys(introResponses) as IntroAnswerKind[]).map((k, i) => (
-              <SketchButton key={k} variant="white" size="xs" index={i} pop popDelay={i * 0.08} onClick={() => onIntroAnswer?.(k)} className="max-w-[260px] text-right leading-[1.3]">
-                {introResponses[k].transcript}
-              </SketchButton>
-            ))}
-            {listenError !== "mic-unavailable" && (
-              <SketchButton size="xs" index={3} onClick={() => onMic?.()}>
-                تكلم مرة ثانية
-              </SketchButton>
-            )}
-          </div>
-        </div>
+      {mode === "speaking" && reading && (
+        <SketchButton size="md" pop onClick={() => onAdvance?.()}>
+          التالي
+        </SketchButton>
+      )}
+      {mode === "mic" && reading && introResponses && (
+        <IntroAnswers responses={introResponses} onPick={(k) => onIntroAnswer?.(k)} hint="اختر إجابتك:" />
+      )}
+      {mode === "mic" && !reading && !listenError && <MicButton recording={recording} onTap={() => onMic?.()} />}
+      {mode === "mic" && !reading && listenError && introResponses && (
+        <IntroAnswers
+          responses={introResponses}
+          onPick={(k) => onIntroAnswer?.(k)}
+          hint={listenError === "mic-unavailable" ? "الميكروفون غير متاح. اختر أقرب إجابة لك:" : "ما سمعتك زين. اختر أقرب إجابة لك، أو جرّب تتكلم مرة ثانية:"}
+          retry={listenError !== "mic-unavailable" ? () => onMic?.() : undefined}
+        />
       )}
       {mode === "thinking" && (
         <>

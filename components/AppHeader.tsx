@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { APP_NAME } from "@/lib/content/catalog";
-import { useAppStore } from "@/lib/store/app-store";
+import { useAppStore, type AvatarColor } from "@/lib/store/app-store";
 import { SketchPill } from "./Sketch";
 
 interface AppHeaderProps {
@@ -15,17 +15,25 @@ interface AppHeaderProps {
   showParent?: boolean;
 }
 
-/** 30px wobbly ink circle with the child's initial. */
+export const AVATAR_BG: Record<AvatarColor, string> = {
+  yellow: "bg-yellow",
+  blue: "bg-primary-tint",
+  green: "bg-success-tint",
+  cream: "bg-surface",
+};
+
+/** 30px wobbly ink circle with the child's initial; tapping it opens the profiles to switch child. */
 export function ChildChip({ size = 30 }: { size?: number }) {
-  const { childInitial } = useAppStore();
+  const { child, childInitial } = useAppStore();
   return (
-    <div
-      className="r-chip-initial ink-2 bg-surface grid place-items-center text-[13px] font-semibold"
+    <Link
+      href="/profiles"
+      aria-label={`الطالب: ${child.name}. تبديل الطالب`}
+      className={`r-chip-initial ink-2 grid place-items-center text-[13px] font-semibold text-ink hover:text-ink ${AVATAR_BG[child.color]}`}
       style={{ width: size, height: size }}
-      aria-label="الطالب"
     >
       {childInitial}
-    </div>
+    </Link>
   );
 }
 

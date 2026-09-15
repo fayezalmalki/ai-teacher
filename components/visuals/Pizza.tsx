@@ -28,10 +28,17 @@ export default function Pizza({ filled, dividers = "v", size = 260, shadow = tru
         style={{ boxShadow: shadow ? "8px 8px 0 var(--color-pizza-shadow)" : undefined }}
       >
         {QUADS.map((q, i) => (
+          // Each mask overlaps its neighbours by 1px so cream never shows a hairline seam; the overlap into a hatched quadrant sits under the ink divider.
           <div
             key={i}
-            className="absolute w-1/2 h-1/2 transition-colors duration-[400ms]"
-            style={{ top: q.top, left: q.left, background: i < filled ? "transparent" : "var(--color-pizza)" }}
+            className="absolute transition-colors duration-[400ms]"
+            style={{
+              top: q.top === "0" ? 0 : "calc(50% - 1px)",
+              left: q.left === "0" ? 0 : "calc(50% - 1px)",
+              width: "calc(50% + 1px)",
+              height: "calc(50% + 1px)",
+              background: i < filled ? "transparent" : "var(--color-pizza)",
+            }}
           />
         ))}
         {dividers !== "none" && <div className="absolute top-0 bottom-0 left-1/2 w-[3px] -ml-[1.5px] bg-ink" />}

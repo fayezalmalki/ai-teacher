@@ -83,36 +83,8 @@ export const TODAY_LESSON = {
 
 export const HOME_TODAY_LINE = "عندك درس واحد اليوم، 10 دقائق مع الأستاذ نواف.";
 
-export const LAST_SESSION = {
-  title: "الجمع والطرح حتى 1000",
-  ratingWord: "جيدًا جدًا",
-  quote: "الجمع بالعمود صار سهلًا عليك.",
-  streak: [1, 1, 0, 1, 0, 0, 0],
-  streakLabel: "3 أيام هذا الأسبوع",
-};
-
-export interface ParentSessionRow {
-  title: string;
-  meta: string;
-  rating: string;
-  tone: "green" | "amber";
-}
-
 export const PARENT_WEEK = {
   eyebrow: "هذا الأسبوع",
-  stats: [
-    { k: "جلسات", v: "3" },
-    { k: "وقت التعلم", v: "28 دقيقة" },
-    { k: "إجابات صحيحة", v: "11 من 14" },
-  ],
-  highlight: { k: "أبرز تحسّن", v: "المقارنة بين الكسور" },
-  sessions: [
-    { title: "الكسور", meta: "اليوم · 9 دقائق · 5 أسئلة", rating: "جيد جدًا", tone: "green" },
-    { title: "الجمع والطرح", meta: "أمس · 10 دقائق · 5 أسئلة", rating: "جيد جدًا", tone: "green" },
-    { title: "دورة الماء", meta: "قبل 3 أيام · 9 دقائق · 4 أسئلة", rating: "جيد", tone: "amber" },
-  ] as ParentSessionRow[],
-  narrative:
-    "في جلسة الكسور، لم يفهم {name} الربع من الشرح الأول، فغيّر المعلم المثال إلى الشوكولاتة ثم رفع المستوى بعد إجابته الصحيحة.",
   recommendations: [
     "مراجعة قصيرة للربع خلال الأسبوع القادم بمثال مختلف.",
     "درس القياس هو الخطوة الطبيعية بعد الكسور.",

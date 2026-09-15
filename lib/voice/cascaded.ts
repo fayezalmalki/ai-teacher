@@ -22,7 +22,7 @@ import type { ListenOptions, ListenResult, SpeakOptions, VoiceAdapter, VisemeFra
 
 export interface CascadedOptions {
   lessonId: string;
-  /** Adapter used when audio cannot be played or fetched (default: caller passes SimulatedVoiceAdapter). */
+  /** Adapter used when audio cannot be played or fetched (default: caller passes SilentVoiceAdapter). */
   fallback: VoiceAdapter;
   manifestUrl?: string;
   ttsEndpoint?: string;
