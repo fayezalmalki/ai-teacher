@@ -149,6 +149,10 @@ Voice: use a realtime speech-to-speech API (Gemini Live or OpenAI Realtime) with
 ---
 
 ## Design tokens
+
+> **Superseded:** the visual spec below is v1. The app now follows [`README-v2.md`](README-v2.md)
+> (hand-drawn restyle). Journeys, screens, copy and the lesson engine sections above still apply.
+
 Colors: page `#F3F4F1` · surface `#FFFFFF` · surface-2 `#F7F8F5` · surface-3 `#F5F6F3` · border `#EEF0EC` / `#E3E6E1` · text `#1B1F1D` · text-2 `#3D4442` · text-muted `#6B7370` · text-faint `#9AA19D` · primary `#2F6BD8` (hover `#2559BD`, tint `#E7EFFC`, alt tint `#F3F6FD`) · success `#1F8A5B` (hover `#19714A`, tint `#E4F3EB`) · warning `#8A6A1F` / tint `#FFF6E0` · error `#D9534F` · visual accent `#3B7DDC` · pizza `#F6EFE2`/`#E8DFCF` · chocolate `#5A3B2E`/`#7A5241`/`#C98B62`/`#F2D3B8` · dark panel `#1B1F1D`/`#2A2F2D`/`#3D4442`.
 
 Type: **IBM Plex Sans Arabic** 400/500/600/700 (Google Fonts). Scale: 40/700 hero · 34–30/700 titles · 26–22/500 teacher speech · 20–18/600 card titles · 17–16 buttons · 15 body · 14 labels · 13 meta · 11 mono (engine state).

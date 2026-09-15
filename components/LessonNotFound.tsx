@@ -1,18 +1,18 @@
 import Frame from "@/components/Frame";
 import AppHeader from "@/components/AppHeader";
-import Button from "@/components/Button";
+import { SketchButton } from "@/components/Sketch";
 
 export default function LessonNotFound() {
   return (
     <Frame>
-      <AppHeader showChild />
-      <div className="flex-1 grid place-items-center px-8 py-12 text-center">
-        <div className="flex flex-col items-center gap-5">
-          <div className="text-[24px] font-semibold">هذا الدرس غير متاح بعد</div>
-          <div className="text-[15px] text-muted">درس الكسور هو المتاح حاليًا.</div>
-          <Button href="/home" variant="secondary" className="px-6 py-3.5 text-[16px]">
-            العودة للرئيسية
-          </Button>
+      <AppHeader showChild backHref="/home" />
+      <div className="flex-1 grid place-items-center px-8 pt-10 pb-20 text-center">
+        <div className="flex flex-col items-center gap-6">
+          <div className="font-display text-[34px] font-bold">هذا الدرس غير متاح بعد</div>
+          <div className="text-[16px] text-ink-2">درس الكسور هو المتاح حاليًا.</div>
+          <SketchButton href="/home" variant="white" size="sm">
+            الرئيسية
+          </SketchButton>
         </div>
       </div>
     </Frame>

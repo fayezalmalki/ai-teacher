@@ -5,25 +5,24 @@ export type ChocolateMode = "one" | "pick" | "two";
 interface ChocolateProps {
   mode: ChocolateMode;
   selected?: number[];
-  /** Squares are tappable (pick mode while the teacher waits). */
   canPick?: boolean;
   onToggle?: (index: number) => void;
 }
 
 export function chocolateCaption(mode: ChocolateMode, selectedCount: number): string {
-  if (mode === "one") return "شوكولاتة من 4 قطع متساوية";
-  if (mode === "two") return "قطعتان من أربع = نصف";
-  return selectedCount < 2 ? "المس قطعتين من الشوكولاتة" : "قطعتان محددتان — كم أخذنا؟";
+  if (mode === "one") return "واحد من أربع";
+  if (mode === "two") return "اثنان من أربع";
+  return selectedCount < 2 ? "" : "كم أخذنا؟";
 }
 
-/** 2×2 chocolate bar. Lit squares are the "taken" pieces. */
+/** 2×2 chocolate: brown squares; taken pieces are hatched and tilted. */
 export default function Chocolate({ mode, selected = [], canPick = false, onToggle }: ChocolateProps) {
+  const caption = chocolateCaption(mode, selected.length);
   return (
-    <div className="flex flex-col items-center gap-[18px]">
-      <div className="grid grid-cols-2 gap-1.5 p-2.5 bg-choc-bar rounded-tile">
+    <div className="flex flex-col items-center gap-4 motion animate-pop-in">
+      <div className="grid grid-cols-2 gap-2 p-2.5 ink r-row bg-surface" style={{ boxShadow: "8px 8px 0 var(--color-pizza-shadow)" }}>
         {[0, 1, 2, 3].map((i) => {
           const lit = mode === "one" ? i === 0 : mode === "two" ? i < 2 : selected.includes(i);
-          const label = lit && mode === "one" ? "1 من 4" : "";
           return (
             <button
               key={i}
@@ -31,19 +30,13 @@ export default function Chocolate({ mode, selected = [], canPick = false, onTogg
               aria-pressed={lit}
               aria-label={`قطعة ${i + 1}`}
               onClick={() => canPick && onToggle?.(i)}
-              className="w-24 h-24 rounded-small border-[3px] transition-all duration-[250ms] grid place-items-center text-white text-[15px] font-semibold"
-              style={{
-                background: lit ? "var(--color-choc-lit)" : "var(--color-choc)",
-                borderColor: lit ? "var(--color-choc-lit-edge)" : "var(--color-choc-edge)",
-                cursor: canPick ? "pointer" : "default",
-              }}
-            >
-              {label}
-            </button>
+              className={"w-[100px] h-[100px] r-square ink transition-all duration-[250ms] " + (lit ? "hatch bg-surface" : "bg-choc")}
+              style={{ cursor: canPick ? "pointer" : "default", transform: lit ? "rotate(-2deg) scale(.97)" : "none" }}
+            />
           );
         })}
       </div>
-      <div className="text-[15px] text-muted">{chocolateCaption(mode, selected.length)}</div>
+      {caption && <div className="text-[15px] text-muted">{caption}</div>}
     </div>
   );
 }

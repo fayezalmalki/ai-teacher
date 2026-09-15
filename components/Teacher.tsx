@@ -1,6 +1,7 @@
 "use client";
 
 import Character from "@/components/character/Character";
+import Waveform from "@/components/Waveform";
 import { resolveCharacterMode, type CharacterMode, type TeacherState } from "@/lib/character/contract";
 import type { Viseme } from "@/lib/voice/types";
 
@@ -9,77 +10,87 @@ export type { TeacherState };
 interface TeacherProps {
   size?: number;
   state?: TeacherState;
-  /** Border width of the inner circle. */
-  border?: number;
-  /** Ring offset (negative inset) in px. */
-  ringInset?: number;
-  ringDuration?: string;
-  /** Font size for the typographic character. */
+  /** Kept for call-site compatibility (glyph mode font size). */
   glyphSize?: number;
-  badgeSize?: number;
-  /** Force the ✓ badge regardless of state. */
+  /** Yellow ★ badge (end screen). */
   badge?: boolean;
-  /** Mouth shape from the voice adapter (0 = rest). */
+  badgeSize?: number;
   viseme?: Viseme;
-  /** Mic level 0–1 while listening. */
   level?: number;
-  /** Renderer: typographic glyph, the SVG rig, or the Rive file. Defaults to NEXT_PUBLIC_CHARACTER or the SVG rig. */
   character?: CharacterMode;
+  /** Slow idle wobble (start / intro screens). */
+  idleWobble?: boolean;
+  /** Dashed ring even when idle (lesson intro). */
+  ring?: boolean;
+  /** Landing hero: 10px tinted offset shadow. */
+  hero?: boolean;
   onClick?: () => void;
 }
 
 /**
- * The teacher character in its circle. Ring animates while speaking or
- * listening; a green ✓ badge appears while encouraging. The face itself is
- * rendered by components/character (glyph, SVG rig, or Rive) and driven by
- * the same five states and viseme input.
+ * v2 avatar: wobbly ink circle, white fill, flat blue shadow. State shows
+ * through motion only: dashed ring + wobble while speaking, nod on praise,
+ * a small green wave badge while listening. The face is the character rig.
  */
 export default function Teacher({
-  size = 128,
+  size = 120,
   state = "idle",
-  border = 6,
-  ringInset = 6,
-  ringDuration = "1.6s",
   glyphSize,
-  badgeSize = 40,
   badge,
+  badgeSize = 42,
   viseme = 0,
   level = 0,
   character,
+  idleWobble,
+  ring,
+  hero,
   onClick,
 }: TeacherProps) {
   const mode = character ?? resolveCharacterMode();
-  const ring = state === "speaking" || state === "listening" || state === "encouraging";
-  const ringColor = state === "listening" ? "var(--color-success)" : "var(--color-primary)";
-  const showBadge = badge ?? state === "encouraging";
-  const inner = size - border * 2;
+  const speaking = state === "speaking";
+  const encouraging = state === "encouraging";
+  const listening = state === "listening";
+  const showRing = ring || speaking || encouraging;
+  const animation = encouraging
+    ? "nod 1.2s ease-in-out infinite"
+    : speaking
+      ? "wobble 2.4s ease-in-out infinite"
+      : idleWobble
+        ? "wobble 6s ease-in-out infinite"
+        : "none";
+  const shadow = hero
+    ? "10px 10px 0 var(--color-primary-tint)"
+    : size >= 140
+      ? "6px 6px 0 var(--color-primary-tint)"
+      : "5px 5px 0 var(--color-primary-tint)";
   return (
     <div className="relative select-none" style={{ width: size, height: size }} onClick={onClick}>
-      {ring && (
+      {showRing && (
         <span
           key={state}
-          className="absolute rounded-full"
-          style={{
-            inset: -ringInset,
-            border: `3px solid ${ringColor}`,
-            animation: `ring ${ringDuration} ease-out infinite`,
-          }}
+          className="absolute rounded-full border-2 border-dashed border-primary motion"
+          style={{ inset: -8, animation: "ring 1.6s ease-out infinite" }}
         />
       )}
       <div
-        className="absolute inset-0 rounded-full bg-primary-tint overflow-hidden grid place-items-center transition-transform duration-300"
-        style={{ border: `${border}px solid var(--color-primary-tint-2)` }}
+        className="absolute inset-0 r-avatar ink bg-surface overflow-hidden grid place-items-center motion"
+        style={{ boxShadow: shadow, animation }}
       >
         <div className="w-full h-full">
-          <Character mode={mode} size={inner} state={state} viseme={viseme} level={level} glyphSize={glyphSize} />
+          <Character mode={mode} size={size - 6} state={state} viseme={viseme} level={level} glyphSize={glyphSize} />
         </div>
       </div>
-      {showBadge && (
+      {listening && (
+        <div className="absolute -bottom-1.5 -left-1.5 h-8 px-2.5 r-square ink-2 bg-surface flex items-center motion animate-pop-in-fast">
+          <Waveform active height={16} />
+        </div>
+      )}
+      {badge && (
         <div
-          className="absolute -bottom-1 -left-1 rounded-full bg-success text-white grid place-items-center border-[3px] border-white"
-          style={{ width: badgeSize, height: badgeSize, fontSize: Math.round(badgeSize / 2) }}
+          className="absolute -bottom-1.5 -left-1.5 rounded-full ink bg-yellow grid place-items-center font-bold motion animate-pop-in"
+          style={{ width: badgeSize, height: badgeSize, fontSize: Math.round(badgeSize / 2), animationDelay: ".3s" }}
         >
-          ✓
+          ★
         </div>
       )}
     </div>

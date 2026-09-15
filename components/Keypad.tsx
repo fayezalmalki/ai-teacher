@@ -7,7 +7,7 @@ interface KeypadProps {
   disabled?: boolean;
 }
 
-/** 3×72px LTR numeric keypad, 64px keys. */
+/** 3×72px LTR keypad, 62px ink-bordered keys in Baloo. */
 export function Keypad({ onKey, disabled }: KeypadProps) {
   return (
     <div className="grid grid-cols-[repeat(3,72px)] gap-2.5" dir="ltr">
@@ -18,7 +18,7 @@ export function Keypad({ onKey, disabled }: KeypadProps) {
           disabled={disabled || k === ""}
           onClick={() => onKey(k)}
           aria-label={k === "⌫" ? "حذف" : k}
-          className="h-16 rounded-tile border border-border-2 bg-surface text-[22px] font-semibold text-ink hover:bg-surface-3 disabled:hover:bg-surface"
+          className="h-[62px] r-key ink-2 bg-surface font-display text-[24px] font-bold text-ink hover:bg-hover disabled:hover:bg-surface"
           style={{ visibility: k === "" ? "hidden" : "visible" }}
         >
           {k}
@@ -34,17 +34,14 @@ interface PinDotsProps {
   total?: number;
 }
 
-/** 4 × 18px dots: filled primary, empty border, red on error. */
+/** 4 × 18px wobbly ink dots: blue when filled, red on error. */
 export function PinDots({ length, error, total = 4 }: PinDotsProps) {
   return (
     <div className="flex gap-3.5" dir="ltr" aria-live="polite">
       {Array.from({ length: total }, (_, i) => (
         <div
           key={i}
-          className={
-            "w-[18px] h-[18px] rounded-full transition-colors duration-200 " +
-            (error ? "bg-error" : i < length ? "bg-primary" : "bg-border-2")
-          }
+          className={"w-[18px] h-[18px] r-dot ink-2 transition-colors duration-200 " + (error ? "bg-error" : i < length ? "bg-primary" : "bg-surface")}
         />
       ))}
     </div>

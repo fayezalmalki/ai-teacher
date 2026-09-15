@@ -4,13 +4,11 @@ import { Suspense, useCallback, useEffect, useMemo, useRef, useState } from "rea
 import { useParams, useSearchParams } from "next/navigation";
 import Frame from "@/components/Frame";
 import AppHeader from "@/components/AppHeader";
-import Button from "@/components/Button";
 import Teacher from "@/components/Teacher";
-import StatusPill from "@/components/StatusPill";
 import Subtitle from "@/components/Subtitle";
-import ProgressBars from "@/components/ProgressBars";
 import ExplainVisual from "@/components/visuals/ExplainVisual";
 import LessonNotFound from "@/components/LessonNotFound";
+import { SketchButton } from "@/components/Sketch";
 import { explainSpeakDuration, getLesson } from "@/lib/lesson-engine";
 import { useAppStore } from "@/lib/store/app-store";
 import { createVoiceAdapter, resolveVoiceMode } from "@/lib/voice/select";
@@ -25,7 +23,7 @@ export default function ExplainPage() {
   );
 }
 
-/** Avatar explanation mode: 4 auto-spoken steps, then "نبدأ الأسئلة". */
+/** Avatar explanation mode: 4 auto-spoken steps, then "يلا نجرب مع بعض". */
 function ExplainScreen() {
   const { id } = useParams<{ id: string }>();
   const params = useSearchParams();
@@ -102,50 +100,35 @@ function ExplainScreen() {
 
   return (
     <Frame>
-      <AppHeader showChild />
+      <AppHeader showChild backHref={`/lesson/${lesson.id}`} />
       <div className="flex-1 flex flex-col">
-        <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 px-8 pt-9 pb-6">
-          <div className="flex flex-col items-start gap-5">
-            <Teacher
-              size={180}
-              glyphSize={74}
-              border={8}
-              ringInset={8}
-              state={speaking ? "speaking" : "idle"}
-              viseme={viseme}
-              character={character}
-            />
-            <StatusPill label={!armed ? "جاهز للشرح" : speaking ? "يشرح…" : "انتهى من الشرح"} tone="primary" active={speaking} />
-            <Subtitle id={`${idx}:${take}`} text={step.text} size={26} />
+        <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-10 items-center px-6 sm:px-14 pt-10 pb-6 max-w-[1100px] w-full mx-auto">
+          <div className="flex flex-col items-start gap-7 min-w-0">
+            <Teacher size={120} state={speaking ? "speaking" : "idle"} viseme={viseme} character={character} />
+            <Subtitle id={`${idx}:${take}`} text={step.text} />
           </div>
-          <div className="flex flex-col gap-3.5">
-            <div className="flex-1 min-h-[340px] rounded-card bg-surface-2 grid place-items-center p-7">
-              <ExplainVisual visual={step.visual} />
-            </div>
-            <ProgressBars total={steps.length} filled={idx + 1} />
+          <div className="grid place-items-center min-h-[340px]">
+            <ExplainVisual visual={step.visual} />
           </div>
         </div>
-        <div className="border-t border-border px-8 py-5 min-h-[96px] flex items-center justify-center gap-3 flex-wrap">
+        <div className="min-h-[120px] flex items-center justify-center gap-3.5 flex-wrap px-8 pt-3 pb-10">
           {!armed ? (
-            <Button onClick={arm} className="px-8 py-4 text-[17px]">
+            <SketchButton onClick={arm} size="lg" pop>
               ابدأ الشرح
-            </Button>
+            </SketchButton>
           ) : !done ? (
             <>
-              <Button variant="secondary" onClick={() => say(idx)} className="px-6 py-3.5 text-[16px]">
-                أعد الشرح
-              </Button>
-              <Button onClick={next} className="px-7 py-3.5 text-[16px] shadow-none">
+              <SketchButton variant="white" size="sm" index={1} onClick={() => say(idx)}>
+                مرة ثانية
+              </SketchButton>
+              <SketchButton size="sm" index={0} onClick={next}>
                 {last ? "خلصت" : "التالي"}
-              </Button>
+              </SketchButton>
             </>
           ) : (
-            <div className="flex gap-3 items-center flex-wrap justify-center">
-              <span className="text-[17px] text-ink-2">جاهز نجرب مع بعض؟</span>
-              <Button href={`/lesson/${lesson.id}/session`} variant="success" className="px-[30px] py-4 text-[17px]">
-                نبدأ الأسئلة
-              </Button>
-            </div>
+            <SketchButton href={`/lesson/${lesson.id}/session`} variant="green" size="lg" pop>
+              يلا نجرب مع بعض
+            </SketchButton>
           )}
         </div>
       </div>

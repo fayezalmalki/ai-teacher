@@ -2,16 +2,18 @@ interface SubtitleProps {
   text: string;
   /** Re-mount (and fade up) whenever this changes. */
   id: string | number;
-  size?: 24 | 26;
+  /** Display size in px (v2: 34 for teacher speech). */
+  size?: number;
+  className?: string;
 }
 
-/** Teacher speech subtitle: 24–26/500, lh 1.65, max-width 440, fades up on change. */
-export default function Subtitle({ text, id, size = 24 }: SubtitleProps) {
+/** The one sentence the teacher says: Baloo 34/600, lh 1.45, max-width 460, fades up on change. */
+export default function Subtitle({ text, id, size = 34, className = "" }: SubtitleProps) {
   return (
     <div
       key={id}
-      className="font-medium text-ink text-pretty-wrap max-w-[440px] animate-fade-up"
-      style={{ fontSize: size, lineHeight: 1.65 }}
+      className={"font-display font-semibold text-ink text-pretty-wrap max-w-[460px] motion animate-fade-up " + className}
+      style={{ fontSize: size, lineHeight: 1.45 }}
     >
       {text}
     </div>

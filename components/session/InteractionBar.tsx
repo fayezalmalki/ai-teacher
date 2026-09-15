@@ -1,5 +1,6 @@
 "use client";
 
+import { SketchButton } from "@/components/Sketch";
 import type { Choice, IntroAnswerKind, IntroResponse } from "@/lib/lesson-engine/types";
 import type { ListenError } from "@/lib/voice/types";
 import MicButton from "./MicButton";
@@ -18,11 +19,9 @@ export interface InteractionBarProps {
   onPick?: (index: number) => void;
   transcript?: string;
   thinkingLabel?: string;
-  childInitial?: string;
-  teacherName?: string;
 }
 
-/** Bottom bar of the session: mic, answer buttons, thinking + transcript, or hints. */
+/** The one action zone (min-height 120): mic pill, answer buttons, thinking dots, or nothing. */
 export default function InteractionBar({
   mode,
   recording = false,
@@ -34,36 +33,25 @@ export default function InteractionBar({
   onPick,
   transcript = "",
   thinkingLabel = "",
-  childInitial = "س",
-  teacherName = "الأستاذ نواف",
 }: InteractionBarProps) {
   return (
-    <div className="border-t border-border px-8 py-5 min-h-[112px] flex items-center justify-center gap-4 flex-wrap">
+    <div className="min-h-[120px] flex items-center justify-center gap-4 flex-wrap px-6 sm:px-8 pt-3 pb-10">
       {mode === "mic" && !listenError && <MicButton recording={recording} onTap={() => onMic?.()} />}
       {mode === "mic" && listenError && introResponses && (
-        <div className="flex flex-col items-center gap-3 w-full">
-          <div className="text-[15px] text-muted">
+        <div className="flex flex-col items-center gap-3.5 w-full">
+          <div className="text-[15px] text-muted text-center">
             {listenError === "mic-unavailable" ? "الميكروفون غير متاح. اختر أقرب إجابة لك:" : "ما سمعتك زين. اختر أقرب إجابة لك، أو جرّب تتكلم مرة ثانية:"}
           </div>
-          <div className="flex gap-2.5 flex-wrap justify-center">
-            {(Object.keys(introResponses) as IntroAnswerKind[]).map((k) => (
-              <button
-                key={k}
-                type="button"
-                onClick={() => onIntroAnswer?.(k)}
-                className="px-4 py-3 rounded-tile border-2 border-border-2 bg-surface text-[16px] font-medium text-ink transition-all duration-200 hover:border-primary hover:bg-primary-tint-2 max-w-[260px] text-right"
-              >
+          <div className="flex gap-3 flex-wrap justify-center">
+            {(Object.keys(introResponses) as IntroAnswerKind[]).map((k, i) => (
+              <SketchButton key={k} variant="white" size="xs" index={i} pop popDelay={i * 0.08} onClick={() => onIntroAnswer?.(k)} className="max-w-[260px] text-right leading-[1.3]">
                 {introResponses[k].transcript}
-              </button>
+              </SketchButton>
             ))}
             {listenError !== "mic-unavailable" && (
-              <button
-                type="button"
-                onClick={() => onMic?.()}
-                className="px-4 py-3 rounded-pill border-0 bg-primary text-white text-[15px] font-semibold hover:bg-primary-hover"
-              >
+              <SketchButton size="xs" index={3} onClick={() => onMic?.()}>
                 تكلم مرة ثانية
-              </button>
+              </SketchButton>
             )}
           </div>
         </div>
@@ -71,11 +59,8 @@ export default function InteractionBar({
       {mode === "thinking" && (
         <>
           {transcript && (
-            <div className="flex items-center gap-3 px-[18px] py-3 rounded-tile bg-surface-3 text-[16px] text-ink animate-[fadeUp_.3s_ease]">
-              <span className="w-7 h-7 rounded-full bg-success-tint text-success grid place-items-center font-semibold text-[13px]">
-                {childInitial}
-              </span>
-              <span>{transcript}</span>
+            <div className="px-5 py-3 border-2 border-dashed border-ink r-input bg-surface text-[17px] motion animate-fade-up-fast">
+              &quot;{transcript}&quot;
             </div>
           )}
           <div className="flex items-center gap-3 text-muted text-[16px]">
@@ -85,8 +70,7 @@ export default function InteractionBar({
         </>
       )}
       {mode === "choices" && <Choices choices={choices} onPick={(i) => onPick?.(i)} />}
-      {mode === "speaking" && <div className="text-[15px] text-faint">{teacherName} يتحدث…</div>}
-      {mode === "pickHint" && <div className="text-[16px] text-success font-medium">المس قطعتين من الشوكولاتة</div>}
+      {mode === "pickHint" && <div className="text-[17px] text-primary font-medium">المس قطعتين</div>}
     </div>
   );
 }

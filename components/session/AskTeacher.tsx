@@ -7,9 +7,10 @@
  * screen when the child is done or a cap is reached.
  */
 import { useEffect, useRef, useState } from "react";
-import Button from "@/components/Button";
-import StatusPill, { type StatusTone } from "@/components/StatusPill";
 import Teacher from "@/components/Teacher";
+import Subtitle from "@/components/Subtitle";
+import { SketchButton } from "@/components/Sketch";
+import { toArabicDigits } from "@/lib/format";
 import { fill, type LessonDefinition } from "@/lib/lesson-engine";
 import type { CharacterMode } from "@/lib/character/contract";
 import { createLiveSession, LiveUnavailableError, type LiveSession, type LiveStatus } from "@/lib/voice/live";
@@ -24,14 +25,6 @@ interface AskTeacherProps {
   onTurn: (question: string, answer: string) => void;
   onClose: () => void;
 }
-
-const STATUS: Record<LiveStatus, { label: string; tone: StatusTone; active: boolean }> = {
-  connecting: { label: "يتصل…", tone: "neutral", active: false },
-  listening: { label: "أنا أسمعك", tone: "success", active: true },
-  speaking: { label: "يتحدث…", tone: "primary", active: true },
-  closed: { label: "انتهت المحادثة", tone: "neutral", active: false },
-  error: { label: "تعذّر الاتصال", tone: "neutral", active: false },
-};
 
 interface Line {
   who: "child" | "teacher";
@@ -108,83 +101,64 @@ export default function AskTeacher({ lesson, name, childInitial, character, forc
     onClose();
   };
 
-  const st = STATUS[status];
   const teacherState = status === "speaking" ? "speaking" : status === "listening" ? "listening" : "idle";
   const secs = remaining === null ? null : Math.ceil(remaining / 1000);
+  const lastTeacher = [...lines].reverse().find((l) => l.who === "teacher")?.text ?? "";
+  const sentence = unavailable ? unavailable : draftAnswer || lastTeacher || fill(lesson.ask.greeting, { name });
 
   return (
     <>
-      <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-8 px-8 pt-9 pb-6">
-        <div className="flex flex-col items-start gap-5">
-          <Teacher size={128} glyphSize={52} state={teacherState} viseme={viseme} level={level} character={character} />
-          <StatusPill label={st.label} tone={st.tone} active={st.active} />
-          <div className="text-[15px] text-muted">{lesson.teacher}</div>
-          <div>
-            <div className="text-[14px] text-muted">{lesson.ask.title}</div>
-            <div className="text-[22px] leading-[1.6] font-medium text-ink text-pretty-wrap max-w-[440px] mt-1">
-              {draftAnswer || (lines.length ? "" : fill(lesson.ask.greeting, { name }))}
-            </div>
-          </div>
+      <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-10 items-center px-6 sm:px-14 pt-10 pb-6 max-w-[1100px] w-full mx-auto">
+        <div className="flex flex-col items-start gap-7 min-w-0">
+          <Teacher size={120} state={teacherState} viseme={viseme} level={level} character={character} />
+          <Subtitle id={sentence} text={sentence} size={unavailable ? 26 : 34} />
+          {status === "connecting" && !unavailable && <div className="text-[14px] text-muted">يتصل…</div>}
         </div>
 
-        <div className="flex flex-col gap-3.5">
-          <div className="flex-1 min-h-[360px] rounded-card bg-surface-2 p-6 flex flex-col gap-3 overflow-y-auto" aria-live="polite">
-            {unavailable ? (
-              <div className="m-auto text-center text-[17px] text-ink-2 max-w-[360px]">{unavailable}</div>
-            ) : (
-              <>
-                {lines.length === 0 && !draftQuestion && (
-                  <div className="m-auto text-center text-[15px] text-muted max-w-[360px]">{lesson.ask.hint}</div>
-                )}
-                {lines.map((l, i) => (
-                  <Bubble key={i} who={l.who} text={l.text} initial={childInitial} />
-                ))}
-                {draftQuestion && <Bubble who="child" text={draftQuestion} initial={childInitial} draft />}
-              </>
+        <div className="flex flex-col gap-3.5 min-h-[340px]">
+          <div className="flex-1 flex flex-col gap-3 overflow-y-auto" aria-live="polite">
+            {!unavailable && lines.length === 0 && !draftQuestion && (
+              <div className="m-auto text-center text-[15px] text-muted max-w-[360px]">{lesson.ask.hint}</div>
             )}
+            {lines.map((l, i) => (
+              <Bubble key={i} who={l.who} text={l.text} initial={childInitial} index={i} />
+            ))}
+            {draftQuestion && <Bubble who="child" text={draftQuestion} initial={childInitial} index={lines.length} draft />}
           </div>
-          <div className="flex items-center justify-between gap-3 text-[13px] text-muted">
-            <span>{status === "listening" ? "الميكروفون مفتوح" : status === "speaking" ? "الميكروفون مفتوح، تقدر تقاطعه" : ""}</span>
-            {secs !== null && status !== "closed" && status !== "error" && (
-              <span className="font-mono tabular-nums">
-                {Math.floor(secs / 60)}:{String(secs % 60).padStart(2, "0")}
-              </span>
-            )}
-          </div>
+          {secs !== null && status !== "closed" && status !== "error" && (
+            <div className="text-[13px] text-muted tabular-nums text-left" dir="ltr">
+              {toArabicDigits(`${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`)}
+            </div>
+          )}
         </div>
       </div>
 
-      <div className="border-t border-border px-8 py-5 min-h-[112px] flex items-center justify-center gap-4 flex-wrap">
+      <div className="min-h-[120px] flex items-center justify-center gap-4 flex-wrap px-6 sm:px-8 pt-3 pb-10">
         {status === "listening" && (
-          <span className="inline-flex items-center gap-3 px-6 py-3.5 rounded-pill bg-success-tint text-success text-[16px] font-semibold">
+          <span className="inline-flex items-center gap-3 px-6 py-3.5 rounded-pill ink bg-success text-white font-display text-[20px] font-bold leading-none motion animate-pop-in-fast">
             <span
-              className="inline-block w-3 h-3 rounded-full bg-success"
+              className="inline-block w-3 h-3 rounded-full bg-white"
               style={{ transform: `scale(${1 + level * 1.4})`, transition: "transform 80ms linear" }}
             />
-            تكلم، أنا أسمعك
+            أسمعك
           </span>
         )}
-        <Button variant={unavailable ? "primary" : "secondary"} onClick={finish} className="px-7 py-4 text-[17px]">
+        <SketchButton variant={unavailable ? "primary" : "white"} index={1} onClick={finish}>
           {unavailable ? "نكمل" : lesson.ask.done}
-        </Button>
+        </SketchButton>
       </div>
     </>
   );
 }
 
-function Bubble({ who, text, initial, draft }: { who: "child" | "teacher"; text: string; initial: string; draft?: boolean }) {
+function Bubble({ who, text, initial, index, draft }: { who: "child" | "teacher"; text: string; initial: string; index: number; draft?: boolean }) {
   const child = who === "child";
   return (
     <div className={"flex items-start gap-2.5 " + (child ? "" : "flex-row-reverse")} style={{ opacity: draft ? 0.6 : 1 }}>
-      <span
-        className={
-          "w-7 h-7 rounded-full grid place-items-center font-semibold text-[13px] flex-none " +
-          (child ? "bg-success-tint text-success" : "bg-primary-tint text-primary")
-        }
-      >
+      <span className={"w-7 h-7 r-chip-initial ink-2 grid place-items-center font-semibold text-[13px] flex-none " + (child ? "bg-yellow" : "bg-primary-tint")}>
         {child ? initial : "ن"}
       </span>
-      <div className={"px-4 py-2.5 rounded-tile text-[16px] leading-[1.55] max-w-[85%] " + (child ? "bg-surface text-ink" : "bg-primary-tint-2 text-ink")}>
+      <div className={`px-4 py-2.5 ink-2 ${index % 2 ? "r-bubble-2" : "r-bubble-1"} text-[16px] leading-[1.55] max-w-[85%] ${child ? "bg-surface" : "bg-primary-tint"} text-ink`}>
         {text}
       </div>
     </div>

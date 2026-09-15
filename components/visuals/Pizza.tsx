@@ -1,35 +1,42 @@
+/**
+ * v2 pizza: one hatch layer on the whole disc, cream quadrant masks over the
+ * parts that are not highlighted (never per-quadrant gradients; they seam).
+ * `filled` counts highlighted quarters clockwise from the top-right.
+ */
 interface PizzaProps {
+  /** Highlighted quarters, 0–4. */
+  filled: 0 | 1 | 2 | 3 | 4;
+  dividers?: "none" | "v" | "vh";
   size?: number;
-  border?: number;
-  /** Highlighted (blue) fraction of the pie, 0–1. */
-  filled: number;
-  /** Base color of the un-highlighted part. */
-  base?: "pizza" | "eaten";
-  /** Divider lines: 0 none, 1 vertical, 2 vertical + horizontal. */
-  lines?: 0 | 1 | 2;
-  fadeUp?: boolean;
+  shadow?: boolean;
+  pop?: boolean;
   className?: string;
 }
 
-/** Pizza circle: crust border, cream base, highlighted portion via conic-gradient, 3px white dividers. */
-export default function Pizza({ size = 220, border = 10, filled, base = "pizza", lines = 0, fadeUp, className = "" }: PizzaProps) {
-  const baseColor = base === "eaten" ? "var(--color-pizza-eaten)" : "var(--color-pizza)";
-  const pct = Math.round(filled * 100);
-  const background =
-    filled <= 0 ? baseColor : `conic-gradient(var(--color-accent) 0 ${pct}%, ${baseColor} ${pct}% 100%)`;
+const QUADS: { top: string; left: string }[] = [
+  { top: "0", left: "50%" },
+  { top: "50%", left: "50%" },
+  { top: "50%", left: "0" },
+  { top: "0", left: "0" },
+];
+
+export default function Pizza({ filled, dividers = "v", size = 260, shadow = true, pop = true, className = "" }: PizzaProps) {
   return (
-    <div
-      className={"relative rounded-full " + (fadeUp ? "animate-[fadeUp_.4s_ease] " : "") + className}
-      style={{
-        width: size,
-        height: size,
-        border: `${border}px solid var(--color-pizza-crust)`,
-        background,
-        boxShadow: filled === 0.5 && base === "pizza" ? "inset 0 0 0 2px rgba(0,0,0,.04)" : undefined,
-      }}
-    >
-      {lines >= 1 && <div className="absolute top-0 bottom-0 left-1/2 w-[3px] -ml-[1.5px] bg-white" />}
-      {lines >= 2 && <div className="absolute left-0 right-0 top-1/2 h-[3px] -mt-[1.5px] bg-white" />}
+    <div className={"relative " + (pop ? "motion animate-pop-in " : "") + className} style={{ width: size, height: size }}>
+      <div
+        className="absolute inset-0 r-pizza ink hatch bg-pizza overflow-hidden"
+        style={{ boxShadow: shadow ? "8px 8px 0 var(--color-pizza-shadow)" : undefined }}
+      >
+        {QUADS.map((q, i) => (
+          <div
+            key={i}
+            className="absolute w-1/2 h-1/2 transition-colors duration-[400ms]"
+            style={{ top: q.top, left: q.left, background: i < filled ? "transparent" : "var(--color-pizza)" }}
+          />
+        ))}
+        {dividers !== "none" && <div className="absolute top-0 bottom-0 left-1/2 w-[3px] -ml-[1.5px] bg-ink" />}
+        {dividers === "vh" && <div className="absolute left-0 right-0 top-1/2 h-[3px] -mt-[1.5px] bg-ink" />}
+      </div>
     </div>
   );
 }

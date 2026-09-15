@@ -68,8 +68,7 @@ export default function CharacterPreviewPage() {
   }, [playing, track, trackEnd]);
 
   const chip = (on: boolean) =>
-    "px-3.5 py-2 rounded-chip border-2 text-[14px] font-semibold " +
-    (on ? "border-primary bg-primary-tint text-primary" : "border-border-2 bg-surface text-ink hover:bg-surface-3");
+    "px-3.5 py-2 r-chip ink-2 text-[14px] font-semibold " + (on ? "bg-primary text-white" : "bg-surface text-ink hover:bg-hover");
 
   return (
     <Frame>
@@ -77,21 +76,19 @@ export default function CharacterPreviewPage() {
       <div className="flex-1 flex flex-col gap-8 px-8 py-10" dir="ltr">
         <div>
           <div className="text-[14px] text-muted">dev · character rig</div>
-          <h1 className="text-[30px] font-bold mt-1 m-0">الأستاذ نواف</h1>
+          <h1 className="font-display text-[36px] font-bold mt-1 m-0">الأستاذ نواف</h1>
           <p className="text-[15px] text-ink-2 mt-2 m-0 max-w-[640px]">
             Same inputs for every renderer: five states, an 8-value viseme, and the mic level. Drop{" "}
-            <code className="text-[13px] bg-surface-3 px-1.5 py-0.5 rounded">public/characters/nawaf.riv</code> in and pick
+            <code className="text-[13px] bg-hover px-1.5 py-0.5 rounded">public/characters/nawaf.riv</code> in and pick
             &quot;rive&quot; to compare against the SVG rig.
           </p>
         </div>
 
         <div className="grid grid-cols-[repeat(auto-fit,minmax(180px,1fr))] gap-6 items-end">
           {[180, 128, 112].map((size) => (
-            <div key={size} className="flex flex-col items-center gap-3 rounded-card bg-surface-2 p-6">
+            <div key={size} className="flex flex-col items-center gap-3 r-card-1 ink-2 bg-surface p-6">
               <Teacher
                 size={size}
-                border={size >= 180 ? 8 : 6}
-                ringInset={size >= 150 ? 8 : 6}
                 state={state}
                 viseme={viseme}
                 level={level}
@@ -144,7 +141,7 @@ export default function CharacterPreviewPage() {
             {manifest ? (
               <select
                 id="line"
-                className="px-3 py-2 rounded-chip border-2 border-border-2 bg-surface text-[14px] max-w-[420px]"
+                className="px-3 py-2 r-chip ink-2 bg-surface text-[14px] max-w-[420px]"
                 value={lineHash}
                 onChange={(e) => setLineHash(e.target.value)}
                 dir="rtl"
