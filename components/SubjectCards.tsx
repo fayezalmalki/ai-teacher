@@ -12,6 +12,7 @@ const TINT: Record<Tone, string> = {
   amber: "shadow-tint-yellow",
   neutral: "shadow-tint-blue",
   rose: "shadow-tint-rose",
+  teal: "shadow-tint-teal",
 };
 
 const BAR: Record<Tone, string> = {
@@ -20,6 +21,7 @@ const BAR: Record<Tone, string> = {
   amber: "bg-yellow",
   neutral: "bg-ink",
   rose: "bg-rose",
+  teal: "bg-teal",
 };
 
 const GLYPH_BG: Record<Tone, string> = {
@@ -28,6 +30,7 @@ const GLYPH_BG: Record<Tone, string> = {
   amber: "bg-yellow",
   neutral: "bg-surface",
   rose: "bg-rose-tint",
+  teal: "bg-teal-tint",
 };
 
 interface SubjectCardsProps {

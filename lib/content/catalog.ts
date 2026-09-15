@@ -10,7 +10,7 @@ export function gradeLabel(grade: number): string {
   return "الصف " + (GRADES[grade - 1] ?? GRADES[0]) + " الابتدائي";
 }
 
-export type Tone = "blue" | "green" | "amber" | "neutral" | "rose";
+export type Tone = "blue" | "green" | "amber" | "neutral" | "rose" | "teal";
 
 export interface Subject {
   id: string;
@@ -27,6 +27,7 @@ export const SUBJECTS: Subject[] = [
   { id: "sci", name: "العلوم", glyph: "ع", tone: "amber", blurb: "الماء والحواس والنبات: نشوف ونجرب ونفهم." },
   { id: "isl", name: "الدراسات الإسلامية", glyph: "د", tone: "neutral", blurb: "أركان وآداب وسور قصيرة بأسلوب بسيط." },
   { id: "en", name: "الإنجليزية", glyph: "A", tone: "rose", blurb: "حروف وكلمات وجمل بالإنجليزي، والأستاذ نواف يشرح بالعربي." },
+  { id: "soc", name: "الدراسات الاجتماعية", glyph: "ج", tone: "teal", blurb: "وطني: الخريطة والرموز، تاريخ الدولة السعودية، والتضاريس والاقتصاد." },
 ];
 
 /** done = finished by this child; today = the home's lesson; next = built and open; later = not built yet. */
@@ -92,6 +93,13 @@ export const LESSONS: Record<string, LessonEntry[]> = {
     { lessonId: "g6en", title: "المضارع المستمر والمستقبل والقراءة", meta: "الصف السادس · Tenses and reading · 10 دقائق", status: "next", grade: 6 },
     { title: "الأيام والشهور", meta: "Days and months", status: "later" },
     { title: "قصة قصيرة", meta: "A short story", status: "later" },
+  ],
+  soc: [
+    { lessonId: "g4soc", title: "وطني: الموقع والرموز والخريطة", meta: "الصف الرابع · مراجعة · 10 دقائق", status: "next", grade: 4 },
+    { lessonId: "g5soc", title: "تاريخ الدولة السعودية", meta: "الصف الخامس · مراجعة · 10 دقائق", status: "next", grade: 5 },
+    { lessonId: "g6soc", title: "التضاريس والاقتصاد والمواطنة", meta: "الصف السادس · مراجعة · 10 دقائق", status: "next", grade: 6 },
+    { title: "الأنبياء والرسل في الجزيرة", meta: "", status: "later" },
+    { title: "الخليج العربي وجيراننا", meta: "", status: "later" },
   ],
 };
 
