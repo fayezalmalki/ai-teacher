@@ -40,6 +40,14 @@ export type VisualSpec =
   | { kind: "word"; text: string; marks?: number[]; caption?: string }
   /** A row of cards (words or items); `highlight` fills one, `numbered` prefixes 1, 2, 3… */
   | { kind: "cards"; items: { label: string; icon?: string; sub?: string }[]; highlight?: number; numbered?: boolean }
+  /** Bar chart (histogram) of categories; `highlight` fills some bars. */
+  | { kind: "chart"; type: "bar"; categories: string[]; values: number[]; highlight?: number[]; xLabel?: string; yLabel?: string }
+  /** Pie chart of percentage slices; `highlight` lifts one. */
+  | { kind: "chart"; type: "pie"; slices: { label: string; value: number }[]; highlight?: number }
+  /** Box-and-whisker plot on a numeric axis; `highlight` tints one part. */
+  | { kind: "chart"; type: "box"; min: number; q1: number; median: number; q3: number; max: number; from?: number; to?: number; label?: string; highlight?: "left" | "box" | "right" | "median" }
+  /** A small table; `highlight` tints one row. */
+  | { kind: "table"; head: string[]; rows: string[][]; highlight?: number }
   | { kind: "none" };
 
 /** A step's visual: a spec, or one of the fractions-era ids. */
