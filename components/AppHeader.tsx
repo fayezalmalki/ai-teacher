@@ -9,6 +9,8 @@ import { SketchPill } from "./Sketch";
 interface AppHeaderProps {
   back?: boolean;
   backHref?: string;
+  /** Handle back in-page (e.g. previous onboarding step) instead of leaving the route. */
+  onBack?: () => void;
   showChild?: boolean;
   showParent?: boolean;
 }
@@ -27,10 +29,11 @@ export function ChildChip({ size = 30 }: { size?: number }) {
   );
 }
 
-export function BackButton({ href = "/" }: { href?: string }) {
+export function BackButton({ href = "/", onClick }: { href?: string; onClick?: () => void }) {
   const router = useRouter();
   const goBack = () => {
-    if (typeof window !== "undefined" && window.history.length > 1) router.back();
+    if (onClick) onClick();
+    else if (typeof window !== "undefined" && window.history.length > 1) router.back();
     else router.push(href);
   };
   return (
@@ -50,11 +53,11 @@ export function BackButton({ href = "/" }: { href?: string }) {
  * initial on the end side. 22px from the top, 32px from the sides. The session
  * draws its own row instead.
  */
-export default function AppHeader({ back = true, backHref = "/", showChild = false, showParent = false }: AppHeaderProps) {
+export default function AppHeader({ back = true, backHref = "/", onBack, showChild = false, showParent = false }: AppHeaderProps) {
   return (
     <div className="flex items-center justify-between gap-3 px-8 pt-[22px]">
       <div className="flex items-center gap-2.5">
-        {back && <BackButton href={backHref} />}
+        {back && <BackButton href={backHref} onClick={onBack} />}
         <Link href="/" className="font-display text-[18px] font-bold text-ink hover:text-ink whitespace-nowrap">
           {APP_NAME}
         </Link>

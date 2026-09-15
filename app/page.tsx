@@ -29,7 +29,9 @@ export default function LandingPage() {
                 أنا طالب
               </SketchButton>
             </div>
-            <SketchLink href="/lesson/fractions/session">جرّب درس الكسور الآن ←</SketchLink>
+            <SketchLink href="/lesson/fractions/session">
+              جرّب درس الكسور الآن <span aria-hidden="true">←</span>
+            </SketchLink>
           </div>
           <div className="grid place-items-center py-6">
             <div className="relative w-[260px] h-[260px] motion animate-float">

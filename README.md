@@ -31,6 +31,23 @@ result persist in `localStorage`.
 - `/` → **جرّب درس الكسور مع الأستاذ نواف الآن** → straight into the session (one tap)
 - **ولي الأمر** → `/parent/pin` → `/parent`
 
+## Hosting (school.mvp.sa / learn.mvp.sa)
+
+The app is served from **school.mvp.sa**; **learn.mvp.sa** is an alias that 308-redirects to it with the
+path preserved (`ALIAS_HOSTS` in `lib/site.ts`, wired in `next.config.ts`). Both are attached to the
+`ai-teacher` Vercel project; the `ai-teacher-delta-one.vercel.app` URL keeps working for previews.
+
+DNS (`mvp.sa` is on Cloudflare; the apex is already verified on the Vercel account):
+
+| Record | Name | Value | Proxy |
+| --- | --- | --- | --- |
+| A | `school` | `76.76.21.21` | DNS only |
+| A | `learn` | `76.76.21.21` | DNS only |
+
+Vercel issues the certificates once the records resolve. `NEXT_PUBLIC_SITE_URL` sets the origin used by
+`metadataBase`, the canonical link, Open Graph and `sitemap.xml`; `robots.txt` keeps `/api`, `/dev`,
+`/parent` and the lesson runtime out of search results.
+
 ## Session query flags
 
 | Flag | Effect |

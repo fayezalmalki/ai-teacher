@@ -58,7 +58,10 @@ export function sessionMinutes(startedAt: number | null, endedAt: number | null,
   return Math.max(1, Math.round(((endedAt ?? now) - startedAt) / 60000));
 }
 
+/** Arabic number agreement: 1 دقيقة · 2 دقيقتان · 3–10 دقائق · 11+ دقيقة. */
 export function minutesLabel(mins: number): string {
+  if (mins === 1) return "دقيقة واحدة";
+  if (mins === 2) return "دقيقتان";
   return mins + (mins > 10 ? " دقيقة" : " دقائق");
 }
 

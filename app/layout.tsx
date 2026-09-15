@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Baloo_Bhaijaan_2, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { AppStoreProvider } from "@/lib/store/app-store";
+import { site } from "@/lib/site";
 import "./globals.css";
 
 const plex = IBM_Plex_Sans_Arabic({
@@ -18,8 +19,20 @@ const baloo = Baloo_Bhaijaan_2({
 });
 
 export const metadata: Metadata = {
-  title: "المعلم الذكي",
-  description: "معلم يشرح، يسمع، ويغيّر طريقته حسب طفلك.",
+  metadataBase: new URL(site.url),
+  title: { default: site.name, template: `%s · ${site.name}` },
+  description: site.description,
+  applicationName: site.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "ar_SA",
+    siteName: site.name,
+    title: site.name,
+    description: site.description,
+    url: "/",
+  },
+  robots: { index: true, follow: true },
 };
 
 export const viewport: Viewport = {
