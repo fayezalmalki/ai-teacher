@@ -15,6 +15,7 @@ import { PIN_ADVANCE_MS } from "@/lib/lesson-engine/timing";
 import { PARENT_UNLOCK_KEY } from "@/lib/store/parent-gate";
 import { DEMO_CHILD } from "@/lib/store/state";
 import { useAppStore } from "@/lib/store/app-store";
+import { track } from "@/lib/analytics/events";
 
 export default function OnboardingPage() {
   return (
@@ -103,6 +104,7 @@ function Onboarding() {
       timer.current = setTimeout(() => {
         setPin(nextPin);
         setOnboarded(true);
+        track({ name: "onboarded" });
         setStep(3);
       }, PIN_ADVANCE_MS);
     }

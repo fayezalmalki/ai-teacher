@@ -17,6 +17,8 @@ export const site = {
   url: (process.env.NEXT_PUBLIC_SITE_URL ?? `https://${CANONICAL_HOST}`).replace(/\/$/, ""),
   description: "معلم يشرح، يسمع، ويغيّر طريقته حسب طفلك.",
   poweredBy: { label: "mvp.sa", url: "https://mvp.sa", logo: "/brand/mvp-black.png" },
+  /** Where "تواصل معنا" points (footer, the demo wall, the not-found screens). */
+  contact: "mailto:fm@mvp.sa",
   links: [
     { label: "عن المشروع", href: "#about" },
     { label: "للمدارس", href: "#schools" },

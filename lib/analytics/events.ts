@@ -8,7 +8,8 @@ export type AnalyticsEvent =
   | { name: "answer"; lessonId: string; step: string; correct: boolean; transcript: string }
   | { name: "adaptation"; lessonId: string; text: string }
   | { name: "session_ended"; lessonId: string; questions: number; correct: number; reexplain: number }
-  | { name: "screen"; path: string };
+  | { name: "screen"; path: string }
+  | { name: "onboarded" };
 
 type Sink = (event: AnalyticsEvent & { ts: number }) => void;
 

@@ -3,6 +3,8 @@ import { Baloo_Bhaijaan_2, IBM_Plex_Sans_Arabic } from "next/font/google";
 import { AppStoreProvider } from "@/lib/store/app-store";
 import { ConvexClientProvider } from "@/lib/convex/provider";
 import { AccountProvider } from "@/lib/convex/account";
+import { Telemetry } from "@/lib/telemetry/client";
+import Gate from "@/components/Gate";
 import { site } from "@/lib/site";
 import "./globals.css";
 
@@ -49,7 +51,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="bg-page text-ink font-sans antialiased">
         <ConvexClientProvider>
           <AppStoreProvider>
-            <AccountProvider>{children}</AccountProvider>
+            <AccountProvider>
+              <Telemetry />
+              <Gate>{children}</Gate>
+            </AccountProvider>
           </AppStoreProvider>
         </ConvexClientProvider>
       </body>

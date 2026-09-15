@@ -76,4 +76,33 @@ export default defineSchema({
     .index("by_household", ["householdId"])
     .index("by_household_key", ["householdId", "key"])
     .index("by_household_child", ["householdId", "childClientId"]),
+
+  /**
+   * Usage events from every device, signed in or not, for the admin page.
+   * No names, emails or transcripts: a random device id, what happened, when.
+   */
+  events: defineTable({
+    deviceId: v.string(),
+    /** visit | first_visit | page | onboarded | lesson_start | lesson_end */
+    kind: v.string(),
+    path: v.optional(v.string()),
+    lessonId: v.optional(v.string()),
+    /** Referrer host, if any. */
+    ref: v.optional(v.string()),
+    /** mobile | desktop */
+    device: v.optional(v.string()),
+    ts: v.number(),
+  })
+    .index("by_ts", ["ts"])
+    .index("by_device", ["deviceId"]),
+
+  /** Single-row app settings, keyed by name (e.g. "gate"). */
+  appConfig: defineTable({
+    key: v.string(),
+    /** gate: open | code | closed */
+    mode: v.optional(v.string()),
+    code: v.optional(v.string()),
+    message: v.optional(v.string()),
+    updatedAt: v.number(),
+  }).index("by_key", ["key"]),
 });
