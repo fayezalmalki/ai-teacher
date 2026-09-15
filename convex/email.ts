@@ -43,12 +43,12 @@ export function shell(title: string, body: string, footerNote: string): string {
   return `<!doctype html><html dir="rtl" lang="ar"><body style="margin:0;background:#FBF8F1;font-family:'IBM Plex Sans Arabic',Tahoma,Arial,sans-serif;color:#23272A;">
   <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#FBF8F1;padding:28px 12px;"><tr><td align="center">
     <table role="presentation" width="560" cellpadding="0" cellspacing="0" border="0" style="max-width:560px;width:100%;background:#FFFFFF;border:3px solid #23272A;border-radius:22px;">
-      <tr><td style="padding:28px 28px 8px;text-align:right;">
+      <tr><td dir="rtl" style="padding:28px 28px 8px;text-align:right;direction:rtl;">
         <div style="font-size:14px;font-weight:700;color:#2F6BD8;">المعلم الذكي</div>
         <h1 style="margin:10px 0 0;font-size:24px;line-height:1.35;font-weight:700;color:#23272A;">${escapeHtml(title)}</h1>
       </td></tr>
-      <tr><td style="padding:8px 28px 24px;text-align:right;font-size:15px;line-height:1.8;color:#23272A;">${body}</td></tr>
-      <tr><td style="padding:14px 28px 22px;border-top:2px dashed #C9CDC8;font-size:12px;line-height:1.7;color:#8A8F8B;text-align:right;">${footerNote}</td></tr>
+      <tr><td dir="rtl" style="padding:8px 28px 24px;text-align:right;direction:rtl;font-size:15px;line-height:1.8;color:#23272A;">${body}</td></tr>
+      <tr><td dir="rtl" style="padding:14px 28px 22px;border-top:2px dashed #C9CDC8;font-size:12px;line-height:1.7;color:#8A8F8B;text-align:right;direction:rtl;">${footerNote}</td></tr>
     </table>
   </td></tr></table></body></html>`;
 }
@@ -79,14 +79,14 @@ export async function sendEmail(options: { to: string; subject: string; html: st
 
 export async function sendOtpEmail(email: string, code: string): Promise<void> {
   const body = `
-    <p style="margin:0 0 18px;">استخدم هذا الرمز للدخول إلى منطقة ولي الأمر. الرمز صالح لمدة ١٠ دقائق فقط.</p>
+    <p dir="rtl" style="margin:0 0 18px;direction:rtl;text-align:right;">استخدم هذا الرمز للدخول إلى منطقة ولي الأمر. الرمز صالح لمدة ١٠ دقائق فقط.</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#E7EFFC;border:2px solid #23272A;border-radius:16px;">
       <tr><td align="center" style="padding:22px 16px 18px;text-align:center;">
         <div style="font-size:12px;font-weight:700;color:#2F6BD8;margin-bottom:8px;">رمز الدخول</div>
         <div dir="ltr" style="font-family:Consolas,'Courier New',monospace;font-size:38px;line-height:1.2;font-weight:700;letter-spacing:10px;color:#23272A;">${escapeHtml(code)}</div>
       </td></tr>
     </table>
-    <p style="margin:18px 0 0;font-size:13px;color:#5C6360;">لا تشارك هذا الرمز مع أحد. إذا لم تطلبه فتجاهل هذه الرسالة.</p>`;
+    <p dir="rtl" style="margin:18px 0 0;font-size:13px;color:#5C6360;direction:rtl;text-align:right;">لا تشارك هذا الرمز مع أحد. إذا لم تطلبه فتجاهل هذه الرسالة.</p>`;
   await sendEmail({
     to: email,
     subject: `رمز الدخول: ${code}`,
