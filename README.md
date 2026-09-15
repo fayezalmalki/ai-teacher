@@ -48,6 +48,24 @@ Vercel issues the certificates once the records resolve. `NEXT_PUBLIC_SITE_URL` 
 `metadataBase`, the canonical link, Open Graph and `sitemap.xml`; `robots.txt` keeps `/api`, `/dev`,
 `/parent` and the lesson runtime out of search results.
 
+## Children, settings and history
+
+`lib/store/state.ts` holds a household: `children[]` (name, age, grade, avatar colour, per-child settings,
+finished-session history) and `activeChildId`, persisted under `ai-teacher:v2` with a migration from the
+v1 single-child record. Per-child settings: daily minutes, reminder, open conversation, `sound`
+(`voice` | `reading`) and `startLevel`. The profiles screen switches child; the parent area edits, adds and
+removes children and shows this week's numbers computed from their history (`lib/store/insights.ts`).
+
+## Adding a lesson
+
+1. Write `lib/lessons/<subject>/<id>.lesson.json` (same shape as the fractions lesson). A step's `visual` is
+   either a parametric spec such as `{ "kind": "pizza", "filled": 2, "dividers": "v" }` or one of the
+   fractions-era ids (`pizzaHalf`, `chocPick`, …) listed in `lib/lesson-engine/visuals.ts`.
+2. Register it in `lib/lessons/index.ts` and give the catalog entry its `lessonId`.
+3. `npm test`: `lib/lessons/lessons.test.ts` validates every registered graph (targets, choice sets,
+   reachability, visuals) so a broken lesson never reaches a child.
+4. `npm run render-lines -- --lesson <id>` and commit the audio.
+
 ## Session query flags
 
 | Flag | Effect |
@@ -81,21 +99,23 @@ components/session/           # InteractionBar, MicButton, Choices, AdaptChip, D
 components/character/         # Character switch, NawafSvg rig, RiveTeacher binding
 lib/character/contract.ts     # state / viseme / level input contract shared with the .riv file
 app/dev/character/            # rig preview page
+lib/lessons/                  # lesson registry: <subject>/<id>.lesson.json + index.ts; validate.ts checks every graph
 lib/lesson-engine/
-  types.ts                    # lesson JSON + session state types
-  fractions.lesson.json       # the live lesson: steps, choices, copy (verbatim from the design)
+  types.ts                    # lesson JSON + session state types (VisualSpec: parametric visuals)
+  visuals.ts                  # visual kinds, the fractions-era id aliases, validator helpers
+  policy.ts                   # adaptation thresholds, start level, level clamping
   reducer.ts                  # pure state machine over the step graph
   selectors.ts                # progress dots, observation notes, rating, summary stats
   contract.ts                 # TurnState / ModelTurn JSON contracts + validator
   prompts.ts                  # system/turn prompt builders for the live model
   timing.ts                   # speaking / pause / thinking / recording timings
   useLessonSession.ts         # client runtime: timers + voice adapter around the reducer
-lib/voice/                    # VoiceAdapter interface, simulated + cascaded adapters, realtime stub
+lib/voice/                    # VoiceAdapter interface, silent (timer / reading) + cascaded adapters, realtime stub
 lib/voice/lines.ts            # teacher-line extraction, hashing, Arabic letter → viseme mapping
 lib/voice/server/             # TTS / STT / assessment providers used by scripts and route handlers
 scripts/render-lines.ts       # pre-render teacher audio + viseme tracks into public/audio/
 app/api/{tts,stt,assess}/     # route handlers; vendor keys stay server-side
-lib/store/                    # app store (localStorage), parent gate
+lib/store/                    # app store v2 (household of children, per-child settings + history), insights, parent gate
 lib/content/catalog.ts        # subjects, lesson paths, parent-area copy
 lib/site.ts                   # footer links, socials, powered-by (from docs/site-config.js)
 lib/flags.ts                  # NEXT_PUBLIC_GUIDED_DEMO
@@ -106,12 +126,15 @@ lib/db/supabase.ts            # persistence stub
 ## Voice pipeline
 
 Two adapters implement `lib/voice/types.ts`. `cascaded` is the default; force the silent timer prototype with
-`?voice=simulated` or `NEXT_PUBLIC_VOICE=simulated`.
+`?voice=simulated` or `NEXT_PUBLIC_VOICE=simulated`. `?voice=reading` (or the child's "وضع القراءة" setting)
+runs the lesson without sound: the sentence stays on screen until the child taps التالي, and free answers
+become tap buttons.
 
 | Adapter | Teacher speech | Child answer |
 | --- | --- | --- |
 | `cascaded` (default) | pre-rendered clips from `public/audio/<lesson>/` → `/api/tts` → the device's Arabic voice (SpeechSynthesis) → timers | Web Speech API recognition (Chrome, Safari, Android) → else push-to-talk recording → `/api/stt`; then `/api/assess` → engine branch; on any failure the four scripted answers become tap choices |
 | `simulated` | timers: `max(1800ms, 55ms × chars)` | 1.8 s fake recording, scripted "correct" |
+| `reading` | waits for التالي (no sound) | no mic; the scripted answers are buttons |
 
 With no keys at all the app still speaks and listens through the browser. Because browsers only play audio after a
 user gesture, the session shows its start screen after a deep link or reload, and the explanation mode shows
@@ -125,7 +148,7 @@ npm run render-lines -- --provider elevenlabs --names "سلمان,ليان"   # 
 npm run render-lines -- --provider openai --force
 ```
 
-The script walks `fractions.lesson.json`, fills `{name}` for each name, hashes each line, and skips lines whose
+The script walks the lesson JSON (`lib/lessons/math/fractions.lesson.json`), fills `{name}` for each name, hashes each line, and skips lines whose
 text and voice are unchanged. The manifest maps `hash → {file, durationMs, visemes}`; the adapter looks up the
 spoken text by the same hash at runtime, so a copy edit only re-renders that line. If the mic is unavailable or
 nothing was heard, the session shows the four scripted answers as tap choices.
@@ -174,7 +197,7 @@ viseme and renderer side by side at `/dev/character`, including lip-sync playbac
 
 ## Lesson engine
 
-The LLM never free-runs. `fractions.lesson.json` defines the step graph; `reducer.ts` walks it and keeps the
+The LLM never free-runs. The lesson JSON in `lib/lessons/` defines the step graph; `reducer.ts` walks it and keeps the
 per-turn state (`concept`, `difficulty`, `attempts`, `understanding`, `strategy`). Every adaptation appends a
 human-readable log line that feeds the end screen, the parent summary and analytics.
 

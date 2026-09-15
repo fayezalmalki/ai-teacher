@@ -7,8 +7,11 @@ import AppHeader from "@/components/AppHeader";
 import PoweredBy from "@/components/PoweredBy";
 import Pizza from "@/components/visuals/Pizza";
 import { SketchButton, SketchLink, btnRadius } from "@/components/Sketch";
-import { LAST_SESSION, SUBJECTS, TODAY_LESSON, gradeLabel, type Tone } from "@/lib/content/catalog";
+import { SUBJECTS, TODAY_LESSON, gradeLabel, type Tone } from "@/lib/content/catalog";
+import { subjectPercent, todaysLesson } from "@/lib/content/paths";
 import { guidedDemo } from "@/lib/flags";
+import { lessonTitle } from "@/lib/lessons";
+import { streakDays } from "@/lib/store/insights";
 import { useAppStore } from "@/lib/store/app-store";
 
 const BAR: Record<Tone, string> = {
@@ -19,9 +22,12 @@ const BAR: Record<Tone, string> = {
 };
 
 export default function HomePage() {
-  const { state } = useAppStore();
+  const { child, results } = useAppStore();
   const [unlocked, setUnlocked] = useState(false);
   const guided = guidedDemo() && !unlocked;
+  const today = todaysLesson(results) ?? { lessonId: TODAY_LESSON.lessonId, subjectId: TODAY_LESSON.subjectId, done: false };
+  const streak = streakDays(results);
+  const streakCount = streak.filter(Boolean).length;
 
   return (
     <Frame>
@@ -29,18 +35,21 @@ export default function HomePage() {
       <div className="flex-1 flex flex-col gap-12 px-6 sm:px-10 pt-12 pb-16 max-w-[1040px] w-full mx-auto">
         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-10 items-center">
           <div className="flex flex-col gap-5 items-start min-w-0">
-            <h1 className="font-display text-[48px] font-bold leading-[1.2] m-0">هلا {state.child.name}!</h1>
+            <h1 className="font-display text-[48px] font-bold leading-[1.2] m-0">هلا {child.name}!</h1>
             <div className="text-[18px] text-ink-2">
-              درس اليوم: <b className="font-semibold text-ink">{TODAY_LESSON.title}</b> · 10 دقائق
+              {today.done ? "خلصت درس اليوم: " : "درس اليوم: "}
+              <b className="font-semibold text-ink">{lessonTitle(today.lessonId).replace(/^درس /, "")}</b> · 10 دقائق
             </div>
-            <SketchButton href={`/lesson/${TODAY_LESSON.lessonId}`} size="lg">
-              يلا نبدأ
+            <SketchButton href={`/lesson/${today.lessonId}`} size="lg">
+              {today.done ? "نعيده مرة ثانية" : "يلا نبدأ"}
             </SketchButton>
             <div className="flex gap-1.5 items-center mt-2 flex-wrap">
-              {LAST_SESSION.streak.map((v, i) => (
+              {streak.map((v, i) => (
                 <div key={i} className={"w-[22px] h-[22px] r-dot ink-2 " + (v ? "bg-primary" : "bg-surface")} />
               ))}
-              <span className="text-[13px] text-muted mr-2">{LAST_SESSION.streakLabel}</span>
+              <span className="text-[13px] text-muted mr-2">
+                {streakCount === 0 ? "ما فيه جلسات هذا الأسبوع بعد" : streakCount === 1 ? "يوم واحد هذا الأسبوع" : streakCount === 2 ? "يومان هذا الأسبوع" : `${streakCount} أيام هذا الأسبوع`}
+              </span>
             </div>
           </div>
           <div className="grid place-items-center py-4">
@@ -62,7 +71,7 @@ export default function HomePage() {
           </div>
         ) : (
           <div className="flex flex-col gap-4 motion animate-fade-up">
-            <div className="text-[14px] text-muted">موادك · {gradeLabel(state.child.grade)}</div>
+            <div className="text-[14px] text-muted">موادك · {gradeLabel(child.grade)}</div>
             <div className="flex gap-3.5 flex-wrap">
               {SUBJECTS.map((s, i) => (
                 <Link
@@ -72,7 +81,7 @@ export default function HomePage() {
                 >
                   <div className="font-display text-[18px] font-bold">{s.name}</div>
                   <div className="w-14 h-2 rounded-[4px] ink-2 overflow-hidden bg-surface">
-                    <div className={"h-full " + BAR[s.tone]} style={{ width: `${s.pct}%` }} />
+                    <div className={"h-full " + BAR[s.tone]} style={{ width: `${Math.max(s.pct, subjectPercent(s.id, results))}%` }} />
                   </div>
                 </Link>
               ))}

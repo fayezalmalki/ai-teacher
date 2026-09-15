@@ -1,5 +1,5 @@
 export * from "./types";
-export { SimulatedVoiceAdapter } from "./simulated";
+export { SilentVoiceAdapter, SimulatedVoiceAdapter } from "./silent";
 export { TtsFallbackAdapter } from "./tts-fallback";
 export { CascadedVoiceAdapter, type CascadedOptions } from "./cascaded";
 export { createVoiceAdapter, resolveVoiceMode, type VoiceMode } from "./select";

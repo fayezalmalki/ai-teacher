@@ -6,7 +6,7 @@ import Frame from "@/components/Frame";
 import Subtitle from "@/components/Subtitle";
 import Teacher, { type TeacherState } from "@/components/Teacher";
 import { BackButton, ChildChip } from "@/components/AppHeader";
-import { SketchButton } from "@/components/Sketch";
+import { SketchButton, SketchLink } from "@/components/Sketch";
 import SessionVisual from "@/components/visuals/SessionVisual";
 import AdaptChip from "./AdaptChip";
 import InteractionBar, { type InteractionBarProps } from "./InteractionBar";
@@ -26,9 +26,11 @@ import {
   type Pace,
 } from "@/lib/lesson-engine";
 import { useLessonSession } from "@/lib/lesson-engine/useLessonSession";
-import { createVoiceAdapter, resolveVoiceMode } from "@/lib/voice/select";
+import { asReadable, createVoiceAdapter, resolveVoiceMode } from "@/lib/voice/select";
 import { resolveCharacterMode } from "@/lib/character/contract";
 import { useAppStore } from "@/lib/store/app-store";
+import { visualNeedsPick } from "@/lib/lesson-engine/visuals";
+import SoundToggle from "./SoundToggle";
 
 interface SessionViewProps {
   lesson: LessonDefinition;
@@ -37,8 +39,8 @@ interface SessionViewProps {
 export default function SessionView({ lesson }: SessionViewProps) {
   const router = useRouter();
   const params = useSearchParams();
-  const { state: app, childInitial, setLastResult } = useAppStore();
-  const name = app.child.name;
+  const { child, settings, childInitial, addResult, setSettings } = useAppStore();
+  const name = child.name;
 
   const pace: Pace = params.get("pace") === "fast" ? "fast" : "demo";
   const showEngine = params.get("engine") === "1";
@@ -49,31 +51,35 @@ export default function SessionView({ lesson }: SessionViewProps) {
     if (taps.current >= 5) setDemoVisible(true);
   };
 
-  const voiceMode = resolveVoiceMode(params.get("voice"));
+  const voiceMode = resolveVoiceMode(params.get("voice"), settings.sound);
+  const reading = voiceMode === "reading";
   const voice = useMemo(() => createVoiceAdapter(voiceMode, lesson.id, pace, name), [voiceMode, lesson.id, pace, name]);
   useEffect(() => () => voice.dispose(), [voice]);
 
   // Browsers only play audio after a user gesture. A client-side navigation keeps
   // the activation; a deep link or reload does not, so show the start screen then.
-  const autoStart = useMemo(
+  // Decided once on arrival: toggling the sound mode later must not start the lesson.
+  const [autoStart] = useState(
     () => voiceMode === "simulated" || (typeof navigator !== "undefined" && (navigator as Navigator & { userActivation?: { hasBeenActive: boolean } }).userActivation?.hasBeenActive === true),
-    [voiceMode],
   );
-  const session = useLessonSession({ lesson, name, voice, pace, autoStart });
+  const policy = useMemo(() => ({ startLevel: settings.startLevel }), [settings.startLevel]);
+  const session = useLessonSession({ lesson, name, voice, pace, autoStart, policy });
   const { state } = session;
   const character = resolveCharacterMode(params.get("character"));
   const liveMock = params.get("live") === "mock";
-  const askEnabled = app.settings.liveAsk;
+  const askEnabled = settings.liveAsk && !reading;
+  const advance = () => asReadable(voice)?.advance();
+  const toggleSound = () => setSettings({ sound: settings.sound === "reading" ? "voice" : "reading" });
 
   // Summary lives on its own route: persist the result and navigate.
   const navigated = useRef(false);
   useEffect(() => {
     if (state.screen === "summary" && !navigated.current) {
       navigated.current = true;
-      setLastResult(toSessionResult(state, lesson, name));
+      addResult(toSessionResult(state, lesson, name));
       router.push(`/lesson/${lesson.id}/summary`);
     }
-  }, [state, lesson, name, router, setLastResult]);
+  }, [state, lesson, name, router, addResult]);
 
   const step = currentStep(state, lesson);
   const phase = state.phase;
@@ -87,13 +93,13 @@ export default function SessionView({ lesson }: SessionViewProps) {
     ? "encouraging"
     : speaking
       ? "speaking"
-      : listening || state.recording
+      : (listening && !reading) || state.recording
         ? "listening"
         : thinking
           ? "thinking"
           : "idle";
 
-  const chocPick = step.visual === "chocPick";
+  const chocPick = visualNeedsPick(step.visual);
   const choices = getChoices(lesson, step);
   const showChoices = choosing && choices.length > 0 && (!chocPick || state.selected.length === 2);
 
@@ -127,7 +133,10 @@ export default function SessionView({ lesson }: SessionViewProps) {
             <div key={i} className={"w-[9px] h-[9px] r-dot ink-2 transition-colors duration-[400ms] " + (d ? "bg-primary" : "bg-surface")} />
           ))}
         </div>
-        <ChildChip />
+        <div className="flex items-center gap-2.5">
+          {!params.get("voice") && <SoundToggle reading={reading} onToggle={toggleSound} />}
+          <ChildChip />
+        </div>
       </div>
 
       {state.screen === "start" && (
@@ -139,6 +148,11 @@ export default function SessionView({ lesson }: SessionViewProps) {
             <SketchButton onClick={session.start} size="lg" className="mt-1">
               يلا نبدأ
             </SketchButton>
+            {!params.get("voice") && (
+              <SketchLink onClick={toggleSound} className="text-[14px]">
+                {reading ? "بالصوت" : "بدون صوت"}
+              </SketchLink>
+            )}
           </div>
         </div>
       )}
@@ -176,6 +190,8 @@ export default function SessionView({ lesson }: SessionViewProps) {
           </div>
           <InteractionBar
             mode={barMode}
+            reading={reading}
+            onAdvance={advance}
             recording={state.recording}
             onMic={session.tapMic}
             listenError={session.listenError}

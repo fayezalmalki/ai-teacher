@@ -27,7 +27,7 @@ export default function ExplainPage() {
 function ExplainScreen() {
   const { id } = useParams<{ id: string }>();
   const params = useSearchParams();
-  const { state: app } = useAppStore();
+  const { child, settings } = useAppStore();
   const lesson = getLesson(id);
   const steps = useMemo(() => lesson?.explain ?? [], [lesson]);
   const [idx, setIdx] = useState(0);
@@ -37,9 +37,10 @@ function ExplainScreen() {
   const [armed, setArmed] = useState(false);
   const [speaking, setSpeaking] = useState(false);
 
-  const voiceMode = resolveVoiceMode(params.get("voice"));
+  const voiceMode = resolveVoiceMode(params.get("voice"), settings.sound);
+  const reading = voiceMode === "reading";
   const character = resolveCharacterMode(params.get("character"));
-  const voice = useMemo(() => createVoiceAdapter(voiceMode, id, "demo", app.child.name), [voiceMode, id, app.child.name]);
+  const voice = useMemo(() => createVoiceAdapter(voiceMode, id, "demo", child.name), [voiceMode, id, child.name]);
   useEffect(() => () => voice.dispose(), [voice]);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -51,7 +52,7 @@ function ExplainScreen() {
 
   useEffect(() => {
     const nav = navigator as Navigator & { userActivation?: { hasBeenActive: boolean } };
-    if (voiceMode === "simulated" || nav.userActivation?.hasBeenActive) {
+    if (voiceMode !== "cascaded" || nav.userActivation?.hasBeenActive) {
       setArmed(true);
       setSpeaking(true);
     }
@@ -66,6 +67,11 @@ function ExplainScreen() {
   // Simulated: max(2200ms, 60ms × chars). Cascaded: the cached clip's real end event.
   useEffect(() => {
     if (!armed || !speaking || !steps[idx]) return;
+    // Reading mode: the sentence is the lesson; the child moves on with التالي.
+    if (reading) {
+      setSpeaking(false);
+      return;
+    }
     const controller = new AbortController();
     if (voiceMode === "cascaded") {
       voice
@@ -81,7 +87,7 @@ function ExplainScreen() {
       setViseme(0);
       if (timer.current) clearTimeout(timer.current);
     };
-  }, [armed, speaking, idx, take, steps, voice, voiceMode]);
+  }, [armed, speaking, idx, take, steps, voice, voiceMode, reading]);
 
   if (!lesson) return <LessonNotFound />;
 
@@ -104,7 +110,7 @@ function ExplainScreen() {
       <div className="flex-1 flex flex-col">
         <div className="flex-1 grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-10 items-center px-6 sm:px-14 pt-10 pb-6 max-w-[1100px] w-full mx-auto">
           <div className="flex flex-col items-start gap-7 min-w-0">
-            <Teacher size={120} state={speaking ? "speaking" : "idle"} viseme={viseme} character={character} />
+            <Teacher size={120} state={speaking && !reading ? "speaking" : "idle"} viseme={viseme} character={character} />
             <Subtitle id={`${idx}:${take}`} text={step.text} />
           </div>
           <div className="grid place-items-center min-h-[340px]">

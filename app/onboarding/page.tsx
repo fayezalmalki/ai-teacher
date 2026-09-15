@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Frame from "@/components/Frame";
 import AppHeader from "@/components/AppHeader";
 import ProgressBars from "@/components/ProgressBars";
@@ -11,24 +11,48 @@ import { AGES, GRADES } from "@/lib/content/catalog";
 import { toArabicDigits } from "@/lib/format";
 import { PIN_ADVANCE_MS } from "@/lib/lesson-engine/timing";
 import { PARENT_UNLOCK_KEY } from "@/lib/store/parent-gate";
+import { DEMO_CHILD } from "@/lib/store/state";
 import { useAppStore } from "@/lib/store/app-store";
 
 export default function OnboardingPage() {
+  return (
+    <Suspense fallback={<Frame>{null}</Frame>}>
+      <Onboarding />
+    </Suspense>
+  );
+}
+
+/**
+ * Three flows share this screen:
+ * - first run: rename the demo child, set the PIN, done (3 steps);
+ * - add a child (?new=1, or any later visit): who + done, the PIN already exists;
+ * - edit a child (?child=id, from the parent area): who, then back to the parent area.
+ */
+function Onboarding() {
   const router = useRouter();
-  const { state, hydrated, setChild, setPin, setOnboarded } = useAppStore();
+  const params = useSearchParams();
+  const { state, hydrated, child, setChild, addChild, updateChild, setActiveChild, setPin, setOnboarded } = useAppStore();
+  const editId = params.get("child");
+  const editing = editId ? state.children.find((c) => c.id === editId) : undefined;
+  const firstRun = !state.onboarded && !editId && !params.get("new");
+  const needsPin = firstRun;
+  const totalSteps = needsPin ? 3 : 2;
+
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  // The form rests empty; the demo persona is only prefilled when a parent re-opens setup.
+  // The form rests empty; a profile being edited (or the first-run demo child) is prefilled.
   const [name, setName] = useState("");
-  const [age, setAge] = useState(state.child.age);
-  const [grade, setGrade] = useState(state.child.grade);
+  const [age, setAge] = useState(DEMO_CHILD.age);
+  const [grade, setGrade] = useState(DEMO_CHILD.grade);
   const [pin, setPinDraft] = useState("");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (hydrated) {
-      if (state.onboarded) setName(state.child.name);
-      setAge(state.child.age);
-      setGrade(state.child.grade);
+    if (!hydrated) return;
+    const src = editing ?? (firstRun ? child : undefined);
+    if (src) {
+      setName(src.name);
+      setAge(src.age);
+      setGrade(src.grade);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
@@ -43,14 +67,24 @@ export default function OnboardingPage() {
   const canContinue = name.trim().length > 0;
   const next1 = () => {
     if (!canContinue) return;
-    setChild({ name: name.trim(), age, grade });
+    const profile = { name: name.trim(), age, grade };
+    if (editing) {
+      updateChild(editing.id, profile);
+      router.push("/parent");
+      return;
+    }
+    if (firstRun) setChild(profile);
+    else {
+      const id = addChild(profile);
+      setActiveChild(id);
+    }
     setPinDraft("");
-    setStep(2);
+    setStep(needsPin ? 2 : 3);
   };
   const stepBack = () => {
     if (timer.current) clearTimeout(timer.current);
     setPinDraft("");
-    setStep((s) => (s === 3 ? 2 : 1));
+    setStep((s) => (s === 3 && needsPin ? 2 : 1));
   };
 
   const onKey = (k: string) => {
@@ -77,18 +111,19 @@ export default function OnboardingPage() {
     router.push("/parent");
   };
 
-  const displayName = name.trim() || state.child.name;
+  const displayName = name.trim() || child.name;
+  const filled = step === 1 ? 1 : step === 2 ? 2 : totalSteps;
 
   return (
     <Frame>
-      <AppHeader onBack={step > 1 ? stepBack : undefined} />
+      <AppHeader onBack={step > 1 ? stepBack : undefined} backHref={editing ? "/parent" : "/"} />
       <div className="flex-1 grid place-items-center px-6 sm:px-8 pt-10 pb-20">
         <div className="w-full max-w-[480px] min-w-0 flex flex-col gap-8">
-          <ProgressBars total={3} filled={step} />
+          <ProgressBars total={totalSteps} filled={filled} />
 
           {step === 1 && (
             <div className="flex flex-col gap-[26px] min-w-0 motion animate-fade-up-fast">
-              <h1 className="font-display text-[38px] font-bold m-0">من الطالب؟</h1>
+              <h1 className="font-display text-[38px] font-bold m-0">{editing ? "تعديل الطالب" : "من الطالب؟"}</h1>
               <input
                 id="child-name"
                 aria-label="اسم الطفل"
@@ -118,7 +153,7 @@ export default function OnboardingPage() {
                 </div>
               </div>
               <SketchButton onClick={next1} disabled={!canContinue} className="self-start">
-                التالي
+                {editing ? "حفظ" : "التالي"}
               </SketchButton>
             </div>
           )}

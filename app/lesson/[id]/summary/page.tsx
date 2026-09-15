@@ -13,9 +13,9 @@ import { useAppStore } from "@/lib/store/app-store";
 export default function SummaryPage() {
   const { id } = useParams<{ id: string }>();
   const lesson = getLesson(id);
-  const { state, hydrated } = useAppStore();
+  const { child, lastResult, hydrated } = useAppStore();
   if (!lesson) return <LessonNotFound />;
-  const result = state.lastResult && state.lastResult.lessonId === lesson.id ? state.lastResult : null;
+  const result = lastResult && lastResult.lessonId === lesson.id ? lastResult : null;
   const stats = result ? summaryStats(result, lesson) : [];
   const numbers = stats.slice(0, 4);
   const levels = stats.slice(4);
@@ -26,7 +26,7 @@ export default function SummaryPage() {
       <div className="flex-1 flex flex-col gap-8 px-6 sm:px-8 pt-10 pb-20 max-w-[720px] w-full mx-auto">
         <div>
           <div className="text-[14px] text-muted">لولي الأمر</div>
-          <h1 className="font-display text-[36px] font-bold mt-0.5 m-0">جلسة {state.child.name} اليوم</h1>
+          <h1 className="font-display text-[36px] font-bold mt-0.5 m-0">جلسة {child.name} اليوم</h1>
         </div>
         {hydrated && !result && (
           <div className="text-[16px] leading-[1.7] text-ink-2 px-[18px] py-3.5 border-2 border-dashed border-rule r-input">
@@ -61,7 +61,7 @@ export default function SummaryPage() {
             </div>
             {result.askTurns?.length > 0 && (
               <div className="flex flex-col gap-4 dashed-rule pt-6">
-                <div className="text-[15px] font-semibold">أسئلة {state.child.name} للمعلم</div>
+                <div className="text-[15px] font-semibold">أسئلة {child.name} للمعلم</div>
                 {result.askTurns.map((t, i) => (
                   <div key={i} className="flex flex-col gap-1 text-[15px] leading-[1.6]">
                     <div className="font-semibold text-ink">{t.question || "…"}</div>

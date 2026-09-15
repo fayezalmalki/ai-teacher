@@ -12,6 +12,7 @@ import {
   type SessionState,
 } from "./types";
 import { fill } from "./template";
+import { clampLevel, resolvePolicy } from "./policy";
 
 export const initialSessionState: SessionState = {
   screen: "start",
@@ -33,10 +34,13 @@ export const initialSessionState: SessionState = {
   recording: false,
   pending: null,
   askTurns: [],
+  correctStreak: 0,
+  wrongStreak: 0,
 };
 
-export function createInitialState(lesson: LessonDefinition): SessionState {
-  return { ...initialSessionState, step: lesson.entry };
+export function createInitialState(lesson: LessonDefinition, ctx?: Pick<EngineContext, "policy">): SessionState {
+  const policy = resolvePolicy(ctx?.policy);
+  return { ...initialSessionState, step: lesson.entry, difficulty: clampLevel(policy.startLevel, lesson.levels.length, policy) };
 }
 
 export function getStep(lesson: LessonDefinition, id: string): LessonStep {
@@ -91,8 +95,9 @@ export function goto(
     ...extra,
   };
   if (st.levelUp) {
-    next.difficulty = Math.min(lesson.levels.length, state.difficulty + 1);
-    next.adapt = fill(lesson.levelUpAdapt, { level: lesson.levels[next.difficulty - 1] });
+    const policy = resolvePolicy(ctx.policy);
+    next.difficulty = clampLevel(state.difficulty + 1, lesson.levels.length, policy);
+    if (next.difficulty !== state.difficulty) next.adapt = fill(lesson.levelUpAdapt, { level: lesson.levels[next.difficulty - 1] });
   }
   if (st.strategy) next.strategy = st.strategy;
   if (st.retry || st.reexplain) next.reexplain = state.reexplain + 1;
@@ -112,12 +117,22 @@ function think(
 
 function answerIntro(state: SessionState, ctx: EngineContext, kind: IntroAnswerKind, transcript?: string): SessionState {
   const r = ctx.lesson.introResponses[kind];
+  const counted = r.questions > 0;
+  const ok = r.correct > 0;
   return think(state, transcript?.trim() || r.transcript, r.go, {
     understanding: r.understanding,
     questions: state.questions + r.questions,
     correct: state.correct + r.correct,
     log: [...state.log, fill(r.log, vars(ctx))],
+    ...(counted ? streaks(state, ok) : {}),
   });
+}
+
+/** Streak counters after an answer that counts. */
+function streaks(state: SessionState, ok: boolean): Pick<SessionState, "correctStreak" | "wrongStreak"> {
+  return ok
+    ? { correctStreak: state.correctStreak + 1, wrongStreak: 0 }
+    : { correctStreak: 0, wrongStreak: state.wrongStreak + 1 };
 }
 
 function pick(state: SessionState, ctx: EngineContext, choice: Choice): SessionState {
@@ -127,6 +142,7 @@ function pick(state: SessionState, ctx: EngineContext, choice: Choice): SessionS
     questions: state.questions + (st.retry ? 0 : 1),
     correct: state.correct + (ok ? 1 : 0),
     understanding: ok ? "good" : "partial",
+    ...streaks(state, ok),
   };
   if (!ok && st.wrongLog) extra.log = [...state.log, fill(st.wrongLog, vars(ctx))];
   const target = ok ? st.onOk : st.onWrong;
@@ -142,6 +158,7 @@ function pickCompare(state: SessionState, ctx: EngineContext, value: string): Se
     questions: state.questions + (st.retry ? 0 : 1),
     correct: state.correct + (ok ? 1 : 0),
     understanding: ok ? "good" : "partial",
+    ...streaks(state, ok),
   };
   const label = st.compare.labels[value] ?? value;
   return think(
@@ -186,7 +203,7 @@ export function sessionReducer(state: SessionState, action: SessionAction, ctx: 
   const { lesson } = ctx;
   switch (action.type) {
     case "START":
-      return goto({ ...createInitialState(lesson), screen: "lesson", startedAt: action.now }, ctx, lesson.entry);
+      return goto({ ...createInitialState(lesson, ctx), screen: "lesson", startedAt: action.now }, ctx, lesson.entry);
     case "GOTO":
       return goto(state, ctx, action.id, action.extra);
     case "SPEECH_END": {
@@ -247,7 +264,7 @@ export function sessionReducer(state: SessionState, action: SessionAction, ctx: 
     case "FINISH":
       return goto(state, ctx, SUMMARY_STEP, { endedAt: action.now });
     case "RESTART":
-      return createInitialState(lesson);
+      return createInitialState(lesson, ctx);
     case "DEMO":
       return demo(state, ctx, action.path);
     default:

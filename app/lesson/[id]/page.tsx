@@ -12,7 +12,7 @@ import { useAppStore } from "@/lib/store/app-store";
 export default function LessonIntroPage() {
   const { id } = useParams<{ id: string }>();
   const lesson = getLesson(id);
-  const { state } = useAppStore();
+  const { child } = useAppStore();
   if (!lesson) return <LessonNotFound />;
   return (
     <Frame>
@@ -21,7 +21,7 @@ export default function LessonIntroPage() {
         <div className="flex flex-col items-center gap-[30px] text-center max-w-[560px]">
           <Teacher size={140} ring idleWobble />
           <h1 className="font-display text-[28px] sm:text-[34px] font-semibold leading-[1.45] text-pretty-wrap m-0">
-            هلا {state.child.name}. أشرح لك أول، أو نجرب مباشرة؟
+            هلا {child.name}. أشرح لك أول، أو نجرب مباشرة؟
           </h1>
           <div className="flex gap-3.5 flex-wrap justify-center">
             <SketchButton href={`/lesson/${lesson.id}/explain`} size="lg" index={0}>

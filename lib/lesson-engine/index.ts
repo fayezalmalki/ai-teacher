@@ -1,19 +1,10 @@
-import fractions from "./fractions.lesson.json";
-import type { LessonDefinition } from "./types";
-
-export const fractionsLesson = fractions as LessonDefinition;
-
-export const lessons: Record<string, LessonDefinition> = {
-  [fractionsLesson.id]: fractionsLesson,
-};
-
-export function getLesson(id: string): LessonDefinition | undefined {
-  return lessons[id];
-}
+export { fractionsLesson, lessons, getLesson, LESSON_LIST, lessonsForSubject, lessonTitle } from "@/lib/lessons";
 
 export * from "./types";
 export * from "./reducer";
 export * from "./selectors";
 export * from "./contract";
 export * from "./timing";
+export * from "./policy";
+export * from "./visuals";
 export { fill } from "./template";
