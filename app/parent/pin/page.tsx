@@ -50,17 +50,15 @@ export default function ParentPinPage() {
     ? "الرمز غير صحيح، حاول مرة ثانية."
     : state.onboarded
       ? "أدخل رمز ولي الأمر"
-      : "أدخل رمز ولي الأمر (في النموذج: 1234)";
+      : "أدخل رمز ولي الأمر (في النموذج: ١٢٣٤)";
 
   return (
     <Frame>
       <AppHeader />
-      <div className="flex-1 grid place-items-center px-8 py-12">
-        <div className="flex flex-col gap-6 items-center text-center">
-          <div>
-            <h1 className="text-[30px] font-bold m-0">منطقة ولي الأمر</h1>
-            <div className={"text-[15px] mt-2 " + (error ? "text-error" : "text-ink-2")}>{hint}</div>
-          </div>
+      <div className="flex-1 grid place-items-center px-6 sm:px-8 pt-10 pb-20">
+        <div className="flex flex-col gap-[26px] items-center text-center">
+          <h1 className="font-display text-[38px] font-bold m-0">ولي الأمر</h1>
+          <div className={"text-[15px] " + (error ? "text-error" : "text-ink-2")}>{hint}</div>
           <PinDots length={pin.length} error={error} />
           <Keypad onKey={onKey} />
         </div>

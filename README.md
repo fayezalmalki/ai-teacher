@@ -5,7 +5,9 @@ Arabic-first (RTL), voice-first tutoring prototype for primary-school children. 
 child, hold a PIN, and get a summary.
 
 Design handoff and HTML references live in [`docs/`](docs/README.md). This repo recreates them in
-Next.js 15 + TypeScript + Tailwind v4.
+Next.js 15 + TypeScript + Tailwind v4. The visual layer follows the **v2 hand-drawn restyle** in
+[`docs/README-v2.md`](docs/README-v2.md) (cream page, ink strokes, wobbly radii, flat offset shadows,
+Baloo Bhaijaan 2 display type); it overrides the styling section of `docs/README.md`.
 
 ## Run
 
@@ -37,11 +39,26 @@ result persist in `localStorage`.
 | `?pace=fast` | Multiply all timings by 0.45. |
 | `?engine=1` | Show live engine-state chips and JSON in the demo panel. |
 
+## Visual system (v2)
+
+- No frame, header bar or footer bar: the cream page is the surface. Corner chrome only (`AppHeader`: back +
+  wordmark, parent pill + child initial); the session draws its own row.
+- Tokens live in `app/globals.css` (`@theme` colors/shadows/animations, `@utility` wobbly radii `r-btn-*`,
+  `r-card-*`, `r-avatar`, `r-pizza`, `r-dot`, ink strokes `ink` / `ink-2`, `hatch`, `press`).
+- `components/Sketch.tsx` holds the primitives: `SketchButton`, `SketchCard`, `SketchCircle`, `SketchChip`,
+  `SketchPill`, `SketchLink`, `DashedRule`. Siblings cycle the radius via `index`.
+- Fractions are hatched once per shape (`components/visuals/Pizza.tsx`: single hatch layer + cream quadrant
+  masks; props `filled` 0–4, `dividers` `none|v|vh`).
+- Footer and brand content come from `lib/site.ts` (mirror of `docs/site-config.js`): `<Footer variant="full">`
+  on the landing, `"slim"` on the parent page, `<PoweredBy>` on the child home. Never hard-code links.
+- `NEXT_PUBLIC_GUIDED_DEMO` (default `true`): the child home shows only today's lesson plus an
+  "استعرض كل المواد" link; set it to `false` to show the full subject library.
+
 ## Structure
 
 ```
 app/                          # routes (RTL layout, IBM Plex Sans Arabic)
-components/                   # Frame, AppHeader, Teacher, Waveform, StatusPill, Keypad, …
+components/                   # Frame, AppHeader, Sketch, Footer, PoweredBy, Teacher, Waveform, Keypad, …
 components/visuals/           # Pizza, Chocolate, CompareCircles, FractionGlyph
 components/session/           # InteractionBar, MicButton, Choices, AdaptChip, DemoControls, SessionView
 components/character/         # Character switch, NawafSvg rig, RiveTeacher binding
@@ -63,6 +80,8 @@ scripts/render-lines.ts       # pre-render teacher audio + viseme tracks into pu
 app/api/{tts,stt,assess}/     # route handlers; vendor keys stay server-side
 lib/store/                    # app store (localStorage), parent gate
 lib/content/catalog.ts        # subjects, lesson paths, parent-area copy
+lib/site.ts                   # footer links, socials, powered-by (from docs/site-config.js)
+lib/flags.ts                  # NEXT_PUBLIC_GUIDED_DEMO
 lib/analytics/events.ts       # event buffer + sink hook
 lib/db/supabase.ts            # persistence stub
 ```

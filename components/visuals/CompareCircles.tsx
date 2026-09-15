@@ -8,33 +8,25 @@ interface CompareCirclesProps {
   labels?: Record<string, string>;
 }
 
-const CIRCLES: { value: string; filled: number; lines: 1 | 2 }[] = [
-  { value: "half", filled: 0.5, lines: 1 },
-  { value: "quarter", filled: 0.25, lines: 2 },
+const CIRCLES: { value: string; filled: 1 | 2; dividers: "v" | "vh" }[] = [
+  { value: "half", filled: 2, dividers: "v" },
+  { value: "quarter", filled: 1, dividers: "vh" },
 ];
 
-/** Two comparison circles (half vs quarter); tappable when the teacher waits. */
-export default function CompareCircles({
-  canPick = false,
-  onPick,
-  labels = { half: "الأولى", quarter: "الثانية" },
-}: CompareCirclesProps) {
+/** Two hatched circles (half vs quarter); tappable while the teacher waits. */
+export default function CompareCircles({ canPick = false, onPick, labels = { half: "الأولى", quarter: "الثانية" } }: CompareCirclesProps) {
   return (
-    <div className="flex gap-9 items-start flex-wrap justify-center">
+    <div className="flex gap-10 items-start flex-wrap justify-center motion animate-pop-in">
       {CIRCLES.map((c) => (
         <button
           key={c.value}
           type="button"
           onClick={() => canPick && onPick?.(c.value)}
-          className="flex flex-col items-center gap-3.5 bg-transparent border-0 p-3 rounded-card transition-[outline-color] duration-[250ms]"
-          style={{
-            cursor: canPick ? "pointer" : "default",
-            outline: `3px solid ${canPick ? "var(--color-primary-outline)" : "transparent"}`,
-            outlineOffset: 2,
-          }}
+          className={"flex flex-col items-center gap-3.5 bg-transparent border-0 p-2.5 transition-transform duration-200 " + (canPick ? "hover:-translate-y-1 hover:-rotate-1" : "")}
+          style={{ cursor: canPick ? "pointer" : "default" }}
         >
-          <Pizza size={160} border={8} filled={c.filled} lines={c.lines} />
-          <div className="text-[22px] font-semibold text-ink">{labels[c.value] ?? c.value}</div>
+          <Pizza size={170} filled={c.filled} dividers={c.dividers} pop={false} className="[&>div]:shadow-[6px_6px_0_var(--color-pizza-shadow)]" />
+          <div className="font-display text-[22px] font-semibold text-ink">{labels[c.value] ?? c.value}</div>
         </button>
       ))}
     </div>

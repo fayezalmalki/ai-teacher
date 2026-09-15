@@ -9,65 +9,33 @@ import CompareCircles from "./CompareCircles";
 interface SessionVisualProps {
   visual: VisualId;
   selected: number[];
-  /** Teacher is waiting for an answer, so tappable visuals accept input. */
   choosing: boolean;
   onToggleSquare: (index: number) => void;
   onPickCompare: (value: string) => void;
   compareLabels?: Record<string, string>;
 }
 
-/** Maps a `visual` id from the lesson JSON to a component. */
-export default function SessionVisual({
-  visual,
-  selected,
-  choosing,
-  onToggleSquare,
-  onPickCompare,
-  compareLabels,
-}: SessionVisualProps) {
+/** Maps a `visual` id from the lesson JSON to a v2 component. No captions: the teacher's sentence is the caption. */
+export default function SessionVisual({ visual, selected, choosing, onToggleSquare, onPickCompare, compareLabels }: SessionVisualProps) {
   switch (visual) {
     case "pizzaHalf":
-      return (
-        <div className="flex flex-col items-center gap-[18px]">
-          <Pizza filled={0.5} lines={1} />
-          <div className="text-[15px] text-muted">بيتزا مقسومة إلى جزأين متساويين</div>
-        </div>
-      );
+      return <Pizza key="half" filled={2} dividers="v" />;
     case "pizza34":
-      return (
-        <div className="flex flex-col items-center gap-[18px]">
-          <Pizza filled={0.25} base="eaten" lines={2} />
-          <div className="text-[15px] text-muted">3 أرباع أُكلت · جزء واحد باقي</div>
-        </div>
-      );
+      return <Pizza key="34" filled={3} dividers="vh" />;
     case "fractions":
-      return (
-        <FractionPair
-          pairs={[
-            { n: "1", d: "2" },
-            { n: "1", d: "4" },
-          ]}
-        />
-      );
+      return <FractionPair key="f" pairs={[{ n: "1", d: "2" }, { n: "1", d: "4" }]} />;
     case "fractions34":
-      return (
-        <FractionPair
-          pairs={[
-            { n: "3", d: "4" },
-            { n: "1", d: "2" },
-          ]}
-        />
-      );
+      return <FractionPair key="f34" pairs={[{ n: "3", d: "4" }, { n: "1", d: "2" }]} />;
     case "chocOne":
-      return <Chocolate mode="one" />;
+      return <Chocolate key="c1" mode="one" />;
     case "chocTwo":
-      return <Chocolate mode="two" />;
+      return <Chocolate key="c2" mode="two" />;
     case "chocPick":
-      return <Chocolate mode="pick" selected={selected} canPick={choosing} onToggle={onToggleSquare} />;
+      return <Chocolate key="cp" mode="pick" selected={selected} canPick={choosing} onToggle={onToggleSquare} />;
     case "compare":
-      return <CompareCircles labels={compareLabels} />;
+      return <CompareCircles key="cmp" labels={compareLabels} />;
     case "comparePick":
-      return <CompareCircles canPick={choosing} onPick={onPickCompare} labels={compareLabels} />;
+      return <CompareCircles key="cmpp" canPick={choosing} onPick={onPickCompare} labels={compareLabels} />;
     default:
       return null;
   }

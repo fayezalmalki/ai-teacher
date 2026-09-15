@@ -1,32 +1,28 @@
+import { toArabicDigits } from "@/lib/format";
+
 interface FractionGlyphProps {
   n: string;
   d: string;
-  size?: 56 | 64;
-  /** Tint the numerator primary (explanation legend). */
+  /** Numeral size in px (72 in the session, 84 in explanation mode). */
+  size?: number;
   highlightNumerator?: boolean;
 }
 
-/** A stacked fraction card: numerator, bar, denominator. */
-export default function FractionGlyph({ n, d, size = 56, highlightNumerator }: FractionGlyphProps) {
-  const big = size === 64;
+/** Baloo numerals with a slightly tilted ink bar. Digits display as Arabic-Indic. */
+export default function FractionGlyph({ n, d, size = 72, highlightNumerator }: FractionGlyphProps) {
+  const bar = size >= 84 ? 72 : 64;
   return (
-    <div
-      className={
-        "flex flex-col items-center font-semibold leading-none text-ink bg-surface rounded-card border border-border-3 " +
-        (big ? "px-10 py-6" : "px-9 py-6")
-      }
-      style={{ fontSize: size }}
-    >
-      <div className={highlightNumerator ? "text-primary" : undefined}>{n}</div>
-      <div className={"h-[3px] bg-ink " + (big ? "w-16 my-3" : "w-14 my-2.5")} />
-      <div>{d}</div>
+    <div className="flex flex-col items-center font-display font-bold leading-none text-ink" style={{ fontSize: size }}>
+      <div className={highlightNumerator ? "text-primary" : undefined}>{toArabicDigits(n)}</div>
+      <div className="h-1 bg-ink rounded-[2px] my-2" style={{ width: bar, transform: "rotate(-2deg)" }} />
+      <div>{toArabicDigits(d)}</div>
     </div>
   );
 }
 
-export function FractionPair({ pairs }: { pairs: { n: string; d: string }[] }) {
+export function FractionPair({ pairs, pop = true }: { pairs: { n: string; d: string }[]; pop?: boolean }) {
   return (
-    <div className="flex gap-10 items-center">
+    <div className={"flex gap-11 items-center " + (pop ? "motion animate-pop-in" : "")}>
       {pairs.map((f, i) => (
         <FractionGlyph key={i} n={f.n} d={f.d} />
       ))}

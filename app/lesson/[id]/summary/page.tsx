@@ -3,80 +3,81 @@
 import { useParams } from "next/navigation";
 import Frame from "@/components/Frame";
 import AppHeader from "@/components/AppHeader";
-import Button from "@/components/Button";
 import LessonNotFound from "@/components/LessonNotFound";
+import { SketchButton, SketchPill } from "@/components/Sketch";
+import { toArabicDigits } from "@/lib/format";
 import { getLesson, summaryStats } from "@/lib/lesson-engine";
 import { useAppStore } from "@/lib/store/app-store";
 
-/** Parent / investor summary of the last session: 6 stat tiles + adaptation log. */
+/** Parent summary of the last session: 4 big numbers, the adaptation log, the child's questions. */
 export default function SummaryPage() {
   const { id } = useParams<{ id: string }>();
   const lesson = getLesson(id);
   const { state, hydrated } = useAppStore();
   if (!lesson) return <LessonNotFound />;
   const result = state.lastResult && state.lastResult.lessonId === lesson.id ? state.lastResult : null;
+  const stats = result ? summaryStats(result, lesson) : [];
+  const numbers = stats.slice(0, 4);
+  const levels = stats.slice(4);
 
   return (
     <Frame>
       <AppHeader showChild backHref="/home" />
-      <div className="flex-1 px-8 py-10 flex flex-col gap-7">
+      <div className="flex-1 flex flex-col gap-8 px-6 sm:px-8 pt-10 pb-20 max-w-[720px] w-full mx-auto">
         <div>
-          <div className="text-[14px] text-muted">ملخص للوالدين</div>
-          <h1 className="text-[30px] font-bold mt-1 m-0">ملخص جلسة {state.child.name}</h1>
+          <div className="text-[14px] text-muted">لولي الأمر</div>
+          <h1 className="font-display text-[36px] font-bold mt-0.5 m-0">جلسة {state.child.name} اليوم</h1>
         </div>
         {hydrated && !result && (
-          <div className="rounded-card bg-surface-2 p-6 text-[15px] text-ink-2">
+          <div className="text-[16px] leading-[1.7] text-ink-2 px-[18px] py-3.5 border-2 border-dashed border-rule r-input">
             ما فيه جلسة مكتملة بعد. ابدأ الدرس أولًا وبعدها يظهر الملخص هنا.
           </div>
         )}
         {result && (
           <>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-3">
-              {summaryStats(result, lesson).map((s) => (
-                <div key={s.k} className="rounded-tile bg-surface-2 px-5 py-[18px]">
+            <div className="flex gap-7 flex-wrap">
+              {numbers.map((s) => (
+                <div key={s.k} className="flex flex-col gap-0.5 min-w-[120px]">
+                  <div className="font-display text-[34px] font-bold leading-none">{toArabicDigits(String(s.v))}</div>
                   <div className="text-[13px] text-muted">{s.k}</div>
-                  <div className="text-[24px] font-bold mt-1">{s.v}</div>
                 </div>
               ))}
             </div>
-            <div className="rounded-card border border-border p-6">
-              <div className="text-[18px] font-semibold mb-4">كيف تكيّف المعلم؟</div>
-              <div className="flex flex-col gap-3.5">
-                {result.log.map((t, i) => (
-                  <div key={i} className="flex gap-3.5 items-start text-[16px] leading-[1.55]">
-                    <span className="w-7 h-7 rounded-full bg-primary-tint text-primary grid place-items-center font-semibold text-[14px] flex-none">
-                      {i + 1}
-                    </span>
-                    <span>{t}</span>
-                  </div>
-                ))}
+            {levels.length > 0 && (
+              <div className="text-[14px] text-muted -mt-3">
+                {levels.map((s) => `${s.k}: ${s.v}`).join(" · ")}
               </div>
+            )}
+            <div className="flex flex-col gap-4 dashed-rule pt-6">
+              <div className="text-[15px] font-semibold">كيف تكيّف {lesson.teacher}</div>
+              {result.log.map((t, i) => (
+                <div key={i} className="flex gap-3.5 items-start text-[16px] leading-[1.6]">
+                  <span className="w-[26px] h-[26px] r-dot ink-2 bg-surface grid place-items-center text-[13px] font-semibold flex-none">
+                    {toArabicDigits(i + 1)}
+                  </span>
+                  <span>{t}</span>
+                </div>
+              ))}
             </div>
             {result.askTurns?.length > 0 && (
-              <div className="rounded-card bg-surface-2 p-6">
-                <div className="text-[18px] font-semibold mb-4">أسئلة {state.child.name} للمعلم</div>
-                <div className="flex flex-col gap-4">
-                  {result.askTurns.map((t, i) => (
-                    <div key={i} className="flex flex-col gap-1.5 text-[15px] leading-[1.6]">
-                      <div className="font-medium text-ink">{t.question || "…"}</div>
-                      <div className="text-ink-2">{t.answer}</div>
-                    </div>
-                  ))}
-                </div>
+              <div className="flex flex-col gap-4 dashed-rule pt-6">
+                <div className="text-[15px] font-semibold">أسئلة {state.child.name} للمعلم</div>
+                {result.askTurns.map((t, i) => (
+                  <div key={i} className="flex flex-col gap-1 text-[15px] leading-[1.6]">
+                    <div className="font-semibold text-ink">{t.question || "…"}</div>
+                    <div className="text-ink-2">{t.answer}</div>
+                  </div>
+                ))}
               </div>
             )}
           </>
         )}
-        <div className="flex gap-3 flex-wrap">
-          <Button href={`/lesson/${lesson.id}/session`} variant="secondary" className="px-6 py-3.5 text-[16px]">
-            إعادة العرض من البداية
-          </Button>
-          <Button href="/home" variant="secondary" className="px-6 py-3.5 text-[16px]">
-            العودة للرئيسية
-          </Button>
-          <Button href="/parent/pin" variant="pill" className="px-4 py-3.5 text-[14px]">
-            منطقة ولي الأمر
-          </Button>
+        <div className="flex gap-3 items-center flex-wrap">
+          <SketchButton href={`/lesson/${lesson.id}/session`} variant="white" size="xs">
+            من البداية
+          </SketchButton>
+          <SketchPill href="/home">الرئيسية</SketchPill>
+          <SketchPill href="/parent/pin">ولي الأمر</SketchPill>
         </div>
       </div>
     </Frame>

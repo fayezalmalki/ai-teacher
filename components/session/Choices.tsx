@@ -1,5 +1,7 @@
 "use client";
 
+import { SketchButton } from "@/components/Sketch";
+import { toArabicDigits } from "@/lib/format";
 import type { Choice } from "@/lib/lesson-engine/types";
 
 interface ChoicesProps {
@@ -7,19 +9,22 @@ interface ChoicesProps {
   onPick: (index: number) => void;
 }
 
-/** Answer buttons: min-width 120, 22/600, 2px border, hover blue. */
+/** Answer buttons: Baloo 26, cycled wobbly radii, staggered pop-in. */
 export default function Choices({ choices, onPick }: ChoicesProps) {
   return (
     <>
       {choices.map((c, i) => (
-        <button
+        <SketchButton
           key={i}
-          type="button"
+          variant="white"
+          index={i}
+          pop
+          popDelay={i * 0.08}
           onClick={() => onPick(i)}
-          className="min-w-[120px] px-7 py-4 rounded-tile border-2 border-border-2 bg-surface text-[22px] font-semibold text-ink transition-all duration-200 hover:border-primary hover:bg-primary-tint-2"
+          className="min-w-[130px] text-[26px] hover:bg-primary-tint"
         >
-          {c.l}
-        </button>
+          {toArabicDigits(c.l)}
+        </SketchButton>
       ))}
     </>
   );

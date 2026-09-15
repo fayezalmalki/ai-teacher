@@ -1,15 +1,10 @@
 interface AdaptChipProps {
   text: string;
-  /** Level-up chips are green; strategy changes amber. */
-  tone: "levelUp" | "strategy";
+  /** Kept for call-site compatibility; v2 shows both tones the same way. */
+  tone?: "levelUp" | "strategy";
 }
 
-export default function AdaptChip({ text, tone }: AdaptChipProps) {
-  const cls = tone === "levelUp" ? "bg-success-tint text-success" : "bg-warning-tint text-warning";
-  return (
-    <div className={"flex items-center gap-2.5 px-4 py-3 rounded-input text-[14px] font-medium animate-[fadeUp_.4s_ease] " + cls}>
-      <span className="w-2 h-2 rounded-full bg-current flex-none" />
-      <span>{text}</span>
-    </div>
-  );
+/** v2 adaptation note: a small muted line with a dashed underline, under the sentence. */
+export default function AdaptChip({ text }: AdaptChipProps) {
+  return <div className="text-[14px] text-muted border-b-2 border-dashed border-rule pb-1 motion animate-fade-up">{text}</div>;
 }
