@@ -1,0 +1,716 @@
+{
+  "id": "measure",
+  "title": "درس القياس",
+  "subject": "الرياضيات",
+  "subjectId": "math",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "length": [
+      [
+        {
+          "id": "len-1a",
+          "text": "شوف المسطرة. القلم يوصل للرقم 4. كم طوله؟",
+          "visual": {
+            "kind": "ruler",
+            "length": 4,
+            "max": 10
+          },
+          "choices": [
+            {
+              "l": "4 سم",
+              "ok": true
+            },
+            {
+              "l": "3 سم"
+            },
+            {
+              "l": "5 سم"
+            }
+          ]
+        },
+        {
+          "id": "len-1b",
+          "text": "الممحاة توصل للرقم 6. كم طولها؟",
+          "visual": {
+            "kind": "ruler",
+            "length": 6,
+            "max": 10
+          },
+          "choices": [
+            {
+              "l": "6 سم",
+              "ok": true
+            },
+            {
+              "l": "4 سم"
+            },
+            {
+              "l": "8 سم"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "len-2a",
+          "text": "هذي فرشاة أسنان. كم طولها؟",
+          "visual": {
+            "kind": "ruler",
+            "length": 12,
+            "max": 15
+          },
+          "choices": [
+            {
+              "l": "12 سم",
+              "ok": true
+            },
+            {
+              "l": "10 سم"
+            },
+            {
+              "l": "15 سم"
+            }
+          ]
+        },
+        {
+          "id": "len-2b",
+          "text": "قلم طوله 8 سم وممحاة طولها 3 سم. أيهم أطول؟",
+          "visual": {
+            "kind": "ruler",
+            "length": 8,
+            "max": 10,
+            "label": "القلم"
+          },
+          "choices": [
+            {
+              "l": "القلم",
+              "ok": true
+            },
+            {
+              "l": "الممحاة"
+            },
+            {
+              "l": "نفس الطول"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "len-3a",
+          "text": "قلم طوله 9 سم وقلم ثاني 6 سم. كم الفرق بينهم؟",
+          "visual": {
+            "kind": "ruler",
+            "length": 9,
+            "max": 10
+          },
+          "choices": [
+            {
+              "l": "3 سم",
+              "ok": true
+            },
+            {
+              "l": "2 سم"
+            },
+            {
+              "l": "15 سم"
+            }
+          ]
+        },
+        {
+          "id": "len-3b",
+          "text": "المسطرة طولها 15 سم. لو حطينا مسطرتين ورا بعض، كم يصير الطول؟",
+          "visual": {
+            "kind": "ruler",
+            "length": 15,
+            "max": 15
+          },
+          "choices": [
+            {
+              "l": "30 سم",
+              "ok": true
+            },
+            {
+              "l": "25 سم"
+            },
+            {
+              "l": "20 سم"
+            }
+          ]
+        }
+      ]
+    ],
+    "weight": [
+      [
+        {
+          "id": "wt-1a",
+          "text": "في الميزان تفاحة وحبة عنب. أيهم أثقل؟",
+          "visual": {
+            "kind": "balance",
+            "left": 3,
+            "right": 1,
+            "leftLabel": "تفاحة",
+            "rightLabel": "عنبة"
+          },
+          "choices": [
+            {
+              "l": "التفاحة",
+              "ok": true
+            },
+            {
+              "l": "العنبة"
+            },
+            {
+              "l": "نفس الوزن"
+            }
+          ]
+        },
+        {
+          "id": "wt-1b",
+          "text": "الكفة اللي تنزل تحت فيها الشي الأثقل. أيهم أثقل هنا؟",
+          "visual": {
+            "kind": "balance",
+            "left": 1,
+            "right": 4,
+            "leftLabel": "قلم",
+            "rightLabel": "كتاب"
+          },
+          "choices": [
+            {
+              "l": "الكتاب",
+              "ok": true
+            },
+            {
+              "l": "القلم"
+            },
+            {
+              "l": "نفس الوزن"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "wt-2a",
+          "text": "الكيلو الواحد فيه كم غرام؟",
+          "visual": {
+            "kind": "balance",
+            "left": 1000,
+            "right": 1000,
+            "leftLabel": "1 كيلو",
+            "rightLabel": "؟ غرام"
+          },
+          "choices": [
+            {
+              "l": "1000",
+              "ok": true
+            },
+            {
+              "l": "100"
+            },
+            {
+              "l": "10"
+            }
+          ]
+        },
+        {
+          "id": "wt-2b",
+          "text": "الأشياء الكبيرة مثل كيس الرز نوزنها بالكيلو. والأشياء الصغيرة مثل الحلوى نوزنها بالـ…؟",
+          "visual": {
+            "kind": "balance",
+            "left": 5,
+            "right": 50,
+            "leftLabel": "كيس رز",
+            "rightLabel": "حلوى"
+          },
+          "choices": [
+            {
+              "l": "غرام",
+              "ok": true
+            },
+            {
+              "l": "سنتيمتر"
+            },
+            {
+              "l": "متر"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "wt-3a",
+          "text": "كيس رز وزنه 5 كيلو، وكيس ثاني 3 كيلو. كم وزنهم مع بعض؟",
+          "visual": {
+            "kind": "balance",
+            "left": 5,
+            "right": 3,
+            "leftLabel": "5 كيلو",
+            "rightLabel": "3 كيلو"
+          },
+          "choices": [
+            {
+              "l": "8 كيلو",
+              "ok": true
+            },
+            {
+              "l": "2 كيلو"
+            },
+            {
+              "l": "15 كيلو"
+            }
+          ]
+        },
+        {
+          "id": "wt-3b",
+          "text": "نص كيلو يعني كم غرام؟",
+          "visual": {
+            "kind": "balance",
+            "left": 500,
+            "right": 500,
+            "leftLabel": "نص كيلو",
+            "rightLabel": "؟ غرام"
+          },
+          "choices": [
+            {
+              "l": "500",
+              "ok": true
+            },
+            {
+              "l": "50"
+            },
+            {
+              "l": "5000"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "7 سم",
+        "ok": true
+      },
+      {
+        "l": "5 سم"
+      },
+      {
+        "l": "10 سم"
+      }
+    ],
+    "X": [
+      {
+        "l": "100",
+        "ok": true
+      },
+      {
+        "l": "10"
+      },
+      {
+        "l": "1000"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم بنقيس الأشياء: طولها ووزنها. قبل ما نبدأ: بأي شي نقيس طول القلم؟",
+      "visual": {
+        "kind": "ruler",
+        "length": 7,
+        "max": 10
+      },
+      "concept": "length",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 نقيس الطول بالمسطرة، والوحدة اسمها سنتيمتر.",
+      "visual": {
+        "kind": "ruler",
+        "length": 7,
+        "max": 10
+      },
+      "concept": "length",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نشوف المسطرة مع بعض.",
+      "visual": {
+        "kind": "ruler",
+        "length": 7,
+        "max": 10
+      },
+      "concept": "length",
+      "next": "b2",
+      "strategy": "ruler_visual",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بالمسطرة خطوة خطوة",
+      "log": "بدأ المعلم شرح المسطرة خطوة خطوة."
+    },
+    "b2": {
+      "text": "هذي مسطرة، كل رقم يعني سنتيمتر واحد. القلم يبدأ من الصفر ويوصل للرقم 7. كم طوله؟",
+      "visual": {
+        "kind": "ruler",
+        "length": 7,
+        "max": 10
+      },
+      "concept": "length",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في قراءة المسطرة، فعدّ معه المعلم الأرقام."
+    },
+    "b2r": {
+      "text": "عدّ معي من الصفر إلى طرف القلم: واحد، اثنين… لأي رقم وصلنا؟",
+      "visual": {
+        "kind": "ruler",
+        "length": 7,
+        "max": 10
+      },
+      "concept": "length",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، طوله 7 سنتيمتر. الحين نجرب مع بعض.",
+      "visual": {
+        "kind": "ruler",
+        "length": 7,
+        "max": 10
+      },
+      "concept": "length",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} قراءة المسطرة."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "length",
+      "pool": "length",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 صرت تقرأ المسطرة زين. الحين الوزن.",
+      "visual": {
+        "kind": "balance",
+        "left": 3,
+        "right": 1,
+        "leftLabel": "تفاحة",
+        "rightLabel": "عنبة"
+      },
+      "concept": "length",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الطول بنجاح."
+    },
+    "r1": {
+      "text": "قريب. ابدأ من الصفر وشوف لأي رقم يوصل طرف الشي.",
+      "visual": {
+        "kind": "ruler",
+        "length": 5,
+        "max": 10
+      },
+      "concept": "length",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "read_from_zero",
+      "adapt": "أعاد المعلم شرح القراءة من الصفر"
+    },
+    "d1": {
+      "text": "خلنا نرجع لأشياء أقصر ونقرأها مع بعض.",
+      "visual": {
+        "kind": "ruler",
+        "length": 3,
+        "max": 10
+      },
+      "concept": "length",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الطول."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "weight",
+      "pool": "weight",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، واضح إنك فهمت الوزن بعد.",
+      "visual": {
+        "kind": "balance",
+        "left": 1000,
+        "right": 1000,
+        "leftLabel": "1 كيلو",
+        "rightLabel": "1000 غرام"
+      },
+      "concept": "weight",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الوزن بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. في الميزان، الكفة اللي تنزل تحت فيها الشي الأثقل.",
+      "visual": {
+        "kind": "balance",
+        "left": 3,
+        "right": 1,
+        "leftLabel": "أثقل",
+        "rightLabel": "أخف"
+      },
+      "concept": "weight",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "balance_visual",
+      "adapt": "أعاد المعلم شرح الميزان"
+    },
+    "d2": {
+      "text": "خلنا نجربها بأشياء أوضح.",
+      "visual": {
+        "kind": "balance",
+        "left": 4,
+        "right": 1,
+        "leftLabel": "كتاب",
+        "rightLabel": "قلم"
+      },
+      "concept": "weight",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الوزن."
+    },
+    "x1": {
+      "text": "سؤال أخير: المتر فيه كم سنتيمتر؟",
+      "visual": {
+        "kind": "ruler",
+        "length": 15,
+        "max": 15,
+        "label": "المتر = ؟ سم"
+      },
+      "concept": "length",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "فكّر فيها: المسطرة الصغيرة 15 سنتيمتر، والمتر أطول منها بكثير. كم سنتيمتر؟",
+      "visual": {
+        "kind": "ruler",
+        "length": 15,
+        "max": 15,
+        "label": "المتر = ؟ سم"
+      },
+      "concept": "length",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا الدرس بقوة.",
+      "visual": {
+        "kind": "ruler",
+        "length": 15,
+        "max": 15,
+        "label": "المتر = ؟ سم"
+      },
+      "concept": "length",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "بالمسطرة",
+      "understanding": "good",
+      "go": "a1",
+      "log": "عرف {name} أداة قياس الطول من أول سؤال.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… بالميزان؟ مو متأكد",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم بالمسطرة خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم بالمسطرة خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "بالمسطرة بالسنتيمتر، والأشياء الطويلة نقيسها بالمتر",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "عرفت المسطرة من أول سؤال.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت شرح المسطرة خطوة خطوة.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة لأشياء أوضح ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "خلصت الطول والوزن كلها.",
+      "when": [
+        {
+          "anyOf": [
+            "p2ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم قسنا الطول بالمسطرة والوزن بالميزان، وعرفنا السنتيمتر والكيلو.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن القياس؟ أنا أسمعك.",
+    "scope": "القياس للصف الثالث: الطول بالسنتيمتر والمتر، قراءة المسطرة، الوزن بالكيلو والغرام، الميزان."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "هذي مسطرة. كل رقم عليها يعني سنتيمتر واحد. القلم يوصل للرقم 7، يعني طوله 7 سنتيمتر.",
+      "visual": {
+        "kind": "ruler",
+        "length": 7,
+        "max": 10
+      }
+    },
+    {
+      "text": "الأشياء الأطول توصل لأرقام أكبر. الفرشاة توصل للرقم 12.",
+      "visual": {
+        "kind": "ruler",
+        "length": 12,
+        "max": 15
+      }
+    },
+    {
+      "text": "وهذا ميزان. الكفة اللي تنزل تحت فيها الشي الأثقل.",
+      "visual": {
+        "kind": "balance",
+        "left": 3,
+        "right": 1,
+        "leftLabel": "تفاحة",
+        "rightLabel": "عنبة"
+      }
+    },
+    {
+      "text": "الوزن نقيسه بالكيلو والغرام. الكيلو الواحد فيه ألف غرام.",
+      "visual": {
+        "kind": "balance",
+        "left": 1000,
+        "right": 1000,
+        "leftLabel": "1 كيلو",
+        "rightLabel": "1000 غرام"
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الرياضيات · 10 دقائق",
+    "title": "درس القياس",
+    "line": "هلا {name}. أولًا أشرح لك الفكرة بهدوء، وبعدين نجرب مع بعض وأسمع إجاباتك."
+  }
+}

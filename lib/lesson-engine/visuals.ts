@@ -17,7 +17,7 @@ export const VISUAL_ALIASES: Record<VisualId, VisualSpec> = {
   comparePick: { kind: "compare", pick: true },
 };
 
-export const VISUAL_KINDS = ["pizza", "fractions", "chocolate", "compare", "none"] as const;
+export const VISUAL_KINDS = ["pizza", "fractions", "chocolate", "compare", "blocks", "numberline", "ruler", "balance", "cycle", "none"] as const;
 
 export function resolveVisual(ref: VisualRef | undefined): VisualSpec {
   if (!ref) return { kind: "none" };
@@ -49,5 +49,17 @@ export function visualProblems(ref: unknown, where: string): string[] {
   }
   if (v.kind === "fractions" && (!Array.isArray(v.pairs) || v.pairs.length === 0)) out.push(`${where}: fractions.pairs must be a non-empty list`);
   if (v.kind === "chocolate" && !["one", "two", "pick"].includes(v.mode as string)) out.push(`${where}: chocolate.mode must be one|two|pick`);
+  const num = (x: unknown) => typeof x === "number" && Number.isFinite(x);
+  if (v.kind === "blocks" && (!num(v.value) || (v.value as number) < 0 || (v.value as number) > 999)) out.push(`${where}: blocks.value must be 0–999`);
+  if (v.kind === "numberline") {
+    if (!num(v.from) || !num(v.to) || (v.to as number) <= (v.from as number)) out.push(`${where}: numberline needs from < to`);
+    if (v.start !== undefined && (!num(v.start) || (v.start as number) < (v.from as number) || (v.start as number) > (v.to as number))) out.push(`${where}: numberline.start is outside from..to`);
+  }
+  if (v.kind === "ruler" && (!num(v.length) || (v.length as number) <= 0)) out.push(`${where}: ruler.length must be positive`);
+  if (v.kind === "balance" && (!num(v.left) || !num(v.right))) out.push(`${where}: balance needs left and right`);
+  if (v.kind === "cycle") {
+    if (!Array.isArray(v.stages) || v.stages.length < 2) out.push(`${where}: cycle.stages needs at least two stages`);
+    else if (v.highlight !== undefined && (!num(v.highlight) || (v.highlight as number) < 0 || (v.highlight as number) >= v.stages.length)) out.push(`${where}: cycle.highlight is outside stages`);
+  }
   return out;
 }

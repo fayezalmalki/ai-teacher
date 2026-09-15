@@ -82,3 +82,21 @@ describe("store state v2", () => {
     expect(activeChild(s).name).toBe("سلمان");
   });
 });
+
+describe("mastery", () => {
+  it("aggregates concepts and continues from the last level", async () => {
+    const { lessonMastery, continueLevel } = await import("./insights");
+    const r1 = { ...result("water"), startDifficulty: 1, endDifficulty: 2, questions: 4, correct: 3, concepts: { stages: { asked: 2, correct: 2 }, order: { asked: 2, correct: 1 } } };
+    const r2 = { ...result("water"), startDifficulty: 2, endDifficulty: 3, questions: 2, correct: 2, concepts: { stages: { asked: 2, correct: 1 } } };
+    const m = lessonMastery([r1, result("fractions"), r2], "water");
+    expect(m.sessions).toBe(2);
+    expect(m.level).toBe(3);
+    expect(m.concepts.stages).toBeCloseTo(0.75);
+    expect(m.concepts.order).toBeCloseTo(0.5);
+    expect(m.ratio).toBeCloseTo(5 / 6);
+    expect(continueLevel([r1, r2], "water", 1)).toBe(3);
+    expect(continueLevel([r1, r2], "water", 3)).toBe(3);
+    expect(continueLevel([], "water", 2)).toBe(2);
+    expect(lessonMastery([], "measure").level).toBeNull();
+  });
+});

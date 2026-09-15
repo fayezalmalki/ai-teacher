@@ -2,6 +2,7 @@ import type {
   LessonDefinition,
   LessonStep,
   NoteCondition,
+  PoolQuestion,
   SessionResult,
   SessionState,
   StatTile,
@@ -9,8 +10,22 @@ import type {
 import { fill } from "./template";
 import { getStep } from "./reducer";
 
+/** The pool question drawn for a pool step, if any. */
+export function drawnQuestion(state: SessionState, lesson: LessonDefinition, step: LessonStep): PoolQuestion | null {
+  if (!step.pool || !state.poolQuestion) return null;
+  for (const level of lesson.pools?.[step.pool] ?? []) {
+    const q = level.find((x) => x.id === state.poolQuestion);
+    if (q) return q;
+  }
+  return null;
+}
+
+/** The current step with the drawn pool question merged in (text, visual, choices). */
 export function currentStep(state: SessionState, lesson: LessonDefinition): LessonStep {
-  return lesson.steps[state.step] ?? getStep(lesson, lesson.entry);
+  const raw = lesson.steps[state.step] ?? getStep(lesson, lesson.entry);
+  const q = drawnQuestion(state, lesson, raw);
+  if (!q) return raw;
+  return { ...raw, text: q.text, visual: q.visual, inlineChoices: q.choices, question: true, wrongLog: q.wrongLog ?? raw.wrongLog };
 }
 
 /** Teacher line with the child's name filled in. */
@@ -86,11 +101,12 @@ export function toSessionResult(state: SessionState, lesson: LessonDefinition, c
     questions: state.questions,
     correct: state.correct,
     reexplain: state.reexplain,
-    startDifficulty: 1,
+    startDifficulty: state.startDifficulty,
     endDifficulty: state.difficulty,
     log: state.log,
     visited: state.visited,
     rating: ratingLabel(state.questions, state.correct, lesson),
+    concepts: state.concepts,
     askTurns: state.askTurns,
   };
 }

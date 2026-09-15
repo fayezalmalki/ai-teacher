@@ -2,10 +2,9 @@
 
 import type { VisualRef } from "@/lib/lesson-engine/types";
 import { resolveVisual, visualKey } from "@/lib/lesson-engine/visuals";
-import Pizza from "./Pizza";
-import { FractionPair } from "./FractionGlyph";
 import Chocolate from "./Chocolate";
 import CompareCircles from "./CompareCircles";
+import VisualByKind from "./VisualByKind";
 
 interface SessionVisualProps {
   visual: VisualRef;
@@ -16,28 +15,19 @@ interface SessionVisualProps {
   compareLabels?: Record<string, string>;
 }
 
-/** Draws a step's visual by kind. No captions: the teacher's sentence is the caption. */
+/** Draws a step's visual; the tappable kinds get their handlers here. No captions: the teacher's sentence is the caption. */
 export default function SessionVisual({ visual, selected, choosing, onToggleSquare, onPickCompare, compareLabels }: SessionVisualProps) {
   const spec = resolveVisual(visual);
   const key = visualKey(visual);
-  switch (spec.kind) {
-    case "pizza":
-      return <Pizza key={key} filled={spec.filled} dividers={spec.dividers} />;
-    case "fractions":
-      return <FractionPair key={key} pairs={spec.pairs} />;
-    case "chocolate":
-      return spec.mode === "pick" ? (
-        <Chocolate key={key} mode="pick" selected={selected} canPick={choosing} onToggle={onToggleSquare} />
-      ) : (
-        <Chocolate key={key} mode={spec.mode} />
-      );
-    case "compare":
-      return spec.pick ? (
-        <CompareCircles key={key} canPick={choosing} onPick={onPickCompare} labels={compareLabels} />
-      ) : (
-        <CompareCircles key={key} labels={compareLabels} />
-      );
-    default:
-      return null;
+  if (spec.kind === "chocolate" && spec.mode === "pick") {
+    return <Chocolate key={key} mode="pick" selected={selected} canPick={choosing} onToggle={onToggleSquare} />;
   }
+  if (spec.kind === "compare" && spec.pick) {
+    return <CompareCircles key={key} canPick={choosing} onPick={onPickCompare} labels={compareLabels} />;
+  }
+  return (
+    <div key={key} className="contents">
+      <VisualByKind spec={spec} compareLabels={compareLabels} />
+    </div>
+  );
 }

@@ -41,9 +41,9 @@ export interface LessonEntry {
 export const LESSONS: Record<string, LessonEntry[]> = {
   math: [
     { title: "الأعداد حتى 1000", meta: "8 دقائق", status: "done" },
-    { title: "الجمع والطرح", meta: "10 دقائق · جيد جدًا", status: "done" },
+    { lessonId: "addsub", title: "الجمع والطرح", meta: "الآحاد والعشرات · 10 دقائق", status: "next" },
     { lessonId: "fractions", title: "الكسور", meta: "النصف والربع · 10 دقائق", status: "today" },
-    { title: "القياس", meta: "الطول والوزن", status: "later" },
+    { lessonId: "measure", title: "القياس", meta: "الطول والوزن · 10 دقائق", status: "next" },
     { title: "الأشكال الهندسية", meta: "المضلعات", status: "later" },
   ],
   ar: [
@@ -55,7 +55,7 @@ export const LESSONS: Record<string, LessonEntry[]> = {
   ],
   sci: [
     { title: "النبات وأجزاؤه", meta: "8 دقائق", status: "done" },
-    { title: "دورة الماء", meta: "10 دقائق", status: "next" },
+    { lessonId: "water", title: "دورة الماء", meta: "من البحر للسحاب · 10 دقائق", status: "next" },
     { title: "الحيوانات وبيئاتها", meta: "", status: "later" },
     { title: "المادة وحالاتها", meta: "", status: "later" },
     { title: "الحواس الخمس", meta: "", status: "later" },

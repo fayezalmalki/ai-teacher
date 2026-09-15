@@ -9,8 +9,8 @@ import { SketchButton, SketchChip, SketchPill } from "@/components/Sketch";
 import { PARENT_WEEK, SUBJECTS, type Tone } from "@/lib/content/catalog";
 import { subjectPercent } from "@/lib/content/paths";
 import { fill, fractionsLesson } from "@/lib/lesson-engine";
-import { lessonTitle } from "@/lib/lessons";
-import { bestImprovement, sessionRows, weekStats } from "@/lib/store/insights";
+import { LESSON_LIST, lessonTitle } from "@/lib/lessons";
+import { bestImprovement, lessonMastery, sessionRows, weekStats } from "@/lib/store/insights";
 import { isParentUnlocked } from "@/lib/store/parent-gate";
 import { initialOf } from "@/lib/store/state";
 import { useAppStore, type ChildProfile } from "@/lib/store/app-store";
@@ -124,6 +124,26 @@ export default function ParentPage() {
                   <div className={"h-full " + BAR[s.tone]} style={{ width: `${pct}%` }} />
                 </div>
                 <div className="text-[13px] text-muted w-[90px] text-left flex-none">{pct === 0 ? "لم تبدأ" : `${pct}%`}</div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex flex-col gap-3.5 dashed-rule pt-7">
+          <div className="text-[15px] font-semibold">المستوى في كل درس</div>
+          {LESSON_LIST.map((l) => {
+            const m = lessonMastery(results, l.id);
+            return (
+              <div key={l.id} className="flex items-center gap-4 text-[15px]">
+                <div className="w-[140px] font-medium flex-none">{l.title.replace(/^درس /, "")}</div>
+                <div className="flex gap-1.5" aria-label={m.level ? `المستوى ${l.levels[m.level - 1]}` : "لم يبدأ"}>
+                  {l.levels.map((label, i) => (
+                    <span key={label} className={"w-[18px] h-[18px] r-dot ink-2 " + (m.level && i < m.level ? "bg-primary" : "bg-surface")} title={label} />
+                  ))}
+                </div>
+                <div className="text-[13px] text-muted">
+                  {m.level ? `${l.levels[m.level - 1]} · ${Math.round(m.ratio * 100)}% صحيح · ${m.sessions === 1 ? "جلسة واحدة" : m.sessions === 2 ? "جلستان" : `${m.sessions} جلسات`}` : "لم يبدأ"}
+                </div>
               </div>
             );
           })}
