@@ -40,10 +40,10 @@ interface AppStore {
   lastResult: SessionResult | null;
   childInitial: string;
   /** Update the active child's profile fields. */
-  setChild: (child: Partial<Pick<ChildProfile, "name" | "age" | "grade" | "color">>) => void;
+  setChild: (child: Partial<Pick<ChildProfile, "name" | "age" | "grade" | "color" | "settings">>) => void;
   /** Update the active child's settings. */
   setSettings: (settings: Partial<ChildSettings>) => void;
-  addChild: (input: { name: string; age: number; grade: number; color?: AvatarColor }) => string;
+  addChild: (input: { name: string; age: number; grade: number; color?: AvatarColor; settings?: Partial<ChildSettings> }) => string;
   updateChild: (id: string, patch: Partial<Omit<ChildProfile, "id" | "results">>) => void;
   updateChildSettings: (id: string, settings: Partial<ChildSettings>) => void;
   removeChild: (id: string) => void;

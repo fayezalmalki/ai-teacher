@@ -135,6 +135,8 @@ export interface ManifestLine {
   mime: string;
   durationMs: number;
   visemes: VisemeFrame[];
+  /** Clip kept from an earlier voice/model after a failed render; the next run retries it. */
+  stale?: true;
 }
 
 export interface LinesManifest {

@@ -106,7 +106,7 @@ async function renderLesson(lesson: LessonDefinition, args: Args): Promise<numbe
   let failed = 0;
   for (const line of lines) {
     const prev = sameVoice && !args.force ? previous!.lines[line.hash] : undefined;
-    if (prev) {
+    if (prev && !prev.stale) {
       manifest.lines[line.hash] = prev;
       skipped++;
       continue;
@@ -121,7 +121,11 @@ async function renderLesson(lesson: LessonDefinition, args: Args): Promise<numbe
       console.log(`  ✓ ${line.id.padEnd(12)} ${String(s.durationMs).padStart(5)}ms ${s.aligned ? "aligned" : "estimated"}  ${line.text.slice(0, 48)}`);
     } catch (err) {
       failed++;
-      console.error(`  ✗ ${line.id}: ${(err as Error).message}`);
+      const stale = previous?.lines[line.hash];
+      // Keep the last good clip (even from an older voice) rather than dropping the line to the device voice;
+      // it is flagged so the next run retries it.
+      if (stale) manifest.lines[line.hash] = { ...stale, stale: true };
+      console.error(`  ✗ ${line.id}: ${(err as Error).message}${stale ? " (kept previous clip)" : ""}`);
     }
   }
   await writeFile(manifestFile, JSON.stringify(manifest, null, 2));

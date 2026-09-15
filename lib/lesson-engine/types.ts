@@ -36,6 +36,10 @@ export type VisualSpec =
   | { kind: "balance"; left: number; right: number; leftLabel?: string; rightLabel?: string }
   /** A cycle of stages drawn in a ring; `highlight` fills one. */
   | { kind: "cycle"; stages: string[]; highlight?: number }
+  /** One big word (reading); `marks` lists character indexes to tint, `caption` sits under it. */
+  | { kind: "word"; text: string; marks?: number[]; caption?: string }
+  /** A row of cards (words or items); `highlight` fills one, `numbered` prefixes 1, 2, 3… */
+  | { kind: "cards"; items: { label: string; icon?: string; sub?: string }[]; highlight?: number; numbered?: boolean }
   | { kind: "none" };
 
 /** A step's visual: a spec, or one of the fractions-era ids. */

@@ -58,7 +58,8 @@ removes children and shows this week's numbers computed from their history (`lib
 
 ## Lessons and levels
 
-Four lessons ship: الكسور (the original graph), الجمع والطرح, القياس and دورة الماء. The three new ones use
+Seven lessons ship across the four subjects: الكسور (the original graph), الجمع والطرح, القياس, دورة الماء,
+الحواس الخمس, التنوين and أركان الإسلام. All but the first use
 **question pools**: a step with `"pool": "<concept>"` draws a question from `lesson.pools[concept][level - 1]`
 (first unasked, else the nearest lower level) and keeps drawing until its `askCount` correct answers. Answers on
 pool steps run the adaptation policy in `lib/lesson-engine/policy.ts`: two correct in a row raise the level (with
@@ -88,7 +89,7 @@ Setup: `npx convex dev` once to create the project (writes the URL into `.env.lo
 
 1. Write `lib/lessons/<subject>/<id>.lesson.json` (same shape as the existing lessons). A step's `visual` is
    either a parametric spec (`pizza`, `fractions`, `chocolate`, `compare`, `blocks`, `numberline`, `ruler`,
-   `balance`, `cycle`; see `lib/lesson-engine/visuals.ts`) or one of the fractions-era ids. Pool steps take
+   `balance`, `cycle`, `word`, `cards`; see `lib/lesson-engine/visuals.ts`) or one of the fractions-era ids. Pool steps take
    `pool`, `askCount`, `onOk`, `onWrong`, `onLevelDown`; each pool question has `id`, `text`, `visual`, `choices`.
 2. Register it in `lib/lessons/index.ts` and give the catalog entry its `lessonId`.
 3. `npm test`: `lib/lessons/lessons.test.ts` validates every registered graph (targets, choice sets,
@@ -115,8 +116,11 @@ Setup: `npx convex dev` once to create the project (writes the URL into `.env.lo
   masks; props `filled` 0–4, `dividers` `none|v|vh`).
 - Footer and brand content come from `lib/site.ts` (mirror of `docs/site-config.js`): `<Footer variant="full">`
   on the landing, `"slim"` on the parent page, `<PoweredBy>` on the child home. Never hard-code links.
-- `NEXT_PUBLIC_GUIDED_DEMO` (default `true`): the child home shows only today's lesson plus an
-  "استعرض كل المواد" link; set it to `false` to show the full subject library.
+- `NEXT_PUBLIC_GUIDED_DEMO` (default `false`): set it to `true` to hide the subject library on the child home
+  behind an "استعرض كل المواد" link (investor demo). The library is always reachable from the "المواد" header link
+  and `/subjects`.
+- The teacher's look (`lib/character/looks.ts`: classic, shemagh, ghutra, young) is a per-child setting picked in
+  onboarding or the parent area; `<Teacher>` reads it from the store, `look` prop overrides.
 
 ## Structure
 
@@ -179,8 +183,11 @@ npm run render-lines -- --provider elevenlabs --names "سلمان,ليان"   # 
 npm run render-lines -- --provider openai --force
 ```
 
-The script walks the lesson JSON (`lib/lessons/math/fractions.lesson.json`), fills `{name}` for each name, hashes each line, and skips lines whose
-text and voice are unchanged. The manifest maps `hash → {file, durationMs, visemes}`; the adapter looks up the
+The script walks every registered lesson, fills `{name}` for each name, hashes each line, and skips lines whose
+text and voice are unchanged. ElevenLabs renders on `eleven_multilingual_v2` (the quality model for Arabic) with a
+steady, slightly slow teacher delivery (`ELEVENLABS_STABILITY` / `ELEVENLABS_STYLE` / `ELEVENLABS_SPEED` override it).
+Premade ElevenLabs voices are English-native; a native Saudi voice from the voice library needs a paid ElevenLabs
+plan for API use. If a line fails to render, the previous clip is kept so the lesson never drops to the device voice. The manifest maps `hash → {file, durationMs, visemes}`; the adapter looks up the
 spoken text by the same hash at runtime, so a copy edit only re-renders that line. If the mic is unavailable or
 nothing was heard, the session shows the four scripted answers as tap choices.
 

@@ -13,10 +13,24 @@ export function subjectLessons(subjectId: string, results: SessionResult[]): Les
   const today = todaysLesson(results);
   const entries = LESSONS[subjectId] ?? [];
   return entries.map((e) => {
-    if (!e.lessonId || !lessons[e.lessonId]) return e;
+    if (!e.lessonId || !lessons[e.lessonId]) return { ...e, lessonId: undefined, status: "later" };
     if (done.has(e.lessonId)) return { ...e, status: "done" };
     return { ...e, status: today && today.lessonId === e.lessonId && !today.done ? "today" : "next" };
   });
+}
+
+/** Built lessons of a subject (the ones a child can open right now). */
+export function openLessonCount(subjectId: string): number {
+  return (LESSONS[subjectId] ?? []).filter((e) => e.lessonId && lessons[e.lessonId]).length;
+}
+
+/** "3 دروس متاحة" style line for a subject card. */
+export function openLessonsLabel(subjectId: string): string {
+  const n = openLessonCount(subjectId);
+  if (n === 0) return "قريبًا";
+  if (n === 1) return "درس واحد متاح";
+  if (n === 2) return "درسان متاحان";
+  return `${n} دروس متاحة`;
 }
 
 /** The lesson the child home offers: the first registered lesson (registry order) not yet finished, else the last one finished. */

@@ -13,6 +13,8 @@ interface AppHeaderProps {
   onBack?: () => void;
   showChild?: boolean;
   showParent?: boolean;
+  /** "المواد" link next to the wordmark (default on; the library page itself hides it). */
+  showSubjects?: boolean;
 }
 
 export const AVATAR_BG: Record<AvatarColor, string> = {
@@ -61,14 +63,19 @@ export function BackButton({ href = "/", onClick }: { href?: string; onClick?: (
  * initial on the end side. 22px from the top, 32px from the sides. The session
  * draws its own row instead.
  */
-export default function AppHeader({ back = true, backHref = "/", onBack, showChild = false, showParent = false }: AppHeaderProps) {
+export default function AppHeader({ back = true, backHref = "/", onBack, showChild = false, showParent = false, showSubjects = true }: AppHeaderProps) {
   return (
-    <div className="flex items-center justify-between gap-3 px-8 pt-[22px]">
+    <div className="flex items-center justify-between gap-3 px-6 sm:px-8 pt-[22px]">
       <div className="flex items-center gap-2.5">
         {back && <BackButton href={backHref} onClick={onBack} />}
         <Link href="/" className="font-display text-[18px] font-bold text-ink hover:text-ink whitespace-nowrap">
           {APP_NAME}
         </Link>
+        {showSubjects && (
+          <Link href="/subjects" className="text-[14px] font-semibold text-ink-2 hover:text-ink whitespace-nowrap px-2 py-1 rounded-[8px] hover:bg-hover" data-nav="subjects">
+            المواد
+          </Link>
+        )}
       </div>
       <div className="flex items-center gap-2.5">
         {showParent && <SketchPill href="/parent/pin">ولي الأمر</SketchPill>}

@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { useEffect, useState } from "react";
 import { RIVE_FILE, type CharacterMode, type TeacherState } from "@/lib/character/contract";
+import type { TeacherLook } from "@/lib/character/looks";
 import type { Viseme } from "@/lib/voice/types";
 import NawafSvg from "./NawafSvg";
 
@@ -16,6 +17,8 @@ interface CharacterProps {
   level?: number;
   /** Font size for the typographic mode. */
   glyphSize?: number;
+  /** Outfit preset for the SVG rig. */
+  look?: TeacherLook;
 }
 
 let riveProbe: Promise<boolean> | null = null;
@@ -30,7 +33,7 @@ function riveAvailable(): Promise<boolean> {
 }
 
 /** Picks the renderer for الأستاذ نواف. All three honor the same state + viseme contract. */
-export default function Character({ mode, size, state, viseme = 0, level = 0, glyphSize }: CharacterProps) {
+export default function Character({ mode, size, state, viseme = 0, level = 0, glyphSize, look }: CharacterProps) {
   const [rive, setRive] = useState<"unknown" | "yes" | "no">(mode === "rive" ? "unknown" : "no");
 
   useEffect(() => {
@@ -68,5 +71,5 @@ export default function Character({ mode, size, state, viseme = 0, level = 0, gl
       />
     );
   }
-  return <NawafSvg size={size} state={state} viseme={viseme} level={level} />;
+  return <NawafSvg size={size} state={state} viseme={viseme} level={level} look={look} />;
 }
