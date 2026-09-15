@@ -1,25 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Frame from "@/components/Frame";
 import AppHeader from "@/components/AppHeader";
 import PoweredBy from "@/components/PoweredBy";
 import Pizza from "@/components/visuals/Pizza";
-import { SketchButton, SketchLink, btnRadius } from "@/components/Sketch";
-import { SUBJECTS, TODAY_LESSON, gradeLabel, type Tone } from "@/lib/content/catalog";
-import { subjectPercent, todaysLesson } from "@/lib/content/paths";
+import SubjectCards from "@/components/SubjectCards";
+import { SketchButton, SketchLink } from "@/components/Sketch";
+import { TODAY_LESSON, gradeLabel } from "@/lib/content/catalog";
+import { todaysLesson } from "@/lib/content/paths";
 import { guidedDemo } from "@/lib/flags";
 import { lessonTitle } from "@/lib/lessons";
 import { streakDays } from "@/lib/store/insights";
 import { useAppStore } from "@/lib/store/app-store";
-
-const BAR: Record<Tone, string> = {
-  blue: "bg-primary",
-  green: "bg-success",
-  amber: "bg-yellow",
-  neutral: "bg-ink",
-};
 
 export default function HomePage() {
   const { child, results } = useAppStore();
@@ -72,20 +65,7 @@ export default function HomePage() {
         ) : (
           <div className="flex flex-col gap-4 motion animate-fade-up">
             <div className="text-[14px] text-muted">موادك · {gradeLabel(child.grade)}</div>
-            <div className="flex gap-3.5 flex-wrap">
-              {SUBJECTS.map((s, i) => (
-                <Link
-                  key={s.id}
-                  href={`/subjects/${s.id}`}
-                  className={`flex items-center gap-3 pr-[18px] pl-3.5 py-3 ink-2 ${btnRadius(i)} bg-surface text-ink hover:text-ink transition-[transform,box-shadow] duration-150 hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-pop-sm`}
-                >
-                  <div className="font-display text-[18px] font-bold">{s.name}</div>
-                  <div className="w-14 h-2 rounded-[4px] ink-2 overflow-hidden bg-surface">
-                    <div className={"h-full " + BAR[s.tone]} style={{ width: `${Math.max(s.pct, subjectPercent(s.id, results))}%` }} />
-                  </div>
-                </Link>
-              ))}
-            </div>
+            <SubjectCards progress />
           </div>
         )}
 

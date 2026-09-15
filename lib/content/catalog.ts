@@ -1,4 +1,4 @@
-/** Static library content for the MVP. Only the fractions lesson is live. */
+/** Static library content: subjects, the lesson paths (built lessons carry a lessonId; the rest are placeholders), and copy. */
 
 export const TEACHER = "الأستاذ نواف";
 export const APP_NAME = "المعلم الذكي";
@@ -17,17 +17,18 @@ export interface Subject {
   name: string;
   glyph: string;
   tone: Tone;
-  pct: number;
-  meta: string;
+  /** One line under the name on the subject cards. */
+  blurb: string;
 }
 
 export const SUBJECTS: Subject[] = [
-  { id: "math", name: "الرياضيات", glyph: "٪", tone: "blue", pct: 55, meta: "3 من 5 دروس" },
-  { id: "ar", name: "لغتي", glyph: "ل", tone: "green", pct: 40, meta: "2 من 5 دروس" },
-  { id: "sci", name: "العلوم", glyph: "ع", tone: "amber", pct: 20, meta: "1 من 5 دروس" },
-  { id: "isl", name: "الدراسات الإسلامية", glyph: "د", tone: "neutral", pct: 0, meta: "لم تبدأ" },
+  { id: "math", name: "الرياضيات", glyph: "٪", tone: "blue", blurb: "أعداد، كسور، جمع وطرح، وقياس بأمثلة من البيت." },
+  { id: "ar", name: "لغتي", glyph: "ل", tone: "green", blurb: "حروف وحركات وجمل، نقرأها ونسمعها مع بعض." },
+  { id: "sci", name: "العلوم", glyph: "ع", tone: "amber", blurb: "الماء والحواس والنبات: نشوف ونجرب ونفهم." },
+  { id: "isl", name: "الدراسات الإسلامية", glyph: "د", tone: "neutral", blurb: "أركان وآداب وسور قصيرة بأسلوب بسيط." },
 ];
 
+/** done = finished by this child; today = the home's lesson; next = built and open; later = not built yet. */
 export type LessonStatus = "done" | "today" | "next" | "later";
 
 export interface LessonEntry {
@@ -38,30 +39,31 @@ export interface LessonEntry {
   status: LessonStatus;
 }
 
+/** Lesson paths per subject. Entries without a lessonId are planned lessons and show as "قريبًا". */
 export const LESSONS: Record<string, LessonEntry[]> = {
   math: [
-    { title: "الأعداد حتى 1000", meta: "8 دقائق", status: "done" },
+    { lessonId: "fractions", title: "الكسور", meta: "النصف والربع · 10 دقائق", status: "next" },
     { lessonId: "addsub", title: "الجمع والطرح", meta: "الآحاد والعشرات · 10 دقائق", status: "next" },
-    { lessonId: "fractions", title: "الكسور", meta: "النصف والربع · 10 دقائق", status: "today" },
     { lessonId: "measure", title: "القياس", meta: "الطول والوزن · 10 دقائق", status: "next" },
+    { title: "الأعداد حتى 1000", meta: "الآحاد والعشرات والمئات", status: "later" },
     { title: "الأشكال الهندسية", meta: "المضلعات", status: "later" },
   ],
   ar: [
-    { title: "الهمزة المتوسطة", meta: "8 دقائق", status: "done" },
-    { title: "أنواع الجمل", meta: "9 دقائق", status: "done" },
-    { title: "التنوين", meta: "10 دقائق", status: "next" },
+    { lessonId: "tanween", title: "التنوين", meta: "فتح وضم وكسر · 10 دقائق", status: "next" },
+    { title: "أنواع الجمل", meta: "الاسمية والفعلية", status: "later" },
+    { title: "الهمزة المتوسطة", meta: "", status: "later" },
     { title: "الأفعال", meta: "", status: "later" },
     { title: "القراءة الجهرية", meta: "", status: "later" },
   ],
   sci: [
-    { title: "النبات وأجزاؤه", meta: "8 دقائق", status: "done" },
     { lessonId: "water", title: "دورة الماء", meta: "من البحر للسحاب · 10 دقائق", status: "next" },
+    { lessonId: "senses", title: "الحواس الخمس", meta: "نشوف ونسمع ونلمس · 10 دقائق", status: "next" },
+    { title: "النبات وأجزاؤه", meta: "", status: "later" },
     { title: "الحيوانات وبيئاتها", meta: "", status: "later" },
     { title: "المادة وحالاتها", meta: "", status: "later" },
-    { title: "الحواس الخمس", meta: "", status: "later" },
   ],
   isl: [
-    { title: "أركان الإسلام", meta: "8 دقائق", status: "next" },
+    { lessonId: "pillars", title: "أركان الإسلام", meta: "الخمسة بالترتيب · 10 دقائق", status: "next" },
     { title: "الوضوء", meta: "", status: "later" },
     { title: "سور قصيرة", meta: "", status: "later" },
     { title: "آداب الطعام", meta: "", status: "later" },
@@ -70,7 +72,7 @@ export const LESSONS: Record<string, LessonEntry[]> = {
 };
 
 export const TOAST_DONE = "راجعنا هذا الدرس سابقًا. الملخص عند ولي الأمر.";
-export const TOAST_LOCKED = "هذا الدرس في النموذج القادم. درس الكسور هو المتاح حاليًا.";
+export const TOAST_LOCKED = "هذا الدرس قيد الإعداد. جرّب الدروس المفتوحة في نفس المادة.";
 
 export const TODAY_LESSON = {
   lessonId: "fractions",

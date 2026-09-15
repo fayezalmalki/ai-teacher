@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import Frame from "@/components/Frame";
+import LookPicker from "@/components/LookPicker";
+import { DEFAULT_LOOK } from "@/lib/character/looks";
 import AppHeader, { AVATAR_BG } from "@/components/AppHeader";
 import Footer from "@/components/Footer";
 import AccountSection from "@/components/parent/AccountSection";
@@ -208,6 +210,10 @@ export default function ParentPage() {
                 </button>
               ))}
             </div>
+          </div>
+          <div className="flex flex-col gap-2.5">
+            <span className="text-[14px] text-muted">شكل الأستاذ نواف</span>
+            <LookPicker value={settings.teacherLook ?? DEFAULT_LOOK} onChange={(teacherLook) => setSettings({ teacherLook })} size={60} />
           </div>
           <div className="flex gap-7 flex-wrap items-center">
             <Toggle on={settings.sound === "reading"} onClick={() => setSettings({ sound: settings.sound === "reading" ? "voice" : "reading" })} label="وضع القراءة (بدون صوت)" />

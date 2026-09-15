@@ -17,7 +17,7 @@ export const VISUAL_ALIASES: Record<VisualId, VisualSpec> = {
   comparePick: { kind: "compare", pick: true },
 };
 
-export const VISUAL_KINDS = ["pizza", "fractions", "chocolate", "compare", "blocks", "numberline", "ruler", "balance", "cycle", "none"] as const;
+export const VISUAL_KINDS = ["pizza", "fractions", "chocolate", "compare", "blocks", "numberline", "ruler", "balance", "cycle", "word", "cards", "none"] as const;
 
 export function resolveVisual(ref: VisualRef | undefined): VisualSpec {
   if (!ref) return { kind: "none" };
@@ -57,6 +57,17 @@ export function visualProblems(ref: unknown, where: string): string[] {
   }
   if (v.kind === "ruler" && (!num(v.length) || (v.length as number) <= 0)) out.push(`${where}: ruler.length must be positive`);
   if (v.kind === "balance" && (!num(v.left) || !num(v.right))) out.push(`${where}: balance needs left and right`);
+  if (v.kind === "word") {
+    if (typeof v.text !== "string" || !v.text.trim()) out.push(`${where}: word.text is required`);
+    else if (v.marks !== undefined && (!Array.isArray(v.marks) || v.marks.some((m) => !num(m) || (m as number) < 0 || (m as number) >= (v.text as string).length)))
+      out.push(`${where}: word.marks must index into the text`);
+  }
+  if (v.kind === "cards") {
+    const items = v.items as unknown;
+    if (!Array.isArray(items) || items.length < 2 || items.length > 6 || items.some((it) => !it || typeof it.label !== "string" || !it.label))
+      out.push(`${where}: cards.items needs 2–6 labelled items`);
+    else if (v.highlight !== undefined && (!num(v.highlight) || (v.highlight as number) < 0 || (v.highlight as number) >= items.length)) out.push(`${where}: cards.highlight is outside items`);
+  }
   if (v.kind === "cycle") {
     if (!Array.isArray(v.stages) || v.stages.length < 2) out.push(`${where}: cycle.stages needs at least two stages`);
     else if (v.highlight !== undefined && (!num(v.highlight) || (v.highlight as number) < 0 || (v.highlight as number) >= v.stages.length)) out.push(`${where}: cycle.highlight is outside stages`);

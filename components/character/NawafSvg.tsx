@@ -11,6 +11,7 @@
 import type { CSSProperties } from "react";
 import type { Viseme } from "@/lib/voice/types";
 import type { TeacherState } from "@/lib/character/contract";
+import { LOOKS, type LookSpec, type TeacherLook } from "@/lib/character/looks";
 
 interface NawafSvgProps {
   size: number;
@@ -18,14 +19,19 @@ interface NawafSvgProps {
   viseme: Viseme;
   /** 0–1 mic level; nudges the head while listening. */
   level?: number;
+  /** Outfit preset (lib/character/looks.ts). */
+  look?: TeacherLook | LookSpec;
   className?: string;
 }
 
 const C = {
-  skin: "#F1C9A5",
-  skinShade: "#D9A07C",
-  hair: "#2B2320",
   thobe: "#FFFFFF",
+  shirt: "var(--color-primary-tint)",
+  shemagh: "#C8332F",
+  shemaghLine: "#FFFFFF",
+  ghutra: "#FFFFFF",
+  ghutraShade: "#E3E6E1",
+  igal: "#161412",
   thobeEdge: "#E3E6E1",
   mouth: "#4A2222",
   lip: "#A5583F",
@@ -52,7 +58,11 @@ const MOUTH: Record<Viseme, { sx: number; sy: number; teeth: boolean; tongue: bo
 
 const EASE = "180ms ease";
 
-export default function NawafSvg({ size, state, viseme, level = 0, className = "" }: NawafSvgProps) {
+export default function NawafSvg({ size, state, viseme, level = 0, look = "classic", className = "" }: NawafSvgProps) {
+  const L: LookSpec = typeof look === "string" ? (LOOKS[look] ?? LOOKS.classic) : look;
+  const covered = L.headwear !== "none";
+  const cloth = L.headwear === "shemagh" ? "url(#nawaf-shemagh)" : C.ghutra;
+  const clothEdge = L.headwear === "shemagh" ? "#A32723" : C.ghutraShade;
   const listening = state === "listening";
   const thinking = state === "thinking";
   const speaking = state === "speaking" || state === "encouraging";
@@ -125,35 +135,65 @@ export default function NawafSvg({ size, state, viseme, level = 0, className = "
         <clipPath id="nawaf-smile-clip">
           <path d="M84 130 Q100 150 116 130 Z" />
         </clipPath>
+        <pattern id="nawaf-shemagh" width="9" height="9" patternUnits="userSpaceOnUse">
+          <rect width="9" height="9" fill={C.shemagh} />
+          <path d="M0 4.5 H9 M4.5 0 V9" stroke={C.shemaghLine} strokeWidth="1.6" opacity="0.9" />
+        </pattern>
       </defs>
 
-      {/* thobe */}
-      <path d="M38 200 C38 158 62 146 100 146 C138 146 162 158 162 200 Z" fill={C.thobe} stroke={C.thobeEdge} strokeWidth="2" />
-      <path d="M100 148 L94 160 L100 172 L106 160 Z" fill="var(--color-primary-tint)" />
-      <rect x="124" y="166" width="4" height="18" rx="1.5" fill="var(--color-primary)" transform="rotate(-8 126 175)" />
+      {/* outfit */}
+      {L.outfit === "thobe" ? (
+        <>
+          <path d="M38 200 C38 158 62 146 100 146 C138 146 162 158 162 200 Z" fill={C.thobe} stroke={C.thobeEdge} strokeWidth="2" />
+          <path d="M100 148 L94 160 L100 172 L106 160 Z" fill="var(--color-primary-tint)" />
+          <rect x="124" y="166" width="4" height="18" rx="1.5" fill="var(--color-primary)" transform="rotate(-8 126 175)" />
+        </>
+      ) : (
+        <>
+          <path d="M38 200 C38 158 62 146 100 146 C138 146 162 158 162 200 Z" fill={C.shirt} stroke="var(--color-primary)" strokeWidth="2" />
+          <path d="M86 146 L100 162 L114 146 L108 144 L100 152 L92 144 Z" fill={C.thobe} stroke="var(--color-primary)" strokeWidth="1.5" />
+          <circle cx="100" cy="172" r="2.2" fill="var(--color-primary)" />
+          <circle cx="100" cy="186" r="2.2" fill="var(--color-primary)" />
+        </>
+      )}
 
       <g style={head}>
+        {/* headwear drape (behind the face) */}
+        {covered && (
+          <path d="M46 92 C46 30 154 30 154 92 L166 168 C150 160 130 158 118 160 L100 150 L82 160 C70 158 50 160 34 168 Z" fill={cloth} stroke={clothEdge} strokeWidth="2" />
+        )}
+
         {/* neck + ears */}
-        <rect x="90" y="130" width="20" height="24" rx="6" fill={C.skinShade} />
-        <ellipse cx="53" cy="106" rx="7" ry="10" fill={C.skin} />
-        <ellipse cx="147" cy="106" rx="7" ry="10" fill={C.skin} />
+        <rect x="90" y="130" width="20" height="24" rx="6" fill={L.skinShade} />
+        {!covered && <ellipse cx="53" cy="106" rx="7" ry="10" fill={L.skin} />}
+        {!covered && <ellipse cx="147" cy="106" rx="7" ry="10" fill={L.skin} />}
 
         {/* face + beard */}
-        <ellipse cx="100" cy="106" rx="46" ry="48" fill={C.skin} />
-        <path d="M58 112 C62 150 138 150 142 112 C136 140 120 148 100 148 C80 148 64 140 58 112 Z" fill={C.hair} opacity="0.92" />
-        <ellipse cx="100" cy="120" rx="30" ry="22" fill={C.skin} />
+        <ellipse cx="100" cy="106" rx="46" ry="48" fill={L.skin} />
+        {L.beard && <path d="M58 112 C62 150 138 150 142 112 C136 140 120 148 100 148 C80 148 64 140 58 112 Z" fill={L.hair} opacity="0.92" />}
+        {L.beard && <ellipse cx="100" cy="120" rx="30" ry="22" fill={L.skin} />}
 
-        {/* hair */}
-        <path d="M52 100 C52 40 148 40 148 100 C140 84 122 76 100 76 C78 76 60 84 52 100 Z" fill={C.hair} />
-        <path d="M60 92 C70 72 130 72 140 92 C128 86 112 84 100 84 C88 84 72 86 60 92 Z" fill={C.hair} />
+        {/* hair or headwear cap */}
+        {covered ? (
+          <>
+            <path d="M48 100 C48 38 152 38 152 100 C140 80 122 72 100 72 C78 72 60 80 48 100 Z" fill={cloth} stroke={clothEdge} strokeWidth="2" />
+            <path d="M58 82 C72 64 128 64 142 82" stroke={C.igal} strokeWidth="6" strokeLinecap="round" fill="none" />
+            <path d="M56 90 C72 72 128 72 144 90" stroke={C.igal} strokeWidth="6" strokeLinecap="round" fill="none" />
+          </>
+        ) : (
+          <>
+            <path d="M52 100 C52 40 148 40 148 100 C140 84 122 76 100 76 C78 76 60 84 52 100 Z" fill={L.hair} />
+            <path d="M60 92 C70 72 130 72 140 92 C128 86 112 84 100 84 C88 84 72 86 60 92 Z" fill={L.hair} />
+          </>
+        )}
 
         {/* cheeks */}
         <circle cx="68" cy="118" r="6.5" fill={C.cheek} style={{ opacity: happy ? 0.7 : 0, transition: `opacity ${EASE}` }} />
         <circle cx="132" cy="118" r="6.5" fill={C.cheek} style={{ opacity: happy ? 0.7 : 0, transition: `opacity ${EASE}` }} />
 
         {/* brows */}
-        <path d="M70 86 Q80 80 90 85" stroke={C.hair} strokeWidth="3.2" strokeLinecap="round" fill="none" style={browL} />
-        <path d="M110 85 Q120 80 130 86" stroke={C.hair} strokeWidth="3.2" strokeLinecap="round" fill="none" style={browR} />
+        <path d="M70 86 Q80 80 90 85" stroke={L.hair} strokeWidth="3.2" strokeLinecap="round" fill="none" style={browL} />
+        <path d="M110 85 Q120 80 130 86" stroke={L.hair} strokeWidth="3.2" strokeLinecap="round" fill="none" style={browR} />
 
         {/* eyes */}
         {happy ? (
@@ -175,16 +215,18 @@ export default function NawafSvg({ size, state, viseme, level = 0, className = "
         )}
 
         {/* glasses */}
-        <g stroke={C.glasses} strokeWidth="2.2" fill="none">
-          <circle cx="80" cy="100" r="12" />
-          <circle cx="120" cy="100" r="12" />
-          <path d="M92 100 Q100 96 108 100" />
-          <path d="M68 99 L60 97" />
-          <path d="M132 99 L140 97" />
-        </g>
+        {L.glasses && (
+          <g stroke={C.glasses} strokeWidth="2.2" fill="none">
+            <circle cx="80" cy="100" r="12" />
+            <circle cx="120" cy="100" r="12" />
+            <path d="M92 100 Q100 96 108 100" />
+            <path d="M68 99 L60 97" />
+            <path d="M132 99 L140 97" />
+          </g>
+        )}
 
         {/* nose */}
-        <path d="M100 108 Q96 116 102 118" stroke={C.skinShade} strokeWidth="2.4" strokeLinecap="round" fill="none" />
+        <path d="M100 108 Q96 116 102 118" stroke={L.skinShade} strokeWidth="2.4" strokeLinecap="round" fill="none" />
 
         {/* mouth */}
         <g>

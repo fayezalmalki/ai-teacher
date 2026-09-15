@@ -7,6 +7,8 @@ import AppHeader from "@/components/AppHeader";
 import ProgressBars from "@/components/ProgressBars";
 import { Keypad, PinDots } from "@/components/Keypad";
 import { SketchButton, SketchChip } from "@/components/Sketch";
+import LookPicker from "@/components/LookPicker";
+import { DEFAULT_LOOK, type TeacherLook } from "@/lib/character/looks";
 import { AGES, GRADES } from "@/lib/content/catalog";
 import { toArabicDigits } from "@/lib/format";
 import { PIN_ADVANCE_MS } from "@/lib/lesson-engine/timing";
@@ -43,6 +45,7 @@ function Onboarding() {
   const [name, setName] = useState("");
   const [age, setAge] = useState(DEMO_CHILD.age);
   const [grade, setGrade] = useState(DEMO_CHILD.grade);
+  const [look, setLook] = useState<TeacherLook>(DEFAULT_LOOK);
   const [pin, setPinDraft] = useState("");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -53,6 +56,7 @@ function Onboarding() {
       setName(src.name);
       setAge(src.age);
       setGrade(src.grade);
+      setLook(src.settings.teacherLook ?? DEFAULT_LOOK);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
@@ -69,13 +73,13 @@ function Onboarding() {
     if (!canContinue) return;
     const profile = { name: name.trim(), age, grade };
     if (editing) {
-      updateChild(editing.id, profile);
+      updateChild(editing.id, { ...profile, settings: { ...editing.settings, teacherLook: look } });
       router.push("/parent");
       return;
     }
-    if (firstRun) setChild(profile);
+    if (firstRun) setChild({ ...profile, settings: { ...child.settings, teacherLook: look } });
     else {
-      const id = addChild(profile);
+      const id = addChild({ ...profile, settings: { teacherLook: look } });
       setActiveChild(id);
     }
     setPinDraft("");
@@ -151,6 +155,10 @@ function Onboarding() {
                     </SketchChip>
                   ))}
                 </div>
+              </div>
+              <div className="flex flex-col gap-2.5">
+                <div className="text-[14px] text-muted">شكل الأستاذ نواف</div>
+                <LookPicker value={look} onChange={setLook} size={56} />
               </div>
               <SketchButton onClick={next1} disabled={!canContinue} className="self-start">
                 {editing ? "حفظ" : "التالي"}

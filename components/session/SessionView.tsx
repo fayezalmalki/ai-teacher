@@ -147,7 +147,7 @@ export default function SessionView({ lesson }: SessionViewProps) {
           <div className="max-w-[520px] w-full text-center flex flex-col items-center gap-7">
             <Teacher size={140} character={character} idleWobble onClick={onSecretTap} />
             <div className="font-display text-[36px] sm:text-[44px] font-bold leading-[1.25]">هلا {name}، جاهز؟</div>
-            <div className="text-[18px] text-ink-2">اليوم نتعلم الكسور. {lesson.durationLabel} بس.</div>
+            <div className="text-[18px] text-ink-2">اليوم نتعلم {lesson.title.replace(/^درس /, "")}. {lesson.durationLabel} بس.</div>
             <SketchButton onClick={session.start} size="lg" className="mt-1">
               يلا نبدأ
             </SketchButton>

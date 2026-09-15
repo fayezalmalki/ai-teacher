@@ -5,22 +5,27 @@ import { useParams, useRouter } from "next/navigation";
 import Frame from "@/components/Frame";
 import AppHeader from "@/components/AppHeader";
 import Toast from "@/components/Toast";
-import { LESSONS, SUBJECTS, TOAST_DONE, TOAST_LOCKED, type LessonStatus } from "@/lib/content/catalog";
+import { SketchLink } from "@/components/Sketch";
+import { SUBJECTS, TOAST_LOCKED, type LessonStatus } from "@/lib/content/catalog";
+import { subjectLessons } from "@/lib/content/paths";
 import { toArabicDigits } from "@/lib/format";
 import { TOAST_MS } from "@/lib/lesson-engine/timing";
+import { useAppStore } from "@/lib/store/app-store";
 
 const TAG: Record<LessonStatus, { label: string; cls: string }> = {
-  done: { label: "مكتمل", cls: "text-success" },
+  done: { label: "مكتمل · أعده", cls: "text-success" },
   today: { label: "درس اليوم", cls: "text-primary" },
-  next: { label: "التالي", cls: "text-primary" },
-  later: { label: "لاحقًا", cls: "text-muted" },
+  next: { label: "مفتوح", cls: "text-primary" },
+  later: { label: "قريبًا", cls: "text-muted" },
 };
 
 export default function SubjectPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
+  const { results } = useAppStore();
   const subject = SUBJECTS.find((s) => s.id === params.id) ?? SUBJECTS[0];
-  const lessons = LESSONS[subject.id] ?? [];
+  const lessons = subjectLessons(subject.id, results);
+  const others = SUBJECTS.filter((s) => s.id !== subject.id);
   const [toast, setToast] = useState("");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -39,13 +44,16 @@ export default function SubjectPage() {
 
   return (
     <Frame>
-      <AppHeader showChild showParent backHref="/home" />
+      <AppHeader showChild showParent backHref="/subjects" />
       <div className="flex-1 flex flex-col gap-8 px-6 sm:px-10 pt-12 pb-20 max-w-[720px] w-full mx-auto">
-        <h1 className="font-display text-[44px] font-bold m-0">{subject.name}</h1>
+        <div className="flex flex-col gap-2">
+          <h1 className="font-display text-[44px] font-bold m-0">{subject.name}</h1>
+          <p className="text-[16px] text-ink-2 m-0">{subject.blurb}</p>
+        </div>
         <div className="flex flex-col">
           {lessons.map((l, i) => {
             const st = l.status;
-            const live = !!l.lessonId && st === "today";
+            const live = !!l.lessonId;
             const highlighted = st === "today" || st === "next";
             const dot =
               st === "done"
@@ -55,7 +63,6 @@ export default function SubjectPage() {
                   : "bg-surface text-faint";
             const onOpen = () => {
               if (live) router.push(`/lesson/${l.lessonId}`);
-              else if (st === "done") showToast(TOAST_DONE);
               else showToast(TOAST_LOCKED);
             };
             return (
@@ -86,6 +93,14 @@ export default function SubjectPage() {
               </div>
             );
           })}
+        </div>
+        <div className="flex items-center gap-3 flex-wrap text-[14px] text-muted dashed-rule pt-6">
+          <span>مواد ثانية:</span>
+          {others.map((s) => (
+            <SketchLink key={s.id} href={`/subjects/${s.id}`} className="text-[14px]">
+              {s.name}
+            </SketchLink>
+          ))}
         </div>
       </div>
       <Toast message={toast} />

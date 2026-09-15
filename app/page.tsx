@@ -3,6 +3,7 @@ import AppHeader from "@/components/AppHeader";
 import Footer from "@/components/Footer";
 import Teacher from "@/components/Teacher";
 import { SketchButton, SketchCard, SketchLink } from "@/components/Sketch";
+import SubjectCards from "@/components/SubjectCards";
 
 const CARDS: { title: string; body: string; tint: "blue" | "yellow" | "green" }[] = [
   { title: "يشرح", body: "بأمثلة من حياة الطفل: بيتزا، شوكولاتة، أشياء يعرفها.", tint: "blue" },
@@ -53,6 +54,17 @@ export default function LandingPage() {
               <div className="text-[15px] leading-[1.65] text-ink-2">{c.body}</div>
             </SketchCard>
           ))}
+        </div>
+
+        <div className="flex flex-col gap-5">
+          <div className="flex items-end justify-between gap-4 flex-wrap">
+            <div>
+              <h2 className="font-display text-[30px] font-bold m-0">المواد</h2>
+              <p className="text-[15px] text-ink-2 m-0 mt-1">اختر مادة وجرّب أي درس مفتوح، بدون تسجيل.</p>
+            </div>
+            <SketchLink href="/subjects">كل المواد <span aria-hidden="true">←</span></SketchLink>
+          </div>
+          <SubjectCards />
         </div>
 
         <Footer variant="full" className="mt-2" />

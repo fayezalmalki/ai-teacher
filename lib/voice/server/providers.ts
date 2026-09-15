@@ -34,10 +34,38 @@ export interface TtsConfig {
   model: string;
 }
 
+/**
+ * ElevenLabs delivery for a primary-school teacher: steady (few random
+ * inflections), close to the voice's own timbre, a touch of expression, and
+ * slightly slower than the default so a child can follow. Override with
+ * ELEVENLABS_STABILITY / ELEVENLABS_STYLE / ELEVENLABS_SPEED.
+ */
+export const ELEVENLABS_VOICE_SETTINGS = {
+  stability: 0.55,
+  similarity_boost: 0.8,
+  style: 0.15,
+  use_speaker_boost: true,
+  speed: 0.92,
+};
+
+export function elevenlabsVoiceSettings(env: Env = process.env) {
+  const num = (v: string | undefined, d: number) => {
+    const n = v === undefined ? NaN : Number(v);
+    return Number.isFinite(n) ? n : d;
+  };
+  return {
+    ...ELEVENLABS_VOICE_SETTINGS,
+    stability: num(env.ELEVENLABS_STABILITY, ELEVENLABS_VOICE_SETTINGS.stability),
+    style: num(env.ELEVENLABS_STYLE, ELEVENLABS_VOICE_SETTINGS.style),
+    speed: num(env.ELEVENLABS_SPEED, ELEVENLABS_VOICE_SETTINGS.speed),
+  };
+}
+
 export function ttsConfigFromEnv(env: Env = process.env): TtsConfig {
   const provider = (env.TTS_PROVIDER as TtsProvider) || (env.ELEVENLABS_API_KEY ? "elevenlabs" : env.OPENAI_API_KEY ? "openai" : "mock");
   if (provider === "elevenlabs") {
-    return { provider, voice: env.ELEVENLABS_VOICE_ID || "", model: env.ELEVENLABS_MODEL || "eleven_flash_v2_5" };
+    // multilingual_v2 is the quality model for Arabic; flash_v2_5 is faster but flatter.
+    return { provider, voice: env.ELEVENLABS_VOICE_ID || "", model: env.ELEVENLABS_MODEL || "eleven_multilingual_v2" };
   }
   if (provider === "openai") {
     return { provider, voice: env.OPENAI_TTS_VOICE || "coral", model: env.OPENAI_TTS_MODEL || "gpt-4o-mini-tts" };
@@ -48,7 +76,7 @@ export function ttsConfigFromEnv(env: Env = process.env): TtsConfig {
 export async function synthesize(text: string, cfg: TtsConfig, env: Env = process.env): Promise<Synthesized> {
   switch (cfg.provider) {
     case "elevenlabs":
-      return elevenlabsSynthesize(text, cfg, requireEnv(env, "ELEVENLABS_API_KEY"));
+      return elevenlabsSynthesize(text, cfg, requireEnv(env, "ELEVENLABS_API_KEY"), elevenlabsVoiceSettings(env));
     case "openai":
       return openaiSynthesize(text, cfg, requireEnv(env, "OPENAI_API_KEY"));
     default:
@@ -69,12 +97,17 @@ export function mockSynthesize(text: string): Synthesized {
 }
 
 /** ElevenLabs with character timestamps → real viseme track. */
-async function elevenlabsSynthesize(text: string, cfg: TtsConfig, apiKey: string): Promise<Synthesized> {
+async function elevenlabsSynthesize(
+  text: string,
+  cfg: TtsConfig,
+  apiKey: string,
+  voiceSettings: ReturnType<typeof elevenlabsVoiceSettings> = ELEVENLABS_VOICE_SETTINGS,
+): Promise<Synthesized> {
   if (!cfg.voice) throw new Error("ELEVENLABS_VOICE_ID is required");
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${cfg.voice}/with-timestamps?output_format=mp3_44100_128`, {
     method: "POST",
     headers: { "xi-api-key": apiKey, "content-type": "application/json" },
-    body: JSON.stringify({ text, model_id: cfg.model, language_code: "ar" }),
+    body: JSON.stringify({ text, model_id: cfg.model, language_code: "ar", voice_settings: voiceSettings }),
   });
   if (!res.ok) throw new Error(`ElevenLabs ${res.status}: ${await res.text()}`);
   const json = (await res.json()) as {

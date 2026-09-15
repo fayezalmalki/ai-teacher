@@ -10,6 +10,8 @@ import NumberLine from "./NumberLine";
 import Ruler from "./Ruler";
 import Balance from "./Balance";
 import Cycle from "./Cycle";
+import WordCard from "./WordCard";
+import Cards from "./Cards";
 
 /** Draws a visual spec without interaction. SessionVisual wraps the tappable kinds. */
 export default function VisualByKind({ spec, compareLabels }: { spec: VisualSpec; compareLabels?: Record<string, string> }) {
@@ -32,6 +34,10 @@ export default function VisualByKind({ spec, compareLabels }: { spec: VisualSpec
       return <Balance left={spec.left} right={spec.right} leftLabel={spec.leftLabel} rightLabel={spec.rightLabel} />;
     case "cycle":
       return <Cycle stages={spec.stages} highlight={spec.highlight} />;
+    case "word":
+      return <WordCard text={spec.text} marks={spec.marks} caption={spec.caption} />;
+    case "cards":
+      return <Cards items={spec.items} highlight={spec.highlight} numbered={spec.numbered} />;
     default:
       return null;
   }

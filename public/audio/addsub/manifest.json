@@ -4,9 +4,9 @@
   "voice": {
     "provider": "elevenlabs",
     "voice": "JBFqnCBsd6RMkjVDRZzb",
-    "model": "eleven_flash_v2_5"
+    "model": "eleven_multilingual_v2"
   },
-  "renderedAt": "2026-09-15T01:40:21.648Z",
+  "renderedAt": "2026-09-15T03:44:30.490Z",
   "lines": {
     "eab0f93d": {
       "id": "step:intro",
@@ -315,7 +315,8 @@
           "t": 9079,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "f0366dba": {
       "id": "step:a1",
@@ -532,7 +533,8 @@
           "t": 6978,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "e11288b3": {
       "id": "step:b1",
@@ -637,7 +639,8 @@
           "t": 2032,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "723b1478": {
       "id": "step:b2",
@@ -818,7 +821,8 @@
           "t": 4865,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "3e00de10": {
       "id": "step:b2r",
@@ -951,7 +955,8 @@
           "t": 4260,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "64d65b25": {
       "id": "step:b3",
@@ -1092,7 +1097,8 @@
           "t": 3889,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "360f3b31": {
       "id": "step:p1",
@@ -1121,7 +1127,8 @@
           "t": 697,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "8525918b": {
       "id": "step:p1ok",
@@ -1278,7 +1285,8 @@
           "t": 3587,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "66d157a0": {
       "id": "step:r1",
@@ -1471,7 +1479,8 @@
           "t": 4551,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "9f2763bb": {
       "id": "step:d1",
@@ -1604,7 +1613,8 @@
           "t": 2902,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "781bf2fb": {
       "id": "step:p2ok",
@@ -1721,7 +1731,8 @@
           "t": 2763,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "1445cbbf": {
       "id": "step:r2",
@@ -1910,7 +1921,8 @@
           "t": 4424,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "a57693a5": {
       "id": "step:d2",
@@ -2003,7 +2015,8 @@
           "t": 1985,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "53aed078": {
       "id": "step:x1",
@@ -2100,7 +2113,8 @@
           "t": 4214,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "28952aaa": {
       "id": "step:x1r",
@@ -2305,7 +2319,8 @@
           "t": 7430,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "8df499eb": {
       "id": "step:x2",
@@ -2414,7 +2429,8 @@
           "t": 2926,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "15276cc5": {
       "id": "explain:0",
@@ -2579,7 +2595,8 @@
           "t": 5120,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "79e697f9": {
       "id": "explain:1",
@@ -2784,7 +2801,8 @@
           "t": 6699,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "ce1cb4ad": {
       "id": "explain:2",
@@ -3009,7 +3027,8 @@
           "t": 6234,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "daef7421": {
       "id": "explain:3",
@@ -3162,7 +3181,8 @@
           "t": 5457,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "6374eae7": {
       "id": "pool:add:add-1a",
@@ -3323,7 +3343,8 @@
           "t": 4795,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "75d2f4ba": {
       "id": "pool:add:add-1b",
@@ -3380,7 +3401,8 @@
           "t": 1881,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "eceecfc9": {
       "id": "pool:add:add-2a",
@@ -3501,7 +3523,8 @@
           "t": 3390,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "ae844c0f": {
       "id": "pool:add:add-2b",
@@ -3658,7 +3681,8 @@
           "t": 4540,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "11c91b8d": {
       "id": "pool:add:add-3a",
@@ -3823,7 +3847,8 @@
           "t": 6234,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "aecd037d": {
       "id": "pool:add:add-3b",
@@ -3880,7 +3905,8 @@
           "t": 2763,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "23429ddb": {
       "id": "pool:sub:sub-1a",
@@ -4009,7 +4035,8 @@
           "t": 3913,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "a9480611": {
       "id": "pool:sub:sub-1b",
@@ -4066,7 +4093,8 @@
           "t": 2241,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "fba9dc28": {
       "id": "pool:sub:sub-2a",
@@ -4183,7 +4211,8 @@
           "t": 3658,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "0daf729e": {
       "id": "pool:sub:sub-2b",
@@ -4312,7 +4341,8 @@
           "t": 4017,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "2203c3f9": {
       "id": "pool:sub:sub-3a",
@@ -4477,7 +4507,8 @@
           "t": 6664,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "0fe36fe7": {
       "id": "pool:sub:sub-3b",
@@ -4534,7 +4565,8 @@
           "t": 2728,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "c54c3dac": {
       "id": "endLine",
@@ -4787,7 +4819,8 @@
           "t": 5898,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     },
     "8b08b0e1": {
       "id": "intro.line",
@@ -5068,7 +5101,8 @@
           "t": 6176,
           "v": 0
         }
-      ]
+      ],
+      "stale": true
     }
   }
 }

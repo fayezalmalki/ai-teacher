@@ -3,6 +3,8 @@
 import Character from "@/components/character/Character";
 import Waveform from "@/components/Waveform";
 import { resolveCharacterMode, type CharacterMode, type TeacherState } from "@/lib/character/contract";
+import { DEFAULT_LOOK, type TeacherLook } from "@/lib/character/looks";
+import { useAppStore } from "@/lib/store/app-store";
 import type { Viseme } from "@/lib/voice/types";
 
 export type { TeacherState };
@@ -18,6 +20,8 @@ interface TeacherProps {
   viseme?: Viseme;
   level?: number;
   character?: CharacterMode;
+  /** Outfit; defaults to the active child's choice. */
+  look?: TeacherLook;
   /** Slow idle wobble (start / intro screens). */
   idleWobble?: boolean;
   /** Dashed ring even when idle (lesson intro). */
@@ -41,12 +45,15 @@ export default function Teacher({
   viseme = 0,
   level = 0,
   character,
+  look,
   idleWobble,
   ring,
   hero,
   onClick,
 }: TeacherProps) {
+  const { child } = useAppStore();
   const mode = character ?? resolveCharacterMode();
+  const outfit = look ?? child.settings.teacherLook ?? DEFAULT_LOOK;
   const speaking = state === "speaking";
   const encouraging = state === "encouraging";
   const listening = state === "listening";
@@ -77,7 +84,7 @@ export default function Teacher({
         style={{ boxShadow: shadow, animation }}
       >
         <div className="w-full h-full">
-          <Character mode={mode} size={size - 6} state={state} viseme={viseme} level={level} glyphSize={glyphSize} />
+          <Character mode={mode} size={size - 6} state={state} viseme={viseme} level={level} glyphSize={glyphSize} look={outfit} />
         </div>
       </div>
       {listening && (

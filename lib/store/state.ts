@@ -4,6 +4,7 @@
  * under STORAGE_KEY; v1 (single child) is migrated on first load.
  */
 import type { SessionResult } from "@/lib/lesson-engine/types";
+import { DEFAULT_LOOK, type TeacherLook } from "@/lib/character/looks";
 
 export const STORAGE_KEY = "ai-teacher:v2";
 export const LEGACY_STORAGE_KEY = "ai-teacher:v1";
@@ -23,6 +24,8 @@ export interface ChildSettings {
   sound: SoundMode;
   /** Difficulty the next session starts at (1 = the lesson's first level). */
   startLevel: number;
+  /** How الأستاذ نواف looks for this child (lib/character/looks.ts). */
+  teacherLook?: TeacherLook;
 }
 
 export interface ChildProfile {
@@ -55,6 +58,7 @@ export const DEFAULT_SETTINGS: ChildSettings = {
   liveAsk: true,
   sound: "voice",
   startLevel: 1,
+  teacherLook: DEFAULT_LOOK,
 };
 
 /** The demo persona every fresh device starts with. */
