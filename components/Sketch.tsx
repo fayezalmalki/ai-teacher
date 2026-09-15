@@ -137,7 +137,7 @@ export function SketchChip({ selected, className = "", children, type, ...rest }
 
 /** Small round ink pill for corner chrome. */
 export function SketchPill({ className = "", children, href, onClick }: { className?: string; children: ReactNode; href?: string; onClick?: () => void }) {
-  const cls = `inline-flex items-center rounded-pill ink-2 bg-surface px-3 py-1.5 text-[12px] font-semibold text-ink hover:bg-hover hover:text-ink ${className}`;
+  const cls = `inline-flex items-center whitespace-nowrap rounded-pill ink-2 bg-surface px-3 py-1.5 text-[12px] font-semibold text-ink hover:bg-hover hover:text-ink ${className}`;
   if (href) return <Link href={href} className={cls}>{children}</Link>;
   return (
     <button type="button" onClick={onClick} className={cls}>

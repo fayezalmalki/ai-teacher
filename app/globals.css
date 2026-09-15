@@ -167,6 +167,7 @@
   transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
   &:hover { transform: translate(-2px, -2px); box-shadow: var(--shadow-pop-hover); }
   &:active { transform: translate(3px, 3px); box-shadow: var(--shadow-pop-active); }
+  &:disabled { transform: none; box-shadow: var(--shadow-pop); opacity: 0.45; cursor: not-allowed; }
 }
 
 @media (prefers-reduced-motion: reduce) {

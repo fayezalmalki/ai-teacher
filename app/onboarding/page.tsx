@@ -17,7 +17,8 @@ export default function OnboardingPage() {
   const router = useRouter();
   const { state, hydrated, setChild, setPin, setOnboarded } = useAppStore();
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [name, setName] = useState(state.child.name);
+  // The form rests empty; the demo persona is only prefilled when a parent re-opens setup.
+  const [name, setName] = useState("");
   const [age, setAge] = useState(state.child.age);
   const [grade, setGrade] = useState(state.child.grade);
   const [pin, setPinDraft] = useState("");
@@ -25,7 +26,7 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     if (hydrated) {
-      setName(state.child.name);
+      if (state.onboarded) setName(state.child.name);
       setAge(state.child.age);
       setGrade(state.child.grade);
     }
@@ -39,10 +40,17 @@ export default function OnboardingPage() {
     [],
   );
 
+  const canContinue = name.trim().length > 0;
   const next1 = () => {
-    setChild({ name: name.trim() || "سلمان", age, grade });
+    if (!canContinue) return;
+    setChild({ name: name.trim(), age, grade });
     setPinDraft("");
     setStep(2);
+  };
+  const stepBack = () => {
+    if (timer.current) clearTimeout(timer.current);
+    setPinDraft("");
+    setStep((s) => (s === 3 ? 2 : 1));
   };
 
   const onKey = (k: string) => {
@@ -69,11 +77,11 @@ export default function OnboardingPage() {
     router.push("/parent");
   };
 
-  const displayName = name.trim() || "سلمان";
+  const displayName = name.trim() || state.child.name;
 
   return (
     <Frame>
-      <AppHeader />
+      <AppHeader onBack={step > 1 ? stepBack : undefined} />
       <div className="flex-1 grid place-items-center px-6 sm:px-8 pt-10 pb-20">
         <div className="w-full max-w-[480px] min-w-0 flex flex-col gap-8">
           <ProgressBars total={3} filled={step} />
@@ -85,7 +93,7 @@ export default function OnboardingPage() {
                 id="child-name"
                 aria-label="اسم الطفل"
                 value={name}
-                placeholder="اسم الطفل"
+                placeholder="اكتب اسم طفلك"
                 onChange={(e) => setName(e.target.value)}
                 className="w-full min-w-0 px-5 py-4 r-input ink bg-surface font-display font-semibold text-[22px] outline-none placeholder:text-faint placeholder:font-normal focus:shadow-[4px_4px_0_var(--color-primary-tint)]"
               />
@@ -109,7 +117,7 @@ export default function OnboardingPage() {
                   ))}
                 </div>
               </div>
-              <SketchButton onClick={next1} className="self-start">
+              <SketchButton onClick={next1} disabled={!canContinue} className="self-start">
                 التالي
               </SketchButton>
             </div>
