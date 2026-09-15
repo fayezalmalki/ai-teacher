@@ -3,7 +3,7 @@
 /**
  * App-level state: the household's children (each with settings and session
  * history), the active child, the parent PIN. Persisted to localStorage for
- * the MVP; swap for Supabase later (see lib/db/supabase.ts).
+ * the MVP and mirrored to the parent account when one is signed in (lib/convex/account.tsx).
  */
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { SessionResult } from "@/lib/lesson-engine/types";
@@ -51,6 +51,8 @@ interface AppStore {
   addResult: (result: SessionResult) => void;
   setPin: (pin: string) => void;
   setOnboarded: (v: boolean) => void;
+  /** Replace the whole household (used by account sync after a merge). */
+  importState: (next: AppState) => void;
 }
 
 const Ctx = createContext<AppStore | null>(null);
@@ -112,6 +114,7 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
   const addResult = useCallback<AppStore["addResult"]>((result) => setState((s) => appendResult(s, s.activeChildId, result)), []);
   const setPin = useCallback((pin: string) => setState((s) => ({ ...s, pin })), []);
   const setOnboarded = useCallback((onboarded: boolean) => setState((s) => ({ ...s, onboarded })), []);
+  const importState = useCallback((next: AppState) => setState(next), []);
 
   const value = useMemo<AppStore>(() => {
     const child = activeChild(state);
@@ -133,8 +136,9 @@ export function AppStoreProvider({ children }: { children: ReactNode }) {
       addResult,
       setPin,
       setOnboarded,
+      importState,
     };
-  }, [state, hydrated, setChild, setSettings, addChild, updateChild, updateChildSettings, removeChild, setActiveChild, addResult, setPin, setOnboarded]);
+  }, [state, hydrated, setChild, setSettings, addChild, updateChild, updateChildSettings, removeChild, setActiveChild, addResult, setPin, setOnboarded, importState]);
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

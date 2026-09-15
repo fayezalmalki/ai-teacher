@@ -66,6 +66,24 @@ the `levelUpAdapt` note), two wrong in a row lower it and route to the step's `o
 the parent's start level or where the child's last session of that lesson ended, whichever is higher
 (`continueLevel` in `lib/store/insights.ts`); the parent area shows the level and correct ratio per lesson.
 
+## Parent accounts and sync (Convex)
+
+`convex/` holds the backend, modelled on careers.sa: email-code sign-in (`authEmail.ts` + `authEmailDb.ts`:
+6-digit code, sha256 at rest, 10-minute expiry, 60 s cooldown, ≤3 sends / 10 min, ≤8 attempts), a household
+per email with bearer sessions, and `household.ts` (`me`, `sync`, `removeChild`, `setDigest`, `exportData`,
+`deleteAccount`, `signOut`). `digest.ts` + `crons.ts` send a weekly summary (Sunday 09:00 Riyadh) to households
+that opted in and had a session that week, using the same numbers as the parent area.
+
+The app is local-first: the device keeps its household in localStorage and, when signed in, `lib/convex/account.tsx`
+merges the account copy in (children by id, newer edit wins; sessions by lesson + start time) and pushes local
+changes after a short debounce (`lib/store/merge.ts`, tested). Without `NEXT_PUBLIC_CONVEX_URL` everything
+still works and the account section is hidden.
+
+Setup: `npx convex dev` once to create the project (writes the URL into `.env.local`), then on the deployment
+`npx convex env set SMTP_HOST smtp.improvmx.com`, `SMTP_PORT 587`, `SMTP_USER`, `SMTP_PASSWORD`, `SMTP_FROM`,
+`APP_URL`; `npx convex deploy` for production and set `NEXT_PUBLIC_CONVEX_URL` on Vercel to the prod URL.
+`DEMO_AUTH=1` on a dev deployment shows the code on screen instead of emailing it.
+
 ## Adding a lesson
 
 1. Write `lib/lessons/<subject>/<id>.lesson.json` (same shape as the existing lessons). A step's `visual` is
@@ -126,12 +144,14 @@ lib/voice/lines.ts            # teacher-line extraction, hashing, Arabic letter 
 lib/voice/server/             # TTS / STT / assessment providers used by scripts and route handlers
 scripts/render-lines.ts       # pre-render teacher audio + viseme tracks into public/audio/
 app/api/{tts,stt,assess}/     # route handlers; vendor keys stay server-side
-lib/store/                    # app store v2 (household of children, per-child settings + history), insights, parent gate
+lib/store/                    # app store v2 (household of children, per-child settings + history), insights, merge, parent gate
+lib/convex/                   # Convex client config/provider and the account + sync hook
+convex/                       # Convex backend: schema, email-code auth, household sync, weekly digest cron
 lib/content/catalog.ts        # subjects, lesson paths, parent-area copy
 lib/site.ts                   # footer links, socials, powered-by (from docs/site-config.js)
 lib/flags.ts                  # NEXT_PUBLIC_GUIDED_DEMO
 lib/analytics/events.ts       # event buffer + sink hook
-lib/db/supabase.ts            # persistence stub
+lib/store/merge.ts            # device ↔ account reconciliation (pure, tested)
 ```
 
 ## Voice pipeline

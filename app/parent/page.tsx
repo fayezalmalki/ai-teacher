@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Frame from "@/components/Frame";
 import AppHeader, { AVATAR_BG } from "@/components/AppHeader";
 import Footer from "@/components/Footer";
+import AccountSection from "@/components/parent/AccountSection";
 import { SketchButton, SketchChip, SketchPill } from "@/components/Sketch";
 import { PARENT_WEEK, SUBJECTS, type Tone } from "@/lib/content/catalog";
 import { subjectPercent } from "@/lib/content/paths";
@@ -242,6 +243,8 @@ export default function ParentPage() {
             )}
           </div>
         </div>
+
+        <AccountSection />
 
         <Footer variant="slim" />
       </div>

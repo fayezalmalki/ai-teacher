@@ -35,6 +35,8 @@ export interface ChildProfile {
   /** Finished sessions, oldest first. */
   results: SessionResult[];
   createdAt: number;
+  /** Last profile or settings edit; the account keeps the newer copy. */
+  updatedAt?: number;
 }
 
 export interface AppState {
@@ -155,8 +157,8 @@ export function fromStorage(v2: string | null, v1: string | null, now = Date.now
   return defaultState(now);
 }
 
-export function updateChildIn(state: AppState, id: string, patch: Partial<Omit<ChildProfile, "id">>): AppState {
-  return { ...state, children: state.children.map((c) => (c.id === id ? { ...c, ...patch } : c)) };
+export function updateChildIn(state: AppState, id: string, patch: Partial<Omit<ChildProfile, "id">>, now = Date.now()): AppState {
+  return { ...state, children: state.children.map((c) => (c.id === id ? { ...c, ...patch, updatedAt: now } : c)) };
 }
 
 export function appendResult(state: AppState, id: string, result: SessionResult): AppState {
