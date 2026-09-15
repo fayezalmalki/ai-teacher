@@ -6,10 +6,8 @@ export const site = {
     { label: 'عن المشروع', href: '#about' },
     { label: 'للمدارس', href: '#schools' },
     { label: 'الخصوصية', href: '#privacy' },
-    { label: 'تواصل معنا', href: 'mailto:hello@mvp.sa' }
+    { label: 'تواصل معنا', href: 'mailto:fm@mvp.sa' }
   ],
-  social: [
-    { label: 'X', href: 'https://x.com/mvpsa' },
-    { label: 'LinkedIn', href: 'https://linkedin.com/company/mvpsa' }
-  ]
+  // Social links are hidden for now; add entries here to show them in the footer.
+  social: []
 };

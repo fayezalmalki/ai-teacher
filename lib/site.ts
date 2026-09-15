@@ -21,11 +21,9 @@ export const site = {
     { label: "عن المشروع", href: "#about" },
     { label: "للمدارس", href: "#schools" },
     { label: "الخصوصية", href: "#privacy" },
-    { label: "تواصل معنا", href: "mailto:hello@mvp.sa" },
+    { label: "تواصل معنا", href: "mailto:fm@mvp.sa" },
   ] as SiteLink[],
-  social: [
-    { label: "X", href: "https://x.com/mvpsa" },
-    { label: "LinkedIn", href: "https://linkedin.com/company/mvpsa" },
-  ] as SiteLink[],
+  /** Social links are hidden for now; add entries here to show them in the footer. */
+  social: [] as SiteLink[],
   copyright: "© 2026 المعلم الذكي",
 };
