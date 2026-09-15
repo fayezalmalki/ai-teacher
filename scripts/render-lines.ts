@@ -4,7 +4,7 @@
  *   npm run render-lines                                  # provider from env (mock if no keys)
  *   npm run render-lines -- --provider mock               # offline: silent clips, estimated lips
  *   npm run render-lines -- --provider elevenlabs --names "سلمان,ليان,محمد"
- *   npm run render-lines -- --lesson fractions --force    # re-render everything
+ *   npm run render-lines -- --lesson fractions --force    # re-render one lesson (default: all registered lessons)
  *
  * Output: public/audio/<lessonId>/<hash>.<ext> + manifest.json. Lines whose
  * text and voice are unchanged are skipped, so re-running after a copy edit
@@ -12,7 +12,7 @@
  */
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
-import { getLesson } from "@/lib/lesson-engine";
+import { LESSON_LIST, getLesson, type LessonDefinition } from "@/lib/lesson-engine";
 import { extractTeacherLines, type LinesManifest, type ManifestLine } from "@/lib/voice/lines";
 import { synthesize, ttsConfigFromEnv, type TtsProvider } from "@/lib/voice/server/providers";
 
@@ -29,7 +29,7 @@ interface Args {
 }
 
 function parseArgs(argv: string[]): Args {
-  const args: Args = { lesson: "fractions", names: ["سلمان"], out: "public/audio", force: false, ifConfigured: false };
+  const args: Args = { lesson: "all", names: ["سلمان"], out: "public/audio", force: false, ifConfigured: false };
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     const next = () => argv[++i];
@@ -53,14 +53,26 @@ const EXT: Record<string, string> = { "audio/mpeg": "mp3", "audio/wav": "wav", "
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));
-  const lesson = getLesson(args.lesson);
-  if (!lesson) throw new Error(`unknown lesson: ${args.lesson}`);
+  const targets: LessonDefinition[] = args.lesson === "all" ? LESSON_LIST : [];
+  if (args.lesson !== "all") {
+    const one = getLesson(args.lesson);
+    if (!one) throw new Error(`unknown lesson: ${args.lesson}`);
+    targets.push(one);
+  }
+  let failedTotal = 0;
+  for (const lesson of targets) failedTotal += await renderLesson(lesson, args);
+  // As a build hook, never fail the deploy: missing clips fall back to the device voice at runtime.
+  if (failedTotal && !args.ifConfigured) process.exit(1);
+  if (failedTotal) console.warn("render-lines: some lines failed; the app will use the device voice for them");
+}
 
+/** Render one lesson; returns the number of failed lines. */
+async function renderLesson(lesson: LessonDefinition, args: Args): Promise<number> {
   const cfg = ttsConfigFromEnv();
   if (args.provider) cfg.provider = args.provider;
   if (args.ifConfigured && cfg.provider === "mock") {
     console.log("render-lines: no TTS provider configured, skipping (simulated voice will be used)");
-    return;
+    return 0;
   }
   if (args.voice) cfg.voice = args.voice;
   if (args.model) cfg.model = args.model;
@@ -114,9 +126,7 @@ async function main() {
   }
   await writeFile(manifestFile, JSON.stringify(manifest, null, 2));
   console.log(`done: ${rendered} rendered, ${skipped} unchanged, ${failed} failed → ${path.relative(process.cwd(), manifestFile)}`);
-  // As a build hook, never fail the deploy: missing clips fall back to the device voice at runtime.
-  if (failed && !args.ifConfigured) process.exit(1);
-  if (failed) console.warn("render-lines: some lines failed; the app will use the device voice for them");
+  return failed;
 }
 
 main().catch((err) => {

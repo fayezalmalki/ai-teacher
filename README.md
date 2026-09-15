@@ -56,15 +56,26 @@ v1 single-child record. Per-child settings: daily minutes, reminder, open conver
 (`voice` | `reading`) and `startLevel`. The profiles screen switches child; the parent area edits, adds and
 removes children and shows this week's numbers computed from their history (`lib/store/insights.ts`).
 
+## Lessons and levels
+
+Four lessons ship: الكسور (the original graph), الجمع والطرح, القياس and دورة الماء. The three new ones use
+**question pools**: a step with `"pool": "<concept>"` draws a question from `lesson.pools[concept][level - 1]`
+(first unasked, else the nearest lower level) and keeps drawing until its `askCount` correct answers. Answers on
+pool steps run the adaptation policy in `lib/lesson-engine/policy.ts`: two correct in a row raise the level (with
+the `levelUpAdapt` note), two wrong in a row lower it and route to the step's `onLevelDown`. A session starts at
+the parent's start level or where the child's last session of that lesson ended, whichever is higher
+(`continueLevel` in `lib/store/insights.ts`); the parent area shows the level and correct ratio per lesson.
+
 ## Adding a lesson
 
-1. Write `lib/lessons/<subject>/<id>.lesson.json` (same shape as the fractions lesson). A step's `visual` is
-   either a parametric spec such as `{ "kind": "pizza", "filled": 2, "dividers": "v" }` or one of the
-   fractions-era ids (`pizzaHalf`, `chocPick`, …) listed in `lib/lesson-engine/visuals.ts`.
+1. Write `lib/lessons/<subject>/<id>.lesson.json` (same shape as the existing lessons). A step's `visual` is
+   either a parametric spec (`pizza`, `fractions`, `chocolate`, `compare`, `blocks`, `numberline`, `ruler`,
+   `balance`, `cycle`; see `lib/lesson-engine/visuals.ts`) or one of the fractions-era ids. Pool steps take
+   `pool`, `askCount`, `onOk`, `onWrong`, `onLevelDown`; each pool question has `id`, `text`, `visual`, `choices`.
 2. Register it in `lib/lessons/index.ts` and give the catalog entry its `lessonId`.
 3. `npm test`: `lib/lessons/lessons.test.ts` validates every registered graph (targets, choice sets,
    reachability, visuals) so a broken lesson never reaches a child.
-4. `npm run render-lines -- --lesson <id>` and commit the audio.
+4. `npm run render-lines -- --lesson <id>` (or plain `npm run render-lines` for every lesson) and commit the audio.
 
 ## Session query flags
 

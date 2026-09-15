@@ -4,37 +4,28 @@
  * from the catalog keep their scripted status until they are built.
  */
 import type { SessionResult } from "@/lib/lesson-engine/types";
-import { lessons } from "@/lib/lessons";
+import { LESSON_LIST, lessons } from "@/lib/lessons";
 import { completedLessonIds } from "@/lib/store/insights";
 import { LESSONS, type LessonEntry } from "./catalog";
 
 export function subjectLessons(subjectId: string, results: SessionResult[]): LessonEntry[] {
   const done = completedLessonIds(results);
+  const today = todaysLesson(results);
   const entries = LESSONS[subjectId] ?? [];
-  let todayAssigned = false;
   return entries.map((e) => {
     if (!e.lessonId || !lessons[e.lessonId]) return e;
     if (done.has(e.lessonId)) return { ...e, status: "done" };
-    if (!todayAssigned) {
-      todayAssigned = true;
-      return { ...e, status: "today" };
-    }
-    return { ...e, status: "next" };
+    return { ...e, status: today && today.lessonId === e.lessonId && !today.done ? "today" : "next" };
   });
 }
 
-/** The lesson the child home offers: the first registered lesson not yet finished, else the last one finished. */
+/** The lesson the child home offers: the first registered lesson (registry order) not yet finished, else the last one finished. */
 export function todaysLesson(results: SessionResult[]): { lessonId: string; subjectId: string; done: boolean } | null {
   const done = completedLessonIds(results);
-  let last: { lessonId: string; subjectId: string } | null = null;
-  for (const [subjectId, entries] of Object.entries(LESSONS)) {
-    for (const e of entries) {
-      if (!e.lessonId || !lessons[e.lessonId]) continue;
-      if (!done.has(e.lessonId)) return { lessonId: e.lessonId, subjectId, done: false };
-      last = { lessonId: e.lessonId, subjectId };
-    }
-  }
-  return last ? { ...last, done: true } : null;
+  const next = LESSON_LIST.find((l) => !done.has(l.id));
+  if (next) return { lessonId: next.id, subjectId: next.subjectId, done: false };
+  const last = LESSON_LIST[LESSON_LIST.length - 1];
+  return last ? { lessonId: last.id, subjectId: last.subjectId, done: true } : null;
 }
 
 /** Lessons finished per subject over the subject's path length, 0–100. */

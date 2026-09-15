@@ -5,14 +5,17 @@ import {
   type Choice,
   type DemoPath,
   type EngineContext,
+  type ConceptStat,
   type IntroAnswerKind,
   type LessonDefinition,
   type LessonStep,
+  type PoolQuestion,
   type SessionAction,
   type SessionState,
 } from "./types";
 import { fill } from "./template";
 import { clampLevel, resolvePolicy } from "./policy";
+import { currentStep } from "./selectors";
 
 export const initialSessionState: SessionState = {
   screen: "start",
@@ -36,11 +39,17 @@ export const initialSessionState: SessionState = {
   askTurns: [],
   correctStreak: 0,
   wrongStreak: 0,
+  startDifficulty: 1,
+  poolQuestion: null,
+  asked: [],
+  concepts: {},
+  poolCorrect: {},
 };
 
 export function createInitialState(lesson: LessonDefinition, ctx?: Pick<EngineContext, "policy">): SessionState {
   const policy = resolvePolicy(ctx?.policy);
-  return { ...initialSessionState, step: lesson.entry, difficulty: clampLevel(policy.startLevel, lesson.levels.length, policy) };
+  const difficulty = clampLevel(policy.startLevel, lesson.levels.length, policy);
+  return { ...initialSessionState, step: lesson.entry, difficulty, startDifficulty: difficulty };
 }
 
 export function getStep(lesson: LessonDefinition, id: string): LessonStep {
@@ -50,8 +59,24 @@ export function getStep(lesson: LessonDefinition, id: string): LessonStep {
 }
 
 export function getChoices(lesson: LessonDefinition, step: LessonStep): Choice[] {
+  if (step.inlineChoices) return step.inlineChoices;
   if (!step.choices) return [];
   return lesson.choiceSets[step.choices] ?? [];
+}
+
+/**
+ * Draw a question for a pool step at the current level: the first one not yet
+ * asked this session, falling back to the nearest lower level with questions,
+ * then to repeating the level's first question.
+ */
+export function drawPoolQuestion(lesson: LessonDefinition, concept: string, difficulty: number, asked: string[]): PoolQuestion | null {
+  const levels = lesson.pools?.[concept] ?? [];
+  for (let level = Math.min(difficulty, levels.length); level >= 1; level--) {
+    const pool = levels[level - 1] ?? [];
+    if (!pool.length) continue;
+    return pool.find((q) => !asked.includes(q.id)) ?? pool[0];
+  }
+  return null;
 }
 
 function vars(ctx: EngineContext, extra: Record<string, string> = {}) {
@@ -102,7 +127,58 @@ export function goto(
   if (st.strategy) next.strategy = st.strategy;
   if (st.retry || st.reexplain) next.reexplain = state.reexplain + 1;
   if (st.log) next.log = [...(extra.log ?? state.log), fill(st.log, vars(ctx))];
+  next.poolQuestion = null;
+  if (st.pool) {
+    const q = drawPoolQuestion(lesson, st.pool, next.difficulty, next.asked);
+    if (q) {
+      next.poolQuestion = q.id;
+      next.asked = next.asked.includes(q.id) ? next.asked : [...next.asked, q.id];
+    }
+  }
   return next;
+}
+
+/** Tally a counted answer against the step's concept. */
+function tally(state: SessionState, concept: string, ok: boolean): Record<string, ConceptStat> {
+  const prev = state.concepts[concept] ?? { asked: 0, correct: 0 };
+  return { ...state.concepts, [concept]: { asked: prev.asked + 1, correct: prev.correct + (ok ? 1 : 0) } };
+}
+
+/**
+ * On pool steps the adaptation policy decides the level: a run of correct
+ * answers raises it (with the level-up note), a run of wrong ones lowers it and
+ * routes to the step's onLevelDown. Returns the state patch and the target.
+ */
+function applyPolicy(
+  state: SessionState,
+  ctx: EngineContext,
+  st: LessonStep,
+  ok: boolean,
+  streak: Pick<SessionState, "correctStreak" | "wrongStreak">,
+): { extra: Partial<SessionState>; target: string | undefined } {
+  let target = ok ? st.onOk : st.onWrong;
+  if (!st.pool) return { extra: {}, target };
+  const { lesson } = ctx;
+  const policy = resolvePolicy(ctx.policy);
+  const top = clampLevel(lesson.levels.length, lesson.levels.length, policy);
+  const extra: Partial<SessionState> = {};
+  if (ok) {
+    // Keep drawing from this pool until the step's askCount is met.
+    const done = (state.poolCorrect[state.step] ?? 0) + 1;
+    extra.poolCorrect = { ...state.poolCorrect, [state.step]: done };
+    if (done < (st.askCount ?? 1)) target = state.step;
+  }
+  if (ok && streak.correctStreak >= policy.levelUpAfterCorrect && state.difficulty < top) {
+    const difficulty = state.difficulty + 1;
+    const note = fill(lesson.levelUpAdapt, { level: lesson.levels[difficulty - 1] });
+    return { extra: { ...extra, difficulty, adapt: note, correctStreak: 0, log: [...state.log, note] }, target };
+  }
+  if (!ok && streak.wrongStreak >= policy.levelDownAfterWrong && state.difficulty > 1) {
+    const difficulty = state.difficulty - 1;
+    const note = fill(lesson.levelDownAdapt ?? lesson.levelUpAdapt, { level: lesson.levels[difficulty - 1] });
+    return { extra: { ...extra, difficulty, adapt: note, wrongStreak: 0, log: [...state.log, note] }, target: st.onLevelDown ?? st.onWrong };
+  }
+  return { extra, target };
 }
 
 /** Move to "thinking" and remember where to go afterwards. */
@@ -119,12 +195,13 @@ function answerIntro(state: SessionState, ctx: EngineContext, kind: IntroAnswerK
   const r = ctx.lesson.introResponses[kind];
   const counted = r.questions > 0;
   const ok = r.correct > 0;
+  const st = currentStep(state, ctx.lesson);
   return think(state, transcript?.trim() || r.transcript, r.go, {
     understanding: r.understanding,
     questions: state.questions + r.questions,
     correct: state.correct + r.correct,
     log: [...state.log, fill(r.log, vars(ctx))],
-    ...(counted ? streaks(state, ok) : {}),
+    ...(counted ? { ...streaks(state, ok), concepts: tally(state, st.concept, ok) } : {}),
   });
 }
 
@@ -136,18 +213,21 @@ function streaks(state: SessionState, ok: boolean): Pick<SessionState, "correctS
 }
 
 function pick(state: SessionState, ctx: EngineContext, choice: Choice): SessionState {
-  const st = getStep(ctx.lesson, state.step);
+  const st = currentStep(state, ctx.lesson);
   const ok = !!choice.ok;
+  const streak = streaks(state, ok);
   const extra: Partial<SessionState> = {
     questions: state.questions + (st.retry ? 0 : 1),
     correct: state.correct + (ok ? 1 : 0),
     understanding: ok ? "good" : "partial",
-    ...streaks(state, ok),
+    concepts: tally(state, st.concept, ok),
+    ...streak,
   };
   if (!ok && st.wrongLog) extra.log = [...state.log, fill(st.wrongLog, vars(ctx))];
-  const target = ok ? st.onOk : st.onWrong;
-  if (!target) return state;
-  return think(state, fill(ctx.lesson.choiceTranscript, vars(ctx, { choice: choice.l })), target, extra);
+  const policy = applyPolicy({ ...state, log: extra.log ?? state.log }, ctx, st, ok, streak);
+  Object.assign(extra, policy.extra);
+  if (!policy.target) return state;
+  return think(state, fill(ctx.lesson.choiceTranscript, vars(ctx, { choice: choice.l })), policy.target, extra);
 }
 
 function pickCompare(state: SessionState, ctx: EngineContext, value: string): SessionState {
@@ -158,6 +238,7 @@ function pickCompare(state: SessionState, ctx: EngineContext, value: string): Se
     questions: state.questions + (st.retry ? 0 : 1),
     correct: state.correct + (ok ? 1 : 0),
     understanding: ok ? "good" : "partial",
+    concepts: tally(state, st.concept, ok),
     ...streaks(state, ok),
   };
   const label = st.compare.labels[value] ?? value;
@@ -176,7 +257,7 @@ export function isAwaitingAnswer(state: SessionState): boolean {
 
 function demo(state: SessionState, ctx: EngineContext, path: DemoPath): SessionState {
   if (!isAwaitingAnswer(state)) return state;
-  const st = getStep(ctx.lesson, state.step);
+  const st = currentStep(state, ctx.lesson);
   if (st.listen) {
     const map: Record<DemoPath, IntroAnswerKind> = {
       understands: "correct",
@@ -222,7 +303,7 @@ export function sessionReducer(state: SessionState, action: SessionAction, ctx: 
       return answerIntro(state, ctx, action.kind, action.transcript);
     case "PICK": {
       if (state.phase !== "choosing") return state;
-      const choice = getChoices(lesson, getStep(lesson, state.step))[action.index];
+      const choice = getChoices(lesson, currentStep(state, lesson))[action.index];
       return choice ? pick(state, ctx, choice) : state;
     }
     case "PICK_COMPARE":
@@ -274,7 +355,7 @@ export function sessionReducer(state: SessionState, action: SessionAction, ctx: 
 
 /** What the runtime should schedule once the current teacher line ends. */
 export function afterSpeech(state: SessionState, lesson: LessonDefinition): AfterSpeech {
-  const st = getStep(lesson, state.step);
+  const st = currentStep(state, lesson);
   if (st.next) return { kind: "pause", next: st.next };
   return { kind: "await", phase: st.listen ? "listening" : "choosing" };
 }

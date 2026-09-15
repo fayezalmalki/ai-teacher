@@ -26,6 +26,16 @@ export type VisualSpec =
   | { kind: "fractions"; pairs: { n: string; d: string }[] }
   | { kind: "chocolate"; mode: "one" | "two" | "pick" }
   | { kind: "compare"; pick?: boolean }
+  /** Place-value blocks for a number up to 999; `highlight` tints one place. */
+  | { kind: "blocks"; value: number; highlight?: "hundreds" | "tens" | "ones" }
+  /** Number line from..to; `start` marks a point and `jump` draws an arc of that size from it. */
+  | { kind: "numberline"; from: number; to: number; step?: number; start?: number; jump?: number }
+  /** A ruler in centimetres with an object of `length` laid on it. */
+  | { kind: "ruler"; length: number; max?: number; label?: string }
+  /** A balance scale; the heavier pan drops. */
+  | { kind: "balance"; left: number; right: number; leftLabel?: string; rightLabel?: string }
+  /** A cycle of stages drawn in a ring; `highlight` fills one. */
+  | { kind: "cycle"; stages: string[]; highlight?: number }
   | { kind: "none" };
 
 /** A step's visual: a spec, or one of the fractions-era ids. */
@@ -56,6 +66,16 @@ export interface Choice {
   v?: string;
   /** Whether this choice is the correct one. */
   ok?: boolean;
+}
+
+/** One question in a level pool. Drawn by a pool step at the session's current difficulty. */
+export interface PoolQuestion {
+  id: string;
+  /** Teacher line. `{name}` is replaced with the child's name. */
+  text: string;
+  visual: VisualRef;
+  choices: Choice[];
+  wrongLog?: string;
 }
 
 export interface CompareSpec {
@@ -104,6 +124,17 @@ export interface LessonStep {
   simpler?: boolean;
   /** Tappable two-circle comparison question. */
   compare?: CompareSpec;
+  /**
+   * Pool step: on entry the engine draws a question for this concept from
+   * `lesson.pools[pool][difficulty - 1]`; answers apply the adaptation policy.
+   */
+  pool?: string;
+  /** Where to go when the policy lowers the level (defaults to onWrong). */
+  onLevelDown?: string;
+  /** Pool step: correct answers needed before onOk is taken (default 1); until then it re-draws. */
+  askCount?: number;
+  /** Choices of the drawn pool question (set on the resolved step only). */
+  inlineChoices?: Choice[];
 }
 
 export type IntroAnswerKind = "correct" | "unclear" | "dontknow" | "strong";
@@ -139,7 +170,7 @@ export interface RatingRule {
 
 export interface ExplainStep {
   text: string;
-  visual: ExplainVisualId;
+  visual: ExplainVisualId | VisualSpec;
 }
 
 export interface LessonDefinition {
@@ -153,6 +184,10 @@ export interface LessonDefinition {
   levels: string[];
   /** Template for the level-up adaptation chip, `{level}` placeholder. */
   levelUpAdapt: string;
+  /** Template for the level-down adaptation chip, `{level}` placeholder. */
+  levelDownAdapt?: string;
+  /** Question pools per concept; outer index = level - 1. Read by pool steps. */
+  pools?: Record<string, PoolQuestion[][]>;
   entry: string;
   bonusEntry: string;
   choiceSets: Record<string, Choice[]>;
@@ -228,6 +263,21 @@ export interface SessionState {
   correctStreak: number;
   /** Wrong answers in a row (reset on a correct answer). */
   wrongStreak: number;
+  /** Difficulty the session started at (the parent's start level, or where the last session ended). */
+  startDifficulty: number;
+  /** Id of the pool question drawn for the current pool step. */
+  poolQuestion: string | null;
+  /** Pool question ids already asked this session (no repeats while others remain). */
+  asked: string[];
+  /** Per-concept tally of counted answers, for mastery. */
+  concepts: Record<string, ConceptStat>;
+  /** Correct answers given at each pool step this session (for askCount). */
+  poolCorrect: Record<string, number>;
+}
+
+export interface ConceptStat {
+  asked: number;
+  correct: number;
 }
 
 export type DemoPath = "understands" | "confused" | "wrong" | "strong";
@@ -285,4 +335,6 @@ export interface SessionResult {
   visited: string[];
   rating: string;
   askTurns: AskTurn[];
+  /** Per-concept tally, for the child's mastery across sessions. */
+  concepts?: Record<string, ConceptStat>;
 }

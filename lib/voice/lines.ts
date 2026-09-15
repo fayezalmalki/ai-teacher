@@ -21,6 +21,9 @@ export function extractTeacherLines(lesson: LessonDefinition, names: string[]): 
   const raw: { id: string; text: string }[] = [];
   for (const [id, step] of Object.entries(lesson.steps)) raw.push({ id: `step:${id}`, text: step.text });
   lesson.explain.forEach((e, i) => raw.push({ id: `explain:${i}`, text: e.text }));
+  for (const [concept, levels] of Object.entries(lesson.pools ?? {})) {
+    levels.forEach((pool) => pool.forEach((q) => raw.push({ id: `pool:${concept}:${q.id}`, text: q.text })));
+  }
   raw.push({ id: "endLine", text: lesson.endLine });
   raw.push({ id: "intro.line", text: lesson.intro.line });
 

@@ -5,11 +5,17 @@
  */
 import type { LessonDefinition } from "@/lib/lesson-engine/types";
 import fractions from "./math/fractions.lesson.json";
+import addsub from "./math/addsub.lesson.json";
+import measure from "./math/measure.lesson.json";
+import water from "./sci/water.lesson.json";
 
 export const fractionsLesson = fractions as LessonDefinition;
+export const addsubLesson = addsub as LessonDefinition;
+export const measureLesson = measure as LessonDefinition;
+export const waterLesson = water as LessonDefinition;
 
-/** Registered lessons in catalog order. */
-export const LESSON_LIST: LessonDefinition[] = [fractionsLesson];
+/** Registered lessons in the order a child meets them (today's lesson is the first unfinished one). */
+export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, addsubLesson, measureLesson, waterLesson];
 
 export const lessons: Record<string, LessonDefinition> = Object.fromEntries(LESSON_LIST.map((l) => [l.id, l]));
 

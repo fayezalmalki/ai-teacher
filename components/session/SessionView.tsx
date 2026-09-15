@@ -30,6 +30,7 @@ import { asReadable, createVoiceAdapter, resolveVoiceMode } from "@/lib/voice/se
 import { resolveCharacterMode } from "@/lib/character/contract";
 import { useAppStore } from "@/lib/store/app-store";
 import { visualNeedsPick } from "@/lib/lesson-engine/visuals";
+import { continueLevel } from "@/lib/store/insights";
 import SoundToggle from "./SoundToggle";
 
 interface SessionViewProps {
@@ -39,7 +40,7 @@ interface SessionViewProps {
 export default function SessionView({ lesson }: SessionViewProps) {
   const router = useRouter();
   const params = useSearchParams();
-  const { child, settings, childInitial, addResult, setSettings } = useAppStore();
+  const { child, settings, results, childInitial, addResult, setSettings } = useAppStore();
   const name = child.name;
 
   const pace: Pace = params.get("pace") === "fast" ? "fast" : "demo";
@@ -62,7 +63,9 @@ export default function SessionView({ lesson }: SessionViewProps) {
   const [autoStart] = useState(
     () => voiceMode === "simulated" || (typeof navigator !== "undefined" && (navigator as Navigator & { userActivation?: { hasBeenActive: boolean } }).userActivation?.hasBeenActive === true),
   );
-  const policy = useMemo(() => ({ startLevel: settings.startLevel }), [settings.startLevel]);
+  // Start where the last session of this lesson ended, never below the parent's start level.
+  const startLevel = continueLevel(results, lesson.id, settings.startLevel);
+  const policy = useMemo(() => ({ startLevel }), [startLevel]);
   const session = useLessonSession({ lesson, name, voice, pace, autoStart, policy });
   const { state } = session;
   const character = resolveCharacterMode(params.get("character"));

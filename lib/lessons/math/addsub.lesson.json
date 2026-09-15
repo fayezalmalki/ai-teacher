@@ -1,0 +1,708 @@
+{
+  "id": "addsub",
+  "title": "درس الجمع والطرح",
+  "subject": "الرياضيات",
+  "subjectId": "math",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "add": [
+      [
+        {
+          "id": "add-1a",
+          "text": "عندك 12 تفاحة، وأعطتك أمك 3 زيادة. كم صار عندك؟",
+          "visual": {
+            "kind": "numberline",
+            "from": 10,
+            "to": 20,
+            "start": 12,
+            "jump": 3
+          },
+          "choices": [
+            {
+              "l": "15",
+              "ok": true
+            },
+            {
+              "l": "14"
+            },
+            {
+              "l": "16"
+            }
+          ]
+        },
+        {
+          "id": "add-1b",
+          "text": "23 زائد 5، كم؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 23,
+            "highlight": "ones"
+          },
+          "choices": [
+            {
+              "l": "28",
+              "ok": true
+            },
+            {
+              "l": "27"
+            },
+            {
+              "l": "29"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "add-2a",
+          "text": "34 زائد 20. جمعنا عشرتين، كم صار؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 34,
+            "highlight": "tens"
+          },
+          "choices": [
+            {
+              "l": "54",
+              "ok": true
+            },
+            {
+              "l": "44"
+            },
+            {
+              "l": "36"
+            }
+          ]
+        },
+        {
+          "id": "add-2b",
+          "text": "معنا 45 ريال وحصلنا 30 زيادة. كم صار معنا؟",
+          "visual": {
+            "kind": "numberline",
+            "from": 40,
+            "to": 80,
+            "start": 45,
+            "jump": 30
+          },
+          "choices": [
+            {
+              "l": "75",
+              "ok": true
+            },
+            {
+              "l": "65"
+            },
+            {
+              "l": "48"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "add-3a",
+          "text": "27 زائد 15. انتبه، الآحاد تكمّل عشرة. كم الناتج؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 27,
+            "highlight": "ones"
+          },
+          "choices": [
+            {
+              "l": "42",
+              "ok": true
+            },
+            {
+              "l": "32"
+            },
+            {
+              "l": "41"
+            }
+          ]
+        },
+        {
+          "id": "add-3b",
+          "text": "58 زائد 26، كم؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 58
+          },
+          "choices": [
+            {
+              "l": "84",
+              "ok": true
+            },
+            {
+              "l": "74"
+            },
+            {
+              "l": "83"
+            }
+          ]
+        }
+      ]
+    ],
+    "sub": [
+      [
+        {
+          "id": "sub-1a",
+          "text": "عندك 10 حبات تمر وأكلت 4. كم باقي؟",
+          "visual": {
+            "kind": "numberline",
+            "from": 0,
+            "to": 10,
+            "start": 10,
+            "jump": -4
+          },
+          "choices": [
+            {
+              "l": "6",
+              "ok": true
+            },
+            {
+              "l": "5"
+            },
+            {
+              "l": "7"
+            }
+          ]
+        },
+        {
+          "id": "sub-1b",
+          "text": "15 ناقص 5، كم؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 15,
+            "highlight": "ones"
+          },
+          "choices": [
+            {
+              "l": "10",
+              "ok": true
+            },
+            {
+              "l": "11"
+            },
+            {
+              "l": "9"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "sub-2a",
+          "text": "40 ناقص 20. شلنا عشرتين، كم باقي؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 40,
+            "highlight": "tens"
+          },
+          "choices": [
+            {
+              "l": "20",
+              "ok": true
+            },
+            {
+              "l": "30"
+            },
+            {
+              "l": "10"
+            }
+          ]
+        },
+        {
+          "id": "sub-2b",
+          "text": "معك 56 ريال وصرفت 30. كم باقي معك؟",
+          "visual": {
+            "kind": "numberline",
+            "from": 20,
+            "to": 60,
+            "start": 56,
+            "jump": -30
+          },
+          "choices": [
+            {
+              "l": "26",
+              "ok": true
+            },
+            {
+              "l": "36"
+            },
+            {
+              "l": "16"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "sub-3a",
+          "text": "42 ناقص 17. الآحاد ما تكفي، نستلف عشرة. كم الناتج؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 42,
+            "highlight": "tens"
+          },
+          "choices": [
+            {
+              "l": "25",
+              "ok": true
+            },
+            {
+              "l": "35"
+            },
+            {
+              "l": "24"
+            }
+          ]
+        },
+        {
+          "id": "sub-3b",
+          "text": "63 ناقص 28، كم؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 63
+          },
+          "choices": [
+            {
+              "l": "35",
+              "ok": true
+            },
+            {
+              "l": "45"
+            },
+            {
+              "l": "34"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "30",
+        "ok": true
+      },
+      {
+        "l": "20"
+      },
+      {
+        "l": "40"
+      }
+    ],
+    "X": [
+      {
+        "l": "500",
+        "ok": true
+      },
+      {
+        "l": "400"
+      },
+      {
+        "l": "450"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم بنجمع ونطرح. قبل ما نبدأ: لو معك 20 ريال وأعطاك أبوك 10، كم صار معك؟",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 40,
+        "start": 20,
+        "jump": 10
+      },
+      "concept": "add",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 20 زائد 10 يساوي 30. الجمع يعني نضيف، والطرح يعني نشيل.",
+      "visual": {
+        "kind": "blocks",
+        "value": 30,
+        "highlight": "tens"
+      },
+      "concept": "add",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نشوفها بالمكعبات.",
+      "visual": {
+        "kind": "blocks",
+        "value": 20,
+        "highlight": "tens"
+      },
+      "concept": "add",
+      "next": "b2",
+      "strategy": "blocks_visual",
+      "reexplain": true,
+      "adapt": "غيّر المعلم الطريقة: مكعبات العدّ",
+      "log": "غيّر المعلم الطريقة إلى مكعبات العدّ."
+    },
+    "b2": {
+      "text": "هذي عشرتين، يعني 20. لو حطينا عشرة ثالثة، كم تصير؟",
+      "visual": {
+        "kind": "blocks",
+        "value": 30,
+        "highlight": "tens"
+      },
+      "concept": "add",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في عدّ العشرات، فعدّ معه المعلم."
+    },
+    "b2r": {
+      "text": "عدّ معي: عشرة، عشرين، ثلاثين. كم صارت؟",
+      "visual": {
+        "kind": "blocks",
+        "value": 30,
+        "highlight": "tens"
+      },
+      "concept": "add",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، صارت 30. الحين خلنا نجرب مع بعض.",
+      "visual": {
+        "kind": "blocks",
+        "value": 30,
+        "highlight": "tens"
+      },
+      "concept": "add",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} الجمع بالعشرات بعد المكعبات."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "add",
+      "pool": "add",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 الجمع صار سهل عليك. الحين الطرح.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 20,
+        "start": 15,
+        "jump": -5
+      },
+      "concept": "add",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الجمع بنجاح."
+    },
+    "r1": {
+      "text": "قريب. شوف المكعبات وعدّ الآحاد أول، وبعدين العشرات.",
+      "visual": {
+        "kind": "blocks",
+        "value": 27,
+        "highlight": "ones"
+      },
+      "concept": "add",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "count_by_place",
+      "adapt": "أعاد المعلم الشرح بالعدّ حسب المنزلة"
+    },
+    "d1": {
+      "text": "خلنا نرجع خطوة ونجربها بأعداد أصغر.",
+      "visual": {
+        "kind": "blocks",
+        "value": 15,
+        "highlight": "ones"
+      },
+      "concept": "add",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الجمع وأعاد بأعداد أصغر."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "sub",
+      "pool": "sub",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، واضح إنك فهمت الطرح بعد.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 10,
+        "jump": -4
+      },
+      "concept": "sub",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الطرح بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. الطرح يعني نشيل ونرجع للوراء على خط الأعداد.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 20,
+        "start": 15,
+        "jump": -5
+      },
+      "concept": "sub",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "numberline_back",
+      "adapt": "أعاد المعلم الشرح بخط الأعداد"
+    },
+    "d2": {
+      "text": "خلنا نجربها بأعداد أصغر.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 8,
+        "jump": -3
+      },
+      "concept": "sub",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الطرح."
+    },
+    "x1": {
+      "text": "سؤال أخير: 250 زائد 250، كم؟",
+      "visual": {
+        "kind": "blocks",
+        "value": 250,
+        "highlight": "hundreds"
+      },
+      "concept": "add",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "فكّر فيها: 200 و200 يعطينا 400، و50 و50 يعطينا 100. كم المجموع؟",
+      "visual": {
+        "kind": "blocks",
+        "value": 250,
+        "highlight": "hundreds"
+      },
+      "concept": "add",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا الدرس بقوة.",
+      "visual": {
+        "kind": "blocks",
+        "value": 250,
+        "highlight": "hundreds"
+      },
+      "concept": "add",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "صار معي 30",
+      "understanding": "good",
+      "go": "a1",
+      "log": "فهم {name} فكرة الجمع من أول سؤال.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… 20؟ مو متأكد",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فغيّر المعلم الطريقة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم بالمكعبات.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "30، لأن 20 زائد 10 يساوي 30. وإذا صرفت 5 يصير 25",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "فهمت الجمع من أول سؤال.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت المكعبات لفهم الجمع بالعشرات.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة لأعداد أصغر ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "خلصت الجمع والطرح كلها.",
+      "when": [
+        {
+          "anyOf": [
+            "p2ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم جمعنا وطرحنا، وشفنا إن الجمع يضيف والطرح يشيل.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن الجمع أو الطرح؟ أنا أسمعك.",
+    "scope": "الجمع والطرح حتى 100 للصف الثالث: الآحاد والعشرات، الجمع بالحمل، الطرح بالاستلاف، خط الأعداد ومكعبات العدّ."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "هذا مكعب كبير فيه 100 مربع صغير. نسميه مئة.",
+      "visual": {
+        "kind": "blocks",
+        "value": 100,
+        "highlight": "hundreds"
+      }
+    },
+    {
+      "text": "وهذي عشرة: بار فيه عشر مربعات. عشرتين وثلاث آحاد يعني 23.",
+      "visual": {
+        "kind": "blocks",
+        "value": 23,
+        "highlight": "tens"
+      }
+    },
+    {
+      "text": "الجمع يعني نمشي لقدام على خط الأعداد. من 12، نقفز 3، نوصل 15.",
+      "visual": {
+        "kind": "numberline",
+        "from": 10,
+        "to": 20,
+        "start": 12,
+        "jump": 3
+      }
+    },
+    {
+      "text": "والطرح يعني نرجع للوراء. من 15، نرجع 5، نوصل 10.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 20,
+        "start": 15,
+        "jump": -5
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الرياضيات · 10 دقائق",
+    "title": "درس الجمع والطرح",
+    "line": "هلا {name}. أولًا أشرح لك الفكرة بهدوء، وبعدين نجرب مع بعض وأسمع إجاباتك."
+  }
+}

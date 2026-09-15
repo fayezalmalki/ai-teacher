@@ -97,3 +97,43 @@ export function sessionRows(results: SessionResult[], titleOf: (lessonId: string
 export function completedLessonIds(results: SessionResult[]): Set<string> {
   return new Set(results.map((r) => r.lessonId));
 }
+
+export interface LessonMastery {
+  lessonId: string;
+  sessions: number;
+  /** Difficulty the last session ended at (1-based), or null when never played. */
+  level: number | null;
+  /** Per-concept correct ratio 0–1 across all sessions of this lesson. */
+  concepts: Record<string, number>;
+  /** Overall correct ratio 0–1 across all sessions of this lesson. */
+  ratio: number;
+}
+
+/** What the child has shown on one lesson across sessions. */
+export function lessonMastery(results: SessionResult[], lessonId: string): LessonMastery {
+  const mine = results.filter((r) => r.lessonId === lessonId);
+  const tally: Record<string, { asked: number; correct: number }> = {};
+  let asked = 0;
+  let correct = 0;
+  for (const r of mine) {
+    asked += r.questions;
+    correct += r.correct;
+    for (const [c, s] of Object.entries(r.concepts ?? {})) {
+      const t = (tally[c] ??= { asked: 0, correct: 0 });
+      t.asked += s.asked;
+      t.correct += s.correct;
+    }
+  }
+  const concepts = Object.fromEntries(Object.entries(tally).map(([c, t]) => [c, t.asked ? t.correct / t.asked : 0]));
+  const last = mine[mine.length - 1];
+  return { lessonId, sessions: mine.length, level: last ? last.endDifficulty : null, concepts, ratio: asked ? correct / asked : 0 };
+}
+
+/**
+ * Level the next session of a lesson starts at: the parent's start level, or
+ * where the child's last session of that lesson ended, whichever is higher.
+ */
+export function continueLevel(results: SessionResult[], lessonId: string, startLevel: number): number {
+  const last = [...results].reverse().find((r) => r.lessonId === lessonId);
+  return Math.max(startLevel, last?.endDifficulty ?? 1);
+}

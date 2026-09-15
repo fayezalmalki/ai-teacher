@@ -1,9 +1,17 @@
-import type { ExplainVisualId } from "@/lib/lesson-engine/types";
+import type { ExplainVisualId, VisualSpec } from "@/lib/lesson-engine/types";
 import Pizza from "./Pizza";
 import FractionGlyph from "./FractionGlyph";
+import VisualByKind from "./VisualByKind";
 
-/** Explanation visuals: whole → half → quarter → the ١/٤ glyph with its legend. */
-export default function ExplainVisual({ visual }: { visual: ExplainVisualId }) {
+/** Explanation visuals: the fractions ids (whole → half → quarter → glyph) or any visual spec. */
+export default function ExplainVisual({ visual }: { visual: ExplainVisualId | VisualSpec }) {
+  if (typeof visual !== "string") {
+    return (
+      <div key={JSON.stringify(visual)} className="contents">
+        <VisualByKind spec={visual} />
+      </div>
+    );
+  }
   switch (visual) {
     case "whole":
       return <Pizza key="whole" filled={0} dividers="none" />;
