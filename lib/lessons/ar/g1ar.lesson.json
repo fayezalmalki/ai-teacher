@@ -1,0 +1,995 @@
+{
+  "id": "g1ar",
+  "title": "درس الحروف والحركات",
+  "subject": "لغتي",
+  "subjectId": "ar",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "letters": [
+      [
+        {
+          "id": "l-1a",
+          "text": "أول حرف في كلمة «قلم» هو…",
+          "visual": {
+            "kind": "word",
+            "text": "قلم",
+            "marks": [
+              0
+            ]
+          },
+          "choices": [
+            {
+              "l": "ق",
+              "ok": true
+            },
+            {
+              "l": "ل"
+            },
+            {
+              "l": "م"
+            }
+          ]
+        },
+        {
+          "id": "l-1b",
+          "text": "آخر حرف في كلمة «باب» هو…",
+          "visual": {
+            "kind": "word",
+            "text": "باب",
+            "marks": [
+              2
+            ]
+          },
+          "choices": [
+            {
+              "l": "ب",
+              "ok": true
+            },
+            {
+              "l": "ا"
+            },
+            {
+              "l": "ت"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "l-2a",
+          "text": "الحرف الناقص في «كتا_» هو…",
+          "visual": {
+            "kind": "word",
+            "text": "كتا_"
+          },
+          "choices": [
+            {
+              "l": "ب",
+              "ok": true
+            },
+            {
+              "l": "ت"
+            },
+            {
+              "l": "د"
+            }
+          ]
+        },
+        {
+          "id": "l-2b",
+          "text": "حرف السين في وسط الكلمة يُكتب…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "ـسـ"
+              },
+              {
+                "label": "س"
+              },
+              {
+                "label": "ـس"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "ـسـ",
+              "ok": true
+            },
+            {
+              "l": "س"
+            },
+            {
+              "l": "ـس"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "l-3a",
+          "text": "أي كلمة تبدأ بحرف الميم؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "مدرسة"
+              },
+              {
+                "label": "قلم"
+              },
+              {
+                "label": "باب"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "مدرسة",
+              "ok": true
+            },
+            {
+              "l": "قلم"
+            },
+            {
+              "l": "باب"
+            }
+          ]
+        },
+        {
+          "id": "l-3b",
+          "text": "كم حرفًا في كلمة «سمكة»؟",
+          "visual": {
+            "kind": "word",
+            "text": "سمكة"
+          },
+          "choices": [
+            {
+              "l": "4",
+              "ok": true
+            },
+            {
+              "l": "3"
+            },
+            {
+              "l": "5"
+            }
+          ]
+        }
+      ]
+    ],
+    "harakat": [
+      [
+        {
+          "id": "h-1a",
+          "text": "الحركة فوق الحرف في «بَ» اسمها…",
+          "visual": {
+            "kind": "word",
+            "text": "بَ",
+            "marks": [
+              1
+            ]
+          },
+          "choices": [
+            {
+              "l": "فتحة",
+              "ok": true
+            },
+            {
+              "l": "ضمة"
+            },
+            {
+              "l": "كسرة"
+            }
+          ]
+        },
+        {
+          "id": "h-1b",
+          "text": "الحركة تحت الحرف في «بِ» اسمها…",
+          "visual": {
+            "kind": "word",
+            "text": "بِ",
+            "marks": [
+              1
+            ]
+          },
+          "choices": [
+            {
+              "l": "كسرة",
+              "ok": true
+            },
+            {
+              "l": "فتحة"
+            },
+            {
+              "l": "ضمة"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "h-2a",
+          "text": "الحركة في «بُ» اسمها…",
+          "visual": {
+            "kind": "word",
+            "text": "بُ",
+            "marks": [
+              1
+            ]
+          },
+          "choices": [
+            {
+              "l": "ضمة",
+              "ok": true
+            },
+            {
+              "l": "فتحة"
+            },
+            {
+              "l": "كسرة"
+            }
+          ]
+        },
+        {
+          "id": "h-2b",
+          "text": "العلامة فوق الحرف في «بْ» اسمها…",
+          "visual": {
+            "kind": "word",
+            "text": "بْ",
+            "marks": [
+              1
+            ]
+          },
+          "choices": [
+            {
+              "l": "سكون",
+              "ok": true
+            },
+            {
+              "l": "فتحة"
+            },
+            {
+              "l": "ضمة"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "h-3a",
+          "text": "في كلمة «باب» الألف حرف…",
+          "visual": {
+            "kind": "word",
+            "text": "باب",
+            "marks": [
+              1
+            ]
+          },
+          "choices": [
+            {
+              "l": "مد",
+              "ok": true
+            },
+            {
+              "l": "حركة"
+            },
+            {
+              "l": "سكون"
+            }
+          ]
+        },
+        {
+          "id": "h-3b",
+          "text": "اختر الكلمة التي فيها مد بالواو:",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "نور"
+              },
+              {
+                "label": "نار"
+              },
+              {
+                "label": "نير"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "نور",
+              "ok": true
+            },
+            {
+              "l": "نار"
+            },
+            {
+              "l": "نير"
+            }
+          ]
+        }
+      ]
+    ],
+    "reading": [
+      [
+        {
+          "id": "r-1a",
+          "text": "ب + ا + ب = ؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "ب"
+              },
+              {
+                "label": "ا"
+              },
+              {
+                "label": "ب"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "باب",
+              "ok": true
+            },
+            {
+              "l": "بيت"
+            },
+            {
+              "l": "بنت"
+            }
+          ]
+        },
+        {
+          "id": "r-1b",
+          "text": "الشيء الذي نقرأ فيه هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "كتاب"
+              },
+              {
+                "label": "كرة"
+              },
+              {
+                "label": "بيت"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "كتاب",
+              "ok": true
+            },
+            {
+              "l": "كرة"
+            },
+            {
+              "l": "بيت"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "r-2a",
+          "text": "رتّب الحروف لتكوّن كلمة: م، ل، ق",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "م"
+              },
+              {
+                "label": "ل"
+              },
+              {
+                "label": "ق"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "قلم",
+              "ok": true
+            },
+            {
+              "l": "لقم"
+            },
+            {
+              "l": "ملق"
+            }
+          ]
+        },
+        {
+          "id": "r-2b",
+          "text": "أكمل: أنا أقرأ في الـ…",
+          "visual": {
+            "kind": "word",
+            "text": "أنا أقرأ في الـ…"
+          },
+          "choices": [
+            {
+              "l": "كتاب",
+              "ok": true
+            },
+            {
+              "l": "كرة"
+            },
+            {
+              "l": "باب"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "r-3a",
+          "text": "اختر الكلمة الصحيحة:",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "مَدْرَسَة"
+              },
+              {
+                "label": "مَدَرَسَة"
+              },
+              {
+                "label": "مُدْرَسَة"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "مَدْرَسَة",
+              "ok": true
+            },
+            {
+              "l": "مَدَرَسَة"
+            },
+            {
+              "l": "مُدْرَسَة"
+            }
+          ]
+        },
+        {
+          "id": "r-3b",
+          "text": "اختر الجملة المرتبة:",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "ذهبَ أحمدُ إلى المدرسة"
+              },
+              {
+                "label": "أحمدُ المدرسة إلى ذهبَ"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "ذهبَ أحمدُ إلى المدرسة",
+              "ok": true
+            },
+            {
+              "l": "أحمدُ المدرسة إلى ذهبَ"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "ب",
+        "ok": true
+      },
+      {
+        "l": "ت"
+      },
+      {
+        "l": "ي"
+      }
+    ],
+    "X": [
+      {
+        "l": "ن",
+        "ok": true
+      },
+      {
+        "l": "و"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نلعب بالحروف والحركات. قبل ما نبدأ: أول حرف في كلمة «بيت» وش هو؟",
+      "visual": {
+        "kind": "word",
+        "text": "بيت",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 حرف الباء. بـ… يت: بيت.",
+      "visual": {
+        "kind": "word",
+        "text": "بيت",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "word",
+        "text": "بيت",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بتهجئة الكلمة حرفًا حرفًا",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "نتهجّى مع بعض: بَـ… يـ… ت. أول صوت سمعناه هو…",
+      "visual": {
+        "kind": "word",
+        "text": "بيت",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "بـ… بـ… هذا حرف…",
+      "visual": {
+        "kind": "word",
+        "text": "بيت",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، الباء. الحين نكمل.",
+      "visual": {
+        "kind": "word",
+        "text": "بيت",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "pool": "letters",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 تعرف الحروف وأشكالها. الحين الحركات.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الحروف بنجاح."
+    },
+    "r1": {
+      "text": "قريب. تهجّ الكلمة ببطء: كل صوت حرف. والحرف يتغير شكله حسب مكانه: في الأول والوسط والآخر.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "spell_slowly",
+      "adapt": "أعاد المعلم التهجئة ببطء"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الحروف."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "harakat",
+      "pool": "harakat",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، الحركات مضبوطة. باقي القراءة.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "harakat",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الحركات بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. الفتحة فوق الحرف، والضمة فوقه مثل واو صغيرة، والكسرة تحته، والسكون دائرة صغيرة فوقه. والمد نطوّل الصوت بالألف أو الواو أو الياء.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "harakat",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "recite_harakat",
+      "adapt": "أعاد المعلم الحركات الأربع"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "harakat",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الحركات."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "pool": "reading",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت الحروف والحركات والقراءة.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة القراءة بنجاح."
+    },
+    "r3": {
+      "text": "قريب. نركّب الحروف واحدًا بعد الآخر مع حركاتها ونقرأها ببطء، ثم نسرّع.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "blend_letters",
+      "adapt": "أعاد المعلم تركيب الحروف ببطء"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في القراءة."
+    },
+    "x1": {
+      "text": "سؤال أخير: أول حرف في اسم «نواف» هو…",
+      "visual": {
+        "kind": "word",
+        "text": "نواف",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "نـ… واف. أول صوت هو…",
+      "visual": {
+        "kind": "word",
+        "text": "نواف",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "نواف",
+        "marks": [
+          0
+        ]
+      },
+      "concept": "letters",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "باء",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… تاء؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "باء، والحرف الأخير تاء",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت الحروف والحركات والقراءة كاملة.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم تعرفنا على أشكال الحروف، والحركات والمد، وقرأنا كلمات وجملًا.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن الحروف أو الحركات؟ أنا أسمعك.",
+    "scope": "لغتي الصف الأول: الحروف الهجائية وأشكالها في أول الكلمة ووسطها وآخرها، الحركات القصيرة والسكون، المد بالألف والواو والياء، تركيب الكلمات وقراءتها، ترتيب الجملة."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "الحرف يتغير شكله حسب مكانه في الكلمة: في الأول، وفي الوسط، وفي الآخر. مثل الباء.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "بـ",
+            "sub": "في الأول"
+          },
+          {
+            "label": "ـبـ",
+            "sub": "في الوسط"
+          },
+          {
+            "label": "ـب",
+            "sub": "في الآخر"
+          }
+        ]
+      }
+    },
+    {
+      "text": "الحركات أربع: الفتحة فوق الحرف، والضمة فوقه مثل واو صغيرة، والكسرة تحته، والسكون دائرة صغيرة فوقه.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "بَ",
+            "sub": "فتحة"
+          },
+          {
+            "label": "بُ",
+            "sub": "ضمة"
+          },
+          {
+            "label": "بِ",
+            "sub": "كسرة"
+          },
+          {
+            "label": "بْ",
+            "sub": "سكون"
+          }
+        ]
+      }
+    },
+    {
+      "text": "المد نطوّل الصوت: بالألف «با»، وبالواو «بو»، وبالياء «بي».",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "با",
+            "sub": "مد بالألف"
+          },
+          {
+            "label": "بو",
+            "sub": "مد بالواو"
+          },
+          {
+            "label": "بي",
+            "sub": "مد بالياء"
+          }
+        ]
+      }
+    },
+    {
+      "text": "نركّب الحروف لنقرأ الكلمة: ب + ا + ب = باب.",
+      "visual": {
+        "kind": "word",
+        "text": "ب + ا + ب = باب"
+      }
+    },
+    {
+      "text": "الكلمات المرتبة تكوّن جملة نفهمها: ذهبَ أحمدُ إلى المدرسةِ.",
+      "visual": {
+        "kind": "word",
+        "text": "ذهبَ أحمدُ إلى المدرسةِ"
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "لغتي · الصف الأول الابتدائي · 10 دقائق",
+    "title": "درس الحروف والحركات",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}

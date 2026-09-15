@@ -24,7 +24,7 @@ export default function HomePage() {
     (classStatus[c.classroomId]?.assignments ?? []).map((a) => ({ ...a, classroomName: c.classroomName, teacherName: c.teacherName, finished: results.some((r) => r.lessonId === a.lessonId && (r.endedAt ?? 0) >= a.createdAt) })),
   );
   const guided = guidedDemo() && !unlocked;
-  const today = todaysLesson(results) ?? { lessonId: TODAY_LESSON.lessonId, subjectId: TODAY_LESSON.subjectId, done: false };
+  const today = todaysLesson(results, child.grade) ?? { lessonId: TODAY_LESSON.lessonId, subjectId: TODAY_LESSON.subjectId, done: false };
   const streak = streakDays(results);
   const streakCount = streak.filter(Boolean).length;
 

@@ -8,15 +8,18 @@ import { LESSON_LIST, lessons } from "@/lib/lessons";
 import { completedLessonIds } from "@/lib/store/insights";
 import { LESSONS, type LessonEntry } from "./catalog";
 
-export function subjectLessons(subjectId: string, results: SessionResult[]): LessonEntry[] {
+export function subjectLessons(subjectId: string, results: SessionResult[], grade?: number): LessonEntry[] {
   const done = completedLessonIds(results);
-  const today = todaysLesson(results);
+  const today = todaysLesson(results, grade);
   const entries = LESSONS[subjectId] ?? [];
-  return entries.map((e) => {
+  const mapped: LessonEntry[] = entries.map((e) => {
     if (!e.lessonId || !lessons[e.lessonId]) return { ...e, lessonId: undefined, status: "later" };
     if (done.has(e.lessonId)) return { ...e, status: "done" };
     return { ...e, status: today && today.lessonId === e.lessonId && !today.done ? "today" : "next" };
   });
+  // The child's own grade first, then everything else in catalog order.
+  if (!grade) return mapped;
+  return [...mapped.filter((e) => e.grade === grade), ...mapped.filter((e) => e.grade !== grade)];
 }
 
 /** Built lessons of a subject (the ones a child can open right now). */
@@ -33,12 +36,22 @@ export function openLessonsLabel(subjectId: string): string {
   return `${n} دروس متاحة`;
 }
 
-/** The lesson the child home offers: the first registered lesson (registry order) not yet finished, else the last one finished. */
-export function todaysLesson(results: SessionResult[]): { lessonId: string; subjectId: string; done: boolean } | null {
+/** Grade of a built lesson from the catalog, if listed. */
+export function lessonGrade(lessonId: string): number | undefined {
+  for (const entries of Object.values(LESSONS)) for (const e of entries) if (e.lessonId === lessonId) return e.grade;
+  return undefined;
+}
+
+/**
+ * The lesson the child home offers: the first unfinished lesson of the child's grade (registry order),
+ * then any unfinished lesson, else the last one finished.
+ */
+export function todaysLesson(results: SessionResult[], grade?: number): { lessonId: string; subjectId: string; done: boolean } | null {
   const done = completedLessonIds(results);
-  const next = LESSON_LIST.find((l) => !done.has(l.id));
+  const own = grade ? LESSON_LIST.filter((l) => lessonGrade(l.id) === grade) : [];
+  const next = own.find((l) => !done.has(l.id)) ?? LESSON_LIST.find((l) => !done.has(l.id));
   if (next) return { lessonId: next.id, subjectId: next.subjectId, done: false };
-  const last = LESSON_LIST[LESSON_LIST.length - 1];
+  const last = own[own.length - 1] ?? LESSON_LIST[LESSON_LIST.length - 1];
   return last ? { lessonId: last.id, subjectId: last.subjectId, done: true } : null;
 }
 

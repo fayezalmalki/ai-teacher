@@ -37,38 +37,46 @@ export interface LessonEntry {
   title: string;
   meta: string;
   status: LessonStatus;
+  /** School grade (1–6 primary, 7–9 intermediate). Lessons of the child's grade come first. */
+  grade?: number;
 }
 
 /** Lesson paths per subject. Entries without a lessonId are planned lessons and show as "قريبًا". */
 export const LESSONS: Record<string, LessonEntry[]> = {
   math: [
-    { lessonId: "fractions", title: "الكسور", meta: "النصف والربع · 10 دقائق", status: "next" },
-    { lessonId: "addsub", title: "الجمع والطرح", meta: "الآحاد والعشرات · 10 دقائق", status: "next" },
-    { lessonId: "measure", title: "القياس", meta: "الطول والوزن · 10 دقائق", status: "next" },
-    { lessonId: "g4math", title: "الضرب والقسمة والكسور", meta: "الصف الرابع · مراجعة اختبار · 10 دقائق", status: "next" },
-    { lessonId: "g5math", title: "الكسور العشرية والمساحة والبيانات", meta: "الصف الخامس · مراجعة اختبار · 10 دقائق", status: "next" },
-    { lessonId: "stats8", title: "البيانات والمعادلات", meta: "الصف الثاني المتوسط · مراجعة اختبار الفصل الثاني · 10 دقائق", status: "next" },
+    { lessonId: "fractions", title: "الكسور", meta: "النصف والربع · 10 دقائق", status: "next", grade: 3 },
+    { lessonId: "addsub", title: "الجمع والطرح", meta: "الآحاد والعشرات · 10 دقائق", status: "next", grade: 3 },
+    { lessonId: "measure", title: "القياس", meta: "الطول والوزن · 10 دقائق", status: "next", grade: 3 },
+    { lessonId: "g1math", title: "الأعداد والجمع والطرح", meta: "الصف الأول · مراجعة · 10 دقائق", status: "next", grade: 1 },
+    { lessonId: "g2math", title: "الأعداد حتى 999 والجمع والطرح", meta: "الصف الثاني · مراجعة · 10 دقائق", status: "next", grade: 2 },
+    { lessonId: "g4math", title: "الضرب والقسمة والكسور", meta: "الصف الرابع · مراجعة اختبار · 10 دقائق", status: "next", grade: 4 },
+    { lessonId: "g5math", title: "الكسور العشرية والمساحة والبيانات", meta: "الصف الخامس · مراجعة اختبار · 10 دقائق", status: "next", grade: 5 },
+    { lessonId: "g6math", title: "النسبة والأعداد الصحيحة والاحتمال", meta: "الصف السادس · مراجعة اختبار · 10 دقائق", status: "next", grade: 6 },
+    { lessonId: "stats8", title: "البيانات والمعادلات", meta: "الصف الثاني المتوسط · مراجعة اختبار الفصل الثاني · 10 دقائق", status: "next", grade: 8 },
     { title: "الأعداد حتى 1000", meta: "الآحاد والعشرات والمئات", status: "later" },
     { title: "الأشكال الهندسية", meta: "المضلعات", status: "later" },
   ],
   ar: [
-    { lessonId: "tanween", title: "التنوين", meta: "فتح وضم وكسر · 10 دقائق", status: "next" },
-    { lessonId: "g5ar", title: "الجملة والفعل والهمزة", meta: "الصف الخامس · مراجعة اختبار · 10 دقائق", status: "next" },
+    { lessonId: "g1ar", title: "الحروف والحركات", meta: "الصف الأول · مراجعة · 10 دقائق", status: "next", grade: 1 },
+    { lessonId: "tanween", title: "التنوين", meta: "فتح وضم وكسر · 10 دقائق", status: "next", grade: 3 },
+    { lessonId: "g5ar", title: "الجملة والفعل والهمزة", meta: "الصف الخامس · مراجعة اختبار · 10 دقائق", status: "next", grade: 5 },
     { title: "أنواع الجمل", meta: "الاسمية والفعلية", status: "later" },
     { title: "الهمزة المتوسطة", meta: "", status: "later" },
     { title: "الأفعال", meta: "", status: "later" },
     { title: "القراءة الجهرية", meta: "", status: "later" },
   ],
   sci: [
-    { lessonId: "water", title: "دورة الماء", meta: "من البحر للسحاب · 10 دقائق", status: "next" },
-    { lessonId: "senses", title: "الحواس الخمس", meta: "نشوف ونسمع ونلمس · 10 دقائق", status: "next" },
-    { lessonId: "g4sci", title: "المادة والحرارة والكهرباء", meta: "الصف الرابع · مراجعة اختبار · 10 دقائق", status: "next" },
+    { lessonId: "water", title: "دورة الماء", meta: "من البحر للسحاب · 10 دقائق", status: "next", grade: 3 },
+    { lessonId: "senses", title: "الحواس الخمس", meta: "نشوف ونسمع ونلمس · 10 دقائق", status: "next", grade: 3 },
+    { lessonId: "g2sci", title: "النباتات والحيوانات والطقس", meta: "الصف الثاني · مراجعة · 10 دقائق", status: "next", grade: 2 },
+    { lessonId: "g4sci", title: "المادة والحرارة والكهرباء", meta: "الصف الرابع · مراجعة اختبار · 10 دقائق", status: "next", grade: 4 },
+    { lessonId: "g6sci", title: "الخلية والنظام البيئي والفضاء", meta: "الصف السادس · مراجعة اختبار · 10 دقائق", status: "next", grade: 6 },
     { title: "النبات وأجزاؤه", meta: "", status: "later" },
     { title: "الحيوانات وبيئاتها", meta: "", status: "later" },
     { title: "المادة وحالاتها", meta: "", status: "later" },
   ],
   isl: [
-    { lessonId: "pillars", title: "أركان الإسلام", meta: "الخمسة بالترتيب · 10 دقائق", status: "next" },
+    { lessonId: "pillars", title: "أركان الإسلام", meta: "الخمسة بالترتيب · 10 دقائق", status: "next", grade: 3 },
     { title: "الوضوء", meta: "", status: "later" },
     { title: "سور قصيرة", meta: "", status: "later" },
     { title: "آداب الطعام", meta: "", status: "later" },

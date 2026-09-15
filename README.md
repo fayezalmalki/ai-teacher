@@ -58,11 +58,14 @@ removes children and shows this week's numbers computed from their history (`lib
 
 ## Lessons and levels
 
-Twelve lessons ship across the four subjects. Grade 3: الكسور (the original graph), الجمع والطرح, القياس, دورة الماء,
-الحواس الخمس, التنوين, أركان الإسلام. Exam-review lessons (three concepts each, authored with
-`scripts/author/builder.py` from a compact spec): grade 4 الضرب والقسمة والكسور and المادة والحرارة والكهرباء,
-grade 5 الكسور العشرية والمساحة والبيانات and الجملة والفعل والهمزة, and grade 8 البيانات والمعادلات (from a
-warraq.co term exam). All but the first use
+Eighteen lessons ship across the four subjects and grades 1–6 plus 8. Grade 3: الكسور (the original graph),
+الجمع والطرح, القياس, دورة الماء, الحواس الخمس, التنوين, أركان الإسلام. Exam-review lessons (three concepts each,
+authored with `scripts/author/builder.py` from a compact spec next to it): grade 1 الأعداد والجمع والطرح and
+الحروف والحركات; grade 2 الأعداد حتى 999 والجمع والطرح and النباتات والحيوانات والطقس; grade 4 الضرب والقسمة
+والكسور and المادة والحرارة والكهرباء; grade 5 الكسور العشرية والمساحة والبيانات and الجملة والفعل والهمزة; grade 6
+النسبة والأعداد الصحيحة والاحتمال and الخلية والنظام البيئي والفضاء; grade 8 البيانات والمعادلات (from a warraq.co
+term exam). Catalog entries carry a `grade`; "today's lesson" and the subject lists put the child's grade first.
+All but the first use
 **question pools**: a step with `"pool": "<concept>"` draws a question from `lesson.pools[concept][level - 1]`
 (first unasked, else the nearest lower level) and keeps drawing until its `askCount` correct answers. Answers on
 pool steps run the adaptation policy in `lib/lesson-engine/policy.ts`: two correct in a row raise the level (with
