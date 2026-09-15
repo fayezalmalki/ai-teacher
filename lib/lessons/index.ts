@@ -16,6 +16,12 @@ import g4math from "./math/g4math.lesson.json";
 import g5math from "./math/g5math.lesson.json";
 import g4sci from "./sci/g4sci.lesson.json";
 import g5ar from "./ar/g5ar.lesson.json";
+import g1math from "./math/g1math.lesson.json";
+import g1ar from "./ar/g1ar.lesson.json";
+import g2math from "./math/g2math.lesson.json";
+import g2sci from "./sci/g2sci.lesson.json";
+import g6math from "./math/g6math.lesson.json";
+import g6sci from "./sci/g6sci.lesson.json";
 
 export const fractionsLesson = fractions as LessonDefinition;
 export const addsubLesson = addsub as LessonDefinition;
@@ -29,9 +35,15 @@ export const g4mathLesson = g4math as LessonDefinition;
 export const g5mathLesson = g5math as LessonDefinition;
 export const g4sciLesson = g4sci as LessonDefinition;
 export const g5arLesson = g5ar as LessonDefinition;
+export const g1mathLesson = g1math as LessonDefinition;
+export const g1arLesson = g1ar as LessonDefinition;
+export const g2mathLesson = g2math as LessonDefinition;
+export const g2sciLesson = g2sci as LessonDefinition;
+export const g6mathLesson = g6math as LessonDefinition;
+export const g6sciLesson = g6sci as LessonDefinition;
 
 /** Registered lessons in the order a child meets them (today's lesson is the first unfinished one): subjects alternate so a week touches all four. */
-export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson, g4mathLesson, g4sciLesson, g5mathLesson, g5arLesson, stats8Lesson];
+export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson, g1mathLesson, g1arLesson, g2mathLesson, g2sciLesson, g4mathLesson, g4sciLesson, g5mathLesson, g5arLesson, g6mathLesson, g6sciLesson, stats8Lesson];
 
 export const lessons: Record<string, LessonDefinition> = Object.fromEntries(LESSON_LIST.map((l) => [l.id, l]));
 

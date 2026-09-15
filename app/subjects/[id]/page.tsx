@@ -22,9 +22,9 @@ const TAG: Record<LessonStatus, { label: string; cls: string }> = {
 export default function SubjectPage() {
   const params = useParams<{ id: string }>();
   const router = useRouter();
-  const { results } = useAppStore();
+  const { results, child } = useAppStore();
   const subject = SUBJECTS.find((s) => s.id === params.id) ?? SUBJECTS[0];
-  const lessons = subjectLessons(subject.id, results);
+  const lessons = subjectLessons(subject.id, results, child.grade);
   const others = SUBJECTS.filter((s) => s.id !== subject.id);
   const [toast, setToast] = useState("");
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);

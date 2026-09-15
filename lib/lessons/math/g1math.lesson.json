@@ -1,0 +1,1003 @@
+{
+  "id": "g1math",
+  "title": "درس الأعداد والجمع والطرح",
+  "subject": "الرياضيات",
+  "subjectId": "math",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "count": [
+      [
+        {
+          "id": "c-1a",
+          "text": "كم مكعبًا في الصورة؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 7
+          },
+          "choices": [
+            {
+              "l": "7",
+              "ok": true
+            },
+            {
+              "l": "6"
+            },
+            {
+              "l": "8"
+            }
+          ]
+        },
+        {
+          "id": "c-1b",
+          "text": "أي العددين أكبر: 9 أم 6؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "9"
+              },
+              {
+                "label": "6"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "9",
+              "ok": true
+            },
+            {
+              "l": "6"
+            },
+            {
+              "l": "متساويان"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-2a",
+          "text": "أكمل العدّ: 10، 11، 12، …؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "10"
+              },
+              {
+                "label": "11"
+              },
+              {
+                "label": "12"
+              },
+              {
+                "label": "؟"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "13",
+              "ok": true
+            },
+            {
+              "l": "14"
+            },
+            {
+              "l": "11"
+            }
+          ]
+        },
+        {
+          "id": "c-2b",
+          "text": "العدد 30 فيه كم عشرة؟",
+          "visual": {
+            "kind": "blocks",
+            "value": 30,
+            "highlight": "tens"
+          },
+          "choices": [
+            {
+              "l": "3",
+              "ok": true
+            },
+            {
+              "l": "30"
+            },
+            {
+              "l": "10"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-3a",
+          "text": "العدد الذي يأتي قبل 50 مباشرة هو…",
+          "visual": {
+            "kind": "numberline",
+            "from": 40,
+            "to": 50,
+            "start": 50
+          },
+          "choices": [
+            {
+              "l": "49",
+              "ok": true
+            },
+            {
+              "l": "51"
+            },
+            {
+              "l": "40"
+            }
+          ]
+        },
+        {
+          "id": "c-3b",
+          "text": "رتّب من الأصغر إلى الأكبر: 12، 8، 15",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "12"
+              },
+              {
+                "label": "8"
+              },
+              {
+                "label": "15"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "8، 12، 15",
+              "ok": true
+            },
+            {
+              "l": "12، 8، 15"
+            },
+            {
+              "l": "15، 12، 8"
+            }
+          ]
+        }
+      ]
+    ],
+    "addsub": [
+      [
+        {
+          "id": "a-1a",
+          "text": "4 + 3 = ؟",
+          "visual": {
+            "kind": "numberline",
+            "from": 0,
+            "to": 10,
+            "start": 4,
+            "jump": 3
+          },
+          "choices": [
+            {
+              "l": "7",
+              "ok": true
+            },
+            {
+              "l": "6"
+            },
+            {
+              "l": "8"
+            }
+          ]
+        },
+        {
+          "id": "a-1b",
+          "text": "6 − 2 = ؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "6",
+                "sub": "عندنا"
+              },
+              {
+                "label": "− 2",
+                "sub": "نأخذ"
+              },
+              {
+                "label": "؟",
+                "sub": "يبقى"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "4",
+              "ok": true
+            },
+            {
+              "l": "3"
+            },
+            {
+              "l": "5"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "a-2a",
+          "text": "8 + 5 = ؟",
+          "visual": {
+            "kind": "numberline",
+            "from": 0,
+            "to": 20,
+            "start": 8,
+            "jump": 5
+          },
+          "choices": [
+            {
+              "l": "13",
+              "ok": true
+            },
+            {
+              "l": "12"
+            },
+            {
+              "l": "14"
+            }
+          ]
+        },
+        {
+          "id": "a-2b",
+          "text": "10 − 4 = ؟",
+          "visual": {
+            "kind": "word",
+            "text": "10 − 4 = ؟"
+          },
+          "choices": [
+            {
+              "l": "6",
+              "ok": true
+            },
+            {
+              "l": "7"
+            },
+            {
+              "l": "5"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "a-3a",
+          "text": "في السلة 7 برتقالات، أكلنا 3. كم برتقالة بقيت؟",
+          "visual": {
+            "kind": "word",
+            "text": "7 − 3 = ؟"
+          },
+          "choices": [
+            {
+              "l": "4",
+              "ok": true
+            },
+            {
+              "l": "3"
+            },
+            {
+              "l": "5"
+            }
+          ]
+        },
+        {
+          "id": "a-3b",
+          "text": "عندك 12 قلمًا وأعطيت أخاك 5. كم قلمًا بقي معك؟",
+          "visual": {
+            "kind": "word",
+            "text": "12 − 5 = ؟"
+          },
+          "choices": [
+            {
+              "l": "7",
+              "ok": true
+            },
+            {
+              "l": "8"
+            },
+            {
+              "l": "6"
+            }
+          ]
+        }
+      ]
+    ],
+    "shapes": [
+      [
+        {
+          "id": "s-1a",
+          "text": "الشكل الذي له 3 أضلاع هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "▲",
+                "sub": "مثلث"
+              },
+              {
+                "label": "■",
+                "sub": "مربع"
+              },
+              {
+                "label": "●",
+                "sub": "دائرة"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "المثلث",
+              "ok": true
+            },
+            {
+              "l": "المربع"
+            },
+            {
+              "l": "الدائرة"
+            }
+          ]
+        },
+        {
+          "id": "s-1b",
+          "text": "الشكل الذي ليس له أضلاع هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "▲",
+                "sub": "مثلث"
+              },
+              {
+                "label": "■",
+                "sub": "مربع"
+              },
+              {
+                "label": "●",
+                "sub": "دائرة"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "الدائرة",
+              "ok": true
+            },
+            {
+              "l": "المربع"
+            },
+            {
+              "l": "المثلث"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "s-2a",
+          "text": "المربع له كم ضلعًا؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "▲",
+                "sub": "مثلث"
+              },
+              {
+                "label": "■",
+                "sub": "مربع"
+              },
+              {
+                "label": "●",
+                "sub": "دائرة"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "4",
+              "ok": true
+            },
+            {
+              "l": "3"
+            },
+            {
+              "l": "5"
+            }
+          ]
+        },
+        {
+          "id": "s-2b",
+          "text": "الكرة شكل…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "●",
+                "sub": "كرة"
+              },
+              {
+                "label": "■",
+                "sub": "مربع"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "مجسم",
+              "ok": true
+            },
+            {
+              "l": "مستوٍ"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "s-3a",
+          "text": "أي شكل أضلاعه الأربعة متساوية؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "■",
+                "sub": "مربع"
+              },
+              {
+                "label": "▬",
+                "sub": "مستطيل"
+              },
+              {
+                "label": "▲",
+                "sub": "مثلث"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "المربع",
+              "ok": true
+            },
+            {
+              "l": "المستطيل"
+            },
+            {
+              "l": "المثلث"
+            }
+          ]
+        },
+        {
+          "id": "s-3b",
+          "text": "وجوه المكعب كلها…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "■",
+                "sub": "وجه"
+              },
+              {
+                "label": "■",
+                "sub": "وجه"
+              },
+              {
+                "label": "■",
+                "sub": "وجه"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "مربعات",
+              "ok": true
+            },
+            {
+              "l": "دوائر"
+            },
+            {
+              "l": "مثلثات"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "5",
+        "ok": true
+      },
+      {
+        "l": "4"
+      },
+      {
+        "l": "6"
+      }
+    ],
+    "X": [
+      {
+        "l": "10",
+        "ok": true
+      },
+      {
+        "l": "9"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نلعب بالأعداد: نعدّ، ونجمع، ونطرح. قبل ما نبدأ: عندك 3 تفاحات وأعطتك أمك 2. كم صار عندك؟",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 3,
+        "jump": 2
+      },
+      "concept": "count",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 3 + 2 = 5. صار عندك 5 تفاحات.",
+      "visual": {
+        "kind": "word",
+        "text": "3 + 2 = 5"
+      },
+      "concept": "count",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 3,
+        "jump": 2
+      },
+      "concept": "count",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بالعدّ على الأصابع",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "نعدّ مع بعض: عندنا 3، ونزيد واحد يصير 4، ونزيد واحد ثاني يصير…؟",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 3,
+        "jump": 2
+      },
+      "concept": "count",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "بعد 4 يجي…",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 3,
+        "jump": 2
+      },
+      "concept": "count",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، 5. الحين نكمل.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 3,
+        "jump": 2
+      },
+      "concept": "count",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "count",
+      "pool": "count",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 تعدّ وتقارن صح. الحين الجمع والطرح.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "count",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة العدّ والمقارنة بنجاح."
+    },
+    "r1": {
+      "text": "قريب. عدّ المكعبات واحدًا واحدًا، والعدد الأكبر هو اللي يجي بعدين في العدّ.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "count",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "count_one_by_one",
+      "adapt": "أعاد المعلم العدّ واحدًا واحدًا"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "count",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في العدّ والمقارنة."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "addsub",
+      "pool": "addsub",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، الجمع والطرح مضبوطان. باقي الأشكال.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "addsub",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الجمع والطرح بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. الجمع يعني نزيد فنمشي لليمين على خط الأعداد، والطرح يعني نأخذ فنرجع لليسار.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "addsub",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "numberline_moves",
+      "adapt": "أعاد المعلم الجمع والطرح على خط الأعداد"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "addsub",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الجمع والطرح."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "shapes",
+      "pool": "shapes",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت الأعداد والجمع والطرح والأشكال.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "shapes",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الأشكال بنجاح."
+    },
+    "r3": {
+      "text": "قريب. عدّ الأضلاع: المثلث 3، والمربع والمستطيل 4، والدائرة بدون أضلاع.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "shapes",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "count_sides",
+      "adapt": "أعاد المعلم عدّ الأضلاع"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "shapes",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الأشكال."
+    },
+    "x1": {
+      "text": "سؤال أخير: 5 + 5 = ؟",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 5,
+        "jump": 5
+      },
+      "concept": "addsub",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "عدّ من 5 خمس خطوات: 6، 7، 8، 9، …",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 5,
+        "jump": 5
+      },
+      "concept": "addsub",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "5 + 5 = 10"
+      },
+      "concept": "addsub",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "خمسة",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… أربعة؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "5، لأن 3 و2 يعني 5",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت العدّ والجمع والطرح والأشكال كاملة.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم عددنا وقارنّا، وجمعنا وطرحنا، وتعرفنا على الأشكال.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن الأعداد أو الأشكال؟ أنا أسمعك.",
+    "scope": "رياضيات الصف الأول: العدّ حتى 100، المقارنة والترتيب، العشرات والآحاد، الجمع والطرح ضمن 20، الأشكال المستوية والمجسمات."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "العدد 23 فيه عشرتان و3 آحاد. نعدّ بالعشرات: 10، 20، ثم 21، 22، 23.",
+      "visual": {
+        "kind": "blocks",
+        "value": 23
+      }
+    },
+    {
+      "text": "الجمع يعني نزيد. 3 + 2: نبدأ من 3 ونمشي خطوتين لليمين فنصل إلى 5.",
+      "visual": {
+        "kind": "numberline",
+        "from": 0,
+        "to": 10,
+        "start": 3,
+        "jump": 2
+      }
+    },
+    {
+      "text": "الطرح يعني نأخذ. عندنا 6 ونأخذ 2 فيبقى 4.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "6",
+            "sub": "عندنا"
+          },
+          {
+            "label": "− 2",
+            "sub": "نأخذ"
+          },
+          {
+            "label": "4",
+            "sub": "يبقى"
+          }
+        ]
+      }
+    },
+    {
+      "text": "نقارن بين عددين: 9 أكبر من 6 لأن 9 يجي بعد 6 في العدّ.",
+      "visual": {
+        "kind": "word",
+        "text": "9 > 6"
+      }
+    },
+    {
+      "text": "الأشكال: المثلث له 3 أضلاع، والمربع 4 أضلاع متساوية، والدائرة بدون أضلاع.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "▲",
+            "sub": "مثلث"
+          },
+          {
+            "label": "■",
+            "sub": "مربع"
+          },
+          {
+            "label": "●",
+            "sub": "دائرة"
+          }
+        ]
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الرياضيات · الصف الأول الابتدائي · 10 دقائق",
+    "title": "درس الأعداد والجمع والطرح",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}
