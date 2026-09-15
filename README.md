@@ -85,6 +85,22 @@ Setup: `npx convex dev` once to create the project (writes the URL into `.env.lo
 `APP_URL`; `npx convex deploy` for production and set `NEXT_PUBLIC_CONVEX_URL` on Vercel to the prod URL.
 `DEMO_AUTH=1` on a dev deployment shows the code on screen instead of emailing it.
 
+## Admin page and demo gate
+
+`/admin` (not linked, `robots` disallows it) shows who tried the app and lets you close the demo. Sign in with the
+same email-code flow as parents; only emails listed in the Convex env `ADMIN_EMAILS` (comma-separated,
+`npx convex env set ADMIN_EMAILS you@example.com --prod`) see the data.
+
+- **Usage** comes from `events` rows every device sends through `convex/telemetry.ts` (`lib/telemetry/client.tsx`):
+  one `visit` per browser session, `first_visit` the first time a device is seen, a `page` per route change,
+  `onboarded`, `lesson_start` and `lesson_end`. A random device id, a path, a referrer host and mobile/desktop;
+  no names, emails or transcripts. `lib/telemetry/aggregate.ts` turns them into the 7/30/90-day numbers,
+  the daily bars, and the lesson, page and referrer lists (days cut at Riyadh midnight).
+- **Accounts** lists signed-in parents with their synced children and sessions, plus the last saved sessions.
+- **Gate** (`convex/gate.ts`, `components/Gate.tsx`): `open` (default), `code` (visitors type an access code once
+  per device, stored in `localStorage`) or `closed` (message plus the contact link). Changing it applies to every
+  visitor immediately; `/admin` itself is never gated. Without a Convex URL there is no gate and no telemetry.
+
 ## Adding a lesson
 
 1. Write `lib/lessons/<subject>/<id>.lesson.json` (same shape as the existing lessons). A step's `visual` is
