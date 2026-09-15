@@ -21,7 +21,7 @@ export const site = {
   contact: "mailto:fm@mvp.sa",
   links: [
     { label: "عن المشروع", href: "#about" },
-    { label: "للمدارس", href: "#schools" },
+    { label: "للمعلمين والمدارس", href: "/teach" },
     { label: "الخصوصية", href: "#privacy" },
     { label: "تواصل معنا", href: "mailto:fm@mvp.sa" },
   ] as SiteLink[],

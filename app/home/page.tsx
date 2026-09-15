@@ -13,10 +13,16 @@ import { guidedDemo } from "@/lib/flags";
 import { lessonTitle } from "@/lib/lessons";
 import { streakDays } from "@/lib/store/insights";
 import { useAppStore } from "@/lib/store/app-store";
+import { useLinks } from "@/lib/convex/links";
 
 export default function HomePage() {
   const { child, results } = useAppStore();
+  const { links, classStatus } = useLinks();
   const [unlocked, setUnlocked] = useState(false);
+  const classes = links.classes.filter((c) => c.clientChildId === child.id);
+  const homework = classes.flatMap((c) =>
+    (classStatus[c.classroomId]?.assignments ?? []).map((a) => ({ ...a, classroomName: c.classroomName, teacherName: c.teacherName, finished: results.some((r) => r.lessonId === a.lessonId && (r.endedAt ?? 0) >= a.createdAt) })),
+  );
   const guided = guidedDemo() && !unlocked;
   const today = todaysLesson(results) ?? { lessonId: TODAY_LESSON.lessonId, subjectId: TODAY_LESSON.subjectId, done: false };
   const streak = streakDays(results);
@@ -55,6 +61,19 @@ export default function HomePage() {
           </div>
         </div>
 
+        {homework.length > 0 && (
+          <div className="flex flex-col gap-3" data-testid="homework">
+            <div className="text-[14px] text-muted">من معلمك</div>
+            <div className="flex gap-3 flex-wrap">
+              {homework.map((h) => (
+                <SketchButton key={h.classroomName + h.lessonId} href={`/lesson/${h.lessonId}`} variant={h.finished ? "white" : "yellow"} size="sm">
+                  {h.finished ? "✓ " : ""}
+                  {lessonTitle(h.lessonId).replace(/^درس /, "")} · {h.teacherName}
+                </SketchButton>
+              ))}
+            </div>
+          </div>
+        )}
         {guided ? (
           <div className="flex items-center gap-3 flex-wrap text-[14px] text-muted">
             <span>بقية المواد تُفتح بعد درس اليوم.</span>
