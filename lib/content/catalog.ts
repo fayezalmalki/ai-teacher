@@ -45,6 +45,7 @@ export const LESSONS: Record<string, LessonEntry[]> = {
     { lessonId: "fractions", title: "الكسور", meta: "النصف والربع · 10 دقائق", status: "next" },
     { lessonId: "addsub", title: "الجمع والطرح", meta: "الآحاد والعشرات · 10 دقائق", status: "next" },
     { lessonId: "measure", title: "القياس", meta: "الطول والوزن · 10 دقائق", status: "next" },
+    { lessonId: "stats8", title: "البيانات والمعادلات", meta: "الصف الثاني المتوسط · مراجعة اختبار الفصل الثاني · 10 دقائق", status: "next" },
     { title: "الأعداد حتى 1000", meta: "الآحاد والعشرات والمئات", status: "later" },
     { title: "الأشكال الهندسية", meta: "المضلعات", status: "later" },
   ],

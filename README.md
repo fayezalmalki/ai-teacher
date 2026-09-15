@@ -58,8 +58,9 @@ removes children and shows this week's numbers computed from their history (`lib
 
 ## Lessons and levels
 
-Seven lessons ship across the four subjects: الكسور (the original graph), الجمع والطرح, القياس, دورة الماء,
-الحواس الخمس, التنوين and أركان الإسلام. All but the first use
+Eight lessons ship across the four subjects: الكسور (the original graph), الجمع والطرح, القياس, دورة الماء,
+الحواس الخمس, التنوين, أركان الإسلام, and البيانات والمعادلات (a grade-8 review hand-authored from a warraq.co
+term exam, the pilot for turning school exams into lessons; three concepts, chart and table visuals). All but the first use
 **question pools**: a step with `"pool": "<concept>"` draws a question from `lesson.pools[concept][level - 1]`
 (first unasked, else the nearest lower level) and keeps drawing until its `askCount` correct answers. Answers on
 pool steps run the adaptation policy in `lib/lesson-engine/policy.ts`: two correct in a row raise the level (with
@@ -124,7 +125,8 @@ same email-code flow as parents; only emails listed in the Convex env `ADMIN_EMA
 
 1. Write `lib/lessons/<subject>/<id>.lesson.json` (same shape as the existing lessons). A step's `visual` is
    either a parametric spec (`pizza`, `fractions`, `chocolate`, `compare`, `blocks`, `numberline`, `ruler`,
-   `balance`, `cycle`, `word`, `cards`; see `lib/lesson-engine/visuals.ts`) or one of the fractions-era ids. Pool steps take
+   `balance`, `cycle`, `word`, `cards`, `chart` (bar / pie / box), `table`; see `lib/lesson-engine/visuals.ts`) or one
+   of the fractions-era ids. Pool steps take
    `pool`, `askCount`, `onOk`, `onWrong`, `onLevelDown`; each pool question has `id`, `text`, `visual`, `choices`.
 2. Register it in `lib/lessons/index.ts` and give the catalog entry its `lessonId`.
 3. `npm test`: `lib/lessons/lessons.test.ts` validates every registered graph (targets, choice sets,

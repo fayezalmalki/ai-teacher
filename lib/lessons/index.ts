@@ -11,6 +11,7 @@ import water from "./sci/water.lesson.json";
 import senses from "./sci/senses.lesson.json";
 import tanween from "./ar/tanween.lesson.json";
 import pillars from "./isl/pillars.lesson.json";
+import stats8 from "./math/stats8.lesson.json";
 
 export const fractionsLesson = fractions as LessonDefinition;
 export const addsubLesson = addsub as LessonDefinition;
@@ -19,9 +20,10 @@ export const waterLesson = water as LessonDefinition;
 export const sensesLesson = senses as LessonDefinition;
 export const tanweenLesson = tanween as LessonDefinition;
 export const pillarsLesson = pillars as LessonDefinition;
+export const stats8Lesson = stats8 as LessonDefinition;
 
 /** Registered lessons in the order a child meets them (today's lesson is the first unfinished one): subjects alternate so a week touches all four. */
-export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson];
+export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson, stats8Lesson];
 
 export const lessons: Record<string, LessonDefinition> = Object.fromEntries(LESSON_LIST.map((l) => [l.id, l]));
 

@@ -17,7 +17,7 @@ export default function WordCard({ text, marks = [], caption }: WordCardProps) {
   return (
     <div className="motion animate-pop-in flex flex-col items-center gap-4">
       <div className="px-10 py-7 r-card-1 ink bg-surface shadow-tint-yellow min-w-[220px] text-center">
-        <div className="font-display font-bold leading-[1.4] text-ink" style={{ fontSize: "clamp(56px, 12vw, 88px)" }} lang="ar" dir="rtl" aria-label={text}>
+        <div className="font-display font-bold leading-[1.4] text-ink whitespace-nowrap" style={{ fontSize: chars.length > 9 ? "clamp(30px, 6vw, 48px)" : "clamp(56px, 12vw, 88px)" }} lang="ar" dir="rtl" aria-label={text}>
           {chars.map((ch, i) => (
             <span key={i} className={lit.has(i) ? "text-primary" : undefined}>
               {ch}

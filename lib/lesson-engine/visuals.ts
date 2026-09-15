@@ -17,7 +17,7 @@ export const VISUAL_ALIASES: Record<VisualId, VisualSpec> = {
   comparePick: { kind: "compare", pick: true },
 };
 
-export const VISUAL_KINDS = ["pizza", "fractions", "chocolate", "compare", "blocks", "numberline", "ruler", "balance", "cycle", "word", "cards", "none"] as const;
+export const VISUAL_KINDS = ["pizza", "fractions", "chocolate", "compare", "blocks", "numberline", "ruler", "balance", "cycle", "word", "cards", "chart", "table", "none"] as const;
 
 export function resolveVisual(ref: VisualRef | undefined): VisualSpec {
   if (!ref) return { kind: "none" };
@@ -67,6 +67,28 @@ export function visualProblems(ref: unknown, where: string): string[] {
     if (!Array.isArray(items) || items.length < 2 || items.length > 6 || items.some((it) => !it || typeof it.label !== "string" || !it.label))
       out.push(`${where}: cards.items needs 2–6 labelled items`);
     else if (v.highlight !== undefined && (!num(v.highlight) || (v.highlight as number) < 0 || (v.highlight as number) >= items.length)) out.push(`${where}: cards.highlight is outside items`);
+  }
+  if (v.kind === "chart") {
+    const t = v.type as string;
+    if (t === "bar") {
+      const cats = v.categories as unknown;
+      const vals = v.values as unknown;
+      if (!Array.isArray(cats) || !Array.isArray(vals) || cats.length < 2 || cats.length !== vals.length || vals.some((x) => !num(x) || x < 0)) out.push(`${where}: chart.bar needs matching categories and non-negative values`);
+    } else if (t === "pie") {
+      const sl = v.slices as unknown;
+      if (!Array.isArray(sl) || sl.length < 2 || sl.some((x) => !x || typeof x.label !== "string" || !num(x.value) || x.value <= 0)) out.push(`${where}: chart.pie needs at least two positive slices`);
+    } else if (t === "box") {
+      const b = v as Record<string, unknown>;
+      const ks = ["min", "q1", "median", "q3", "max"];
+      if (ks.some((k) => !num(b[k]))) out.push(`${where}: chart.box needs min, q1, median, q3, max`);
+      else if (!((b.min as number) <= (b.q1 as number) && (b.q1 as number) <= (b.median as number) && (b.median as number) <= (b.q3 as number) && (b.q3 as number) <= (b.max as number))) out.push(`${where}: chart.box values must be in order`);
+    } else out.push(`${where}: chart.type must be bar|pie|box`);
+  }
+  if (v.kind === "table") {
+    const head = v.head as unknown;
+    const rows = v.rows as unknown;
+    if (!Array.isArray(head) || head.length < 1 || !Array.isArray(rows) || rows.length < 1 || rows.some((r) => !Array.isArray(r) || r.length !== head.length)) out.push(`${where}: table needs a head and rows of the same width`);
+    else if (v.highlight !== undefined && (!num(v.highlight) || (v.highlight as number) < 0 || (v.highlight as number) >= rows.length)) out.push(`${where}: table.highlight is outside rows`);
   }
   if (v.kind === "cycle") {
     if (!Array.isArray(v.stages) || v.stages.length < 2) out.push(`${where}: cycle.stages needs at least two stages`);

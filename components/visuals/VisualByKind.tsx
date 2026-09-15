@@ -12,6 +12,8 @@ import Balance from "./Balance";
 import Cycle from "./Cycle";
 import WordCard from "./WordCard";
 import Cards from "./Cards";
+import Chart from "./Chart";
+import DataTable from "./DataTable";
 
 /** Draws a visual spec without interaction. SessionVisual wraps the tappable kinds. */
 export default function VisualByKind({ spec, compareLabels }: { spec: VisualSpec; compareLabels?: Record<string, string> }) {
@@ -38,6 +40,10 @@ export default function VisualByKind({ spec, compareLabels }: { spec: VisualSpec
       return <WordCard text={spec.text} marks={spec.marks} caption={spec.caption} />;
     case "cards":
       return <Cards items={spec.items} highlight={spec.highlight} numbered={spec.numbered} />;
+    case "chart":
+      return <Chart spec={spec} />;
+    case "table":
+      return <DataTable head={spec.head} rows={spec.rows} highlight={spec.highlight} />;
     default:
       return null;
   }
