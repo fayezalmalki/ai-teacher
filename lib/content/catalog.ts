@@ -45,12 +45,15 @@ export const LESSONS: Record<string, LessonEntry[]> = {
     { lessonId: "fractions", title: "الكسور", meta: "النصف والربع · 10 دقائق", status: "next" },
     { lessonId: "addsub", title: "الجمع والطرح", meta: "الآحاد والعشرات · 10 دقائق", status: "next" },
     { lessonId: "measure", title: "القياس", meta: "الطول والوزن · 10 دقائق", status: "next" },
+    { lessonId: "g4math", title: "الضرب والقسمة والكسور", meta: "الصف الرابع · مراجعة اختبار · 10 دقائق", status: "next" },
+    { lessonId: "g5math", title: "الكسور العشرية والمساحة والبيانات", meta: "الصف الخامس · مراجعة اختبار · 10 دقائق", status: "next" },
     { lessonId: "stats8", title: "البيانات والمعادلات", meta: "الصف الثاني المتوسط · مراجعة اختبار الفصل الثاني · 10 دقائق", status: "next" },
     { title: "الأعداد حتى 1000", meta: "الآحاد والعشرات والمئات", status: "later" },
     { title: "الأشكال الهندسية", meta: "المضلعات", status: "later" },
   ],
   ar: [
     { lessonId: "tanween", title: "التنوين", meta: "فتح وضم وكسر · 10 دقائق", status: "next" },
+    { lessonId: "g5ar", title: "الجملة والفعل والهمزة", meta: "الصف الخامس · مراجعة اختبار · 10 دقائق", status: "next" },
     { title: "أنواع الجمل", meta: "الاسمية والفعلية", status: "later" },
     { title: "الهمزة المتوسطة", meta: "", status: "later" },
     { title: "الأفعال", meta: "", status: "later" },
@@ -59,6 +62,7 @@ export const LESSONS: Record<string, LessonEntry[]> = {
   sci: [
     { lessonId: "water", title: "دورة الماء", meta: "من البحر للسحاب · 10 دقائق", status: "next" },
     { lessonId: "senses", title: "الحواس الخمس", meta: "نشوف ونسمع ونلمس · 10 دقائق", status: "next" },
+    { lessonId: "g4sci", title: "المادة والحرارة والكهرباء", meta: "الصف الرابع · مراجعة اختبار · 10 دقائق", status: "next" },
     { title: "النبات وأجزاؤه", meta: "", status: "later" },
     { title: "الحيوانات وبيئاتها", meta: "", status: "later" },
     { title: "المادة وحالاتها", meta: "", status: "later" },

@@ -58,9 +58,11 @@ removes children and shows this week's numbers computed from their history (`lib
 
 ## Lessons and levels
 
-Eight lessons ship across the four subjects: الكسور (the original graph), الجمع والطرح, القياس, دورة الماء,
-الحواس الخمس, التنوين, أركان الإسلام, and البيانات والمعادلات (a grade-8 review hand-authored from a warraq.co
-term exam, the pilot for turning school exams into lessons; three concepts, chart and table visuals). All but the first use
+Twelve lessons ship across the four subjects. Grade 3: الكسور (the original graph), الجمع والطرح, القياس, دورة الماء,
+الحواس الخمس, التنوين, أركان الإسلام. Exam-review lessons (three concepts each, authored with
+`scripts/author/builder.py` from a compact spec): grade 4 الضرب والقسمة والكسور and المادة والحرارة والكهرباء,
+grade 5 الكسور العشرية والمساحة والبيانات and الجملة والفعل والهمزة, and grade 8 البيانات والمعادلات (from a
+warraq.co term exam). All but the first use
 **question pools**: a step with `"pool": "<concept>"` draws a question from `lesson.pools[concept][level - 1]`
 (first unasked, else the nearest lower level) and keeps drawing until its `askCount` correct answers. Answers on
 pool steps run the adaptation policy in `lib/lesson-engine/policy.ts`: two correct in a row raise the level (with
