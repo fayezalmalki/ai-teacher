@@ -58,7 +58,7 @@ removes children and shows this week's numbers computed from their history (`lib
 
 ## Lessons and levels
 
-Twenty-seven lessons ship across six subjects and grades 1–6 plus 8. Grade 3: الكسور (the original graph),
+Thirty lessons ship across seven subjects and grades 1–6 plus 8. Grade 3: الكسور (the original graph),
 الجمع والطرح, القياس, دورة الماء, الحواس الخمس, التنوين, أركان الإسلام. Exam-review lessons (three concepts each,
 authored with `scripts/author/builder.py` from a compact spec next to it): grade 1 الأعداد والجمع والطرح and
 الحروف والحركات; grade 2 الأعداد حتى 999 والجمع والطرح and النباتات والحيوانات والطقس; grade 4 الضرب والقسمة
@@ -70,7 +70,8 @@ comparatives and can/should; present continuous, future and a short reading. Naw
 are English: an English lesson carries `"lang": "en"`, so answer buttons keep Western digits and read left-to-right,
 and `word` / `cards` visuals with Latin text lay out left-to-right on their own.
 الدراسات الاجتماعية (grades 4–6, `lib/lessons/soc/`): الموقع والرموز والخريطة, تاريخ الدولة السعودية (the three
-states on a number-line timeline), التضاريس والاقتصاد والمواطنة.
+states on a number-line timeline), التضاريس والاقتصاد والمواطنة. المهارات الرقمية (grades 4–6, `lib/lessons/dig/`):
+الحاسب والملفات والسلامة الرقمية, الإنترنت والمستندات والجداول (a spreadsheet as a table visual), الخوارزميات والبرمجة والشبكات.
 Catalog entries carry a `grade`; "today's lesson" and the subject lists put the child's grade first.
 All but the first use
 **question pools**: a step with `"pool": "<concept>"` draws a question from `lesson.pools[concept][level - 1]`
