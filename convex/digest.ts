@@ -23,8 +23,8 @@ function childBlock(name: string, results: SessionResult[]): string {
   const latestLog = rows[0]?.result.log?.slice(-2).join(" ") ?? "";
   return `
     <h2 style="margin:22px 0 8px;font-size:19px;font-weight:700;">${escapeHtml(name)}</h2>
-    <p style="margin:0 0 10px;">${week.sessions === 1 ? "جلسة واحدة" : week.sessions === 2 ? "جلستان" : `${week.sessions} جلسات`} · ${week.minutes} دقيقة تعلّم · ${week.correct} من ${week.questions} إجابات صحيحة${improvement ? ` · أبرز تحسّن: ${escapeHtml(improvement.replace(/^درس /, ""))}` : ""}</p>
-    <ul style="margin:0;padding:0 18px 0 0;">${list}</ul>
+    <p dir="rtl" style="margin:0 0 10px;direction:rtl;text-align:right;">${week.sessions === 1 ? "جلسة واحدة" : week.sessions === 2 ? "جلستان" : `${week.sessions} جلسات`} · ${week.minutes} دقيقة تعلّم · ${week.correct} من ${week.questions} إجابات صحيحة${improvement ? ` · أبرز تحسّن: ${escapeHtml(improvement.replace(/^درس /, ""))}` : ""}</p>
+    <ul dir="rtl" style="margin:0;padding:0 18px 0 0;direction:rtl;text-align:right;">${list}</ul>
     ${latestLog ? `<p style="margin:12px 0 0;padding:12px 16px;border:2px dashed #C9CDC8;border-radius:14px;color:#5C6360;font-size:14px;">${escapeHtml(latestLog)}</p>` : ""}`;
 }
 
@@ -43,7 +43,7 @@ export const weekly = internalAction({
         .filter(Boolean)
         .join("");
       if (!blocks) continue;
-      const body = `<p style="margin:0;">هذا ملخص أسبوع أطفالك مع الأستاذ نواف.</p>${blocks}
+      const body = `<p dir="rtl" style="margin:0;direction:rtl;text-align:right;">هذا ملخص أسبوع أطفالك مع الأستاذ نواف.</p>${blocks}
         <p style="margin:22px 0 0;"><a href="${APP_URL}/parent/pin" style="display:inline-block;padding:12px 22px;border:3px solid #23272A;border-radius:18px;background:#2F6BD8;color:#fff;font-weight:700;text-decoration:none;">افتح منطقة ولي الأمر</a></p>`;
       try {
         await sendEmail({
