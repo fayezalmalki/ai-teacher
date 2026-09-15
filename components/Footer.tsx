@@ -48,13 +48,15 @@ export default function Footer({ variant = "full", className = "" }: FooterProps
             </a>
           ))}
         </div>
-        <div className="flex gap-3.5">
-          {site.social.map((l) => (
-            <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="text-[13px] font-semibold text-muted hover:text-ink">
-              {l.label}
-            </a>
-          ))}
-        </div>
+        {site.social.length > 0 && (
+          <div className="flex gap-3.5">
+            {site.social.map((l) => (
+              <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="text-[13px] font-semibold text-muted hover:text-ink">
+                {l.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
       <div className="flex justify-between items-center gap-4 flex-wrap">
         {powered}
