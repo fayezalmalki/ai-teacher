@@ -3,7 +3,8 @@
 /**
  * The demo wall. The admin sets the gate on /admin: open (default), code
  * (visitors type an access code once per device) or closed (a message and
- * the contact link). /admin itself is never gated so the admin can reopen.
+ * the contact link). /admin is never gated; a device holding a parent or
+ * class link, and the join page itself, pass a code gate (they were invited).
  * Inert without a Convex URL.
  */
 import { useEffect, useState, type ReactNode } from "react";
@@ -11,6 +12,7 @@ import { usePathname } from "next/navigation";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { convexEnabled } from "@/lib/convex/config";
+import { useLinks } from "@/lib/convex/links";
 import { site } from "@/lib/site";
 import Frame from "./Frame";
 import Teacher from "./Teacher";
@@ -21,11 +23,13 @@ const CODE_KEY = "ai-teacher:gate-code";
 export default function Gate({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   if (!convexEnabled() || pathname?.startsWith("/admin")) return <>{children}</>;
-  return <GateInner>{children}</GateInner>;
+  return <GateInner pathname={pathname ?? ""}>{children}</GateInner>;
 }
 
-function GateInner({ children }: { children: ReactNode }) {
+function GateInner({ children, pathname }: { children: ReactNode; pathname: string }) {
   const status = useQuery(api.gate.status);
+  const { links, loaded } = useLinks();
+  const invited = (loaded && (!!links.parent || links.classes.length > 0)) || pathname.startsWith("/j/");
   const [code, setCode] = useState<string>("");
   const [draft, setDraft] = useState("");
   const [tried, setTried] = useState(false);
@@ -39,7 +43,7 @@ function GateInner({ children }: { children: ReactNode }) {
   // Still loading: render the app (the wall replaces it a moment later if needed).
   if (status === undefined) return <>{children}</>;
   if (status.mode === "open") return <>{children}</>;
-  if (status.mode === "code" && allowed === true) return <>{children}</>;
+  if (status.mode === "code" && (invited || allowed === true)) return <>{children}</>;
 
   const submit = () => {
     const c = draft.trim();

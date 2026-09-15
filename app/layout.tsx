@@ -4,6 +4,7 @@ import { AppStoreProvider } from "@/lib/store/app-store";
 import { ConvexClientProvider } from "@/lib/convex/provider";
 import { AccountProvider } from "@/lib/convex/account";
 import { Telemetry } from "@/lib/telemetry/client";
+import { LinksProvider } from "@/lib/convex/links";
 import Gate from "@/components/Gate";
 import { site } from "@/lib/site";
 import "./globals.css";
@@ -52,8 +53,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ConvexClientProvider>
           <AppStoreProvider>
             <AccountProvider>
-              <Telemetry />
-              <Gate>{children}</Gate>
+              <LinksProvider>
+                <Telemetry />
+                <Gate>{children}</Gate>
+              </LinksProvider>
             </AccountProvider>
           </AppStoreProvider>
         </ConvexClientProvider>

@@ -8,7 +8,7 @@ import type { Doc, Id } from "./_generated/dataModel";
  * device signs itself out) and throws from mutations.
  */
 
-const childInput = v.object({
+export const childInput = v.object({
   clientId: v.string(),
   name: v.string(),
   age: v.number(),
@@ -19,7 +19,7 @@ const childInput = v.object({
   updatedAt: v.optional(v.number()),
 });
 
-const resultInput = v.object({
+export const resultInput = v.object({
   childClientId: v.string(),
   lessonId: v.string(),
   startedAt: v.union(v.number(), v.null()),
@@ -40,25 +40,25 @@ export function resultKey(lessonId: string, startedAt: number | null, endedAt: n
   return `${lessonId}:${startedAt ?? endedAt ?? 0}`;
 }
 
-async function sessionByToken(ctx: QueryCtx | MutationCtx, token: string) {
+export async function sessionByToken(ctx: QueryCtx | MutationCtx, token: string) {
   if (!token) return null;
   const s = await ctx.db.query("householdSessions").withIndex("by_token", (q) => q.eq("token", token)).unique();
   if (!s || s.expiresAt < Date.now()) return null;
   return s;
 }
 
-async function requireHousehold(ctx: QueryCtx | MutationCtx, token: string): Promise<Doc<"households">> {
+export async function requireHousehold(ctx: QueryCtx | MutationCtx, token: string): Promise<Doc<"households">> {
   const s = await sessionByToken(ctx, token);
   const h = s ? await ctx.db.get(s.householdId) : null;
   if (!h) throw new Error("not signed in");
   return h;
 }
 
-function publicChild(c: Doc<"children">) {
+export function publicChild(c: Doc<"children">) {
   return { clientId: c.clientId, name: c.name, age: c.age, grade: c.grade, color: c.color, settings: c.settings, createdAt: c.createdAt, updatedAt: c.updatedAt };
 }
 
-function publicResult(r: Doc<"results">) {
+export function publicResult(r: Doc<"results">) {
   const { _id, _creationTime, householdId, key, createdAt, ...rest } = r;
   void _id;
   void _creationTime;

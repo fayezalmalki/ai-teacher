@@ -85,6 +85,25 @@ Setup: `npx convex dev` once to create the project (writes the URL into `.env.lo
 `APP_URL`; `npx convex deploy` for production and set `NEXT_PUBLIC_CONVEX_URL` on Vercel to the prod URL.
 `DEMO_AUTH=1` on a dev deployment shows the code on screen instead of emailing it.
 
+## Links: a child's device, a teacher's class
+
+Every shared link is `school.mvp.sa/j/<code>` (`lib/links/code.ts`: 5 characters for expiring child links, 6 for
+permanent class and lesson codes, no look-alike characters). `app/j/[code]` resolves the code and attaches the device;
+`lib/convex/links.tsx` keeps the device's links in `localStorage` (`ai-teacher:links`), reports every finished session
+to each target, and drops a link the moment it is revoked.
+
+- **Child link** (parent area → "جهاز {name}", needs the parent to be signed in): `convex/links.ts` mints one
+  active code per child, valid 7 days. Opening it makes that device the child: the child's profile and history are
+  adopted locally, and from then on sessions and settings sync through a child-scoped token (`childSync`), never the
+  parent's. The parent sees linked devices per child and can disconnect any of them.
+- **Class** (`/teach`, `convex/classroom.ts`): a teacher signs in with the same email code, creates a class (name,
+  teacher name, grade) and gets its permanent code. "أرسل درسًا بعد الحصة" mints a per-lesson code. A student opens
+  either link, types a name, and (for a lesson link) lands on that lesson; their device holds a student-scoped token
+  and reports finished sessions to the class (`studentSync`, one row per lesson start). The class page shows, per sent
+  lesson, who finished it, answers, level reached and rating, plus the roster with last activity and removal.
+- The child home shows "من معلمك" with the lessons a teacher sent (ticked once done). A device holding any link
+  passes a code-mode gate: it was invited.
+
 ## Admin page and demo gate
 
 `/admin` (not linked, `robots` disallows it) shows who tried the app and lets you close the demo. Sign in with the
@@ -168,6 +187,9 @@ lib/store/                    # app store v2 (household of children, per-child s
 lib/convex/                   # Convex client config/provider and the account + sync hook
 convex/                       # Convex backend: schema, email-code auth, household sync, weekly digest cron
 lib/content/catalog.ts        # subjects, lesson paths, parent-area copy
+lib/links/code.ts             # join codes (/j/<code>) and share URLs
+lib/convex/links.tsx          # device links: parent child link + class memberships, result reporting
+convex/links.ts, classroom.ts # child links / classes, assignments, student results
 lib/site.ts                   # footer links, socials, powered-by (from docs/site-config.js)
 lib/flags.ts                  # NEXT_PUBLIC_GUIDED_DEMO
 lib/analytics/events.ts       # event buffer + sink hook
