@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;background:#FBF8F1;font-family:'IBM Plex Sans Arabic',system-ui,sans-serif;color:#23272A}
+*{box-sizing:border-box}
+a{color:#2F6BD8;text-decoration:none}a:hover{color:#1F53B3}
+button{font-family:inherit;cursor:pointer}
+@keyframes wave{0%,100%{transform:scaleY(.35)}50%{transform:scaleY(1)}}
+@keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.3);opacity:0}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes popIn{0%{opacity:0;transform:scale(.85) rotate(-2deg)}60%{transform:scale(1.04) rotate(.5deg)}100%{opacity:1;transform:none}}
+@keyframes nod{0%,100%{transform:rotate(0)}30%{transform:rotate(-4deg)}60%{transform:rotate(3deg)}}
+@keyframes dots{0%,80%,100%{opacity:.25}40%{opacity:1}}
+@keyframes wobble{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(1deg)}}
+</style>
+</helmet>
+<div dir="rtl" style="min-height:100vh;background:#FBF8F1;display:flex;flex-direction:column;position:relative">
+
+  <!-- corner chrome -->
+  <div style="display:flex;align-items:center;justify-content:space-between;padding:22px 32px 0">
+    <div style="display:flex;align-items:center;gap:10px">
+      <sc-if value="{{ hasBack }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ onBack }}" style="width:34px;height:34px;border-radius:50% 45% 55% 50%;border:2px solid #23272A;background:#fff;font-size:16px;display:grid;place-items:center" style-hover="background:#F1EDE2">→</button>
+      </sc-if>
+      <div style="font-size:13px;color:#8A8F8B;font-weight:500">درس الكسور</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <sc-for list="{{ dotsList }}" as="d" hint-placeholder-count="5">
+        <div style="width:9px;height:9px;border-radius:50% 45% 55% 50%;border:2px solid #23272A;background:{{ d.bg }};transition:background .4s"></div>
+      </sc-for>
+    </div>
+    <div style="width:30px;height:30px;border-radius:52% 48% 50% 50%/48% 52% 50% 50%;border:2px solid #23272A;display:grid;place-items:center;font-size:13px;font-weight:600;background:#fff">س</div>
+  </div>
+
+  <!-- START -->
+  <sc-if value="{{ isStart }}" hint-placeholder-val="{{ true }}">
+    <div style="flex:1;display:grid;place-items:center;padding:40px 32px 80px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;max-width:520px">
+        <div style="width:140px;height:140px;border-radius:50% 46% 54% 50%/52% 50% 48% 50%;border:3px solid #23272A;background:#fff;display:grid;place-items:center;font-family:'Baloo Bhaijaan 2';font-size:64px;font-weight:700;color:#2F6BD8;box-shadow:6px 6px 0 #E7EFFC;animation:wobble 6s ease-in-out infinite">ن</div>
+        <div style="font-family:'Baloo Bhaijaan 2';font-size:44px;font-weight:700;line-height:1.25">هلا سلمان، جاهز؟</div>
+        <div style="font-size:18px;color:#5C6360">اليوم نتعلم الكسور. عشر دقائق بس.</div>
+        <button onClick="{{ startLesson }}" style="padding:18px 40px;border:3px solid #23272A;border-radius:18px 22px 16px 24px/22px 16px 24px 18px;background:#2F6BD8;color:#fff;font-family:'Baloo Bhaijaan 2';font-size:22px;font-weight:700;box-shadow:5px 5px 0 #23272A;transition:transform .15s,box-shadow .15s" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #23272A" style-active="transform:translate(3px,3px);box-shadow:1px 1px 0 #23272A">يلا نبدأ</button>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- LESSON -->
+  <sc-if value="{{ isLesson }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;align-items:center;padding:40px 56px 24px;max-width:1100px;width:100%;margin:0 auto">
+      <div style="display:flex;flex-direction:column;align-items:flex-start;gap:28px">
+        <div style="position:relative;width:120px;height:120px">
+          {{ ringEl }}
+          {{ avatarEl }}
+          <sc-if value="{{ isListening }}" hint-placeholder-val="{{ false }}">
+            <div style="position:absolute;bottom:-6px;left:-6px;padding:6px 10px;border-radius:12px 14px 10px 14px;border:2px solid #23272A;background:#fff;display:flex;gap:3px;align-items:center;height:32px">{{ waveEl }}</div>
+          </sc-if>
+        </div>
+        {{ subtitleEl }}
+        <sc-if value="{{ hasAdaptChip }}" hint-placeholder-val="{{ false }}">
+          <div style="font-size:14px;color:#8A8F8B;border-bottom:2px dashed #C9CDC8;padding-bottom:4px;animation:fadeUp .4s ease">{{ adaptText }}</div>
+        </sc-if>
+      </div>
+
+      <div style="display:grid;place-items:center;min-height:360px;position:relative">
+        <sc-if value="{{ vPizza }}" hint-placeholder-val="{{ true }}">
+          <div style="position:relative;width:260px;height:260px;animation:popIn .5s cubic-bezier(.34,1.56,.64,1)">
+            <div style="position:absolute;inset:0;border-radius:50% 47% 53% 50%/52% 50% 48% 50%;border:3px solid #23272A;background:repeating-linear-gradient(45deg,#2F6BD8 0 4px,transparent 4px 11px) #FFF6DF;overflow:hidden;box-shadow:8px 8px 0 #EFE9DC">
+              <sc-for list="{{ pizzaQuads }}" as="q" hint-placeholder-count="4">
+                <div style="position:absolute;top:{{ q.top }};left:{{ q.left }};width:50%;height:50%;background:{{ q.bg }};transition:background .4s"></div>
+              </sc-for>
+              <div style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:#23272A"></div>
+              <div style="position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:#23272A;display:{{ pizzaH }}"></div>
+            </div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ vFractions }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:44px;align-items:center;animation:popIn .5s cubic-bezier(.34,1.56,.64,1)">
+            <sc-for list="{{ fractionGlyphs }}" as="f" hint-placeholder-count="2">
+              <div style="display:flex;flex-direction:column;align-items:center;font-family:'Baloo Bhaijaan 2';font-size:72px;font-weight:700;line-height:1;color:#23272A">
+                <div>{{ f.n }}</div>
+                <div style="width:64px;height:4px;background:#23272A;margin:8px 0;border-radius:2px;transform:rotate(-2deg)"></div>
+                <div>{{ f.d }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ vChoc }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:16px;animation:popIn .5s cubic-bezier(.34,1.56,.64,1)">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;border:3px solid #23272A;border-radius:18px 22px 16px 20px;background:#fff;box-shadow:8px 8px 0 #EFE9DC">
+              <sc-for list="{{ chocSquares }}" as="sq" hint-placeholder-count="4">
+                <button onClick="{{ sq.onTap }}" style="width:100px;height:100px;border-radius:12px 14px 10px 14px;border:3px solid #23272A;background:{{ sq.bg }};cursor:{{ sq.cursor }};transition:all .25s;transform:{{ sq.tf }}"></button>
+              </sc-for>
+            </div>
+            <div style="font-size:15px;color:#8A8F8B">{{ chocCaption }}</div>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ vCompare }}" hint-placeholder-val="{{ false }}">
+          <div style="display:flex;gap:40px;align-items:flex-start;flex-wrap:wrap;justify-content:center;animation:popIn .5s cubic-bezier(.34,1.56,.64,1)">
+            <sc-for list="{{ compareCircles }}" as="c" hint-placeholder-count="2">
+              <button onClick="{{ c.onTap }}" style="display:flex;flex-direction:column;align-items:center;gap:14px;background:transparent;border:0;padding:10px;cursor:{{ c.cursor }};transition:transform .2s" style-hover="transform:{{ c.hoverTf }}">
+                <div style="position:relative;width:170px;height:170px;border-radius:50% 47% 53% 50%/52% 50% 48% 50%;border:3px solid #23272A;background:repeating-linear-gradient(45deg,#2F6BD8 0 4px,transparent 4px 11px) #FFF6DF;overflow:hidden;box-shadow:6px 6px 0 #EFE9DC">
+                  <sc-for list="{{ c.quads }}" as="q" hint-placeholder-count="4">
+                    <div style="position:absolute;top:{{ q.top }};left:{{ q.left }};width:50%;height:50%;background:{{ q.bg }}"></div>
+                  </sc-for>
+                  <div style="position:absolute;top:0;bottom:0;left:50%;width:3px;margin-left:-1.5px;background:#23272A"></div>
+                  <div style="position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:#23272A;display:{{ c.hDisplay }}"></div>
+                </div>
+                <div style="font-family:'Baloo Bhaijaan 2';font-size:22px;font-weight:600;color:#23272A">{{ c.label }}</div>
+              </button>
+            </sc-for>
+          </div>
+        </sc-if>
+
+        <sc-if value="{{ showEngine }}" hint-placeholder-val="{{ false }}">
+          <div style="position:absolute;top:0;left:0;direction:ltr;font-size:11px;font-family:ui-monospace,monospace;color:#8A8F8B;line-height:1.6">{{ engineLine }}</div>
+        </sc-if>
+      </div>
+    </div>
+
+    <!-- action zone -->
+    <div style="min-height:120px;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;padding:12px 32px 40px">
+      <sc-if value="{{ showMic }}" hint-placeholder-val="{{ false }}">
+        <button onClick="{{ tapMic }}" style="display:flex;align-items:center;gap:14px;padding:18px 32px;border:3px solid #23272A;border-radius:999px;background:{{ micBg }};color:{{ micColor }};font-family:'Baloo Bhaijaan 2';font-size:22px;font-weight:700;box-shadow:5px 5px 0 #23272A;transition:all .15s;animation:popIn .4s cubic-bezier(.34,1.56,.64,1)" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #23272A" style-active="transform:translate(3px,3px);box-shadow:1px 1px 0 #23272A">
+          <span style="width:14px;height:22px;border-radius:7px;border:3px solid currentColor;display:inline-block"></span>
+          <span>{{ micLabel }}</span>
+        </button>
+      </sc-if>
+      <sc-if value="{{ showTranscript }}" hint-placeholder-val="{{ false }}">
+        <div style="padding:12px 20px;border:2px dashed #23272A;border-radius:16px 20px 14px 18px;font-size:17px;animation:fadeUp .3s ease;background:#fff">"{{ transcript }}"</div>
+      </sc-if>
+      <sc-if value="{{ showChoices }}" hint-placeholder-val="{{ false }}">
+        <sc-for list="{{ choiceList }}" as="ch" hint-placeholder-count="2">
+          <button onClick="{{ ch.onPick }}" style="min-width:130px;padding:16px 30px;border:3px solid #23272A;border-radius:{{ ch.radius }};background:#fff;font-family:'Baloo Bhaijaan 2';font-size:26px;font-weight:700;color:#23272A;box-shadow:5px 5px 0 #23272A;transition:all .15s;animation:popIn .45s cubic-bezier(.34,1.56,.64,1) {{ ch.delay }} both" style-hover="background:#E7EFFC;transform:translate(-2px,-2px);box-shadow:7px 7px 0 #23272A" style-active="transform:translate(3px,3px);box-shadow:1px 1px 0 #23272A">{{ ch.l }}</button>
+        </sc-for>
+      </sc-if>
+      <sc-if value="{{ showThinking }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:12px;color:#8A8F8B;font-size:16px">{{ thinkEl }}</div>
+      </sc-if>
+      <sc-if value="{{ showPickHint }}" hint-placeholder-val="{{ false }}">
+        <div style="font-size:17px;color:#2F6BD8;font-weight:500">المس قطعتين</div>
+      </sc-if>
+    </div>
+  </sc-if>
+
+  <!-- END -->
+  <sc-if value="{{ isEnd }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;display:grid;place-items:center;padding:40px 32px 80px">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:28px;text-align:center;max-width:560px">
+        <div style="position:relative;width:130px;height:130px">
+          <div style="position:absolute;inset:0;border-radius:50% 46% 54% 50%/52% 50% 48% 50%;border:3px solid #23272A;background:#fff;display:grid;place-items:center;font-family:'Baloo Bhaijaan 2';font-size:58px;font-weight:700;color:#2F6BD8;animation:nod 1.4s ease-in-out infinite"></div>
+          <div style="position:absolute;inset:0;display:grid;place-items:center;font-family:'Baloo Bhaijaan 2';font-size:58px;font-weight:700;color:#2F6BD8">ن</div>
+          <div style="position:absolute;bottom:-6px;left:-6px;width:42px;height:42px;border-radius:50%;border:3px solid #23272A;background:#FFD23F;display:grid;place-items:center;font-size:20px;font-weight:700;animation:popIn .5s cubic-bezier(.34,1.56,.64,1) .3s both">★</div>
+        </div>
+        <div style="font-family:'Baloo Bhaijaan 2';font-size:40px;font-weight:700;line-height:1.3">{{ rating }} يا سلمان!</div>
+        <div style="font-size:20px;line-height:1.7;color:#3D4442;text-wrap:pretty">الكسر يعني جزء من شيء كامل، والنصف أكبر من الربع. شفت الفرق بنفسك.</div>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center">
+          <button onClick="{{ bonusQuestion }}" style="padding:16px 30px;border:3px solid #23272A;border-radius:18px 22px 16px 24px/22px 16px 24px 18px;background:#2F6BD8;color:#fff;font-family:'Baloo Bhaijaan 2';font-size:20px;font-weight:700;box-shadow:5px 5px 0 #23272A;transition:all .15s" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #23272A">سؤال أخير؟</button>
+          <button onClick="{{ finishLesson }}" style="padding:16px 30px;border:3px solid #23272A;border-radius:22px 16px 24px 18px/18px 24px 16px 22px;background:#fff;color:#23272A;font-family:'Baloo Bhaijaan 2';font-size:20px;font-weight:700;box-shadow:5px 5px 0 #23272A;transition:all .15s" style-hover="transform:translate(-2px,-2px);box-shadow:7px 7px 0 #23272A">خلصنا</button>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- SUMMARY -->
+  <sc-if value="{{ isSummary }}" hint-placeholder-val="{{ false }}">
+    <div style="flex:1;padding:40px 32px 80px;max-width:720px;width:100%;margin:0 auto;display:flex;flex-direction:column;gap:32px">
+      <div>
+        <div style="font-size:14px;color:#8A8F8B">لولي الأمر</div>
+        <div style="font-family:'Baloo Bhaijaan 2';font-size:36px;font-weight:700;margin-top:2px">جلسة سلمان اليوم</div>
+      </div>
+      <div style="display:flex;gap:28px;flex-wrap:wrap">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="display:flex;flex-direction:column;gap:2px;min-width:120px">
+            <div style="font-family:'Baloo Bhaijaan 2';font-size:34px;font-weight:700;line-height:1">{{ s.v }}</div>
+            <div style="font-size:13px;color:#8A8F8B">{{ s.k }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px;border-top:2px dashed #C9CDC8;padding-top:24px">
+        <div style="font-size:15px;font-weight:600">كيف تكيّف الأستاذ نواف</div>
+        <sc-for list="{{ adaptLog }}" as="a" hint-placeholder-count="3">
+          <div style="display:flex;gap:14px;align-items:flex-start;font-size:16px;line-height:1.6">
+            <span style="width:26px;height:26px;border-radius:50% 45% 55% 50%;border:2px solid #23272A;display:grid;place-items:center;font-size:13px;font-weight:600;flex:none;background:#fff">{{ a.i }}</span>
+            <span>{{ a.t }}</span>
+          </div>
+        </sc-for>
+      </div>
+      <button onClick="{{ restart }}" style="align-self:flex-start;padding:12px 22px;border:2px solid #23272A;border-radius:14px 18px 12px 16px;background:#fff;font-size:15px;font-weight:600" style-hover="background:#F1EDE2">من البداية</button>
+    </div>
+  </sc-if>
+
+  <!-- demo controls -->
+  <div style="position:fixed;left:20px;bottom:20px;display:flex;flex-direction:column;align-items:flex-start;gap:10px;z-index:10;direction:rtl">
+    <sc-if value="{{ demoOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="width:230px;background:#23272A;color:#fff;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:10px;box-shadow:0 12px 40px rgba(0,0,0,.25);animation:fadeUp .25s ease">
+        <div style="font-size:11px;color:#9AA19D;letter-spacing:.04em">DEMO · مسار الطفل</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button onClick="{{ demoUnderstands }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;opacity:{{ demoOpacity }}">يفهم</button>
+          <button onClick="{{ demoConfused }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;opacity:{{ demoOpacity }}">محتار</button>
+          <button onClick="{{ demoWrong }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;opacity:{{ demoOpacity }}">خطأ</button>
+          <button onClick="{{ demoStrong }}" disabled="{{ demoDisabled }}" style="padding:10px;border-radius:10px;border:1px solid #3D4442;background:#2A2F2D;color:#fff;font-size:13px;opacity:{{ demoOpacity }}">قوي</button>
+        </div>
+      </div>
+    </sc-if>
+    <button onClick="{{ toggleDemo }}" style="padding:8px 12px;border-radius:999px;border:0;background:#23272A;color:#fff;font-size:12px;font-weight:600;opacity:.7" style-hover="opacity:1">{{ demoToggleLabel }}</button>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;pace&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;demo&quot;,&quot;options&quot;:[&quot;demo&quot;,&quot;fast&quot;],&quot;tsType&quot;:&quot;'demo'|'fast'&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;showEngineState&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Demo&quot;},&quot;autoStart&quot;:{&quot;editor&quot;:null,&quot;default&quot;:false,&quot;tsType&quot;:&quot;boolean&quot;},&quot;onBack&quot;:{&quot;editor&quot;:null,&quot;default&quot;:null,&quot;tsType&quot;:&quot;() =&gt; void&quot;}}">
+const H = [{l:'١/٢',v:'half',ok:true},{l:'١/٤',v:'quarter'}];
+const Q34 = [{l:'١/٤',ok:true},{l:'١/٢'},{l:'٣/٤'}];
+const CH = [{l:'ربع'},{l:'نصف',ok:true},{l:'ثلاثة أرباع'}];
+const X = [{l:'٣/٤',ok:true},{l:'١/٢'}];
+const STEPS = {
+  intro:{text:'هلا سلمان، اليوم بنفهم الكسور بطريقة بسيطة. قبل ما نبدأ، تعرف وش يعني النصف؟',visual:'pizzaHalf',listen:true},
+  a1:{text:'ممتاز 👏 لو قسمنا البيتزا نصين وأخذنا واحد، أخذنا نصفها.',visual:'pizzaHalf',next:'a2',mood:'encourage'},
+  a2:{text:'طيب، أي واحد أكبر؟',visual:'fractions',choices:H,onOk:'a3',onWrong:'c1',question:true,wrongLog:'أخطأ سلمان في مقارنة ١/٢ و١/٤، فأعاد المعلم الشرح بصريًا بدائرتين.'},
+  a3:{text:'صح عليك. خلنا نصعّبها شوي.',visual:'fractions',next:'h1',mood:'encourage',levelUp:true,log:'بعد الإجابة الصحيحة رفع المعلم مستوى السؤال.'},
+  h1:{text:'لو أكلت ٣ أرباع البيتزا، كم باقي لك؟',visual:'pizza34',choices:Q34,onOk:'h2',onWrong:'h1r',question:true,wrongLog:'أخطأ في السؤال الأعلى، فأعاد المعلم الشرح بطريقة العدّ.'},
+  h1r:{text:'خلنا نعدّها مع بعض. البيتزا ٤ أرباع، أكلنا ٣. باقي كم؟',visual:'pizza34',choices:Q34,onOk:'h2',onWrong:'h1r',retry:true},
+  h2:{text:'ممتاز، واضح إنك فهمت.',visual:'pizza34',next:'END',mood:'encourage',log:'أجاب سلمان على سؤال المستوى المتوسط بنجاح.'},
+  b1:{text:'عادي، خلنا نجربها بطريقة ثانية.',visual:'pizzaHalf',next:'b2',strategy:'chocolate_visual',adapt:'غيّر المثال: بيتزا ← شوكولاتة',log:'غيّر المعلم المثال من البيتزا إلى الشوكولاتة.'},
+  b2:{text:'عندنا ٤ قطع شوكولاتة. إذا أخذنا قطعة وحدة، أخذنا ١ من ٤. هذا نسميه رُبع.',visual:'chocOne',next:'b3'},
+  b3:{text:'لو أخذنا قطعتين من الأربع، أخذنا كم؟',visual:'chocPick',choices:CH,onOk:'b4',onWrong:'b3r',question:true,wrongLog:'أخطأ في سؤال الشوكولاتة، فوضّح المعلم العلاقة بين الربع والنصف.'},
+  b3r:{text:'قطعة وحدة = ربع. قطعتين = ضعف الربع. يعني كم؟',visual:'chocPick',choices:CH,onOk:'b4',onWrong:'b3r',retry:true},
+  b4:{text:'ممتاز. قطعتين من أربع يعني نصف الشوكولاتة.',visual:'chocTwo',next:'a2',mood:'encourage',log:'أعطى المعلم سؤالًا أبسط للتأكد من الفهم، وأجاب سلمان صحيحًا.'},
+  c1:{text:'خلنا نشوفها مع بعض.',visual:'compare',next:'c2',adapt:'أعاد الشرح بمقارنة بصرية',strategy:'side_by_side_compare'},
+  c2:{text:'أي واحدة أخذت جزءًا أكبر؟',visual:'comparePick',compare:true,question:true},
+  c2r:{text:'شوف الجزء المخطط في كل دائرة. أيهم أكبر؟',visual:'comparePick',compare:true,retry:true},
+  c3:{text:'بالضبط! شفت الفرق بنفسك.',visual:'compare',next:'h1',mood:'encourage',levelUp:true,log:'بعد المحاولة الثانية الصحيحة رفع المعلم مستوى السؤال.'},
+  x1:{text:'سؤال أخير: أي أكبر، ٣/٤ أو ١/٢؟',visual:'fractions34',choices:X,onOk:'x2',onWrong:'x1r',question:true},
+  x1r:{text:'٣ أرباع يعني ٣ قطع من ٤، والنصف قطعتين. أيهم أكثر؟',visual:'fractions34',choices:X,onOk:'x2',onWrong:'x1r',retry:true},
+  x2:{text:'ممتاز يا سلمان. خلصنا بقوة.',visual:'fractions34',next:'SUMMARY',mood:'encourage',log:'أجاب على السؤال الإضافي بنجاح.'}
+};
+const LEVELS=['أساسي','متوسط','متقدم'];
+const HATCH='repeating-linear-gradient(45deg,#2F6BD8 0 4px,transparent 4px 11px)';
+const CREAM='#FFF6DF';
+const RADII=['18px 22px 16px 24px/22px 16px 24px 18px','22px 16px 24px 18px/18px 24px 16px 22px','16px 24px 18px 22px/24px 18px 22px 16px'];
+const QPOS=[{top:'0',left:'50%'},{top:'50%',left:'50%'},{top:'50%',left:'0'},{top:'0',left:'0'}];
+
+class Component extends DCLogic {
+  state = {screen:'start',step:'intro',phase:'speaking',transcript:'',selected:[],log:[],visited:[],difficulty:1,strategy:'pizza_visual',understanding:'unknown',questions:0,correct:0,reexplain:0,demoOpen:false,adapt:null,startedAt:null,recording:false};
+  timers=[];
+  after(ms,fn){ const t=setTimeout(fn,ms*(this.props.pace==='fast'?0.45:1)); this.timers.push(t); }
+  clear(){ this.timers.forEach(clearTimeout); this.timers=[]; }
+  componentWillUnmount(){ this.clear(); }
+  componentDidMount(){ if(this.props.autoStart) this.setState({screen:'lesson',startedAt:Date.now()},()=>this.goto('intro')); }
+  goto(id,extra={}){
+    this.clear();
+    if(id==='END'){ this.setState({screen:'end',phase:'idle',adapt:null,...extra}); return; }
+    if(id==='SUMMARY'){ this.setState({screen:'summary',phase:'idle',adapt:null,...extra}); return; }
+    const st=STEPS[id]; const patch={step:id,phase:'speaking',transcript:'',selected:[],visited:[...this.state.visited,id],adapt:st.adapt||null,...extra};
+    if(st.levelUp){ patch.difficulty=Math.min(3,this.state.difficulty+1); patch.adapt='رفع المستوى ← '+LEVELS[patch.difficulty-1]; }
+    if(st.strategy) patch.strategy=st.strategy;
+    if(st.retry||id==='b1'||id==='c1') patch.reexplain=this.state.reexplain+1;
+    if(st.log) patch.log=[...(extra.log||this.state.log),st.log];
+    this.setState(patch,()=>{ this.after(Math.max(1800,st.text.length*55),()=>{ if(st.next) this.after(500,()=>this.goto(st.next)); else this.setState({phase:st.listen?'listening':'choosing'}); }); });
+  }
+  think(transcript,then){ this.clear(); this.setState({phase:'thinking',transcript,recording:false},()=>this.after(1600,then)); }
+  answerIntro(kind){
+    const map={
+      correct:{t:'يعني لما نقسم الشي نصين ونأخذ واحد',u:'good',go:'a1',log:'فهم سلمان مفهوم النصف من الشرح الأول.',c:1},
+      unclear:{t:'امم… مو متأكد',u:'unclear',go:'b1',log:'لم تكن إجابة سلمان واضحة، فغيّر المعلم طريقة الشرح.',c:0},
+      dontknow:{t:'ما أعرف',u:'confused',go:'b1',log:'سلمان لم يفهم النصف من الشرح الأول.',c:0},
+      strong:{t:'النصف واحد من اثنين، والربع أصغر منه',u:'strong',go:'a3',log:'أظهر سلمان فهمًا قويًا، فرفع المعلم المستوى مباشرة.',c:1}
+    }[kind];
+    this.think(map.t,()=>this.goto(map.go,{understanding:map.u,questions:this.state.questions+1,correct:this.state.correct+map.c,log:[...this.state.log,map.log]}));
+  }
+  pick(ch){
+    const st=STEPS[this.state.step]; const ok=!!ch.ok;
+    const patch={questions:this.state.questions+(st.retry?0:1),correct:this.state.correct+(ok?1:0),understanding:ok?'good':'partial'};
+    if(!ok&&st.wrongLog) patch.log=[...this.state.log,st.wrongLog];
+    this.think('اختار: '+ch.l,()=>this.goto(ok?st.onOk:st.onWrong,patch));
+  }
+  pickCompare(v){
+    const st=STEPS[this.state.step]; const ok=v==='half';
+    const patch={questions:this.state.questions+(st.retry?0:1),correct:this.state.correct+(ok?1:0),understanding:ok?'good':'partial'};
+    this.think('اختار الدائرة '+(ok?'الأولى':'الثانية'),()=>this.goto(ok?'c3':'c2r',patch));
+  }
+  demo(kind){
+    const {phase,step}=this.state; const st=STEPS[step];
+    if(this.state.screen!=='lesson'||(phase!=='listening'&&phase!=='choosing')) return;
+    if(st.listen){ this.answerIntro({understands:'correct',confused:'dontknow',wrong:'unclear',strong:'strong'}[kind]); return; }
+    if(st.compare){ this.pickCompare(kind==='wrong'||kind==='confused'?'quarter':'half'); return; }
+    if(st.choices){ const ok=kind==='understands'||kind==='strong'; this.pick(st.choices.find(c=>ok?c.ok:!c.ok)); }
+  }
+  quads(n){ return QPOS.map((p,i)=>({...p,bg:i<n?'transparent':CREAM})); }
+  renderVals(){
+    const s=this.state, st=STEPS[s.step]||STEPS.intro, ph=s.phase;
+    const speaking=ph==='speaking', listening=ph==='listening', thinking=ph==='thinking', choosing=ph==='choosing';
+    const v=st.visual, vis=s.visited;
+    const done=[vis.some(x=>['a1','b1','a3'].includes(x)),vis.some(x=>['a2','b4','a3'].includes(x)),vis.some(x=>['a3','c3'].includes(x)),vis.includes('h2'),s.screen==='end'||s.screen==='summary'];
+    const encourage=st.mood==='encourage'&&speaking;
+    const avatarEl=React.createElement('div',{key:s.step,style:{position:'absolute',inset:0,borderRadius:'50% 46% 54% 50%/52% 50% 48% 50%',border:'3px solid #23272A',background:'#fff',display:'grid',placeItems:'center',fontFamily:"'Baloo Bhaijaan 2'",fontSize:52,fontWeight:700,color:'#2F6BD8',boxShadow:'5px 5px 0 #E7EFFC',animation:encourage?'nod 1.2s ease-in-out infinite':speaking?'wobble 2.4s ease-in-out infinite':'none'}},'ن');
+    const ringEl=speaking?React.createElement('span',{key:'r'+s.step,style:{position:'absolute',inset:-8,borderRadius:'50%',border:'2px dashed #2F6BD8',animation:'ring 1.6s ease-out infinite'}}):null;
+    const waveEl=[0,1,2,3].map(i=>React.createElement('span',{key:i,style:{width:3,height:16,borderRadius:2,background:'#1F8A5B',animation:`wave ${0.9+i*0.13}s ease-in-out ${i*0.1}s infinite`}}));
+    const subtitleEl=React.createElement('div',{key:s.step,style:{fontFamily:"'Baloo Bhaijaan 2'",fontSize:34,lineHeight:1.45,fontWeight:600,color:'#23272A',textWrap:'pretty',animation:'fadeUp .45s ease',maxWidth:460}},st.text);
+    const thinkEl=React.createElement('span',{style:{display:'inline-flex',gap:6}},[0,1,2].map(i=>React.createElement('span',{key:i,style:{width:9,height:9,borderRadius:'50%',border:'2px solid #23272A',background:'#2F6BD8',animation:`dots 1.2s ${i*0.2}s infinite`}})));
+    const pizzaN=v==='pizzaHalf'?2:v==='pizza34'?3:0;
+    const sel=s.selected, chocMode=v==='chocPick';
+    const chocSquares=[0,1,2,3].map(i=>{ const lit=v==='chocOne'?i===0:v==='chocTwo'?i<2:sel.includes(i);
+      return {bg:lit?HATCH:'#8B5E3C',tf:lit?'rotate(-2deg) scale(.97)':'none',cursor:chocMode&&choosing?'pointer':'default',
+        onTap:()=>{ if(!(chocMode&&choosing)) return; this.setState({selected:sel.includes(i)?sel.filter(x=>x!==i):sel.length<2?[...sel,i]:sel}); }}; });
+    const canCompare=v==='comparePick'&&choosing;
+    const compareCircles=[{k:'half',label:'الأولى',n:2,hDisplay:'none'},{k:'quarter',label:'الثانية',n:1,hDisplay:'block'}].map(c=>({...c,quads:this.quads(c.n),cursor:canCompare?'pointer':'default',hoverTf:canCompare?'translateY(-4px) rotate(-1deg)':'none',onTap:()=>{ if(canCompare) this.pickCompare(c.k); }}));
+    const showChoices=choosing&&!!st.choices&&(!chocMode||sel.length===2);
+    const ratio=s.questions?s.correct/s.questions:0;
+    const mins=s.startedAt?Math.max(1,Math.round((Date.now()-s.startedAt)/60000)):1;
+    const demoActive=s.screen==='lesson'&&(listening||choosing);
+    return {
+      isStart:s.screen==='start',isLesson:s.screen==='lesson',isEnd:s.screen==='end',isSummary:s.screen==='summary',isListening:listening||s.recording,
+      hasBack:typeof this.props.onBack==='function',onBack:()=>{ this.clear(); if(this.props.onBack) this.props.onBack(); },
+      dotsList:done.map(d=>({bg:d?'#2F6BD8':'#fff'})),avatarEl,ringEl,waveEl,subtitleEl,thinkEl,
+      vPizza:v.startsWith('pizza'),pizzaQuads:this.quads(pizzaN),pizzaH:v==='pizza34'?'block':'none',
+      vFractions:v==='fractions'||v==='fractions34',fractionGlyphs:v==='fractions34'?[{n:'٣',d:'٤'},{n:'١',d:'٢'}]:[{n:'١',d:'٢'},{n:'١',d:'٤'}],
+      vChoc:v.startsWith('choc'),chocSquares,chocCaption:v==='chocOne'?'واحد من أربع':v==='chocTwo'?'اثنان من أربع':chocMode&&sel.length<2?'':'كم أخذنا؟',
+      vCompare:v.startsWith('compare'),compareCircles,
+      showEngine:!!this.props.showEngineState&&s.screen==='lesson',engineLine:`lvl ${s.difficulty} · ${s.understanding} · ${s.strategy}`,
+      hasAdaptChip:!!s.adapt,adaptText:s.adapt||'',
+      showMic:listening,micLabel:s.recording?'أسمعك…':'تكلّم',micBg:s.recording?'#1F8A5B':'#fff',micColor:s.recording?'#fff':'#23272A',
+      showTranscript:thinking&&!!s.transcript,transcript:s.transcript,
+      showChoices,choiceList:(st.choices||[]).map((c,i)=>({l:c.l,radius:RADII[i%3],delay:(i*0.08)+'s',onPick:()=>this.pick(c)})),
+      showThinking:thinking,showPickHint:choosing&&chocMode&&sel.length<2,
+      rating:ratio>=0.85?'ممتاز':ratio>=0.6?'أحسنت':'جيد',
+      stats:[{k:'دقائق',v:mins},{k:'أسئلة',v:s.questions},{k:'صحيحة',v:s.correct},{k:'المستوى',v:LEVELS[s.difficulty-1]}],
+      adaptLog:s.log.map((t,i)=>({i:i+1,t})),
+      demoOpen:s.demoOpen,demoToggleLabel:s.demoOpen?'إغلاق':'Demo',demoDisabled:!demoActive,demoOpacity:demoActive?1:0.4,
+      startLesson:()=>this.setState({screen:'lesson',startedAt:Date.now()},()=>this.goto('intro')),
+      tapMic:()=>{ if(!listening||s.recording) return; this.setState({recording:true},()=>this.after(1800,()=>this.answerIntro('correct'))); },
+      toggleDemo:()=>this.setState({demoOpen:!s.demoOpen}),
+      demoUnderstands:()=>this.demo('understands'),demoConfused:()=>this.demo('confused'),demoWrong:()=>this.demo('wrong'),demoStrong:()=>this.demo('strong'),
+      bonusQuestion:()=>this.setState({screen:'lesson'},()=>this.goto('x1')),
+      finishLesson:()=>this.goto('SUMMARY'),
+      restart:()=>{ this.clear(); this.setState({screen:'start',step:'intro',phase:'speaking',transcript:'',selected:[],log:[],visited:[],difficulty:1,strategy:'pizza_visual',understanding:'unknown',questions:0,correct:0,reexplain:0,adapt:null,startedAt:null,recording:false}); }
+    };
+  }
+}
+</script>
+</body>
+</html>
