@@ -1,0 +1,1055 @@
+{
+  "id": "g1en",
+  "title": "الحروف والألوان والأعداد",
+  "subject": "الإنجليزية",
+  "subjectId": "en",
+  "lang": "en",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "letters": [
+      [
+        {
+          "id": "l-1a",
+          "text": "الشكل الصغير لحرف A هو…",
+          "visual": {
+            "kind": "word",
+            "text": "A"
+          },
+          "choices": [
+            {
+              "l": "a",
+              "ok": true
+            },
+            {
+              "l": "e"
+            },
+            {
+              "l": "o"
+            }
+          ]
+        },
+        {
+          "id": "l-1b",
+          "text": "أول حرف في كلمة dog هو…",
+          "visual": {
+            "kind": "word",
+            "text": "dog",
+            "marks": [
+              0
+            ],
+            "caption": "🐶 كلب"
+          },
+          "choices": [
+            {
+              "l": "d",
+              "ok": true
+            },
+            {
+              "l": "b"
+            },
+            {
+              "l": "g"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "l-2a",
+          "text": "الحرف الناقص في كلمة s_n هو…",
+          "visual": {
+            "kind": "word",
+            "text": "s_n",
+            "marks": [
+              1
+            ],
+            "caption": "☀️ شمس"
+          },
+          "choices": [
+            {
+              "l": "u",
+              "ok": true
+            },
+            {
+              "l": "a"
+            },
+            {
+              "l": "o"
+            }
+          ]
+        },
+        {
+          "id": "l-2b",
+          "text": "الحرف الذي يأتي بعد B في الأبجدية هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "A"
+              },
+              {
+                "label": "B"
+              },
+              {
+                "label": "?"
+              }
+            ],
+            "highlight": 2
+          },
+          "choices": [
+            {
+              "l": "C",
+              "ok": true
+            },
+            {
+              "l": "D"
+            },
+            {
+              "l": "A"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "l-3a",
+          "text": "أي كلمة تبدأ بحرف m؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "map",
+                "icon": "🗺️"
+              },
+              {
+                "label": "cat",
+                "icon": "🐱"
+              },
+              {
+                "label": "pen",
+                "icon": "🖊️"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "map",
+              "ok": true
+            },
+            {
+              "l": "cat"
+            },
+            {
+              "l": "pen"
+            }
+          ]
+        },
+        {
+          "id": "l-3b",
+          "text": "كم حرفًا في كلمة book؟",
+          "visual": {
+            "kind": "word",
+            "text": "book",
+            "caption": "📖 كتاب"
+          },
+          "choices": [
+            {
+              "l": "four",
+              "ok": true
+            },
+            {
+              "l": "three"
+            },
+            {
+              "l": "five"
+            }
+          ]
+        }
+      ]
+    ],
+    "colours": [
+      [
+        {
+          "id": "c-1a",
+          "text": "اللون الأحمر بالإنجليزي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "red",
+                "icon": "🔴"
+              },
+              {
+                "label": "blue",
+                "icon": "🔵"
+              },
+              {
+                "label": "green",
+                "icon": "🟢"
+              }
+            ],
+            "highlight": 0
+          },
+          "choices": [
+            {
+              "l": "red",
+              "ok": true
+            },
+            {
+              "l": "blue"
+            },
+            {
+              "l": "green"
+            }
+          ]
+        },
+        {
+          "id": "c-1b",
+          "text": "اللون الأزرق بالإنجليزي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "blue",
+                "icon": "🔵"
+              },
+              {
+                "label": "yellow",
+                "icon": "🟡"
+              },
+              {
+                "label": "red",
+                "icon": "🔴"
+              }
+            ],
+            "highlight": 0
+          },
+          "choices": [
+            {
+              "l": "blue",
+              "ok": true
+            },
+            {
+              "l": "yellow"
+            },
+            {
+              "l": "red"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-2a",
+          "text": "الشمس sun لونها…",
+          "visual": {
+            "kind": "word",
+            "text": "sun",
+            "caption": "☀️"
+          },
+          "choices": [
+            {
+              "l": "yellow",
+              "ok": true
+            },
+            {
+              "l": "blue"
+            },
+            {
+              "l": "green"
+            }
+          ]
+        },
+        {
+          "id": "c-2b",
+          "text": "كلمة green تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "green",
+            "caption": "🟢"
+          },
+          "choices": [
+            {
+              "l": "أخضر",
+              "ok": true
+            },
+            {
+              "l": "أحمر"
+            },
+            {
+              "l": "أسود"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-3a",
+          "text": "black and white يعني…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "black",
+                "icon": "⚫"
+              },
+              {
+                "label": "white",
+                "icon": "⚪"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "أسود وأبيض",
+              "ok": true
+            },
+            {
+              "l": "أحمر وأزرق"
+            },
+            {
+              "l": "أخضر وأصفر"
+            }
+          ]
+        },
+        {
+          "id": "c-3b",
+          "text": "أي كلمة ليست لونًا؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "red"
+              },
+              {
+                "label": "cat"
+              },
+              {
+                "label": "blue"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "cat",
+              "ok": true
+            },
+            {
+              "l": "red"
+            },
+            {
+              "l": "blue"
+            }
+          ]
+        }
+      ]
+    ],
+    "numbers": [
+      [
+        {
+          "id": "n-1a",
+          "text": "كم تفاحة؟ بالإنجليزي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "🍎"
+              },
+              {
+                "label": "🍎"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "two",
+              "ok": true
+            },
+            {
+              "l": "one"
+            },
+            {
+              "l": "three"
+            }
+          ]
+        },
+        {
+          "id": "n-1b",
+          "text": "العدد 5 بالإنجليزي…",
+          "visual": {
+            "kind": "word",
+            "text": "5"
+          },
+          "choices": [
+            {
+              "l": "five",
+              "ok": true
+            },
+            {
+              "l": "four"
+            },
+            {
+              "l": "six"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "n-2a",
+          "text": "كم نجمة؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "⭐"
+              },
+              {
+                "label": "⭐"
+              },
+              {
+                "label": "⭐"
+              },
+              {
+                "label": "⭐"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "four",
+              "ok": true
+            },
+            {
+              "l": "three"
+            },
+            {
+              "l": "five"
+            }
+          ]
+        },
+        {
+          "id": "n-2b",
+          "text": "العدد الذي يأتي بعد seven هو…",
+          "visual": {
+            "kind": "word",
+            "text": "seven",
+            "caption": "7"
+          },
+          "choices": [
+            {
+              "l": "eight",
+              "ok": true
+            },
+            {
+              "l": "six"
+            },
+            {
+              "l": "nine"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "n-3a",
+          "text": "ten يساوي…",
+          "visual": {
+            "kind": "word",
+            "text": "ten"
+          },
+          "choices": [
+            {
+              "l": "10",
+              "ok": true
+            },
+            {
+              "l": "9"
+            },
+            {
+              "l": "8"
+            }
+          ]
+        },
+        {
+          "id": "n-3b",
+          "text": "three + two = ؟",
+          "visual": {
+            "kind": "word",
+            "text": "3 + 2 = ?"
+          },
+          "choices": [
+            {
+              "l": "five",
+              "ok": true
+            },
+            {
+              "l": "four"
+            },
+            {
+              "l": "six"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "c",
+        "ok": true
+      },
+      {
+        "l": "k"
+      },
+      {
+        "l": "s"
+      }
+    ],
+    "X": [
+      {
+        "l": "s",
+        "ok": true
+      },
+      {
+        "l": "n"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نتعلم إنجليزي مع بعض. قبل ما نبدأ: أول حرف في كلمة cat وش هو؟",
+      "visual": {
+        "kind": "word",
+        "text": "cat",
+        "marks": [
+          0
+        ],
+        "caption": "🐱 قطة"
+      },
+      "concept": "letters",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 حرف c. c… a… t: cat يعني قطة.",
+      "visual": {
+        "kind": "word",
+        "text": "cat",
+        "marks": [
+          0
+        ],
+        "caption": "🐱 قطة"
+      },
+      "concept": "letters",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "word",
+        "text": "cat",
+        "marks": [
+          0
+        ],
+        "caption": "🐱 قطة"
+      },
+      "concept": "letters",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بتهجئة الكلمة حرفًا حرفًا",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "نتهجّى مع بعض من اليسار: c… a… t. أول حرف سمعناه هو…",
+      "visual": {
+        "kind": "word",
+        "text": "cat",
+        "marks": [
+          0
+        ],
+        "caption": "🐱 قطة"
+      },
+      "concept": "letters",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "كـ… كـ… cat. أول حرف هو…",
+      "visual": {
+        "kind": "word",
+        "text": "cat",
+        "marks": [
+          0
+        ],
+        "caption": "🐱 قطة"
+      },
+      "concept": "letters",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، حرف c. الحين نكمل.",
+      "visual": {
+        "kind": "word",
+        "text": "cat",
+        "marks": [
+          0
+        ],
+        "caption": "🐱 قطة"
+      },
+      "concept": "letters",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "pool": "letters",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 تعرف الحروف الإنجليزية. الحين الألوان.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الحروف بنجاح."
+    },
+    "r1": {
+      "text": "قريب. الحروف الإنجليزية 26 حرفًا، ولكل حرف شكل كبير Capital وشكل صغير small: A a، B b، C c. ونقرأها من اليسار إلى اليمين.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "spell_slowly",
+      "adapt": "أعاد المعلم الحروف ببطء"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "letters",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الحروف."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "colours",
+      "pool": "colours",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، الألوان مضبوطة. باقي الأعداد.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "colours",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الألوان بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. red أحمر، blue أزرق، green أخضر، yellow أصفر، black أسود، white أبيض.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "colours",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "recite_colours",
+      "adapt": "أعاد المعلم الألوان الستة"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "colours",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الألوان."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "pool": "numbers",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت الحروف والألوان والأعداد.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الأعداد بنجاح."
+    },
+    "r3": {
+      "text": "قريب. نعدّ بالإنجليزي ببطء: one, two, three, four, five, six, seven, eight, nine, ten.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "count_aloud",
+      "adapt": "عدّ المعلم من one إلى ten ببطء"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الأعداد."
+    },
+    "x1": {
+      "text": "سؤال أخير: أول حرف في كلمة sun هو…",
+      "visual": {
+        "kind": "word",
+        "text": "sun",
+        "marks": [
+          0
+        ],
+        "caption": "☀️"
+      },
+      "concept": "letters",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "سـ… sun. أول حرف هو…",
+      "visual": {
+        "kind": "word",
+        "text": "sun",
+        "marks": [
+          0
+        ],
+        "caption": "☀️"
+      },
+      "concept": "letters",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "sun",
+        "marks": [
+          0
+        ],
+        "caption": "☀️"
+      },
+      "concept": "letters",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "سي",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… كي؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "c، وبعدها a وبعدها t",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت الحروف والألوان والأعداد بالإنجليزي كاملة.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم تعرفنا على الحروف الإنجليزية، والألوان، وعدّينا من one إلى ten.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن الحروف أو الألوان بالإنجليزي؟ أنا أسمعك.",
+    "scope": "الإنجليزية الصف الأول: الحروف الكبيرة والصغيرة وأصواتها، أول حرف في الكلمة، الألوان الأساسية، العد من one إلى ten. اشرح بالعربي وأعطِ الكلمة الإنجليزية."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "الحروف الإنجليزية 26 حرفًا، ولكل حرف شكل كبير وشكل صغير. ونقرأ الإنجليزي من اليسار إلى اليمين.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "A a",
+            "sub": "ay"
+          },
+          {
+            "label": "B b",
+            "sub": "bee"
+          },
+          {
+            "label": "C c",
+            "sub": "see"
+          }
+        ]
+      }
+    },
+    {
+      "text": "كل كلمة تبدأ بحرف: cat تبدأ بـ c، وdog تبدأ بـ d، وsun تبدأ بـ s.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "cat",
+            "icon": "🐱"
+          },
+          {
+            "label": "dog",
+            "icon": "🐶"
+          },
+          {
+            "label": "sun",
+            "icon": "☀️"
+          }
+        ]
+      }
+    },
+    {
+      "text": "الألوان: red أحمر، blue أزرق، green أخضر، yellow أصفر.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "red",
+            "icon": "🔴"
+          },
+          {
+            "label": "blue",
+            "icon": "🔵"
+          },
+          {
+            "label": "green",
+            "icon": "🟢"
+          },
+          {
+            "label": "yellow",
+            "icon": "🟡"
+          }
+        ]
+      }
+    },
+    {
+      "text": "نعدّ من واحد إلى خمسة: one, two, three, four, five.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "one",
+            "sub": "1"
+          },
+          {
+            "label": "two",
+            "sub": "2"
+          },
+          {
+            "label": "three",
+            "sub": "3"
+          },
+          {
+            "label": "four",
+            "sub": "4"
+          },
+          {
+            "label": "five",
+            "sub": "5"
+          }
+        ]
+      }
+    },
+    {
+      "text": "ومن ستة إلى عشرة: six, seven, eight, nine, ten.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "six",
+            "sub": "6"
+          },
+          {
+            "label": "seven",
+            "sub": "7"
+          },
+          {
+            "label": "eight",
+            "sub": "8"
+          },
+          {
+            "label": "nine",
+            "sub": "9"
+          },
+          {
+            "label": "ten",
+            "sub": "10"
+          }
+        ]
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الإنجليزية · الصف الأول الابتدائي · 10 دقائق",
+    "title": "الحروف والألوان والأعداد",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}

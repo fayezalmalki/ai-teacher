@@ -190,6 +190,8 @@ export interface LessonDefinition {
   title: string;
   subject: string;
   subjectId: string;
+  /** Language of the lesson's items (choices, cards). "en" keeps Western digits and lays answers out left-to-right. Default Arabic. */
+  lang?: "ar" | "en";
   teacher: string;
   durationLabel: string;
   /** Difficulty level labels, index = difficulty - 1. */

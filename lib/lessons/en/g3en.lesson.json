@@ -1,0 +1,972 @@
+{
+  "id": "g3en",
+  "title": "am, is, are والأسئلة",
+  "subject": "الإنجليزية",
+  "subjectId": "en",
+  "lang": "en",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "be": [
+      [
+        {
+          "id": "b-1a",
+          "text": "أكمل: She … a teacher.",
+          "visual": {
+            "kind": "word",
+            "text": "She … a teacher.",
+            "caption": "👩‍🏫"
+          },
+          "choices": [
+            {
+              "l": "is",
+              "ok": true
+            },
+            {
+              "l": "am"
+            },
+            {
+              "l": "are"
+            }
+          ]
+        },
+        {
+          "id": "b-1b",
+          "text": "أكمل: They … my friends.",
+          "visual": {
+            "kind": "word",
+            "text": "They … my friends.",
+            "caption": "👦👧"
+          },
+          "choices": [
+            {
+              "l": "are",
+              "ok": true
+            },
+            {
+              "l": "is"
+            },
+            {
+              "l": "am"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "b-2a",
+          "text": "أكمل: It … a cat.",
+          "visual": {
+            "kind": "word",
+            "text": "It … a cat.",
+            "caption": "🐱"
+          },
+          "choices": [
+            {
+              "l": "is",
+              "ok": true
+            },
+            {
+              "l": "are"
+            },
+            {
+              "l": "am"
+            }
+          ]
+        },
+        {
+          "id": "b-2b",
+          "text": "أكمل: We … happy. 😊",
+          "visual": {
+            "kind": "word",
+            "text": "We … happy.",
+            "caption": "😊"
+          },
+          "choices": [
+            {
+              "l": "are",
+              "ok": true
+            },
+            {
+              "l": "am"
+            },
+            {
+              "l": "is"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "b-3a",
+          "text": "الجملة الصحيحة هي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "He is tall."
+              },
+              {
+                "label": "He are tall."
+              },
+              {
+                "label": "He am tall."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "He is tall.",
+              "ok": true
+            },
+            {
+              "l": "He are tall."
+            },
+            {
+              "l": "He am tall."
+            }
+          ]
+        },
+        {
+          "id": "b-3b",
+          "text": "النفي الصحيح هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "I am not sad."
+              },
+              {
+                "label": "I not am sad."
+              },
+              {
+                "label": "I is not sad."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "I am not sad.",
+              "ok": true
+            },
+            {
+              "l": "I not am sad."
+            },
+            {
+              "l": "I is not sad."
+            }
+          ]
+        }
+      ]
+    ],
+    "plurals": [
+      [
+        {
+          "id": "p-1a",
+          "text": "جمع cat هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "cat",
+                "icon": "🐱"
+              },
+              {
+                "label": "?",
+                "icon": "🐱🐱"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "cats",
+              "ok": true
+            },
+            {
+              "l": "cates"
+            },
+            {
+              "l": "cat"
+            }
+          ]
+        },
+        {
+          "id": "p-1b",
+          "text": "جمع book هو…",
+          "visual": {
+            "kind": "word",
+            "text": "book → ?",
+            "caption": "📖📖"
+          },
+          "choices": [
+            {
+              "l": "books",
+              "ok": true
+            },
+            {
+              "l": "bookes"
+            },
+            {
+              "l": "book"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "p-2a",
+          "text": "جمع box هو…",
+          "visual": {
+            "kind": "word",
+            "text": "box → ?",
+            "caption": "📦📦"
+          },
+          "choices": [
+            {
+              "l": "boxes",
+              "ok": true
+            },
+            {
+              "l": "boxs"
+            },
+            {
+              "l": "box"
+            }
+          ]
+        },
+        {
+          "id": "p-2b",
+          "text": "جمع bus هو…",
+          "visual": {
+            "kind": "word",
+            "text": "bus → ?",
+            "caption": "🚌🚌"
+          },
+          "choices": [
+            {
+              "l": "buses",
+              "ok": true
+            },
+            {
+              "l": "buss"
+            },
+            {
+              "l": "bus"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "p-3a",
+          "text": "جمع child هو…",
+          "visual": {
+            "kind": "word",
+            "text": "child → ?",
+            "caption": "🧒🧒"
+          },
+          "choices": [
+            {
+              "l": "children",
+              "ok": true
+            },
+            {
+              "l": "childs"
+            },
+            {
+              "l": "childes"
+            }
+          ]
+        },
+        {
+          "id": "p-3b",
+          "text": "أكمل: Two … are on the desk. 🖊️🖊️",
+          "visual": {
+            "kind": "word",
+            "text": "Two … are on the desk.",
+            "caption": "🖊️🖊️"
+          },
+          "choices": [
+            {
+              "l": "pens",
+              "ok": true
+            },
+            {
+              "l": "pen"
+            },
+            {
+              "l": "penes"
+            }
+          ]
+        }
+      ]
+    ],
+    "questions": [
+      [
+        {
+          "id": "q-1a",
+          "text": "«What is this?» تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "What is this?",
+            "caption": "❓"
+          },
+          "choices": [
+            {
+              "l": "ما هذا؟",
+              "ok": true
+            },
+            {
+              "l": "أين هذا؟"
+            },
+            {
+              "l": "كم هذا؟"
+            }
+          ]
+        },
+        {
+          "id": "q-1b",
+          "text": "نسأل عن المكان بكلمة…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "Where"
+              },
+              {
+                "label": "What"
+              },
+              {
+                "label": "How"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "Where",
+              "ok": true
+            },
+            {
+              "l": "What"
+            },
+            {
+              "l": "How"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "q-2a",
+          "text": "… old are you? — I am nine.",
+          "visual": {
+            "kind": "word",
+            "text": "… old are you?",
+            "caption": "🎂 9"
+          },
+          "choices": [
+            {
+              "l": "How",
+              "ok": true
+            },
+            {
+              "l": "What"
+            },
+            {
+              "l": "Where"
+            }
+          ]
+        },
+        {
+          "id": "q-2b",
+          "text": "… is the cat? — Under the desk.",
+          "visual": {
+            "kind": "word",
+            "text": "… is the cat?",
+            "caption": "🐱 🪑"
+          },
+          "choices": [
+            {
+              "l": "Where",
+              "ok": true
+            },
+            {
+              "l": "What"
+            },
+            {
+              "l": "How many"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "q-3a",
+          "text": "… books do you have? — Three.",
+          "visual": {
+            "kind": "word",
+            "text": "… books do you have?",
+            "caption": "📖📖📖"
+          },
+          "choices": [
+            {
+              "l": "How many",
+              "ok": true
+            },
+            {
+              "l": "Where"
+            },
+            {
+              "l": "What"
+            }
+          ]
+        },
+        {
+          "id": "q-3b",
+          "text": "الجواب المناسب لـ «What is your name?» هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "My name is Sara."
+              },
+              {
+                "label": "I am nine."
+              },
+              {
+                "label": "In Riyadh."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "My name is Sara.",
+              "ok": true
+            },
+            {
+              "l": "I am nine."
+            },
+            {
+              "l": "In Riyadh."
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "am",
+        "ok": true
+      },
+      {
+        "l": "is"
+      },
+      {
+        "l": "are"
+      }
+    ],
+    "X": [
+      {
+        "l": "are",
+        "ok": true
+      },
+      {
+        "l": "is"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نراجع فعل «يكون» am, is, are والجمع والأسئلة. سؤال سريع: أكمل الجملة: I … a student.",
+      "visual": {
+        "kind": "word",
+        "text": "I … a student.",
+        "caption": "🧑‍🎓"
+      },
+      "concept": "be",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 I am a student: أنا طالب. مع I دائمًا am.",
+      "visual": {
+        "kind": "word",
+        "text": "I … a student.",
+        "caption": "🧑‍🎓"
+      },
+      "concept": "be",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "word",
+        "text": "I … a student.",
+        "caption": "🧑‍🎓"
+      },
+      "concept": "be",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بفعل «يكون» مع كل ضمير",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "الفعل يتغير مع الشخص: I am، You are، He is. أنا طالب: I … a student.",
+      "visual": {
+        "kind": "word",
+        "text": "I … a student.",
+        "caption": "🧑‍🎓"
+      },
+      "concept": "be",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "مع I نقول… am. I … a student.",
+      "visual": {
+        "kind": "word",
+        "text": "I … a student.",
+        "caption": "🧑‍🎓"
+      },
+      "concept": "be",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، I am. الحين نكمل.",
+      "visual": {
+        "kind": "word",
+        "text": "I … a student.",
+        "caption": "🧑‍🎓"
+      },
+      "concept": "be",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "be",
+      "pool": "be",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 فعل «يكون» مضبوط. الحين الجمع.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "be",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة am, is, are بنجاح."
+    },
+    "r1": {
+      "text": "قريب. مع I نقول am، ومع He وShe وIt نقول is، ومع You وWe وThey نقول are. I am، he is، they are.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "be",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "recite_be",
+      "adapt": "أعاد المعلم am, is, are مع الضمائر"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "be",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في am, is, are."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "plurals",
+      "pool": "plurals",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، الجمع مضبوط. باقي الأسئلة.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "plurals",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الجمع بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. للجمع نضيف s: cat → cats، book → books. وإذا انتهت الكلمة بـ s أو x أو ch أو sh نضيف es: box → boxes. وبعض الكلمات تتغير: child → children، man → men.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "plurals",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "plural_rule",
+      "adapt": "أعاد المعلم قاعدة الجمع بـ s وes"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "plurals",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الجمع."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "questions",
+      "pool": "questions",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت am, is, are والجمع والأسئلة.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "questions",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الأسئلة بنجاح."
+    },
+    "r3": {
+      "text": "قريب. كلمات السؤال: What وش، Where وين، How many كم، How old كم عمرك. What is this? هذا وش؟ Where is the cat? وين القطة؟",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "questions",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "question_words",
+      "adapt": "أعاد المعلم كلمات السؤال ومعانيها"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "questions",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الأسئلة."
+    },
+    "x1": {
+      "text": "سؤال أخير: أكمل: You … my friend. 🤝",
+      "visual": {
+        "kind": "word",
+        "text": "You … my friend.",
+        "caption": "🤝"
+      },
+      "concept": "be",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "مع You نقول… are. You … my friend.",
+      "visual": {
+        "kind": "word",
+        "text": "You … my friend.",
+        "caption": "🤝"
+      },
+      "concept": "be",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "You … my friend.",
+        "caption": "🤝"
+      },
+      "concept": "be",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "am",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… is؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "am، لأن مع I نقول am",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت am, is, are، وجمع الأسماء، وكلمات السؤال.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم راجعنا am, is, are مع الضمائر، وجمعنا الأسماء بـ s وes، وسألنا بـ What وWhere وHow many.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن am وis وare أو عن الجمع؟ أنا أسمعك.",
+    "scope": "الإنجليزية الصف الثالث: فعل to be مع الضمائر والنفي بـ not، جمع الأسماء بـ s وes والجموع الشاذة، كلمات السؤال What وWhere وHow many وHow old. اشرح بالعربي وأعطِ الأمثلة بالإنجليزي."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "فعل «يكون» يتغير مع الشخص: I am، You are، He is، She is، They are.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "I am",
+            "sub": "أنا"
+          },
+          {
+            "label": "You are",
+            "sub": "أنت"
+          },
+          {
+            "label": "He is",
+            "sub": "هو"
+          },
+          {
+            "label": "She is",
+            "sub": "هي"
+          },
+          {
+            "label": "They are",
+            "sub": "هم"
+          }
+        ]
+      }
+    },
+    {
+      "text": "والنفي نحط not بعده: I am not، He is not، They are not.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "I am not"
+          },
+          {
+            "label": "He is not"
+          },
+          {
+            "label": "They are not"
+          }
+        ]
+      }
+    },
+    {
+      "text": "للجمع نضيف s: cat → cats. وإذا انتهت بـ s أو x أو ch أو sh نضيف es: box → boxes.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "cats",
+            "icon": "🐱🐱"
+          },
+          {
+            "label": "books",
+            "icon": "📖📖"
+          },
+          {
+            "label": "boxes",
+            "icon": "📦📦"
+          }
+        ]
+      }
+    },
+    {
+      "text": "بعض الكلمات تتغير كلها في الجمع: child → children، man → men.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "children",
+            "sub": "child"
+          },
+          {
+            "label": "men",
+            "sub": "man"
+          }
+        ]
+      }
+    },
+    {
+      "text": "كلمات السؤال: What وش، Where وين، How many كم، How old كم عمرك.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "What",
+            "sub": "وش"
+          },
+          {
+            "label": "Where",
+            "sub": "وين"
+          },
+          {
+            "label": "How many",
+            "sub": "كم"
+          },
+          {
+            "label": "How old",
+            "sub": "كم عمرك"
+          }
+        ]
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الإنجليزية · الصف الثالث الابتدائي · 10 دقائق",
+    "title": "am, is, are والأسئلة",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}

@@ -10,7 +10,7 @@ export function gradeLabel(grade: number): string {
   return "الصف " + (GRADES[grade - 1] ?? GRADES[0]) + " الابتدائي";
 }
 
-export type Tone = "blue" | "green" | "amber" | "neutral";
+export type Tone = "blue" | "green" | "amber" | "neutral" | "rose";
 
 export interface Subject {
   id: string;
@@ -26,6 +26,7 @@ export const SUBJECTS: Subject[] = [
   { id: "ar", name: "لغتي", glyph: "ل", tone: "green", blurb: "حروف وحركات وجمل، نقرأها ونسمعها مع بعض." },
   { id: "sci", name: "العلوم", glyph: "ع", tone: "amber", blurb: "الماء والحواس والنبات: نشوف ونجرب ونفهم." },
   { id: "isl", name: "الدراسات الإسلامية", glyph: "د", tone: "neutral", blurb: "أركان وآداب وسور قصيرة بأسلوب بسيط." },
+  { id: "en", name: "الإنجليزية", glyph: "A", tone: "rose", blurb: "حروف وكلمات وجمل بالإنجليزي، والأستاذ نواف يشرح بالعربي." },
 ];
 
 /** done = finished by this child; today = the home's lesson; next = built and open; later = not built yet. */
@@ -81,6 +82,16 @@ export const LESSONS: Record<string, LessonEntry[]> = {
     { title: "سور قصيرة", meta: "", status: "later" },
     { title: "آداب الطعام", meta: "", status: "later" },
     { title: "الصدق", meta: "", status: "later" },
+  ],
+  en: [
+    { lessonId: "g1en", title: "الحروف والألوان والأعداد", meta: "الصف الأول · Letters, colours, numbers · 10 دقائق", status: "next", grade: 1 },
+    { lessonId: "g2en", title: "الكلمات والجمل البسيطة", meta: "الصف الثاني · Words and sentences · 10 دقائق", status: "next", grade: 2 },
+    { lessonId: "g3en", title: "am, is, are والأسئلة", meta: "الصف الثالث · Be, plurals, questions · 10 دقائق", status: "next", grade: 3 },
+    { lessonId: "g4en", title: "المضارع البسيط والوقت والأماكن", meta: "الصف الرابع · Present simple, time, places · 10 دقائق", status: "next", grade: 4 },
+    { lessonId: "g5en", title: "الماضي البسيط والمقارنة", meta: "الصف الخامس · Past simple, comparing, can · 10 دقائق", status: "next", grade: 5 },
+    { lessonId: "g6en", title: "المضارع المستمر والمستقبل والقراءة", meta: "الصف السادس · Tenses and reading · 10 دقائق", status: "next", grade: 6 },
+    { title: "الأيام والشهور", meta: "Days and months", status: "later" },
+    { title: "قصة قصيرة", meta: "A short story", status: "later" },
   ],
 };
 

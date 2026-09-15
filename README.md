@@ -58,13 +58,18 @@ removes children and shows this week's numbers computed from their history (`lib
 
 ## Lessons and levels
 
-Eighteen lessons ship across the four subjects and grades 1–6 plus 8. Grade 3: الكسور (the original graph),
+Twenty-four lessons ship across five subjects and grades 1–6 plus 8. Grade 3: الكسور (the original graph),
 الجمع والطرح, القياس, دورة الماء, الحواس الخمس, التنوين, أركان الإسلام. Exam-review lessons (three concepts each,
 authored with `scripts/author/builder.py` from a compact spec next to it): grade 1 الأعداد والجمع والطرح and
 الحروف والحركات; grade 2 الأعداد حتى 999 والجمع والطرح and النباتات والحيوانات والطقس; grade 4 الضرب والقسمة
 والكسور and المادة والحرارة والكهرباء; grade 5 الكسور العشرية والمساحة والبيانات and الجملة والفعل والهمزة; grade 6
 النسبة والأعداد الصحيحة والاحتمال and الخلية والنظام البيئي والفضاء; grade 8 البيانات والمعادلات (from a warraq.co
-term exam). Catalog entries carry a `grade`; "today's lesson" and the subject lists put the child's grade first.
+term exam). English (الإنجليزية, one lesson per grade 1–6, `lib/lessons/en/`): letters, colours and numbers; words
+and simple sentences; am/is/are, plurals and question words; present simple, time and prepositions; past simple,
+comparatives and can/should; present continuous, future and a short reading. Nawaf explains in Arabic, the items
+are English: an English lesson carries `"lang": "en"`, so answer buttons keep Western digits and read left-to-right,
+and `word` / `cards` visuals with Latin text lay out left-to-right on their own.
+Catalog entries carry a `grade`; "today's lesson" and the subject lists put the child's grade first.
 All but the first use
 **question pools**: a step with `"pool": "<concept>"` draws a question from `lesson.pools[concept][level - 1]`
 (first unasked, else the nearest lower level) and keeps drawing until its `askCount` correct answers. Answers on

@@ -19,6 +19,8 @@ export interface InteractionBarProps {
   introResponses?: Record<IntroAnswerKind, IntroResponse>;
   onIntroAnswer?: (kind: IntroAnswerKind) => void;
   choices?: Choice[];
+  /** Lesson language; "en" keeps choice labels left-to-right with Western digits. */
+  lang?: "ar" | "en";
   onPick?: (index: number) => void;
   transcript?: string;
   thinkingLabel?: string;
@@ -65,6 +67,7 @@ export default function InteractionBar({
   introResponses,
   onIntroAnswer,
   choices = [],
+  lang,
   onPick,
   transcript = "",
   thinkingLabel = "",
@@ -101,7 +104,7 @@ export default function InteractionBar({
           </div>
         </>
       )}
-      {mode === "choices" && <Choices choices={choices} onPick={(i) => onPick?.(i)} />}
+      {mode === "choices" && <Choices choices={choices} onPick={(i) => onPick?.(i)} lang={lang} />}
       {mode === "pickHint" && <div className="text-[17px] text-primary font-medium">المس قطعتين</div>}
     </div>
   );

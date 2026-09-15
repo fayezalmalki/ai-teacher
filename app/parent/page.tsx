@@ -19,7 +19,7 @@ import { isParentUnlocked } from "@/lib/store/parent-gate";
 import { initialOf } from "@/lib/store/state";
 import { useAppStore, type ChildProfile } from "@/lib/store/app-store";
 
-const BAR: Record<Tone, string> = { blue: "bg-primary", green: "bg-success", amber: "bg-yellow", neutral: "bg-ink" };
+const BAR: Record<Tone, string> = { blue: "bg-primary", green: "bg-success", amber: "bg-yellow", neutral: "bg-ink", rose: "bg-rose" };
 const RATING: Record<"green" | "amber", string> = { green: "text-success", amber: "text-warning" };
 
 function Toggle({ on, onClick, label }: { on: boolean; onClick: () => void; label: string }) {

@@ -1,0 +1,982 @@
+{
+  "id": "g4en",
+  "title": "المضارع البسيط والوقت والأماكن",
+  "subject": "الإنجليزية",
+  "subjectId": "en",
+  "lang": "en",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "present": [
+      [
+        {
+          "id": "t-1a",
+          "text": "أكمل: I … football every Friday. ⚽",
+          "visual": {
+            "kind": "word",
+            "text": "I … football every Friday.",
+            "caption": "⚽"
+          },
+          "choices": [
+            {
+              "l": "play",
+              "ok": true
+            },
+            {
+              "l": "plays"
+            },
+            {
+              "l": "playing"
+            }
+          ]
+        },
+        {
+          "id": "t-1b",
+          "text": "أكمل: He … milk. 🥛",
+          "visual": {
+            "kind": "word",
+            "text": "He … milk.",
+            "caption": "🥛"
+          },
+          "choices": [
+            {
+              "l": "drinks",
+              "ok": true
+            },
+            {
+              "l": "drink"
+            },
+            {
+              "l": "drinking"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "t-2a",
+          "text": "النفي الصحيح: I … like fish.",
+          "visual": {
+            "kind": "word",
+            "text": "I … like fish.",
+            "caption": "🐟 ❌"
+          },
+          "choices": [
+            {
+              "l": "don't",
+              "ok": true
+            },
+            {
+              "l": "doesn't"
+            },
+            {
+              "l": "not"
+            }
+          ]
+        },
+        {
+          "id": "t-2b",
+          "text": "النفي الصحيح: She … eat meat.",
+          "visual": {
+            "kind": "word",
+            "text": "She … eat meat.",
+            "caption": "🥩 ❌"
+          },
+          "choices": [
+            {
+              "l": "doesn't",
+              "ok": true
+            },
+            {
+              "l": "don't"
+            },
+            {
+              "l": "not"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "t-3a",
+          "text": "السؤال الصحيح هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "Does he play?"
+              },
+              {
+                "label": "Do he play?"
+              },
+              {
+                "label": "Does he plays?"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "Does he play?",
+              "ok": true
+            },
+            {
+              "l": "Do he play?"
+            },
+            {
+              "l": "Does he plays?"
+            }
+          ]
+        },
+        {
+          "id": "t-3b",
+          "text": "أكمل: My father … in a hospital. 🏥",
+          "visual": {
+            "kind": "word",
+            "text": "My father … in a hospital.",
+            "caption": "🏥"
+          },
+          "choices": [
+            {
+              "l": "works",
+              "ok": true
+            },
+            {
+              "l": "work"
+            },
+            {
+              "l": "working"
+            }
+          ]
+        }
+      ]
+    ],
+    "time": [
+      [
+        {
+          "id": "m-1a",
+          "text": "«It's three o'clock» تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "3:00",
+            "caption": "🕒"
+          },
+          "choices": [
+            {
+              "l": "الساعة ثلاث",
+              "ok": true
+            },
+            {
+              "l": "الساعة ثلاث ونص"
+            },
+            {
+              "l": "الساعة ثلاث وربع"
+            }
+          ]
+        },
+        {
+          "id": "m-1b",
+          "text": "يوم الجمعة بالإنجليزي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "Friday"
+              },
+              {
+                "label": "Thursday"
+              },
+              {
+                "label": "Saturday"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "Friday",
+              "ok": true
+            },
+            {
+              "l": "Thursday"
+            },
+            {
+              "l": "Saturday"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "m-2a",
+          "text": "الساعة 3:30 نقول…",
+          "visual": {
+            "kind": "word",
+            "text": "3:30",
+            "caption": "🕞"
+          },
+          "choices": [
+            {
+              "l": "half past three",
+              "ok": true
+            },
+            {
+              "l": "three o'clock"
+            },
+            {
+              "l": "quarter past three"
+            }
+          ]
+        },
+        {
+          "id": "m-2b",
+          "text": "اليوم الذي يأتي بعد Monday هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "Monday",
+                "sub": "الاثنين"
+              },
+              {
+                "label": "Tuesday",
+                "sub": "الثلاثاء"
+              },
+              {
+                "label": "Wednesday",
+                "sub": "الأربعاء"
+              },
+              {
+                "label": "Thursday",
+                "sub": "الخميس"
+              },
+              {
+                "label": "Friday",
+                "sub": "الجمعة"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "Tuesday",
+              "ok": true
+            },
+            {
+              "l": "Sunday"
+            },
+            {
+              "l": "Wednesday"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "m-3a",
+          "text": "الساعة 7:15 نقول…",
+          "visual": {
+            "kind": "word",
+            "text": "7:15",
+            "caption": "🕖"
+          },
+          "choices": [
+            {
+              "l": "quarter past seven",
+              "ok": true
+            },
+            {
+              "l": "half past seven"
+            },
+            {
+              "l": "seven o'clock"
+            }
+          ]
+        },
+        {
+          "id": "m-3b",
+          "text": "نسأل عن الوقت بـ…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "What time is it?"
+              },
+              {
+                "label": "Where is it?"
+              },
+              {
+                "label": "How old is it?"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "What time is it?",
+              "ok": true
+            },
+            {
+              "l": "Where is it?"
+            },
+            {
+              "l": "How old is it?"
+            }
+          ]
+        }
+      ]
+    ],
+    "places": [
+      [
+        {
+          "id": "l-1a",
+          "text": "الكتاب على المكتب: The book is … the desk.",
+          "visual": {
+            "kind": "word",
+            "text": "The book is … the desk.",
+            "caption": "📖 فوق 🪑"
+          },
+          "choices": [
+            {
+              "l": "on",
+              "ok": true
+            },
+            {
+              "l": "in"
+            },
+            {
+              "l": "under"
+            }
+          ]
+        },
+        {
+          "id": "l-1b",
+          "text": "القلم في الحقيبة: The pen is … the bag.",
+          "visual": {
+            "kind": "word",
+            "text": "The pen is … the bag.",
+            "caption": "🖊️ داخل 🎒"
+          },
+          "choices": [
+            {
+              "l": "in",
+              "ok": true
+            },
+            {
+              "l": "on"
+            },
+            {
+              "l": "under"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "l-2a",
+          "text": "القطة تحت الطاولة: The cat is … the table.",
+          "visual": {
+            "kind": "word",
+            "text": "The cat is … the table.",
+            "caption": "🐱 تحت"
+          },
+          "choices": [
+            {
+              "l": "under",
+              "ok": true
+            },
+            {
+              "l": "on"
+            },
+            {
+              "l": "next to"
+            }
+          ]
+        },
+        {
+          "id": "l-2b",
+          "text": "«next to» تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "next to"
+          },
+          "choices": [
+            {
+              "l": "بجانب",
+              "ok": true
+            },
+            {
+              "l": "تحت"
+            },
+            {
+              "l": "بين"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "l-3a",
+          "text": "الكرة بين الكرسيين: The ball is … the chairs.",
+          "visual": {
+            "kind": "word",
+            "text": "The ball is … the chairs.",
+            "caption": "🪑⚽🪑"
+          },
+          "choices": [
+            {
+              "l": "between",
+              "ok": true
+            },
+            {
+              "l": "under"
+            },
+            {
+              "l": "in"
+            }
+          ]
+        },
+        {
+          "id": "l-3b",
+          "text": "أين القطة؟ Where is the cat? — It is … the box. 📦🐱",
+          "visual": {
+            "kind": "word",
+            "text": "It is … the box.",
+            "caption": "🐱 داخل 📦"
+          },
+          "choices": [
+            {
+              "l": "in",
+              "ok": true
+            },
+            {
+              "l": "on"
+            },
+            {
+              "l": "between"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "goes",
+        "ok": true
+      },
+      {
+        "l": "go"
+      },
+      {
+        "l": "going"
+      }
+    ],
+    "X": [
+      {
+        "l": "study",
+        "ok": true
+      },
+      {
+        "l": "studies"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نراجع المضارع البسيط والوقت والأماكن. سؤال سريع: أكمل: She … to school every day.",
+      "visual": {
+        "kind": "word",
+        "text": "She … to school every day.",
+        "caption": "🏫"
+      },
+      "concept": "present",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 She goes to school: مع He وShe وIt نضيف s للفعل.",
+      "visual": {
+        "kind": "word",
+        "text": "She … to school every day.",
+        "caption": "🏫"
+      },
+      "concept": "present",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "word",
+        "text": "She … to school every day.",
+        "caption": "🏫"
+      },
+      "concept": "present",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بقاعدة الـ s مع He/She/It",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "في المضارع البسيط: I go، You go، لكن She go…s. أكمل: She … to school.",
+      "visual": {
+        "kind": "word",
+        "text": "She … to school every day.",
+        "caption": "🏫"
+      },
+      "concept": "present",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "مع She نضيف s: go + s = … She … to school.",
+      "visual": {
+        "kind": "word",
+        "text": "She … to school every day.",
+        "caption": "🏫"
+      },
+      "concept": "present",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، goes. الحين نكمل.",
+      "visual": {
+        "kind": "word",
+        "text": "She … to school every day.",
+        "caption": "🏫"
+      },
+      "concept": "present",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "present",
+      "pool": "present",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 المضارع البسيط مضبوط. الحين الوقت والأيام.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "present",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة المضارع البسيط بنجاح."
+    },
+    "r1": {
+      "text": "قريب. المضارع البسيط للعادات: I play every day. مع He وShe وIt نضيف s: He plays. والنفي: I don't play، She doesn't play. والسؤال: Do you play? Does she play?",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "present",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "present_rule",
+      "adapt": "أعاد المعلم قاعدة المضارع البسيط والنفي"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "present",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في المضارع البسيط."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "time",
+      "pool": "time",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، الوقت والأيام مضبوطة. باقي الأماكن.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "time",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الوقت والأيام بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. نسأل عن الوقت: What time is it? ونجاوب: It's three o'clock الساعة ثلاث. والنص: half past three، والربع: quarter past three. وأيام الأسبوع تبدأ بحرف كبير: Sunday، Monday…",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "time",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "time_rule",
+      "adapt": "أعاد المعلم قراءة الساعة وأيام الأسبوع"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "time",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الوقت والأيام."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "places",
+      "pool": "places",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت المضارع البسيط والوقت والأماكن.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "places",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الأماكن بنجاح."
+    },
+    "r3": {
+      "text": "قريب. حروف المكان: in في (داخل)، on على (فوق السطح)، under تحت، next to بجانب، between بين. The cat is under the desk: القطة تحت المكتب.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "places",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "prepositions",
+      "adapt": "أعاد المعلم حروف المكان مع الصور"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "places",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الأماكن."
+    },
+    "x1": {
+      "text": "سؤال أخير: أكمل: We … English on Sunday.",
+      "visual": {
+        "kind": "word",
+        "text": "We … English on Sunday.",
+        "caption": "📚"
+      },
+      "concept": "present",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "مع We ما نضيف s. We … English.",
+      "visual": {
+        "kind": "word",
+        "text": "We … English on Sunday.",
+        "caption": "📚"
+      },
+      "concept": "present",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "We … English on Sunday.",
+        "caption": "📚"
+      },
+      "concept": "present",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "goes",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… go؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "goes، لأن مع She نضيف s",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت المضارع البسيط، والوقت والأيام، وحروف المكان.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم راجعنا المضارع البسيط والـ s مع He وShe، وقرأنا الساعة والأيام، وعرفنا in وon وunder.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن المضارع البسيط أو الساعة؟ أنا أسمعك.",
+    "scope": "الإنجليزية الصف الرابع: المضارع البسيط مع s للغائب والنفي بـ don't/doesn't والسؤال بـ Do/Does، قراءة الساعة o'clock وhalf past وquarter past، أيام الأسبوع، حروف المكان in وon وunder وnext to وbetween. اشرح بالعربي وأعطِ الأمثلة بالإنجليزي."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "المضارع البسيط للعادات اليومية: I play، You play، لكن مع He وShe وIt نضيف s: He plays.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "I play",
+            "sub": "أنا ألعب"
+          },
+          {
+            "label": "He plays",
+            "sub": "هو يلعب"
+          },
+          {
+            "label": "She goes",
+            "sub": "هي تذهب"
+          }
+        ]
+      }
+    },
+    {
+      "text": "النفي: I don't play، She doesn't play. والسؤال: Do you play? Does she play?",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "I don't play."
+          },
+          {
+            "label": "She doesn't play."
+          },
+          {
+            "label": "Does she play?"
+          }
+        ]
+      }
+    },
+    {
+      "text": "الوقت: What time is it? It's three o'clock. والنص half past، والربع quarter past.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "3:00",
+            "sub": "three o'clock"
+          },
+          {
+            "label": "3:15",
+            "sub": "quarter past three"
+          },
+          {
+            "label": "3:30",
+            "sub": "half past three"
+          }
+        ]
+      }
+    },
+    {
+      "text": "أيام الأسبوع تبدأ بحرف كبير: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "Monday",
+            "sub": "الاثنين"
+          },
+          {
+            "label": "Tuesday",
+            "sub": "الثلاثاء"
+          },
+          {
+            "label": "Wednesday",
+            "sub": "الأربعاء"
+          },
+          {
+            "label": "Thursday",
+            "sub": "الخميس"
+          },
+          {
+            "label": "Friday",
+            "sub": "الجمعة"
+          }
+        ]
+      }
+    },
+    {
+      "text": "حروف المكان: in في، on على، under تحت، next to بجانب.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "in",
+            "icon": "📦",
+            "sub": "في"
+          },
+          {
+            "label": "on",
+            "icon": "🪑",
+            "sub": "على"
+          },
+          {
+            "label": "under",
+            "icon": "⬇️",
+            "sub": "تحت"
+          },
+          {
+            "label": "next to",
+            "icon": "↔️",
+            "sub": "بجانب"
+          }
+        ]
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الإنجليزية · الصف الرابع الابتدائي · 10 دقائق",
+    "title": "المضارع البسيط والوقت والأماكن",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}

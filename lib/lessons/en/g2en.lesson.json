@@ -1,0 +1,980 @@
+{
+  "id": "g2en",
+  "title": "الكلمات والجمل البسيطة",
+  "subject": "الإنجليزية",
+  "subjectId": "en",
+  "lang": "en",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "words": [
+      [
+        {
+          "id": "w-1a",
+          "text": "كلمة mother تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "mother",
+            "caption": "👩"
+          },
+          "choices": [
+            {
+              "l": "أم",
+              "ok": true
+            },
+            {
+              "l": "أب"
+            },
+            {
+              "l": "أخت"
+            }
+          ]
+        },
+        {
+          "id": "w-1b",
+          "text": "القلم بالإنجليزي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "pen",
+                "icon": "🖊️"
+              },
+              {
+                "label": "bag",
+                "icon": "🎒"
+              },
+              {
+                "label": "book",
+                "icon": "📖"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "pen",
+              "ok": true
+            },
+            {
+              "l": "bag"
+            },
+            {
+              "l": "book"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "w-2a",
+          "text": "أي كلمة تعني «أخ»؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "brother"
+              },
+              {
+                "label": "sister"
+              },
+              {
+                "label": "father"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "brother",
+              "ok": true
+            },
+            {
+              "l": "sister"
+            },
+            {
+              "l": "father"
+            }
+          ]
+        },
+        {
+          "id": "w-2b",
+          "text": "الطائر 🐦 بالإنجليزي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "bird",
+                "icon": "🐦"
+              },
+              {
+                "label": "fish",
+                "icon": "🐟"
+              },
+              {
+                "label": "cat",
+                "icon": "🐱"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "bird",
+              "ok": true
+            },
+            {
+              "l": "fish"
+            },
+            {
+              "l": "cat"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "w-3a",
+          "text": "أي كلمة ليست من العائلة؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "father"
+              },
+              {
+                "label": "sister"
+              },
+              {
+                "label": "desk"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "desk",
+              "ok": true
+            },
+            {
+              "l": "father"
+            },
+            {
+              "l": "sister"
+            }
+          ]
+        },
+        {
+          "id": "w-3b",
+          "text": "الكلمة التي تعني «حقيبة» هي…",
+          "visual": {
+            "kind": "word",
+            "text": "b_g",
+            "marks": [
+              1
+            ],
+            "caption": "🎒"
+          },
+          "choices": [
+            {
+              "l": "bag",
+              "ok": true
+            },
+            {
+              "l": "big"
+            },
+            {
+              "l": "bug"
+            }
+          ]
+        }
+      ]
+    ],
+    "sentences": [
+      [
+        {
+          "id": "s-1a",
+          "text": "This is a … 🐱",
+          "visual": {
+            "kind": "word",
+            "text": "This is a …",
+            "caption": "🐱"
+          },
+          "choices": [
+            {
+              "l": "cat",
+              "ok": true
+            },
+            {
+              "l": "book"
+            },
+            {
+              "l": "pen"
+            }
+          ]
+        },
+        {
+          "id": "s-1b",
+          "text": "جملة This is a bag تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "This is a bag.",
+            "caption": "🎒"
+          },
+          "choices": [
+            {
+              "l": "هذه حقيبة",
+              "ok": true
+            },
+            {
+              "l": "هذا كتاب"
+            },
+            {
+              "l": "هذا قلم"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "s-2a",
+          "text": "نقول: … apple 🍎",
+          "visual": {
+            "kind": "word",
+            "text": "… apple",
+            "caption": "🍎"
+          },
+          "choices": [
+            {
+              "l": "an",
+              "ok": true
+            },
+            {
+              "l": "a"
+            },
+            {
+              "l": "the"
+            }
+          ]
+        },
+        {
+          "id": "s-2b",
+          "text": "أكمل: I … a pen.",
+          "visual": {
+            "kind": "word",
+            "text": "I … a pen.",
+            "caption": "🖊️"
+          },
+          "choices": [
+            {
+              "l": "have",
+              "ok": true
+            },
+            {
+              "l": "am"
+            },
+            {
+              "l": "is"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "s-3a",
+          "text": "اختر الجملة المرتبة:",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "This is a dog."
+              },
+              {
+                "label": "Dog a this is."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "This is a dog.",
+              "ok": true
+            },
+            {
+              "l": "Dog a this is."
+            }
+          ]
+        },
+        {
+          "id": "s-3b",
+          "text": "أكمل: My … is a doctor. 👩‍⚕️",
+          "visual": {
+            "kind": "word",
+            "text": "My … is a doctor.",
+            "caption": "👩‍⚕️ أمي"
+          },
+          "choices": [
+            {
+              "l": "mother",
+              "ok": true
+            },
+            {
+              "l": "book"
+            },
+            {
+              "l": "cat"
+            }
+          ]
+        }
+      ]
+    ],
+    "numbers": [
+      [
+        {
+          "id": "n-1a",
+          "text": "How many? 🍎🍎🍎",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "🍎"
+              },
+              {
+                "label": "🍎"
+              },
+              {
+                "label": "🍎"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "three",
+              "ok": true
+            },
+            {
+              "l": "two"
+            },
+            {
+              "l": "four"
+            }
+          ]
+        },
+        {
+          "id": "n-1b",
+          "text": "العدد 12 بالإنجليزي…",
+          "visual": {
+            "kind": "word",
+            "text": "12"
+          },
+          "choices": [
+            {
+              "l": "twelve",
+              "ok": true
+            },
+            {
+              "l": "eleven"
+            },
+            {
+              "l": "twenty"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "n-2a",
+          "text": "twenty يساوي…",
+          "visual": {
+            "kind": "word",
+            "text": "twenty"
+          },
+          "choices": [
+            {
+              "l": "20",
+              "ok": true
+            },
+            {
+              "l": "12"
+            },
+            {
+              "l": "2"
+            }
+          ]
+        },
+        {
+          "id": "n-2b",
+          "text": "العدد الذي يأتي بعد ten هو…",
+          "visual": {
+            "kind": "word",
+            "text": "ten",
+            "caption": "10"
+          },
+          "choices": [
+            {
+              "l": "eleven",
+              "ok": true
+            },
+            {
+              "l": "twelve"
+            },
+            {
+              "l": "nine"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "n-3a",
+          "text": "fifteen يساوي…",
+          "visual": {
+            "kind": "word",
+            "text": "fifteen"
+          },
+          "choices": [
+            {
+              "l": "15",
+              "ok": true
+            },
+            {
+              "l": "50"
+            },
+            {
+              "l": "5"
+            }
+          ]
+        },
+        {
+          "id": "n-3b",
+          "text": "ten + ten = ؟",
+          "visual": {
+            "kind": "word",
+            "text": "10 + 10 = ?"
+          },
+          "choices": [
+            {
+              "l": "twenty",
+              "ok": true
+            },
+            {
+              "l": "twelve"
+            },
+            {
+              "l": "eleven"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "كتاب",
+        "ok": true
+      },
+      {
+        "l": "قلم"
+      },
+      {
+        "l": "حقيبة"
+      }
+    ],
+    "X": [
+      {
+        "l": "dog",
+        "ok": true
+      },
+      {
+        "l": "cat"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نراجع كلمات وجمل بالإنجليزي. سؤال سريع: كلمة book معناها…",
+      "visual": {
+        "kind": "word",
+        "text": "book",
+        "caption": "📖"
+      },
+      "concept": "words",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 book يعني كتاب. This is a book: هذا كتاب.",
+      "visual": {
+        "kind": "word",
+        "text": "book",
+        "caption": "📖"
+      },
+      "concept": "words",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "word",
+        "text": "book",
+        "caption": "📖"
+      },
+      "concept": "words",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بكلمات المدرسة واحدة واحدة",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "شوف الصورة: 📖. نقرأ فيه ونحمله للمدرسة. book هو…",
+      "visual": {
+        "kind": "word",
+        "text": "book",
+        "caption": "📖"
+      },
+      "concept": "words",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "book… 📖… الشيء الذي نقرأ فيه هو…",
+      "visual": {
+        "kind": "word",
+        "text": "book",
+        "caption": "📖"
+      },
+      "concept": "words",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، book كتاب. الحين نكمل.",
+      "visual": {
+        "kind": "word",
+        "text": "book",
+        "caption": "📖"
+      },
+      "concept": "words",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "words",
+      "pool": "words",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 كلماتك ممتازة. الحين الجمل.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "words",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الكلمات بنجاح."
+    },
+    "r1": {
+      "text": "قريب. كلمات العائلة: father أب، mother أم، brother أخ، sister أخت. وكلمات المدرسة: book كتاب، pen قلم، bag حقيبة. والحيوانات: cat قطة، dog كلب، bird طائر.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "words",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "recite_words",
+      "adapt": "أعاد المعلم الكلمات مع الصور"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "words",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الكلمات."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "sentences",
+      "pool": "sentences",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، جملك مرتبة. باقي الأعداد.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "sentences",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الجمل بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. الجملة البسيطة: This is a book هذا كتاب. وقبل الاسم نحط a، وإذا بدأ بصوت a e i o u نحط an: an apple. وأنا عندي: I have a pen.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "sentences",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "sentence_pattern",
+      "adapt": "أعاد المعلم نمط الجملة This is a…"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "sentences",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الجمل."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "pool": "numbers",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت الكلمات والجمل والأعداد.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الأعداد بنجاح."
+    },
+    "r3": {
+      "text": "قريب. بعد ten نكمل: eleven 11، twelve 12، thirteen 13… عشرين twenty. ونسأل كم: How many? ونجاوب بالعدد.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "count_aloud",
+      "adapt": "عدّ المعلم من eleven إلى twenty ببطء"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "numbers",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الأعداد."
+    },
+    "x1": {
+      "text": "سؤال أخير: This is a … 🐶",
+      "visual": {
+        "kind": "word",
+        "text": "This is a …",
+        "caption": "🐶"
+      },
+      "concept": "sentences",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "🐶 كلب بالإنجليزي… This is a…",
+      "visual": {
+        "kind": "word",
+        "text": "This is a …",
+        "caption": "🐶"
+      },
+      "concept": "sentences",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "This is a …",
+        "caption": "🐶"
+      },
+      "concept": "sentences",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "كتاب",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… قلم؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "كتاب، وpen قلم",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت كلمات العائلة والمدرسة، والجمل البسيطة، والأعداد حتى 20.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم راجعنا كلمات العائلة والمدرسة، وركّبنا جملًا بـ This is a…، وعدّينا إلى twenty.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن كلمة أو جملة بالإنجليزي؟ أنا أسمعك.",
+    "scope": "الإنجليزية الصف الثاني: كلمات العائلة والمدرسة والحيوانات، الجملة البسيطة This is a / I have a، أداتا a وan، الأعداد من eleven إلى twenty وسؤال How many. اشرح بالعربي وأعطِ الكلمة الإنجليزية."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "كلمات العائلة: father أب، mother أم، brother أخ، sister أخت.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "father",
+            "icon": "👨",
+            "sub": "أب"
+          },
+          {
+            "label": "mother",
+            "icon": "👩",
+            "sub": "أم"
+          },
+          {
+            "label": "brother",
+            "icon": "👦",
+            "sub": "أخ"
+          },
+          {
+            "label": "sister",
+            "icon": "👧",
+            "sub": "أخت"
+          }
+        ]
+      }
+    },
+    {
+      "text": "كلمات المدرسة: book كتاب، pen قلم، bag حقيبة، desk مكتب.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "book",
+            "icon": "📖"
+          },
+          {
+            "label": "pen",
+            "icon": "🖊️"
+          },
+          {
+            "label": "bag",
+            "icon": "🎒"
+          },
+          {
+            "label": "desk",
+            "icon": "🪑"
+          }
+        ]
+      }
+    },
+    {
+      "text": "الجملة البسيطة: This is a book يعني هذا كتاب. وقبل الاسم نحط a، وإذا بدأ بصوت a e i o u نحط an: an apple.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "a book",
+            "icon": "📖"
+          },
+          {
+            "label": "an apple",
+            "icon": "🍎"
+          }
+        ]
+      }
+    },
+    {
+      "text": "عندي كذا: I have a pen. I have a bag.",
+      "visual": {
+        "kind": "word",
+        "text": "I have a pen.",
+        "caption": "🖊️"
+      }
+    },
+    {
+      "text": "الأعداد من 11 إلى 20: eleven, twelve, thirteen, fourteen, fifteen… twenty.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "eleven",
+            "sub": "11"
+          },
+          {
+            "label": "twelve",
+            "sub": "12"
+          },
+          {
+            "label": "thirteen",
+            "sub": "13"
+          },
+          {
+            "label": "fifteen",
+            "sub": "15"
+          },
+          {
+            "label": "twenty",
+            "sub": "20"
+          }
+        ]
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الإنجليزية · الصف الثاني الابتدائي · 10 دقائق",
+    "title": "الكلمات والجمل البسيطة",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}

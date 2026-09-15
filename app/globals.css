@@ -39,6 +39,8 @@
   --color-warning: #8a6a1f;
   --color-warning-tint: #fff0b8;
   --color-error: #d9534f;
+  --color-rose: #c2554b;
+  --color-rose-tint: #fbe3de;
   --color-accent: #2f6bd8;
   --color-pizza: #fff6df;
   --color-pizza-crust: #23272a;
@@ -70,6 +72,7 @@
   --shadow-tint-blue: 6px 6px 0 #e7effc;
   --shadow-tint-yellow: 6px 6px 0 #fff0b8;
   --shadow-tint-green: 6px 6px 0 #ddf1e6;
+  --shadow-tint-rose: 6px 6px 0 #fbe3de;
   --shadow-tint-cream: 8px 8px 0 #efe9dc;
   --shadow-avatar: 5px 5px 0 #e7effc;
   --shadow-hero: 10px 10px 0 #e7effc;

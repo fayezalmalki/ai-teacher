@@ -1,7 +1,7 @@
 "use client";
 
 import { cardRadius } from "@/components/Sketch";
-import { toArabicDigits } from "@/lib/format";
+import { isLatin, toArabicDigits } from "@/lib/format";
 
 interface CardsProps {
   items: { label: string; icon?: string; sub?: string }[];
@@ -11,8 +11,10 @@ interface CardsProps {
 
 /** A row of small cards (words, organs, pillars). The highlighted card fills yellow and lifts. */
 export default function Cards({ items, highlight, numbered }: CardsProps) {
+  // English items read left-to-right, so the row (and its numbering) flips direction.
+  const latin = items.every((it) => isLatin(it.label));
   return (
-    <div className="motion animate-pop-in flex gap-3 flex-wrap justify-center max-w-[420px]">
+    <div className="motion animate-pop-in flex gap-3 flex-wrap justify-center max-w-[420px]" dir={latin ? "ltr" : undefined} lang={latin ? "en" : undefined}>
       {items.map((it, i) => {
         const lit = highlight === i;
         return (
@@ -23,7 +25,7 @@ export default function Cards({ items, highlight, numbered }: CardsProps) {
               (lit ? "bg-yellow -translate-y-1 shadow-tint-blue" : "bg-surface")
             }
           >
-            {numbered && <div className="w-7 h-7 r-dot ink-2 grid place-items-center font-display text-[15px] font-bold bg-surface">{toArabicDigits(i + 1)}</div>}
+            {numbered && <div className="w-7 h-7 r-dot ink-2 grid place-items-center font-display text-[15px] font-bold bg-surface">{latin ? i + 1 : toArabicDigits(i + 1)}</div>}
             {it.icon && (
               <div className="text-[30px] leading-none" aria-hidden="true">
                 {it.icon}
