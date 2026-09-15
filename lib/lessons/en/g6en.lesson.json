@@ -1,0 +1,1066 @@
+{
+  "id": "g6en",
+  "title": "المضارع المستمر والمستقبل والقراءة",
+  "subject": "الإنجليزية",
+  "subjectId": "en",
+  "lang": "en",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "continuous": [
+      [
+        {
+          "id": "c-1a",
+          "text": "أكمل: I … a book now. 📖",
+          "visual": {
+            "kind": "word",
+            "text": "I … a book now.",
+            "caption": "📖 الآن"
+          },
+          "choices": [
+            {
+              "l": "am reading",
+              "ok": true
+            },
+            {
+              "l": "read"
+            },
+            {
+              "l": "reads"
+            }
+          ]
+        },
+        {
+          "id": "c-1b",
+          "text": "أكمل: They … in the garden now. ⚽",
+          "visual": {
+            "kind": "word",
+            "text": "They … in the garden now.",
+            "caption": "⚽ الآن"
+          },
+          "choices": [
+            {
+              "l": "are playing",
+              "ok": true
+            },
+            {
+              "l": "is playing"
+            },
+            {
+              "l": "play"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-2a",
+          "text": "أكمل: My mother … dinner now. 🍲",
+          "visual": {
+            "kind": "word",
+            "text": "My mother … dinner now.",
+            "caption": "🍲 الآن"
+          },
+          "choices": [
+            {
+              "l": "is cooking",
+              "ok": true
+            },
+            {
+              "l": "cooks"
+            },
+            {
+              "l": "are cooking"
+            }
+          ]
+        },
+        {
+          "id": "c-2b",
+          "text": "النفي الصحيح هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "He is not sleeping."
+              },
+              {
+                "label": "He not is sleeping."
+              },
+              {
+                "label": "He isn't sleep."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "He is not sleeping.",
+              "ok": true
+            },
+            {
+              "l": "He not is sleeping."
+            },
+            {
+              "l": "He isn't sleep."
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-3a",
+          "text": "السؤال الصحيح هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "Are you listening?"
+              },
+              {
+                "label": "You are listening?"
+              },
+              {
+                "label": "Do you listening?"
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "Are you listening?",
+              "ok": true
+            },
+            {
+              "l": "You are listening?"
+            },
+            {
+              "l": "Do you listening?"
+            }
+          ]
+        },
+        {
+          "id": "c-3b",
+          "text": "أي جملة تصف شيئًا يحدث الآن؟",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "She is writing now."
+              },
+              {
+                "label": "She writes every day."
+              },
+              {
+                "label": "She wrote yesterday."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "She is writing now.",
+              "ok": true
+            },
+            {
+              "l": "She writes every day."
+            },
+            {
+              "l": "She wrote yesterday."
+            }
+          ]
+        }
+      ]
+    ],
+    "future": [
+      [
+        {
+          "id": "f-1a",
+          "text": "أكمل: Tomorrow I … my uncle.",
+          "visual": {
+            "kind": "word",
+            "text": "Tomorrow I … my uncle.",
+            "caption": "👨 بكرة"
+          },
+          "choices": [
+            {
+              "l": "will visit",
+              "ok": true
+            },
+            {
+              "l": "visited"
+            },
+            {
+              "l": "visit"
+            }
+          ]
+        },
+        {
+          "id": "f-1b",
+          "text": "كلمة tomorrow تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "tomorrow"
+          },
+          "choices": [
+            {
+              "l": "بكرة",
+              "ok": true
+            },
+            {
+              "l": "أمس"
+            },
+            {
+              "l": "الآن"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "f-2a",
+          "text": "أكمل: We … to travel next week. ✈️",
+          "visual": {
+            "kind": "word",
+            "text": "We … to travel next week.",
+            "caption": "✈️"
+          },
+          "choices": [
+            {
+              "l": "are going",
+              "ok": true
+            },
+            {
+              "l": "went"
+            },
+            {
+              "l": "go"
+            }
+          ]
+        },
+        {
+          "id": "f-2b",
+          "text": "أكمل: It … rain tomorrow. 🌧️",
+          "visual": {
+            "kind": "word",
+            "text": "It … rain tomorrow.",
+            "caption": "🌧️"
+          },
+          "choices": [
+            {
+              "l": "will",
+              "ok": true
+            },
+            {
+              "l": "is"
+            },
+            {
+              "l": "was"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "f-3a",
+          "text": "الجملة الصحيحة هي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "She is going to study."
+              },
+              {
+                "label": "She going to study."
+              },
+              {
+                "label": "She is going to studies."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "She is going to study.",
+              "ok": true
+            },
+            {
+              "l": "She going to study."
+            },
+            {
+              "l": "She is going to studies."
+            }
+          ]
+        },
+        {
+          "id": "f-3b",
+          "text": "النفي الصحيح: I … go out tonight.",
+          "visual": {
+            "kind": "word",
+            "text": "I … go out tonight.",
+            "caption": "🌙 ❌"
+          },
+          "choices": [
+            {
+              "l": "won't",
+              "ok": true
+            },
+            {
+              "l": "didn't"
+            },
+            {
+              "l": "am not"
+            }
+          ]
+        }
+      ]
+    ],
+    "reading": [
+      [
+        {
+          "id": "r-1a",
+          "text": "اقرأ: Sara wakes up at six. متى تصحو Sara؟",
+          "visual": {
+            "kind": "table",
+            "head": [
+              "Sara's day"
+            ],
+            "rows": [
+              [
+                "Sara wakes up at six."
+              ],
+              [
+                "She eats breakfast with her family."
+              ],
+              [
+                "She goes to school by bus."
+              ],
+              [
+                "After school she reads stories."
+              ],
+              [
+                "She plays with her cat."
+              ]
+            ]
+          },
+          "choices": [
+            {
+              "l": "at six",
+              "ok": true
+            },
+            {
+              "l": "at seven"
+            },
+            {
+              "l": "at eight"
+            }
+          ]
+        },
+        {
+          "id": "r-1b",
+          "text": "How does Sara go to school?",
+          "visual": {
+            "kind": "table",
+            "head": [
+              "Sara's day"
+            ],
+            "rows": [
+              [
+                "Sara wakes up at six."
+              ],
+              [
+                "She eats breakfast with her family."
+              ],
+              [
+                "She goes to school by bus."
+              ],
+              [
+                "After school she reads stories."
+              ],
+              [
+                "She plays with her cat."
+              ]
+            ]
+          },
+          "choices": [
+            {
+              "l": "by bus",
+              "ok": true
+            },
+            {
+              "l": "by car"
+            },
+            {
+              "l": "on foot"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "r-2a",
+          "text": "What does Sara do after school?",
+          "visual": {
+            "kind": "table",
+            "head": [
+              "Sara's day"
+            ],
+            "rows": [
+              [
+                "Sara wakes up at six."
+              ],
+              [
+                "She eats breakfast with her family."
+              ],
+              [
+                "She goes to school by bus."
+              ],
+              [
+                "After school she reads stories."
+              ],
+              [
+                "She plays with her cat."
+              ]
+            ]
+          },
+          "choices": [
+            {
+              "l": "She reads stories.",
+              "ok": true
+            },
+            {
+              "l": "She sleeps."
+            },
+            {
+              "l": "She goes to the park."
+            }
+          ]
+        },
+        {
+          "id": "r-2b",
+          "text": "Who does Sara eat breakfast with?",
+          "visual": {
+            "kind": "table",
+            "head": [
+              "Sara's day"
+            ],
+            "rows": [
+              [
+                "Sara wakes up at six."
+              ],
+              [
+                "She eats breakfast with her family."
+              ],
+              [
+                "She goes to school by bus."
+              ],
+              [
+                "After school she reads stories."
+              ],
+              [
+                "She plays with her cat."
+              ]
+            ]
+          },
+          "choices": [
+            {
+              "l": "her family",
+              "ok": true
+            },
+            {
+              "l": "her friends"
+            },
+            {
+              "l": "her teacher"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "r-3a",
+          "text": "What animal does Sara have?",
+          "visual": {
+            "kind": "table",
+            "head": [
+              "Sara's day"
+            ],
+            "rows": [
+              [
+                "Sara wakes up at six."
+              ],
+              [
+                "She eats breakfast with her family."
+              ],
+              [
+                "She goes to school by bus."
+              ],
+              [
+                "After school she reads stories."
+              ],
+              [
+                "She plays with her cat."
+              ]
+            ]
+          },
+          "choices": [
+            {
+              "l": "a cat",
+              "ok": true
+            },
+            {
+              "l": "a dog"
+            },
+            {
+              "l": "a bird"
+            }
+          ]
+        },
+        {
+          "id": "r-3b",
+          "text": "العنوان المناسب للنص هو…",
+          "visual": {
+            "kind": "table",
+            "head": [
+              "Sara's day"
+            ],
+            "rows": [
+              [
+                "Sara wakes up at six."
+              ],
+              [
+                "She eats breakfast with her family."
+              ],
+              [
+                "She goes to school by bus."
+              ],
+              [
+                "After school she reads stories."
+              ],
+              [
+                "She plays with her cat."
+              ]
+            ]
+          },
+          "choices": [
+            {
+              "l": "Sara's day",
+              "ok": true
+            },
+            {
+              "l": "Sara's cat"
+            },
+            {
+              "l": "The school bus"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "is playing",
+        "ok": true
+      },
+      {
+        "l": "plays"
+      },
+      {
+        "l": "played"
+      }
+    ],
+    "X": [
+      {
+        "l": "are singing",
+        "ok": true
+      },
+      {
+        "l": "sing"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نراجع المضارع المستمر والمستقبل ونقرأ نصًا قصيرًا. سؤال سريع: أكمل: Look! The boy … football now.",
+      "visual": {
+        "kind": "word",
+        "text": "Look! The boy … football now.",
+        "caption": "⚽ الآن"
+      },
+      "concept": "continuous",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 The boy is playing: الشيء يصير الآن، فنستخدم is + الفعل مع ing.",
+      "visual": {
+        "kind": "word",
+        "text": "Look! The boy … football now.",
+        "caption": "⚽ الآن"
+      },
+      "concept": "continuous",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "word",
+        "text": "Look! The boy … football now.",
+        "caption": "⚽ الآن"
+      },
+      "concept": "continuous",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بقاعدة am/is/are + ing",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "كلمة now تعني الآن، والفعل الذي يصير الآن نحط معه is وing. play يصير…",
+      "visual": {
+        "kind": "word",
+        "text": "Look! The boy … football now.",
+        "caption": "⚽ الآن"
+      },
+      "concept": "continuous",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "is + play + ing = … The boy … football now.",
+      "visual": {
+        "kind": "word",
+        "text": "Look! The boy … football now.",
+        "caption": "⚽ الآن"
+      },
+      "concept": "continuous",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، is playing. الحين نكمل.",
+      "visual": {
+        "kind": "word",
+        "text": "Look! The boy … football now.",
+        "caption": "⚽ الآن"
+      },
+      "concept": "continuous",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "continuous",
+      "pool": "continuous",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 المضارع المستمر مضبوط. الحين المستقبل.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "continuous",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة المضارع المستمر بنجاح."
+    },
+    "r1": {
+      "text": "قريب. المضارع المستمر للشيء الذي يصير الآن: am/is/are + الفعل + ing. I am reading، She is cooking، They are playing. والنفي نحط not: She is not cooking. والسؤال نقدّم الفعل: Are you reading?",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "continuous",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "continuous_rule",
+      "adapt": "أعاد المعلم قاعدة am/is/are + ing"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "continuous",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في المضارع المستمر."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "future",
+      "pool": "future",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، المستقبل مضبوط. باقي القراءة.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "future",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة المستقبل بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. للمستقبل نستخدم will + الفعل: I will visit. أو going to للخطة: I am going to visit my uncle tomorrow. وكلمات المستقبل: tomorrow بكرة، next week الأسبوع الجاي.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "future",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "future_rule",
+      "adapt": "أعاد المعلم will وgoing to"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "future",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في المستقبل."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "pool": "reading",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت المضارع المستمر والمستقبل والقراءة.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة القراءة بنجاح."
+    },
+    "r3": {
+      "text": "قريب. لما نقرأ نصًا: نقرأ السؤال أولًا، ثم ندور على الكلمة المهمة في النص، والجواب يكون قريب منها. النص عن Sara ويومها.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "reading_strategy",
+      "adapt": "أعاد المعلم قراءة النص جملة جملة"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "reading",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في القراءة."
+    },
+    "x1": {
+      "text": "سؤال أخير: أكمل: Listen! The birds … 🐦🎵",
+      "visual": {
+        "kind": "word",
+        "text": "Listen! The birds …",
+        "caption": "🐦🎵 الآن"
+      },
+      "concept": "continuous",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "Listen يعني الشيء يصير الآن: are + sing + ing. The birds…",
+      "visual": {
+        "kind": "word",
+        "text": "Listen! The birds …",
+        "caption": "🐦🎵 الآن"
+      },
+      "concept": "continuous",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "Listen! The birds …",
+        "caption": "🐦🎵 الآن"
+      },
+      "concept": "continuous",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "is playing",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… plays؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "is playing، لأن الشيء يصير الآن",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت المضارع المستمر، والمستقبل بـ will وgoing to، وقرأت نصًا وأجبت عن أسئلته.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم راجعنا المضارع المستمر بـ ing، والمستقبل بـ will وgoing to، وقرأنا نصًا عن Sara وأجبنا عن أسئلته.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن ing أو will أو عن النص؟ أنا أسمعك.",
+    "scope": "الإنجليزية الصف السادس: المضارع المستمر am/is/are + ing والنفي والسؤال، المستقبل بـ will وgoing to وكلمات الزمن، قراءة نص قصير والإجابة عن أسئلة Who وWhat وWhen وHow. اشرح بالعربي وأعطِ الأمثلة بالإنجليزي."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "المضارع المستمر للشيء الذي يصير الآن: am/is/are + الفعل + ing.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "I am reading",
+            "icon": "📖"
+          },
+          {
+            "label": "She is cooking",
+            "icon": "🍲"
+          },
+          {
+            "label": "They are playing",
+            "icon": "⚽"
+          }
+        ]
+      }
+    },
+    {
+      "text": "النفي نحط not: She is not cooking. والسؤال نقدّم الفعل: Are you reading?",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "She is not cooking."
+          },
+          {
+            "label": "Are you reading?"
+          }
+        ]
+      }
+    },
+    {
+      "text": "المستقبل بـ will + الفعل: It will rain tomorrow. أو going to للخطة: I am going to visit my uncle.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "will visit",
+            "sub": "tomorrow"
+          },
+          {
+            "label": "is going to study",
+            "sub": "next week"
+          }
+        ]
+      }
+    },
+    {
+      "text": "كلمات الزمن: now الآن، tomorrow بكرة، next week الأسبوع الجاي، yesterday أمس.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "now",
+            "sub": "الآن"
+          },
+          {
+            "label": "tomorrow",
+            "sub": "بكرة"
+          },
+          {
+            "label": "next week",
+            "sub": "الأسبوع الجاي"
+          },
+          {
+            "label": "yesterday",
+            "sub": "أمس"
+          }
+        ]
+      }
+    },
+    {
+      "text": "نقرأ نصًا قصيرًا عن Sara: نقرأ السؤال أولًا، ثم ندور على الكلمة المهمة في النص.",
+      "visual": {
+        "kind": "table",
+        "head": [
+          "Sara's day"
+        ],
+        "rows": [
+          [
+            "Sara wakes up at six."
+          ],
+          [
+            "She eats breakfast with her family."
+          ],
+          [
+            "She goes to school by bus."
+          ],
+          [
+            "After school she reads stories."
+          ],
+          [
+            "She plays with her cat."
+          ]
+        ]
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الإنجليزية · الصف السادس الابتدائي · 10 دقائق",
+    "title": "المضارع المستمر والمستقبل والقراءة",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}

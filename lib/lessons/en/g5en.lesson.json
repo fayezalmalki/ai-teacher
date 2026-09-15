@@ -1,0 +1,955 @@
+{
+  "id": "g5en",
+  "title": "الماضي البسيط والمقارنة",
+  "subject": "الإنجليزية",
+  "subjectId": "en",
+  "lang": "en",
+  "teacher": "الأستاذ نواف",
+  "durationLabel": "10 دقائق",
+  "levels": [
+    "أساسي",
+    "متوسط",
+    "متقدم"
+  ],
+  "levelUpAdapt": "رفع المعلم المستوى ← {level}",
+  "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
+  "entry": "intro",
+  "bonusEntry": "x1",
+  "pools": {
+    "past": [
+      [
+        {
+          "id": "p-1a",
+          "text": "أكمل: Last week we … our grandmother.",
+          "visual": {
+            "kind": "word",
+            "text": "Last week we … our grandmother.",
+            "caption": "👵"
+          },
+          "choices": [
+            {
+              "l": "visited",
+              "ok": true
+            },
+            {
+              "l": "visit"
+            },
+            {
+              "l": "visits"
+            }
+          ]
+        },
+        {
+          "id": "p-1b",
+          "text": "أكمل: I … at home yesterday.",
+          "visual": {
+            "kind": "word",
+            "text": "I … at home yesterday.",
+            "caption": "🏠"
+          },
+          "choices": [
+            {
+              "l": "was",
+              "ok": true
+            },
+            {
+              "l": "were"
+            },
+            {
+              "l": "am"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "p-2a",
+          "text": "ماضي go هو…",
+          "visual": {
+            "kind": "word",
+            "text": "go → ?",
+            "caption": "🚶"
+          },
+          "choices": [
+            {
+              "l": "went",
+              "ok": true
+            },
+            {
+              "l": "goed"
+            },
+            {
+              "l": "goes"
+            }
+          ]
+        },
+        {
+          "id": "p-2b",
+          "text": "أكمل: They … in Makkah last year.",
+          "visual": {
+            "kind": "word",
+            "text": "They … in Makkah last year.",
+            "caption": "🕋"
+          },
+          "choices": [
+            {
+              "l": "were",
+              "ok": true
+            },
+            {
+              "l": "was"
+            },
+            {
+              "l": "are"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "p-3a",
+          "text": "النفي الصحيح هو…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "I didn't see him."
+              },
+              {
+                "label": "I didn't saw him."
+              },
+              {
+                "label": "I don't saw him."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "I didn't see him.",
+              "ok": true
+            },
+            {
+              "l": "I didn't saw him."
+            },
+            {
+              "l": "I don't saw him."
+            }
+          ]
+        },
+        {
+          "id": "p-3b",
+          "text": "أكمل: She … lunch at 2 o'clock. 🍽️",
+          "visual": {
+            "kind": "word",
+            "text": "She … lunch at 2 o'clock.",
+            "caption": "🍽️ أمس"
+          },
+          "choices": [
+            {
+              "l": "ate",
+              "ok": true
+            },
+            {
+              "l": "eat"
+            },
+            {
+              "l": "eated"
+            }
+          ]
+        }
+      ]
+    ],
+    "compare": [
+      [
+        {
+          "id": "c-1a",
+          "text": "أكمل: An elephant is … than a cat.",
+          "visual": {
+            "kind": "word",
+            "text": "An elephant is … than a cat.",
+            "caption": "🐘 🐱"
+          },
+          "choices": [
+            {
+              "l": "bigger",
+              "ok": true
+            },
+            {
+              "l": "big"
+            },
+            {
+              "l": "biggest"
+            }
+          ]
+        },
+        {
+          "id": "c-1b",
+          "text": "أكمل: Ali is … than Sami.",
+          "visual": {
+            "kind": "word",
+            "text": "Ali is … than Sami.",
+            "caption": "📏"
+          },
+          "choices": [
+            {
+              "l": "taller",
+              "ok": true
+            },
+            {
+              "l": "tall"
+            },
+            {
+              "l": "more tall"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-2a",
+          "text": "أكمل: A car is … than a bike.",
+          "visual": {
+            "kind": "word",
+            "text": "A car is … than a bike.",
+            "caption": "🚗 🚲"
+          },
+          "choices": [
+            {
+              "l": "faster",
+              "ok": true
+            },
+            {
+              "l": "fast"
+            },
+            {
+              "l": "more fast"
+            }
+          ]
+        },
+        {
+          "id": "c-2b",
+          "text": "أكمل: This book is … than that one.",
+          "visual": {
+            "kind": "word",
+            "text": "This book is … than that one.",
+            "caption": "📖📖"
+          },
+          "choices": [
+            {
+              "l": "better",
+              "ok": true
+            },
+            {
+              "l": "gooder"
+            },
+            {
+              "l": "more good"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "c-3a",
+          "text": "أكمل: Riyadh is … than my village.",
+          "visual": {
+            "kind": "word",
+            "text": "Riyadh is … than my village.",
+            "caption": "🏙️ 🏡"
+          },
+          "choices": [
+            {
+              "l": "more beautiful",
+              "ok": true
+            },
+            {
+              "l": "beautifuler"
+            },
+            {
+              "l": "beautiful"
+            }
+          ]
+        },
+        {
+          "id": "c-3b",
+          "text": "الجملة الصحيحة هي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "Winter is colder than summer."
+              },
+              {
+                "label": "Winter is more cold than summer."
+              },
+              {
+                "label": "Winter is cold than summer."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "Winter is colder than summer.",
+              "ok": true
+            },
+            {
+              "l": "Winter is more cold than summer."
+            },
+            {
+              "l": "Winter is cold than summer."
+            }
+          ]
+        }
+      ]
+    ],
+    "can": [
+      [
+        {
+          "id": "k-1a",
+          "text": "«I can swim» تعني…",
+          "visual": {
+            "kind": "word",
+            "text": "I can swim.",
+            "caption": "🏊"
+          },
+          "choices": [
+            {
+              "l": "أقدر أسبح",
+              "ok": true
+            },
+            {
+              "l": "أحب السباحة"
+            },
+            {
+              "l": "سبحت أمس"
+            }
+          ]
+        },
+        {
+          "id": "k-1b",
+          "text": "أكمل: A fish … fly. ❌",
+          "visual": {
+            "kind": "word",
+            "text": "A fish … fly.",
+            "caption": "🐟 ❌"
+          },
+          "choices": [
+            {
+              "l": "can't",
+              "ok": true
+            },
+            {
+              "l": "can"
+            },
+            {
+              "l": "should"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "k-2a",
+          "text": "أكمل: You … brush your teeth every day. 🪥",
+          "visual": {
+            "kind": "word",
+            "text": "You … brush your teeth every day.",
+            "caption": "🪥"
+          },
+          "choices": [
+            {
+              "l": "should",
+              "ok": true
+            },
+            {
+              "l": "can't"
+            },
+            {
+              "l": "were"
+            }
+          ]
+        },
+        {
+          "id": "k-2b",
+          "text": "أكمل: Birds … fly. ✅",
+          "visual": {
+            "kind": "word",
+            "text": "Birds … fly.",
+            "caption": "🐦 ✅"
+          },
+          "choices": [
+            {
+              "l": "can",
+              "ok": true
+            },
+            {
+              "l": "can't"
+            },
+            {
+              "l": "should"
+            }
+          ]
+        }
+      ],
+      [
+        {
+          "id": "k-3a",
+          "text": "الجملة الصحيحة هي…",
+          "visual": {
+            "kind": "cards",
+            "items": [
+              {
+                "label": "She can ride a bike."
+              },
+              {
+                "label": "She can rides a bike."
+              },
+              {
+                "label": "She cans ride a bike."
+              }
+            ]
+          },
+          "choices": [
+            {
+              "l": "She can ride a bike.",
+              "ok": true
+            },
+            {
+              "l": "She can rides a bike."
+            },
+            {
+              "l": "She cans ride a bike."
+            }
+          ]
+        },
+        {
+          "id": "k-3b",
+          "text": "أكمل: You … eat too many sweets. 🍬",
+          "visual": {
+            "kind": "word",
+            "text": "You … eat too many sweets.",
+            "caption": "🍬 ❌"
+          },
+          "choices": [
+            {
+              "l": "shouldn't",
+              "ok": true
+            },
+            {
+              "l": "should"
+            },
+            {
+              "l": "can"
+            }
+          ]
+        }
+      ]
+    ]
+  },
+  "choiceSets": {
+    "B": [
+      {
+        "l": "played",
+        "ok": true
+      },
+      {
+        "l": "play"
+      },
+      {
+        "l": "plays"
+      }
+    ],
+    "X": [
+      {
+        "l": "went",
+        "ok": true
+      },
+      {
+        "l": "go"
+      }
+    ]
+  },
+  "steps": {
+    "intro": {
+      "text": "هلا {name}، اليوم نراجع الماضي البسيط والمقارنة وcan. سؤال سريع: أكمل: Yesterday I … football.",
+      "visual": {
+        "kind": "word",
+        "text": "Yesterday I … football.",
+        "caption": "⚽ أمس"
+      },
+      "concept": "past",
+      "listen": true
+    },
+    "a1": {
+      "text": "ممتاز 👏 Yesterday I played: في الماضي نضيف ed للفعل المنتظم.",
+      "visual": {
+        "kind": "word",
+        "text": "Yesterday I … football.",
+        "caption": "⚽ أمس"
+      },
+      "concept": "past",
+      "next": "p1",
+      "mood": "encourage"
+    },
+    "b1": {
+      "text": "عادي، خلنا نمشي خطوة خطوة.",
+      "visual": {
+        "kind": "word",
+        "text": "Yesterday I … football.",
+        "caption": "⚽ أمس"
+      },
+      "concept": "past",
+      "next": "b2",
+      "strategy": "step_by_step",
+      "reexplain": true,
+      "adapt": "بدأ المعلم بقاعدة ed في الماضي",
+      "log": "بدأ المعلم الشرح خطوة خطوة."
+    },
+    "b2": {
+      "text": "كلمة Yesterday تعني أمس، يعني الفعل صار في الماضي. play في الماضي يصير…",
+      "visual": {
+        "kind": "word",
+        "text": "Yesterday I … football.",
+        "caption": "⚽ أمس"
+      },
+      "concept": "past",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "question": true,
+      "wrongLog": "أخطأ {name} في سؤال البداية، فأعاد المعلم الشرح."
+    },
+    "b2r": {
+      "text": "نضيف ed: play + ed = … Yesterday I … football.",
+      "visual": {
+        "kind": "word",
+        "text": "Yesterday I … football.",
+        "caption": "⚽ أمس"
+      },
+      "concept": "past",
+      "choices": "B",
+      "onOk": "b3",
+      "onWrong": "b2r",
+      "retry": true
+    },
+    "b3": {
+      "text": "ممتاز، played. الحين نكمل.",
+      "visual": {
+        "kind": "word",
+        "text": "Yesterday I … football.",
+        "caption": "⚽ أمس"
+      },
+      "concept": "past",
+      "next": "p1",
+      "mood": "encourage",
+      "log": "فهم {name} سؤال البداية."
+    },
+    "p1": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "past",
+      "pool": "past",
+      "onOk": "p1ok",
+      "onWrong": "r1",
+      "onLevelDown": "d1",
+      "askCount": 2
+    },
+    "p1ok": {
+      "text": "صح عليك 👏 الماضي البسيط مضبوط. الحين المقارنة.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "past",
+      "next": "p2",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة الماضي البسيط بنجاح."
+    },
+    "r1": {
+      "text": "قريب. الماضي البسيط: الفعل المنتظم نضيف له ed: played، visited. وبعض الأفعال تتغير: go → went، eat → ate، see → saw. وفعل «يكون»: was مع I/He/She، وwere مع You/We/They. والنفي: didn't + الفعل الأصلي.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "past",
+      "next": "p1",
+      "reexplain": true,
+      "strategy": "past_rule",
+      "adapt": "أعاد المعلم قاعدة ed والأفعال الشاذة"
+    },
+    "d1": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "past",
+      "next": "p1",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في الماضي البسيط."
+    },
+    "p2": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "compare",
+      "pool": "compare",
+      "onOk": "p2ok",
+      "onWrong": "r2",
+      "onLevelDown": "d2",
+      "askCount": 2
+    },
+    "p2ok": {
+      "text": "ممتاز، المقارنة مضبوطة. باقي can وshould.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "compare",
+      "next": "p3",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة المقارنة بنجاح."
+    },
+    "r2": {
+      "text": "لا بأس. للمقارنة بين اثنين نضيف er: tall → taller، وبعدها than: Ali is taller than Sami. الصفة الطويلة نحط قبلها more: more beautiful. وgood تصير better.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "compare",
+      "next": "p2",
+      "reexplain": true,
+      "strategy": "comparative_rule",
+      "adapt": "أعاد المعلم قاعدة er وthan"
+    },
+    "d2": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "compare",
+      "next": "p2",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في المقارنة."
+    },
+    "p3": {
+      "text": "سؤال",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "can",
+      "pool": "can",
+      "onOk": "p3ok",
+      "onWrong": "r3",
+      "onLevelDown": "d3",
+      "askCount": 2
+    },
+    "p3ok": {
+      "text": "ممتاز يا {name}، خلصت الماضي والمقارنة وcan.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "can",
+      "next": "END",
+      "mood": "encourage",
+      "log": "أجاب {name} على أسئلة can وshould بنجاح."
+    },
+    "r3": {
+      "text": "قريب. can يعني يقدر: I can swim أقدر أسبح، والنفي can't. should يعني ينبغي: You should sleep early. وبعد can وshould يأتي الفعل الأصلي بدون s.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "can",
+      "next": "p3",
+      "reexplain": true,
+      "strategy": "modal_rule",
+      "adapt": "أعاد المعلم can وcan't وshould"
+    },
+    "d3": {
+      "text": "خلنا نجربها بسؤال أبسط.",
+      "visual": {
+        "kind": "none"
+      },
+      "concept": "can",
+      "next": "p3",
+      "reexplain": true,
+      "log": "خفّض المعلم المستوى في can وshould."
+    },
+    "x1": {
+      "text": "سؤال أخير: أكمل: We … to the park last Friday.",
+      "visual": {
+        "kind": "word",
+        "text": "We … to the park last Friday.",
+        "caption": "🌳 أمس"
+      },
+      "concept": "past",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "question": true
+    },
+    "x1r": {
+      "text": "last Friday يعني في الماضي. go في الماضي يصير…",
+      "visual": {
+        "kind": "word",
+        "text": "We … to the park last Friday.",
+        "caption": "🌳 أمس"
+      },
+      "concept": "past",
+      "choices": "X",
+      "onOk": "x2",
+      "onWrong": "x1r",
+      "retry": true
+    },
+    "x2": {
+      "text": "ممتاز يا {name}. خلصنا المراجعة بقوة.",
+      "visual": {
+        "kind": "word",
+        "text": "We … to the park last Friday.",
+        "caption": "🌳 أمس"
+      },
+      "concept": "past",
+      "next": "SUMMARY",
+      "mood": "encourage",
+      "log": "أجاب على السؤال الإضافي بنجاح."
+    }
+  },
+  "introResponses": {
+    "correct": {
+      "transcript": "played",
+      "understanding": "good",
+      "go": "a1",
+      "log": "أجاب {name} على سؤال البداية من أول مرة.",
+      "questions": 1,
+      "correct": 1
+    },
+    "unclear": {
+      "transcript": "امم… play؟",
+      "understanding": "unclear",
+      "go": "b1",
+      "log": "لم تكن إجابة {name} واضحة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "dontknow": {
+      "transcript": "ما أعرف",
+      "understanding": "confused",
+      "go": "b1",
+      "log": "{name} لم يعرف الإجابة، فبدأ المعلم خطوة خطوة.",
+      "questions": 1,
+      "correct": 0
+    },
+    "strong": {
+      "transcript": "played، لأن الجملة في الماضي نضيف ed",
+      "understanding": "strong",
+      "go": "p1",
+      "log": "أظهر {name} فهمًا قويًا، فانتقل المعلم إلى الأسئلة مباشرة.",
+      "questions": 1,
+      "correct": 1
+    }
+  },
+  "choiceTranscript": "اختار {name}: {choice}",
+  "progress": [
+    [
+      "a1",
+      "b1",
+      "p1"
+    ],
+    [
+      "p1"
+    ],
+    [
+      "p1ok"
+    ],
+    [
+      "p2ok"
+    ],
+    [
+      "p3ok"
+    ],
+    [
+      "END"
+    ]
+  ],
+  "notes": [
+    {
+      "text": "أجبت على سؤال البداية من أول مرة.",
+      "when": [
+        {
+          "anyOf": [
+            "a1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "احتجت الشرح خطوة خطوة في البداية.",
+      "when": [
+        {
+          "anyOf": [
+            "b1"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "رجعنا خطوة ثم كملت.",
+      "when": [
+        {
+          "anyOf": [
+            "d1",
+            "d2",
+            "d3"
+          ]
+        }
+      ]
+    },
+    {
+      "text": "راجعت الماضي البسيط، والمقارنة بـ er وthan، وcan وshould.",
+      "when": [
+        {
+          "anyOf": [
+            "p3ok"
+          ]
+        }
+      ]
+    }
+  ],
+  "rating": [
+    {
+      "min": 0.85,
+      "label": "ممتاز"
+    },
+    {
+      "min": 0.6,
+      "label": "جيد جدًا"
+    },
+    {
+      "min": 0,
+      "label": "جيد"
+    }
+  ],
+  "endLine": "ممتاز يا {name}. اليوم راجعنا الماضي البسيط بـ ed والأفعال الشاذة، وقارنّا بـ er وthan، وعرفنا can وshould.",
+  "ask": {
+    "cta": "اسأل الأستاذ نواف",
+    "title": "اسأل الأستاذ نواف",
+    "hint": "تكلم بصوتك، والأستاذ نواف يرد عليك مباشرة. دقيقتان.",
+    "done": "خلصت",
+    "unavailable": "المحادثة المفتوحة غير متاحة الآن. نكمل الدرس؟",
+    "greeting": "هلا {name}! عندك سؤال عن الماضي البسيط أو المقارنة؟ أنا أسمعك.",
+    "scope": "الإنجليزية الصف الخامس: الماضي البسيط المنتظم بـ ed والأفعال الشاذة، was/were، النفي بـ didn't، المقارنة بـ er وthan وmore، can وcan't وshould وshouldn't. اشرح بالعربي وأعطِ الأمثلة بالإنجليزي."
+  },
+  "askLog": "سأل {name} المعلم أسئلة إضافية في محادثة مفتوحة، وأجابه بأمثلة بسيطة.",
+  "thinkingLabel": "أفهم إجابتك…",
+  "thinkingRetryLabel": "لحظة، خلني أشوف أفضل طريقة أشرحها لك",
+  "explain": [
+    {
+      "text": "الماضي البسيط: الفعل المنتظم نضيف له ed، وبعض الأفعال تتغير كلها.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "play → played",
+            "sub": "لعب"
+          },
+          {
+            "label": "visit → visited",
+            "sub": "زار"
+          },
+          {
+            "label": "go → went",
+            "sub": "ذهب"
+          },
+          {
+            "label": "eat → ate",
+            "sub": "أكل"
+          }
+        ]
+      }
+    },
+    {
+      "text": "فعل «يكون» في الماضي: was مع I وHe وShe، وwere مع You وWe وThey. والنفي: didn't + الفعل الأصلي.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "I was"
+          },
+          {
+            "label": "They were"
+          },
+          {
+            "label": "I didn't go"
+          }
+        ]
+      }
+    },
+    {
+      "text": "المقارنة بين اثنين: نضيف er وبعدها than. الصفة الطويلة نحط قبلها more.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "big → bigger",
+            "sub": "أكبر"
+          },
+          {
+            "label": "tall → taller",
+            "sub": "أطول"
+          },
+          {
+            "label": "fast → faster",
+            "sub": "أسرع"
+          },
+          {
+            "label": "beautiful → more beautiful",
+            "sub": "أجمل"
+          }
+        ]
+      }
+    },
+    {
+      "text": "can يعني يقدر، وcan't ما يقدر. should يعني ينبغي. وبعدها الفعل الأصلي بدون s.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "I can swim",
+            "icon": "🏊"
+          },
+          {
+            "label": "A fish can't fly",
+            "icon": "🐟"
+          },
+          {
+            "label": "You should sleep early",
+            "icon": "😴"
+          }
+        ]
+      }
+    },
+    {
+      "text": "كلمات الزمن الماضي: yesterday أمس، last week الأسبوع الماضي، last year السنة الماضية.",
+      "visual": {
+        "kind": "cards",
+        "items": [
+          {
+            "label": "yesterday",
+            "sub": "أمس"
+          },
+          {
+            "label": "last week",
+            "sub": "الأسبوع الماضي"
+          },
+          {
+            "label": "last year",
+            "sub": "السنة الماضية"
+          }
+        ]
+      }
+    }
+  ],
+  "intro": {
+    "eyebrow": "الإنجليزية · الصف الخامس الابتدائي · 10 دقائق",
+    "title": "الماضي البسيط والمقارنة",
+    "line": "هلا {name}. أولًا أشرح لك الأفكار بهدوء، وبعدين نجرب أسئلة الاختبار مع بعض."
+  }
+}

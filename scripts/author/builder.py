@@ -90,7 +90,7 @@ def build(L):
     steps["x2"] = {"text": "ممتاز يا {name}. خلصنا المراجعة بقوة.", "visual": X.get("doneVisual", X["visual"]), "concept": X.get("concept", first), "next": "SUMMARY", "mood": "encourage", "log": "أجاب على السؤال الإضافي بنجاح."}
     R = I["responses"]
     return {
-        "id": L["id"], "title": L["title"], "subject": L["subject"], "subjectId": L["subjectId"], "teacher": TEACHER,
+        "id": L["id"], "title": L["title"], "subject": L["subject"], "subjectId": L["subjectId"], **({"lang": "en"} if L["subjectId"] == "en" else {}), "teacher": TEACHER,
         "durationLabel": "10 دقائق", "levels": LEVELS,
         "levelUpAdapt": "رفع المعلم المستوى ← {level}", "levelDownAdapt": "خفّض المعلم المستوى ← {level}",
         "entry": "intro", "bonusEntry": "x1",

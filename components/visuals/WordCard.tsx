@@ -1,5 +1,7 @@
 "use client";
 
+import { isLatin } from "@/lib/format";
+
 interface WordCardProps {
   text: string;
   /** Character indexes drawn in blue (e.g. the tanween mark). */
@@ -14,10 +16,11 @@ interface WordCardProps {
 export default function WordCard({ text, marks = [], caption }: WordCardProps) {
   const lit = new Set(marks);
   const chars = Array.from(text);
+  const latin = isLatin(text);
   return (
     <div className="motion animate-pop-in flex flex-col items-center gap-4">
       <div className="px-10 py-7 r-card-1 ink bg-surface shadow-tint-yellow min-w-[220px] text-center">
-        <div className="font-display font-bold leading-[1.4] text-ink whitespace-nowrap" style={{ fontSize: chars.length > 9 ? "clamp(30px, 6vw, 48px)" : "clamp(56px, 12vw, 88px)" }} lang="ar" dir="rtl" aria-label={text}>
+        <div className="font-display font-bold leading-[1.4] text-ink whitespace-nowrap" style={{ fontSize: chars.length > 9 ? "clamp(30px, 6vw, 48px)" : "clamp(56px, 12vw, 88px)" }} lang={latin ? "en" : "ar"} dir={latin ? "ltr" : "rtl"} aria-label={text}>
           {chars.map((ch, i) => (
             <span key={i} className={lit.has(i) ? "text-primary" : undefined}>
               {ch}

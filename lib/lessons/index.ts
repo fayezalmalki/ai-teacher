@@ -22,6 +22,12 @@ import g2math from "./math/g2math.lesson.json";
 import g2sci from "./sci/g2sci.lesson.json";
 import g6math from "./math/g6math.lesson.json";
 import g6sci from "./sci/g6sci.lesson.json";
+import g1en from "./en/g1en.lesson.json";
+import g2en from "./en/g2en.lesson.json";
+import g3en from "./en/g3en.lesson.json";
+import g4en from "./en/g4en.lesson.json";
+import g5en from "./en/g5en.lesson.json";
+import g6en from "./en/g6en.lesson.json";
 
 export const fractionsLesson = fractions as LessonDefinition;
 export const addsubLesson = addsub as LessonDefinition;
@@ -41,9 +47,15 @@ export const g2mathLesson = g2math as LessonDefinition;
 export const g2sciLesson = g2sci as LessonDefinition;
 export const g6mathLesson = g6math as LessonDefinition;
 export const g6sciLesson = g6sci as LessonDefinition;
+export const g1enLesson = g1en as LessonDefinition;
+export const g2enLesson = g2en as LessonDefinition;
+export const g3enLesson = g3en as LessonDefinition;
+export const g4enLesson = g4en as LessonDefinition;
+export const g5enLesson = g5en as LessonDefinition;
+export const g6enLesson = g6en as LessonDefinition;
 
-/** Registered lessons in the order a child meets them (today's lesson is the first unfinished one): subjects alternate so a week touches all four. */
-export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson, g1mathLesson, g1arLesson, g2mathLesson, g2sciLesson, g4mathLesson, g4sciLesson, g5mathLesson, g5arLesson, g6mathLesson, g6sciLesson, stats8Lesson];
+/** Registered lessons in the order a child meets them (today's lesson is the first unfinished one): subjects alternate so a week touches all five. */
+export const LESSON_LIST: LessonDefinition[] = [fractionsLesson, tanweenLesson, waterLesson, pillarsLesson, addsubLesson, sensesLesson, measureLesson, g1mathLesson, g1arLesson, g1enLesson, g2mathLesson, g2sciLesson, g2enLesson, g3enLesson, g4mathLesson, g4sciLesson, g4enLesson, g5mathLesson, g5arLesson, g5enLesson, g6mathLesson, g6sciLesson, g6enLesson, stats8Lesson];
 
 export const lessons: Record<string, LessonDefinition> = Object.fromEntries(LESSON_LIST.map((l) => [l.id, l]));
 

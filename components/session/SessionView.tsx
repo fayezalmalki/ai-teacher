@@ -201,6 +201,7 @@ export default function SessionView({ lesson }: SessionViewProps) {
             introResponses={lesson.introResponses}
             onIntroAnswer={session.answerIntro}
             choices={choices}
+            lang={lesson.lang}
             onPick={session.pick}
             transcript={state.transcript}
             thinkingLabel={thinkingLabel(state, lesson)}
