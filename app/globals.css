@@ -43,6 +43,8 @@
   --color-rose-tint: #fbe3de;
   --color-teal: #1f7a8c;
   --color-teal-tint: #dcedf1;
+  --color-violet: #6b4fbb;
+  --color-violet-tint: #e9e3f8;
   --color-accent: #2f6bd8;
   --color-pizza: #fff6df;
   --color-pizza-crust: #23272a;
@@ -76,6 +78,7 @@
   --shadow-tint-green: 6px 6px 0 #ddf1e6;
   --shadow-tint-rose: 6px 6px 0 #fbe3de;
   --shadow-tint-teal: 6px 6px 0 #dcedf1;
+  --shadow-tint-violet: 6px 6px 0 #e9e3f8;
   --shadow-tint-cream: 8px 8px 0 #efe9dc;
   --shadow-avatar: 5px 5px 0 #e7effc;
   --shadow-hero: 10px 10px 0 #e7effc;
